@@ -14,7 +14,7 @@ class MyWidget extends StatelessWidget {
         VerticalSpace(4),
         SizedBox(
           
-          height: SizeConfig.defaultSize*17,
+          height: SizeConfig.defaultSize * 17,
           child: Image.asset('assets/image/Group841.png'),
         ),
        Text(
