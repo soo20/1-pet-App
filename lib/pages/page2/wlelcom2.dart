@@ -20,10 +20,10 @@ class LoginBody extends StatelessWidget {
           'yuna\n',
           style: TextStyle(
             fontFamily: 'Poppins',
-            fontSize: 121,
+            fontSize: 35,
             color:  Color(0xff0b2f37),
             fontWeight: FontWeight.w700,
-            height: 0.6611570247933884,
+            height: 0.7,
           ),
           
         )
