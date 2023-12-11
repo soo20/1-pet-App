@@ -11,10 +11,11 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return   GetMaterialApp(
-     theme: ThemeData(fontFamily: 'Poppins'),    
+    return GetMaterialApp(
+      theme: ThemeData(fontFamily: 'Poppins'),
       debugShowCheckedModeBanner: false,
-      home:const SplashScreen(), // Display the splash screen first
+      home: const SplashScreen(), // Display the splash screen first
+      //hi soooooohaaaaa
     );
   }
 }
