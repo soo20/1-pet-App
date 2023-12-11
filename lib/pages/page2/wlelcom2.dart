@@ -17,12 +17,12 @@ class LoginBody extends StatelessWidget {
           child: Image.asset('assets/image/Group841.png'),
         ),
        const  Text(
-          'yuna\n',
+          'yun\n',
           style: TextStyle(
             fontFamily: 'Poppins',
             fontSize: 35,
             color:  Color(0xff0b2f37),
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w600,
             height: 0.7,
           ),
           
