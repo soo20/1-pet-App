@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="581" height="600.795" viewBox="0 0 581 600.795">
+  <defs>
+    <clipPath id="clip-path">
+      <rect x="-182" y="-5" width="538" height="547" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Group_742" data-name="Group 742" transform="translate(0 56)">
+    <g id="Group_739" data-name="Group 739" transform="translate(0)">
+      <g id="Component_131_3" data-name="Component 131 – 3">
+        <g id="Rectangle_180" data-name="Rectangle 180" fill="none" stroke="#707070" stroke-width="1">
+          <rect width="581" height="384" rx="68" stroke="none"/>
+          <rect x="0.5" y="0.5" width="580" height="383" rx="67.5" fill="none"/>
+        </g>
+        <path id="Path_719" data-name="Path 719" d="M1953.729-3637l59.919,104.182,121.232,56.021h0l-71.067-56.021L2077.748-3637Z" transform="translate(-1609.087 4021.138)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+      <g id="Scroll_Group_1" data-name="Scroll Group 1" transform="translate(204 -51)" clip-path="url(#clip-path)" style="isolation: isolate">
+        <text id="I_m_sorry._Searching_for_lost_pets_is_hard_work._my_name_is_gizmo_If_you_re_concerned_about_your_pet_getting_lost_rest_assured_I_m_here_to_help_you_find_their_location_quickly" data-name="I&apos;m sorry. Searching for lost pets is hard work. my name is gizmo,If you&apos;re concerned about your pet getting lost, rest assured, I&apos;m here to help you find their location quickly" transform="translate(-182 97)" font-size="35" font-family="Poppins-SemiBold, Poppins" font-weight="600"><tspan x="28.322" y="37">I&apos;m sorry. Searching for lost </tspan><tspan x="4.575" y="90">pets is hard work. my name is </tspan><tspan x="40.117" y="143">gizmo,If you&apos;re concerned </tspan><tspan x="27.885" y="196">about your pet getting lost, </tspan><tspan x="13.378" y="249">rest assured, I&apos;m here to help </tspan><tspan x="6.272" y="302">you find their location quickly</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>
