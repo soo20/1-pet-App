@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:petapplication/Welcome/presention/widgets/welcomet_image_text.dart';
+//import 'package:petapplication/pages/page2/wlelcom2.dart';
 //import 'package:petapplication/pages/Defind.dart';
 //import 'package:petapplication/pages/defind.dart';
 //import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
@@ -22,6 +23,7 @@ class CustomWelcomPage extends StatelessWidget {
         TextOverImageItem3(),
         TextOverImageItem4(),
         TextOverSVGImage5(),
+        //welcom2page(),
         //Deefine(),
 
         // Other pages for the PageView can be added here
