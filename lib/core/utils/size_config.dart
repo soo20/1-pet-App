@@ -19,6 +19,36 @@ class SizeConfig {
         : screenWidth! * .024;
 
     // ignore: avoid_print
-    print('this is the default size $defaultSize');
+   // print('this is the default size $defaultSize');
   }
 }
+
+double calculateProportionalWidth(double referenceWidth, double screenWidth) {
+  return screenWidth / 1080 * referenceWidth;
+}
+
+double calculateProportionalHeight(double referenceHeight, double screenHeight) {
+  return screenHeight / 1920 * referenceHeight;
+}
+
+double calculateProportionalX(double referenceX, double screenWidth) {
+  return screenWidth / 1080 * referenceX;
+}
+
+double calculateProportionalY(double referenceY, double screenHeight) {
+  return screenHeight / 1920 * referenceY;
+}
+
+// Example usage:
+double referenceWidth = 200.0; // Replace with your reference width
+double referenceHeight = 150.0; // Replace with your reference height
+double referenceX = 50.0; // Replace with your reference x position
+double referenceY = 100.0; // Replace with your reference y position
+
+double screenWidth = 1080.0; // Replace with your actual screen width
+double screenHeight = 1920.0; // Replace with your actual screen height
+
+double newWidth = calculateProportionalWidth(referenceWidth, screenWidth);
+double newHeight = calculateProportionalHeight(referenceHeight, screenHeight);
+double newX = calculateProportionalX(referenceX, screenWidth);
+double newY = calculateProportionalY(referenceY, screenHeight);
