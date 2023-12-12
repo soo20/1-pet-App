@@ -122,7 +122,10 @@ class Component1313 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    double aspectRatio = screenWidth / screenHeight;
+    return AspectRatio(aspectRatio: aspectRatio ,
+    child :
+    Stack(
       children: <Widget>[
         Positioned(
           child: Container(
@@ -131,14 +134,14 @@ class Component1313 extends StatelessWidget {
               borderRadius: BorderRadius.circular(29.0),
               border: Border.all(width: 0.6, color: const Color(0xff707070)),
             ),
-            margin: const EdgeInsets.fromLTRB(29.0, 133.0, 185.0, 592.2),
+            margin: const EdgeInsets.fromLTRB(20.0, 110.0, 180.0, 450.2),
           ),
         ),
         Positioned(
           right: 200.7,
-          top: 269.0,
+          top: 256.0,
           width: 75,
-          height: 75,
+          height: 60,
           child: SvgPicture.string(
             _svg_pp2ta,
             allowDrawingOutsideViewBox: true,
@@ -146,7 +149,7 @@ class Component1313 extends StatelessWidget {
           ),
         ),
         const Padding(
-          padding: EdgeInsets.fromLTRB(00.0, 144.0, 155.0, 00.0),
+          padding: EdgeInsets.fromLTRB(00.0, 122.0, 155.0, 00.0),
           child: SizedBox.expand(
               child: Text(
             overflow: TextOverflow.ellipsis,
@@ -161,6 +164,7 @@ class Component1313 extends StatelessWidget {
           )),
         ),
       ],
+    ),
     );
   }
 }
