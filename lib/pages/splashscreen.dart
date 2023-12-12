@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     animationController?.repeat(reverse: true);
 
-    //goToNextView();
+    goToNextView();
   }
 
   @override
@@ -99,9 +99,9 @@ class _SplashScreenState extends State<SplashScreen>
   );
 }
 
-/*void goToNextView() {
+void goToNextView() {
   Future.delayed(Duration(seconds: 3), () {
     // function doing return to widgets
     Get.to(() => const WelcomePage(), transition: Transition.fade);
   });
-}*/}
+}}
