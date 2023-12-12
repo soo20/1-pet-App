@@ -250,8 +250,8 @@ class TextOverImageItem4 extends StatelessWidget {
 }
 
 
-class TextOverSVGImage5 extends StatelessWidget {
-  const TextOverSVGImage5({Key? key}) : super(key: key);
+class TextOverSVGImage6 extends StatelessWidget {
+  const TextOverSVGImage6({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -279,6 +279,63 @@ class TextOverSVGImage5 extends StatelessWidget {
                 padding: const EdgeInsets.all(90.0),
                 child: Image.asset(
                   'assets/image/Group766.png',
+                  width: itemWidth,
+                  height: itemHeight,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+            const Stack(
+              alignment: Alignment.topLeft,
+              children: [
+                Component1312(),
+                /*Positioned(
+                  right: 33,
+                  left: SizeConfig.defaultSize! * 28,
+                  bottom: SizeConfig.defaultSize! * 6,
+                  child: const CustomGeneralButtom(
+                    text: 'continue',
+                  ),
+                ),*/
+                // Other widgets can be added here within the Stack if needed
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class TextOverSVGImage5 extends StatelessWidget {
+  const TextOverSVGImage5({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
+
+    // Calculate aspect ratio based on screen dimensions
+    double aspectRatio = screenWidth / screenHeight;
+
+    // Calculate dimensions based on a 16:9 aspect ratio
+    double itemWidth = screenWidth - 220; // Adjust this value as needed
+    double itemHeight = itemWidth / 16 * 9;
+
+    return AspectRatio(
+      aspectRatio: aspectRatio, // Set your desired aspect ratio here
+      child: Container(
+        color: kMainColorPage,
+        child: Stack(
+          children: <Widget>[
+            Positioned(
+              top: 164,
+             right: -150,
+              bottom: 20,
+              width: itemWidth,
+              child: Padding(
+                padding: const EdgeInsets.all(90.0),
+                child: Image.asset(
+                  'assets/image/Group1021.png',
                   width: itemWidth,
                   height: itemHeight,
                   fit: BoxFit.contain,

@@ -44,7 +44,7 @@ class _WelcomeBodyState extends State<WelcomeBody> {
         Positioned(
           left: 30,
           right: 0,
-          bottom: SizeConfig.defaultSize! * 8,
+          bottom: SizeConfig.defaultSize! * 6,
           child: Dot(
             dotIndex: pageController!.hasClients ? pageController?.page : 0,
           ),
@@ -72,7 +72,7 @@ class _WelcomeBodyState extends State<WelcomeBody> {
           alignment: Alignment.topLeft,
           children: [
             Positioned(
-              top: SizeConfig.defaultSize! * 6,
+              top: SizeConfig.defaultSize! * 6.5,
               left: 15,
               child: SvgPicture.asset(
                 'assets/icons/ic_arrow_back.svg',
@@ -87,11 +87,11 @@ class _WelcomeBodyState extends State<WelcomeBody> {
                 Positioned(
                   right: 33,
                   left: SizeConfig.defaultSize! * 28,
-                  bottom: SizeConfig.defaultSize! * 6,
+                  bottom: SizeConfig.defaultSize! * 4,
                   child: CustomGeneralButtom(
                     boxColor: kMainColor,
                     onTap: () {
-                      if (pageController!.page! < 4) {
+                      if (pageController!.page! < 5) {
                         pageController?.nextPage(
                             duration: Duration(milliseconds: 500),
                             curve: Curves.easeIn);
@@ -105,7 +105,7 @@ class _WelcomeBodyState extends State<WelcomeBody> {
                       }
                     },
                     text: pageController?.hasClients == true
-                        ? (pageController?.page == 4 ? 'Finish' : 'Contnous')
+                        ? (pageController?.page == 5 ? 'Finish' : 'Contnous')
                         : 'Let\'s Meet', textColor: kMainColorPage,
                   ),
                 ),

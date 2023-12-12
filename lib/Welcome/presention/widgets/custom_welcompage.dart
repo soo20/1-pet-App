@@ -23,6 +23,7 @@ class CustomWelcomPage extends StatelessWidget {
         TextOverImageItem3(),
         TextOverImageItem4(),
         TextOverSVGImage5(),
+        TextOverSVGImage6(),
         //welcom2page(),
         //Deefine(),
 
