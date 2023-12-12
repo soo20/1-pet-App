@@ -285,8 +285,8 @@ class TextOverSVGImage5 extends StatelessWidget {
         child: Stack(
           children: <Widget>[
             Positioned(
-              top: 174,
-             right: -150,
+              top: 164,
+             right: -166,
               bottom: 20,
               width: itemWidth,
               child: Padding(

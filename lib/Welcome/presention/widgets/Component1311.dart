@@ -54,46 +54,63 @@ class Component1312 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    double screenWidth = 1080;
+    double screenHeight = 1920;
+
+    // Calculate aspect ratio based on screen dimensions
+    double aspectRatio = screenWidth / screenHeight;
+
+    // Calculate dimensions based on a 16:9 aspect ratio
+    double containerWidth = screenWidth - 324; // Adjust this value as needed
+    double containerHeight = containerWidth / 16 * 9;
+
+    return AspectRatio(aspectRatio: aspectRatio ,
+    child : Stack(
       children: <Widget>[
         Positioned(
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(33.0),
+              borderRadius: BorderRadius.circular(30.0),
               border: Border.all(width: 0.6, color: const Color(0xff707070)),
             ),
-            margin: const EdgeInsets.fromLTRB(162.0, 125.0, 20.0, 575.2),
+            margin: const EdgeInsets.fromLTRB(170.0, 105.0, 0.0, 445.2),
+            width: containerWidth,
+            height: containerHeight,
           ),
         ),
         Positioned(
-          right: 130.7,
-          bottom: 510.0,
-          width: 75,
-          height: 66,
+          right: 120.7,
+          bottom: 387.0,
+          width: 72,
+          height: 60,
           child: SvgPicture.string(
             '<svg viewBox="76.2 386.5 158.9 140.5" ><path transform="translate(-1877.52, 4023.51)" d="M 2112.6181640625 -3637 L 2060.0625 -3545.62158203125 L 1953.72900390625 -3496.4853515625 L 1953.72900390625 -3496.4853515625 L 2016.062255859375 -3545.62158203125 L 2003.840087890625 -3637 L 2112.6181640625 -3637 Z" fill="none" stroke="#707070" stroke-width="1" stroke-miterlimit="4" stroke-linecap="butt" /></svg>',
             allowDrawingOutsideViewBox: true,
             fit: BoxFit.cover,
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.fromLTRB(137.0, 144.0, 00.0, 00.0),
+       const Padding(
+          padding:  EdgeInsets.fromLTRB(170.0, 120.0, 00.0, 00.0),
           child: SizedBox.expand(
-              child: Text(
-            'Hello, I am Tesla. Many pet\nowners want to train their\npets and acquire the\nnecessary information\nabout them, and I am here\nto assist with that',
-            style: TextStyle(
-              fontFamily: 'Poppins',
-              fontSize: 15.2,
-              color: Color(0xff000000),
-              fontWeight: FontWeight.w600,
+            child: Text(
+              'Hello, I am Tesla. Many pet\nowners want to train their\npets and acquire the\nnecessary information\nabout them, and I am here\nto assist with that',
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 15.1,
+                color: Color(0xff000000),
+                fontWeight: FontWeight.w600,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
-          )),
+          ),
         ),
       ],
+    ),
     );
   }
 }
+
+
 
 class Component1313 extends StatelessWidget {
   const Component1313({Key? key}) : super(key: key);
