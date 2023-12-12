@@ -34,11 +34,11 @@ class TextOverImageItem1 extends StatelessWidget {
             
             top: 120,
             left: -40,
-            bottom: 90,
+            bottom: 70,
             width: 300,
             child: Padding(
               padding:
-                  const EdgeInsets.all(15.0), // Add padding of 8.0 to all sides
+                  const EdgeInsets.all(16.0), // Add padding of 8.0 to all sides
               child: Image.asset(
                 image1!,
                 
@@ -59,14 +59,14 @@ class TextOverImageItem1 extends StatelessWidget {
               Positioned(
                 
                right:
-                    20, // Set the left position to 0 to align with the left edge
+                    15, // Set the left position to 0 to align with the left edge
                 top:
-                    105, // Set the top position to 0 to align with the top edge
+                    90, // Set the top position to 0 to align with the top edge
                 child: SvgPicture.asset(
                   image2!,
-                  //'assets/icons/k1.svg', // Replace with your image asset
-                  width:535, // Set the width of the image
-                  height: 210, // Set the height of the image
+                  //'asse/icons/k1.svg', // Replace with your image asset
+                  width:540, // Set the width of the image
+                  height: 225, // Set the height of the image
                   fit: BoxFit.cover, // Adjust the fit as needed
                 ),
               ),
@@ -103,11 +103,11 @@ class TextOverImageItem2 extends StatelessWidget {
           children: [
             Positioned(
               top: 60,
-              right: -35,
-              bottom: 60,
+              right: -60,
+              bottom: 40,
               width: itemWidth,
               child: Padding(
-                padding: const EdgeInsets.all(28.0),
+                padding: const EdgeInsets.all(50.0),
                 child: Image.asset(
                   'assets/image/Group327.png',
                   width: itemWidth,
@@ -123,12 +123,12 @@ class TextOverImageItem2 extends StatelessWidget {
                   aspectRatio: aspectRatio,
                 ),
                 Positioned(
-                  left: 5,
+                  left: 1,
                   top: 95,
                   child: SvgPicture.asset(
                     'assets/icons/Group.svg',
                     width: 100,
-                    height: 195,
+                    height:211,
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -205,46 +205,56 @@ class TextOverImageItem3 extends StatelessWidget {
 
 
 class TextOverImageItem4 extends StatelessWidget {
-  const TextOverImageItem4({super.key});
+  const TextOverImageItem4({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    double screenWidth = 1080;
+    double screenHeight = 1920;
+
+    // Calculate aspect ratio based on screen dimensions
+    double aspectRatio = screenWidth / screenHeight;
+
+    // Calculate dimensions based on a 16:9 aspect ratio
+    double itemWidth = screenWidth - 420; // Adjust this value as needed
+    double itemHeight = itemWidth / 16 * 9;
+
     return AspectRatio(
-      aspectRatio: 16 / 9, // Set your desired aspect ratio here
+      aspectRatio: aspectRatio, // Set your desired aspect ratio here
       child: Container(
-      color: kMainColorPage,
-      child: Stack(
-        children: [
-          Positioned(
-            top: 210,
-            right: -177,
-            bottom: 0,
-            width: 666,
-            child: Padding(
-              padding: const EdgeInsets.all(
-                  170.0), // Add padding of 8.0 to all sides
-              child: Image.asset(
-                'assets/image/monkey.png',
-                width: 00,
-                height: 100,
-                fit: BoxFit.fill,
+        color: kMainColorPage,
+        child: Stack(
+          children: [
+            Positioned(
+              top: 216,
+              right: -177,
+              bottom: -49,
+              width: itemWidth,
+              child: Padding(
+                padding: const EdgeInsets.all(170.0),
+                child: Image.asset(
+                  'assets/image/monkey.png',
+                  width: itemWidth,
+                  height: itemHeight,
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
-          ),
-          const Stack(
-            alignment: Alignment.topLeft,
-            children: [
-               Component1311(),
-              /*Positioned(
-                right: 33,
-                left: SizeConfig.defaultSize! * 28,
-                bottom: SizeConfig.defaultSize! * 6,
-                child: const CustomGeneralButtom(
-                  text: 'continue',
-                ),
-              ),*/
-              // Other widgets can be added here within the Stack if needed
-                    ],
-            )
+            const Stack(
+              alignment: Alignment.topLeft,
+              children: [
+                Component1311(),
+                /*Positioned(
+                  right: 33,
+                  left: SizeConfig.defaultSize! * 28,
+                  bottom: SizeConfig.defaultSize! * 6,
+                  child: const CustomGeneralButtom(
+                    text: 'continue',
+                  ),
+                ),*/
+                // Other widgets can be added here within the Stack if needed
+              ],
+            ),
           ],
         ),
       ),
@@ -252,53 +262,65 @@ class TextOverImageItem4 extends StatelessWidget {
   }
 }
 
+
 class TextOverSVGImage5 extends StatelessWidget {
-  const TextOverSVGImage5({super.key});
+  const TextOverSVGImage5({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    double screenWidth = 1080;
+    double screenHeight = 1920;
+
+    // Calculate aspect ratio based on screen dimensions
+    double aspectRatio = screenWidth / screenHeight;
+
+    // Calculate dimensions based on a 16:9 aspect ratio
+    double itemWidth = screenWidth - 220; // Adjust this value as needed
+    double itemHeight = itemWidth / 16 * 9;
+
     return AspectRatio(
-      aspectRatio: 16 / 9, // Set your desired aspect ratio here
-      child:  Container(
-      color: kMainColorPage,
-      child: Stack(
-        children: <Widget>[
-          Positioned(
-            top: 174,
-            left: -120,
-            bottom: 20,
-            width: 560,
-            child: Padding(
-              padding: const EdgeInsets.all(
-                  115.0), // Add padding of 8.0 to all sides
-              child: Image.asset(
-                'assets/image/Group766.png',
-                width: 00,
-                height: 00,
-                fit: BoxFit.fill,
+      aspectRatio: aspectRatio, // Set your desired aspect ratio here
+      child: Container(
+        color: kMainColorPage,
+        child: Stack(
+          children: <Widget>[
+            Positioned(
+              top: 174,
+             right: -150,
+              bottom: 20,
+              width: itemWidth,
+              child: Padding(
+                padding: const EdgeInsets.all(90.0),
+                child: Image.asset(
+                  'assets/image/Group766.png',
+                  width: itemWidth,
+                  height: itemHeight,
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
-          ),
-          const Stack(
-            alignment: Alignment.topLeft,
-            children: [
-              Component1312(),
-              /*Positioned(
-                right: 33,
-                left: SizeConfig.defaultSize! * 28,
-                bottom: SizeConfig.defaultSize! * 6,
-                child: const CustomGeneralButtom(
-                  text: 'continue',
-                ),
-              ),*/
-              // Other widgets can be added here within the Stack if needed
-                    ],
-            )
+            const Stack(
+              alignment: Alignment.topLeft,
+              children: [
+                Component1312(),
+                /*Positioned(
+                  right: 33,
+                  left: SizeConfig.defaultSize! * 28,
+                  bottom: SizeConfig.defaultSize! * 6,
+                  child: const CustomGeneralButtom(
+                    text: 'continue',
+                  ),
+                ),*/
+                // Other widgets can be added here within the Stack if needed
+              ],
+            ),
           ],
         ),
       ),
     );
   }
 }
+
 
 // ignore: unused_element
 const String _svg_wadptu =
