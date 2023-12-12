@@ -88,7 +88,7 @@ class TextOverImageItem2 extends StatelessWidget {
             top: 100,
             right: -35,
             bottom: 90,
-            width: 290,
+            width: 291,
             child: Padding(
               padding:
                   const EdgeInsets.all(16.0), // Add padding of 8.0 to all sides
