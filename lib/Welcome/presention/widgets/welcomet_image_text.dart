@@ -9,133 +9,137 @@ import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 
 //import 'package:google_fonts/google_fonts.dart';
 class TextOverImageItem1 extends StatelessWidget {
-  const TextOverImageItem1({Key? key, this.image1, this.image2})
-      : super(key: key);
+  const TextOverImageItem1({Key? key, this.image1, this.image2}) : super(key: key);
   final String? image1;
   final String? image2;
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 16 / 9, // Set your desired aspect ratio here
-      child: Container(
+    // Get screen dimensions
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
+
+    // Calculate aspect ratio based on screen dimensions
+    double aspectRatio = screenWidth / screenHeight;
+
+    return Container(
       color: kMainColorPage,
       child: Stack(
         children: [
+          AspectRatio(
+            aspectRatio: aspectRatio,
+          ),
           Positioned(
+            
             top: 120,
-            left: -25,
+            left: -40,
             bottom: 90,
             width: 300,
             child: Padding(
               padding:
-                  const EdgeInsets.all(8.0), // Add padding of 8.0 to all sides
+                  const EdgeInsets.all(15.0), // Add padding of 8.0 to all sides
               child: Image.asset(
                 image1!,
+                
                 //'assets/image/Group315.png',
-                width: 300, // Set the width of the image
-                height: 300, // Set the height of the image
+                width: 180, // Set the width of the image
+                height: 280, // Set the height of the image
                 fit: BoxFit.contain, // Adjust the fit as needed
               ),
             ),
           ),
           Stack(
+            
             alignment: Alignment.topLeft,
             children: [
+              AspectRatio(
+                aspectRatio: aspectRatio,
+              ),
               Positioned(
-                right:
-                    15, // Set the left position to 0 to align with the left edge
+                
+               right:
+                    20, // Set the left position to 0 to align with the left edge
                 top:
-                    130, // Set the top position to 0 to align with the top edge
+                    105, // Set the top position to 0 to align with the top edge
                 child: SvgPicture.asset(
                   image2!,
                   //'assets/icons/k1.svg', // Replace with your image asset
-                  width: 0, // Set the width of the image
-                  height: 245, // Set the height of the image
+                  width:535, // Set the width of the image
+                  height: 210, // Set the height of the image
                   fit: BoxFit.cover, // Adjust the fit as needed
                 ),
               ),
-              /*Positioned(
-                  right: 33,
-                  left: SizeConfig.defaultSize! * 28,
-                  bottom: SizeConfig.defaultSize! * 6,
-                  child: const CustomGeneralButtom(
-                    text: 'Lets meet',
-                    svgPath:
-                        'assets/icons/Group312.svg', // Replace with your SVG asset path
-                  ),
-                ),*/
-              ],
-            )
-          ],
-        ),
+              
+             
+            ],
+          ),
+        ],
       ),
     );
   }
 }
 
 class TextOverImageItem2 extends StatelessWidget {
-  const TextOverImageItem2({super.key});
+  const TextOverImageItem2({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    // Calculate aspect ratio based on screen dimensions
+    double aspectRatio = screenWidth / screenHeight;
+
+    // Calculate height based on a 16:9 aspect ratio
+    double itemWidth = screenWidth - 70; // Adjust the width as needed
+    double itemHeight = itemWidth / 16 * 9;
+
     return AspectRatio(
-      aspectRatio: 16 / 9, // Set your desired aspect ratio here
+      aspectRatio: aspectRatio, // Set your desired aspect ratio here
       child: Container(
-      color: kMainColorPage,
-      child: Stack(
-        children: [
-          Positioned(
-            top: 100,
-            right: -35,
-            bottom: 90,
-            width: 291,
-            child: Padding(
-              padding:
-                  const EdgeInsets.all(16.0), // Add padding of 8.0 to all sides
-              child: Image.asset(
-                'assets/image/Group327.png',
-                width: 155,
-                height: 55,
-                fit: BoxFit.contain,
-              ),
-            ),
-          ),
-          Stack(
-            alignment: Alignment.topLeft,
-            children: [
-              Positioned(
-                left: 7,
-                top: 170,
-                child: SvgPicture.asset(
-                  'assets/icons/Group.svg',
-                  width: 250,
-                  height: 200,
-                  fit: BoxFit.cover,
+        color: kMainColorPage,
+        child: Stack(
+          children: [
+            Positioned(
+              top: 60,
+              right: -35,
+              bottom: 60,
+              width: itemWidth,
+              child: Padding(
+                padding: const EdgeInsets.all(28.0),
+                child: Image.asset(
+                  'assets/image/Group327.png',
+                  width: itemWidth,
+                  height: itemHeight,
+                  fit: BoxFit.contain,
                 ),
               ),
-              /*Stack(
-                alignment: Alignment.topLeft,
-                children: [
-                  Positioned(
-                    right: 33,
-                    left: SizeConfig.defaultSize! * 28,
-                    bottom: SizeConfig.defaultSize! * 6,
-                    child: const CustomGeneralButtom(
-                      text: 'continue',
-                    ),
+            ),
+            Stack(
+              alignment: Alignment.topLeft,
+              children: [
+                AspectRatio(
+                  aspectRatio: aspectRatio,
+                ),
+                Positioned(
+                  left: 5,
+                  top: 95,
+                  child: SvgPicture.asset(
+                    'assets/icons/Group.svg',
+                    width: 100,
+                    height: 195,
+                    fit: BoxFit.fill,
                   ),
-                  // Other widgets can be added here within the Stack if needed
-                  ),
-                ),*/
+                ),
               ],
-            )
+            ),
           ],
         ),
       ),
     );
   }
 }
-
 
 class TextOverImageItem3 extends StatelessWidget {
   const TextOverImageItem3({super.key});
