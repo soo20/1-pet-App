@@ -16,8 +16,7 @@ class TextOverImageItem1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Get screen dimensions
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+   
 
 
     // Calculate aspect ratio based on screen dimensions
@@ -85,8 +84,7 @@ class TextOverImageItem2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    
 
     // Calculate aspect ratio based on screen dimensions
     double aspectRatio = screenWidth / screenHeight;
@@ -103,11 +101,11 @@ class TextOverImageItem2 extends StatelessWidget {
           children: [
             Positioned(
               top: 60,
-              right: -60,
+              left: -200,
               bottom: 40,
               width: itemWidth,
               child: Padding(
-                padding: const EdgeInsets.all(50.0),
+                padding: const EdgeInsets.all(105.0),
                 child: Image.asset(
                   'assets/image/Group327.png',
                   width: itemWidth,
@@ -116,25 +114,23 @@ class TextOverImageItem2 extends StatelessWidget {
                 ),
               ),
             ),
-            Stack(
+             const Stack(
               alignment: Alignment.topLeft,
               children: [
-                AspectRatio(
-                  aspectRatio: aspectRatio,
-                ),
-                Positioned(
-                  left: 1,
-                  top: 95,
-                  child: SvgPicture.asset(
-                    'assets/icons/Group.svg',
-                    width: 100,
-                    height:211,
-                    fit: BoxFit.fill,
+                Component1314(),
+                /*Positioned(
+                  right: 33,
+                  left: SizeConfig.defaultSize! * 28,
+                  bottom: SizeConfig.defaultSize! * 6,
+                  child: const CustomGeneralButtom(
+                    text: 'continue',
                   ),
-                ),
+                ),*/
+                // Other widgets can be added here within the Stack if needed
               ],
             ),
           ],
+          
         ),
       ),
     );
@@ -142,66 +138,58 @@ class TextOverImageItem2 extends StatelessWidget {
 }
 
 class TextOverImageItem3 extends StatelessWidget {
-  const TextOverImageItem3({super.key});
+   const TextOverImageItem3({Key? key}) : super(key: key);
+   final double aspectRatio = 16 / 9; // Set your desired aspect ratio
+
   @override
   Widget build(BuildContext context) {
+  
+
+    // Calculate aspect ratio based on screen dimensions
+    double aspectRatio = screenWidth / screenHeight;
+
     return AspectRatio(
-      aspectRatio: 16 / 9, // Set your desired aspect ratio here
-      child:  Container(
-      color: kMainColorPage,
-      child: Stack(
-        children: [
-          Positioned(
-            top: 100,
-            right: -35,
-            bottom: 90,
-            width: 290,
-            child: Padding(
-              padding:
-                  const EdgeInsets.all(16.0), // Add padding of 8.0 to all sides
-              child: Image.asset(
-                'assets/image/Group737.png',
-                width: 55,
-                height: 55,
-                fit: BoxFit.contain,
-              ),
-            ),
-          ),
-          Stack(
-            alignment: Alignment.topLeft,
-            children: [
-              Positioned(
-                left: 7,
-                top: 170,
-                child: SvgPicture.asset(
-                  'assets/icons/Group742.svg',
-                  width: 300,
-                  height: 250,
-                  fit: BoxFit.cover,
+      aspectRatio: aspectRatio, // Set your desired aspect ratio here
+      child: Container(
+        color: kMainColorPage,
+        child: Stack(
+          children: [
+            Positioned(
+              top: (screenHeight-screenWidth)/(1/aspectRatio),
+              left: (screenHeight-screenWidth)/(1/aspectRatio),
+              bottom: 90,
+              width: screenWidth / 1.55,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Image.asset(
+                  'assets/image/Group737.png',
+                  width: screenWidth / 1.55, // Adjust the width
+                  height: screenHeight * 0.1, // Adjust the height as needed
+                  fit: BoxFit.contain,
                 ),
               ),
-              /*Stack(
-                alignment: Alignment.topLeft,
-                children: [
-                  Positioned(
-                    right: 33,
-                    left: SizeConfig.defaultSize! * 28,
-                    bottom: SizeConfig.defaultSize! * 6,
-                    child: const CustomGeneralButtom(
-                      text: 'continue',
-                    ),
+            ),
+            /*Stack(
+              alignment: Alignment.topLeft,
+              children: [
+                Positioned(
+                  left: 7,
+                  top: 170,
+                  child: SvgPicture.asset(
+                    'assets/icons/Group742.svg',
+                    width: 300,
+                    height: 250,
+                    fit: BoxFit.cover,
                   ),
-                  // Other widgets can be added here within the Stack if needed
-                   ),
-                ),*/
+                ),
               ],
-            )
+            )*/
           ],
         ),
       ),
     );
-  }
-}
+  
+  }}
 
 
 class TextOverImageItem4 extends StatelessWidget {
@@ -209,8 +197,7 @@ class TextOverImageItem4 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = 1080;
-    double screenHeight = 1920;
+   
 
     // Calculate aspect ratio based on screen dimensions
     double aspectRatio = screenWidth / screenHeight;
@@ -226,12 +213,12 @@ class TextOverImageItem4 extends StatelessWidget {
         child: Stack(
           children: [
             Positioned(
-              top: 216,
+              top: 170,
               right: -177,
-              bottom: -49,
+              bottom: -45,
               width: itemWidth,
               child: Padding(
-                padding: const EdgeInsets.all(170.0),
+                padding: const EdgeInsets.all(165.0),
                 child: Image.asset(
                   'assets/image/monkey.png',
                   width: itemWidth,
@@ -268,8 +255,7 @@ class TextOverSVGImage5 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = 1080;
-    double screenHeight = 1920;
+
 
     // Calculate aspect ratio based on screen dimensions
     double aspectRatio = screenWidth / screenHeight;

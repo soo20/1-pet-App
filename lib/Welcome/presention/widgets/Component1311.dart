@@ -1,6 +1,7 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:petapplication/core/utils/size_config.dart';
 import 'package:petapplication/core/utils/widgets/constants.dart';
 
 class Component1311 extends StatelessWidget {
@@ -8,7 +9,14 @@ class Component1311 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    
+   
+
+
+    // Calculate aspect ratio based on screen dimensions
+    double aspectRatio = screenWidth / screenHeight;
+    return AspectRatio(aspectRatio: aspectRatio ,
+    child :Stack(
       children: <Widget>[
         Positioned(
           child: Container(
@@ -16,14 +24,14 @@ class Component1311 extends StatelessWidget {
               borderRadius: BorderRadius.circular(33.0),
               border: Border.all(width: 1.0, color: const Color(0xff707070)),
             ),
-            margin: const EdgeInsets.fromLTRB(20.0, 115.0, 135.0, 490.2),
+            margin: const EdgeInsets.fromLTRB(20.0, 115.0, 135.0, 377.2),
           ),
         ),
         Positioned(
           right: 184.7,
-          bottom: 400.0,
+          bottom: 290.0,
           width: 80,
-          height: 110,
+          height: 105.4,
           child: SvgPicture.string(
             _svg_pp2ta,
             allowDrawingOutsideViewBox: true,
@@ -31,13 +39,13 @@ class Component1311 extends StatelessWidget {
           ),
         ),
         const Padding(
-          padding: EdgeInsets.fromLTRB(0.0, 144.0, 115.0, 00.0),
+          padding: EdgeInsets.fromLTRB(0.0, 124.0, 115.0, 00.0),
           child: SizedBox.expand(
               child: Text(
             'I don\'t mind whether or not you\nknow me. Many people do\nknow me, but I\'m sparky, There\nis a community for pet lovers\nto connect with each other,\nadopt pets, and find\ncompanions for them. Are you\nfamiliar with it? I\'m a well-\nknown monkey in that\ncommunity',
             style: TextStyle(
               fontFamily: 'Poppins',
-              fontSize: 15,
+              fontSize: 14.0,
               color: Color(0xff000000),
               fontWeight: FontWeight.w600,
             ),
@@ -45,6 +53,7 @@ class Component1311 extends StatelessWidget {
           )),
         ),
       ],
+    ),
     );
   }
 }
@@ -54,15 +63,11 @@ class Component1312 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = 1080;
-    double screenHeight = 1920;
+    
+
 
     // Calculate aspect ratio based on screen dimensions
     double aspectRatio = screenWidth / screenHeight;
-
-    // Calculate dimensions based on a 16:9 aspect ratio
-    double containerWidth = screenWidth - 324; // Adjust this value as needed
-    double containerHeight = containerWidth / 16 * 9;
 
     return AspectRatio(aspectRatio: aspectRatio ,
     child : Stack(
@@ -74,8 +79,8 @@ class Component1312 extends StatelessWidget {
               border: Border.all(width: 0.6, color: const Color(0xff707070)),
             ),
             margin: const EdgeInsets.fromLTRB(170.0, 105.0, 0.0, 445.2),
-            width: containerWidth,
-            height: containerHeight,
+            width: screenWidth,
+            height: screenHeight,
           ),
         ),
         Positioned(
@@ -158,6 +163,79 @@ class Component1313 extends StatelessWidget {
       ],
     );
   }
+}
+
+class Component1314 extends StatelessWidget {
+  const Component1314({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    
+    
+
+    // Calculate aspect ratio based on screen dimensions
+    double aspectRatio = screenWidth / screenHeight;
+
+    // Calculate dimensions based on a 16:9 aspect ratio
+    
+    return AspectRatio(aspectRatio: aspectRatio ,
+    child :Stack(
+      children: <Widget>[
+        Positioned(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(33.0),
+              border: Border.all(width: 1.0, color: const Color(0xff707070)),
+            ),
+            margin: const EdgeInsets.fromLTRB(5.0, 115.0, 175.0, 444.2),
+          ),
+        ),
+        Positioned(
+          right: 190.7,
+          bottom: 362.0,
+          width: 75,
+          height: 100,
+          child: SvgPicture.string(
+            _svg_pp2ta,
+            allowDrawingOutsideViewBox: true,
+            fit: BoxFit.fitWidth,
+          ),
+        ),
+         Padding(
+          padding: const EdgeInsets.fromLTRB(0.0, 124.0, 175.0, 00.0),
+          child: SizedBox.expand(
+              child: RichText(
+            text: const TextSpan(
+              text:  'Hi, I\'m Jack.' ,
+              style: TextStyle(
+              fontFamily: 'Poppins',
+              fontSize: 14.4,
+              color: Colors.black,
+              fontWeight: FontWeight.w900,
+              ),
+              children:  <TextSpan>[
+                TextSpan( 
+                  text:'In our app\nrecognizes your pet from\ntheir photo and provides\nkey information. Welcome\nto a world where your pet\nshines!',
+                  style: TextStyle(
+              fontFamily: 'Poppins',
+              fontSize: 14.4,
+              color: Colors.black,
+              fontWeight: FontWeight.w600,
+            ),
+           
+                )
+              ],
+              
+          ),
+           textAlign: TextAlign.center,
+          ),
+          
+          ),
+        ),
+      ],
+    ),
+    );
+  } 
 }
 
 // ignore: constant_identifier_names
