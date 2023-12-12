@@ -16,7 +16,9 @@ class TextOverImageItem1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AspectRatio(
+      aspectRatio: 16 / 9, // Set your desired aspect ratio here
+      child: Container(
       color: kMainColorPage,
       child: Stack(
         children: [
@@ -61,11 +63,12 @@ class TextOverImageItem1 extends StatelessWidget {
                     text: 'Lets meet',
                     svgPath:
                         'assets/icons/Group312.svg', // Replace with your SVG asset path
-                  )),*/
-              // Other widgets can be added here within the Stack if needed
-            ],
-          )
-        ],
+                  ),
+                ),*/
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -75,7 +78,9 @@ class TextOverImageItem2 extends StatelessWidget {
   const TextOverImageItem2({super.key});
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AspectRatio(
+      aspectRatio: 16 / 9, // Set your desired aspect ratio here
+      child: Container(
       color: kMainColorPage,
       child: Stack(
         children: [
@@ -120,22 +125,25 @@ class TextOverImageItem2 extends StatelessWidget {
                     ),
                   ),
                   // Other widgets can be added here within the Stack if needed
-                ],
-              )*/
-              // Other widgets can be added here within the Stack if needed
-            ],
-          )
-        ],
+                  ),
+                ),*/
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
 }
 
+
 class TextOverImageItem3 extends StatelessWidget {
   const TextOverImageItem3({super.key});
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AspectRatio(
+      aspectRatio: 16 / 9, // Set your desired aspect ratio here
+      child:  Container(
       color: kMainColorPage,
       child: Stack(
         children: [
@@ -180,22 +188,25 @@ class TextOverImageItem3 extends StatelessWidget {
                     ),
                   ),
                   // Other widgets can be added here within the Stack if needed
-                ],
-              )*/
-              // Other widgets can be added here within the Stack if needed
-            ],
-          )
-        ],
+                   ),
+                ),*/
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
 }
 
+
 class TextOverImageItem4 extends StatelessWidget {
   const TextOverImageItem4({super.key});
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AspectRatio(
+      aspectRatio: 16 / 9, // Set your desired aspect ratio here
+      child: Container(
       color: kMainColorPage,
       child: Stack(
         children: [
@@ -228,9 +239,10 @@ class TextOverImageItem4 extends StatelessWidget {
                 ),
               ),*/
               // Other widgets can be added here within the Stack if needed
-            ],
-          )
-        ],
+                    ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -240,7 +252,9 @@ class TextOverSVGImage5 extends StatelessWidget {
   const TextOverSVGImage5({super.key});
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AspectRatio(
+      aspectRatio: 16 / 9, // Set your desired aspect ratio here
+      child:  Container(
       color: kMainColorPage,
       child: Stack(
         children: <Widget>[
@@ -273,13 +287,15 @@ class TextOverSVGImage5 extends StatelessWidget {
                 ),
               ),*/
               // Other widgets can be added here within the Stack if needed
-            ],
-          )
-        ],
+                    ],
+            )
+          ],
+        ),
       ),
     );
   }
 }
 
+// ignore: unused_element
 const String _svg_wadptu =
     '<svg viewBox="6.0 0.0 221.0 37.0" ><path transform="translate(-628.34, 3069.19)" d="M 634.3417358398438 -3032.1884765625 L 640.6785888671875 -3069.1884765625 L 659.6895141601562 -3046.848876953125 L 824.4493408203125 -3046.848876953125 L 844.2520751953125 -3069.1884765625 L 855.3417358398438 -3032.1884765625" fill="none" stroke="#081e17" stroke-width="1" stroke-miterlimit="4" stroke-linecap="butt" /></svg>';
