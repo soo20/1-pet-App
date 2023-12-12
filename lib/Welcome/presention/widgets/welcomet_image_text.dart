@@ -139,7 +139,7 @@ class TextOverImageItem2 extends StatelessWidget {
 
 class TextOverImageItem3 extends StatelessWidget {
    const TextOverImageItem3({Key? key}) : super(key: key);
-   final double aspectRatio = 16 / 9; // Set your desired aspect ratio
+   // Set your desired aspect ratio
 
   @override
   Widget build(BuildContext context) {
@@ -155,10 +155,10 @@ class TextOverImageItem3 extends StatelessWidget {
         child: Stack(
           children: [
             Positioned(
-              top: (screenHeight-screenWidth)/(1/aspectRatio),
-              left: (screenHeight-screenWidth)/(1/aspectRatio),
+              top: 160,
+              right: -20 ,
               bottom: 90,
-              width: screenWidth / 1.55,
+              width: screenWidth / 4.5,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Image.asset(

@@ -19,7 +19,7 @@ class SizeConfig {
         : screenWidth! * .024;
 
     // ignore: avoid_print
-    print('this is the default size $defaultSize');
+   // print('this is the default size $defaultSize');
   }
 }
 
