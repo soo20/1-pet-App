@@ -24,10 +24,10 @@ class CustomWelcomPage extends StatelessWidget {
         TextOverImageItem4(),
         TextOverSVGImage5(),
         TextOverSVGImage6(),
-        //welcom2page(),
-        //Deefine(),
+        
+       
 
-        // Other pages for the PageView can be added here
+        
       ],
     );
   }
