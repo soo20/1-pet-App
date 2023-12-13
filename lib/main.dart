@@ -15,7 +15,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(fontFamily: 'Poppins'),
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(), // Display the splash screen first
-      //hi soooooohaaaaa
     );
   }
 }
