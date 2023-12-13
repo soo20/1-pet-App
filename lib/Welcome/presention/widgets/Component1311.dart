@@ -28,7 +28,7 @@ class Component1311 extends StatelessWidget {
           ),
         ),
         Positioned(
-          right: 184.7,
+          right: 184.5,
           bottom: 290.0,
           width: 80,
           height: 105.4,
