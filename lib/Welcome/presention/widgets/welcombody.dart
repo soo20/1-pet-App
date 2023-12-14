@@ -11,6 +11,7 @@ import 'package:petapplication/core/utils/widgets/constants.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 import 'package:petapplication/pages/page1/Defindpage.dart';
 import 'package:petapplication/pages/page1/widgets/Defind.dart';
+import 'package:petapplication/pages/page2/logintext.dart';
 //import 'package:petapplication/core/utils/widgets/constants.dart';
 //import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 
@@ -98,7 +99,7 @@ class _WelcomeBodyState extends State<WelcomeBody> {
                       } else {
                         Get.to(
                           () =>
-                              DeefindPage(), // Replace YourNextPage with the actual class for the next page
+                              LoginText(), // Replace YourNextPage with the actual class for the next page
                           transition: Transition.rightToLeft,
                           duration: Duration(milliseconds: 500),
                         );
