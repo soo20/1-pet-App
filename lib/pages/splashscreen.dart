@@ -48,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen>
           top: SizeConfig.defaultSize!*20,
           right: SizeConfig.defaultSize!/12,
           bottom: 220,
-          width: 400,
+          width: 410,
           child: AspectRatio(
             aspectRatio: aspectRatio,
                 child: Image.asset(
