@@ -1,4 +1,6 @@
-// ignore: file_names
+
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:petapplication/core/utils/size_config.dart';

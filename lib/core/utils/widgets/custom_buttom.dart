@@ -141,7 +141,7 @@ class CustomGeneralButtom2 extends StatelessWidget {
                 children: <Widget>[
                   Positioned(
                     child:Align(
-                      alignment: Alignment(-0.531, 0.133),
+                      alignment:const Alignment(-0.531, 0.133),
                     child : Text(
                       text ??
                           'Default Text', // Provide a default value if text is null

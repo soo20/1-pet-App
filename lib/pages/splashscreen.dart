@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
     animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 600));
+        AnimationController(vsync: this, duration:const Duration(milliseconds: 600));
     fadingAnimation =
         Tween<double>(begin: .2, end: 1).animate(animationController!);
 
@@ -100,7 +100,7 @@ class _SplashScreenState extends State<SplashScreen>
 }
 
 void goToNextView() {
-  Future.delayed(Duration(seconds: 3), () {
+  Future.delayed(const Duration(seconds: 3), () {
     // function doing return to widgets
     Get.to(() => const WelcomePage(), transition: Transition.fade);
   });

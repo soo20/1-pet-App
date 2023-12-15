@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import
+// ignore_for_file: unused_import, constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:petapplication/Welcome/presention/widgets/Component1311.dart';
