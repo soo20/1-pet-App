@@ -107,7 +107,7 @@ class _WelcomeBodyState extends State<WelcomeBody> {
                     },
                     text: pageController?.hasClients == true
                         ? (pageController?.page == 5 ? 'Finish' : 'Contnous')
-                        : 'Let\'s Meet', textColor: kMainColorPage,
+                        : 'Let\'s Meet', textColor: kMainColorPage, height: 60,
                   ),
                 ),
               ],

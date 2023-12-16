@@ -45,7 +45,7 @@ class Deefine extends StatelessWidget {
             child: const CustomGeneralButtom(
               text: 'ADD MANUALLY ',
               textColor: Color(0xFFE3B1A8),
-              boxColor: kMainColor,
+              boxColor: kMainColor, height: 60,
             ),),
         Positioned(
             height: 50,
@@ -56,7 +56,7 @@ class Deefine extends StatelessWidget {
 
               text: 'DEFINE WITH JACK',
               textColor: kMainColor,
-              boxColor: Color(0xFFE3B1A8),
+              boxColor: Color(0xFFE3B1A8), height: 60,
             )),
       ]),
     );

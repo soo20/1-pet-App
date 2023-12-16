@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:petapplication/core/utils/size_config.dart';
 import 'package:petapplication/core/utils/widgets/constants.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 
 import 'package:petapplication/core/utils/widgets/space.dart';
+import 'package:petapplication/pages/page2/login_info.dart';
 
 class LoginBody extends StatelessWidget {
   const LoginBody({Key? key}) : super(key: key);
@@ -78,11 +80,12 @@ class LoginBody extends StatelessWidget {
             
             (padding: EdgeInsets.symmetric(vertical: SizeConfig.defaultSize!*1.5,horizontal:SizeConfig.defaultSize!*8 ),
             child:  const CustomGeneralButtom2(
+              height: 42,
               text: 'LOGIN WITH GMAIL',
               textColor: kMainColorPage,
                icon: FontAwesomeIcons.google,
                iconcolor: Color.fromARGB(255, 248, 54, 90),
-              boxColor: kMainColor, borderColor: kMainColor,
+              boxColor: kMainColor, borderColor: kMainColor, width: null,
             ),
             ),
           ),
@@ -90,12 +93,13 @@ class LoginBody extends StatelessWidget {
             flex: 1,
             child: Padding
             (padding: EdgeInsets.symmetric(vertical: SizeConfig.defaultSize!*0.001 ,horizontal:SizeConfig.defaultSize!*8 ),
-            child:  const CustomGeneralButtom2(
+            child:   CustomGeneralButtom2(
+              height: 42,
                text: 'LOGIN WITH FACEBOOK',
                icon: FontAwesomeIcons.facebook,
                iconcolor:kMainColorPage,
               textColor: kMainColorPage,
-              boxColor: kMainColorSplash, borderColor: kMainColorPage,
+              boxColor: kMainColorSplash, borderColor: kMainColorPage, width: SizeConfig.screenWidth,
             ),
             ),
           ),
@@ -103,12 +107,16 @@ class LoginBody extends StatelessWidget {
             flex: 2,
             child: Padding
             (padding: EdgeInsets.symmetric(vertical: SizeConfig.defaultSize!*1.4,horizontal:SizeConfig.defaultSize!*8 ),
-            child:  const CustomGeneralButtom2(
+            child:   CustomGeneralButtom2(
+              height: 42,
               text: 'LOGIN WITH EMAIL',
+              onTap:() {
+                navigator?.push(MaterialPageRoute(builder: (e) => const LoginInfo()));
+              },
               textColor: kMainColorPage,
              icon: FontAwesomeIcons.envelope,
              iconcolor: kMainColorPage,
-              boxColor: Color.fromARGB(255, 248, 54, 90), borderColor: Color.fromARGB(255, 248, 54, 90),
+              boxColor: Color.fromARGB(255, 248, 54, 90), borderColor: Color.fromARGB(255, 248, 54, 90), width: null,
             ),
             ),
           ),

@@ -21,10 +21,13 @@ class CustomGeneralButtom extends StatelessWidget {
     this.onTap,
     this.buttonTextResolver,
     required this.boxColor,
-    required this.textColor, 
+    required this.textColor, this.fontWeight, required this.height, this.width, 
   }) : super(key: key);
   final String? text;
   final String? svgPath;
+  final FontWeight? fontWeight ;
+  final double? height;  
+  final double? width; 
 
   final String Function(int)? buttonTextResolver;
   // void function
@@ -36,9 +39,9 @@ class CustomGeneralButtom extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 60,
+        height: height,
         // خليته ياخد العرض بتاع الاسكرين علشان اغير في الحجم براحتي
-        width: SizeConfig.screenWidth,
+        width: width,
         decoration: BoxDecoration(
           color: boxColor,
 
@@ -64,7 +67,7 @@ class CustomGeneralButtom extends StatelessWidget {
                         fontFamily: 'Poppins',
                         fontSize: 14,
                         color: textColor,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: fontWeight,
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -84,7 +87,9 @@ class CustomGeneralButtom2 extends StatelessWidget {
   final Color textColor;
   final IconData? icon;
   final Color? iconcolor ;
-  final Color borderColor;
+  final Color? borderColor;
+  final double height;  
+  final double? width;  
   const CustomGeneralButtom2({
     Key? key,
     this.text,
@@ -93,7 +98,7 @@ class CustomGeneralButtom2 extends StatelessWidget {
     this.buttonTextResolver,
     required this.boxColor,
     required this.textColor, this.icon,
-    required this.borderColor, this.iconcolor,
+    required this.borderColor, this.iconcolor, required this.height, required this.width,
   }) : super(key: key);
   final String? text;
   final String? svgPath;
@@ -105,17 +110,18 @@ class CustomGeneralButtom2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var aalignment = Alignment(-0.531, 0.133);
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 42,
+        height: height,
         // خليته ياخد العرض بتاع الاسكرين علشان اغير في الحجم براحتي
-        width: SizeConfig.screenWidth,
+        width: width,
         decoration: BoxDecoration(
           color: boxColor,
 
           borderRadius: BorderRadius.circular(35),
-           border: Border.all(color:borderColor ),
+           border: Border.all(color:borderColor! ),
         ),
         //The Row widget contains an Expanded widget that wraps your existing
         child: Row(
@@ -141,7 +147,7 @@ class CustomGeneralButtom2 extends StatelessWidget {
                 children: <Widget>[
                   Positioned(
                     child:Align(
-                      alignment:const Alignment(-0.531, 0.133),
+                      alignment:  aalignment,
                     child : Text(
                       text ??
                           'Default Text', // Provide a default value if text is null
