@@ -110,7 +110,7 @@ class CustomGeneralButtom2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var aalignment = Alignment(-0.531, 0.133);
+    var aalignment =const Alignment(-0.531, 0.133);
     return GestureDetector(
       onTap: onTap,
       child: Container(

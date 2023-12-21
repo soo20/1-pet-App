@@ -77,7 +77,7 @@ class _LoginInfoState extends State<LoginInfo> {
                     style:const TextStyle(color: Color(0xff090F0F)),
                         decoration: InputDecoration(
                           
-                          fillColor: Color(0xFFFFFFFF),
+                          fillColor:const Color(0xFFFFFFFF),
                           filled: true,
                           hintText: 'Email',
                          hintStyle: const TextStyle(
@@ -88,6 +88,10 @@ class _LoginInfoState extends State<LoginInfo> {
                                ),
                           enabledBorder: border,
                           focusedBorder: border,
+                          prefixIcon: const Icon(
+                            Icons.email ,
+                            color:Color.fromARGB(116, 19, 79, 92), 
+                          )
                          ),
                         ),
                       const SizedBox(
@@ -108,6 +112,10 @@ class _LoginInfoState extends State<LoginInfo> {
                                ),
                           enabledBorder: border,
                           focusedBorder: border,
+                          prefixIcon:const Icon(
+                          Icons.vpn_key,
+                            color: Color.fromARGB(116, 19, 79, 92),
+                                ),
                          ),
                         ),
                         SizedBox( height: screenHeight*0.027,

@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:petapplication/core/utils/widgets/constants.dart';
 //import 'package:petapplication/core/utils/widgets/constants.dart';
 //import 'package:petapplication/pages/page2/login_info.dart';
-import 'package:petapplication/pages/page2/loginbody.dart';
+
+import 'package:petapplication/pages/page2/sign_up_body.dart';
+//import 'package:petapplication/pages/page2/sign_up_body.dart';
+//import 'package:petapplication/pages/page2/sign_up_body.dart';
 //import 'package:petapplication/pages/page2/loginbody.dart';
 
 class LoginText extends StatelessWidget {
@@ -11,10 +14,14 @@ class LoginText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return const  Scaffold(
       backgroundColor: kMainColorSplash,
-      body: LoginBody(),
-      
+      body : Column(
+        children: [
+     
+     SignUpPody()
+    ]
+      )
     );
   }
 }
