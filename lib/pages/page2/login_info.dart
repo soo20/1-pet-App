@@ -50,7 +50,7 @@ class _LoginInfoState extends State<LoginInfo> {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
-        height: SizeConfig.defaultSize! * 55.5,
+        height: SizeConfig.defaultSize! * 55.0,
         width: screenWidth, // Adjust as needed
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -66,7 +66,7 @@ class _LoginInfoState extends State<LoginInfo> {
               SingleChildScrollView(
                 child: Container(
                   padding: EdgeInsets.only(
-                    top: screenHeight*0.085 ,
+                    top: screenHeight*0.080 ,
                     right: screenWidth *0.045,
                     left:screenWidth*0.045
                   ),

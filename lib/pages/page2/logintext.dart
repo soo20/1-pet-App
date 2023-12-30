@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:petapplication/core/utils/widgets/constants.dart';
+import 'package:petapplication/pages/page2/loginbody.dart';
 //import 'package:petapplication/core/utils/widgets/constants.dart';
 //import 'package:petapplication/pages/page2/login_info.dart';
 
@@ -18,8 +19,8 @@ class LoginText extends StatelessWidget {
       body : Column(
         children: [
      
-    SignUpPody()
-    //LoginBody()
+   // SignUpPody()
+    LoginBody()
     ]
       )
     );
