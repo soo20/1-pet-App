@@ -10,8 +10,8 @@ import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 
 class Deefine extends StatelessWidget {
   const Deefine({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   // rest of the code...
 

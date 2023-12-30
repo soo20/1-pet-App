@@ -15,14 +15,14 @@ class CustomGeneralButtom extends StatelessWidget {
   
   
   const CustomGeneralButtom({
-    Key? key,
+    super.key,
     this.text,
     this.svgPath,
     this.onTap,
     this.buttonTextResolver,
     required this.boxColor,
     required this.textColor, this.fontWeight, required this.height, this.width, 
-  }) : super(key: key);
+  });
   final String? text;
   final String? svgPath;
   final FontWeight? fontWeight ;
@@ -91,7 +91,7 @@ class CustomGeneralButtom2 extends StatelessWidget {
   final double height;  
   final double? width;  
   const CustomGeneralButtom2({
-    Key? key,
+    super.key,
     this.text,
     this.svgPath,
     this.onTap,
@@ -99,7 +99,7 @@ class CustomGeneralButtom2 extends StatelessWidget {
     required this.boxColor,
     required this.textColor, this.icon,
     required this.borderColor, this.iconcolor, required this.height, required this.width,
-  }) : super(key: key);
+  });
   final String? text;
   final String? svgPath;
 

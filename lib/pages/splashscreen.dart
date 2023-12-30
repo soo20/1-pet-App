@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:petapplication/core/utils/size_config.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();

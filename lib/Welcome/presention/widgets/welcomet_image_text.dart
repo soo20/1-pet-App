@@ -9,7 +9,7 @@ import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 
 //import 'package:google_fonts/google_fonts.dart';
 class TextOverImageItem1 extends StatelessWidget {
-  const TextOverImageItem1({Key? key, this.image1, this.image2}) : super(key: key);
+  const TextOverImageItem1({super.key, this.image1, this.image2});
   final String? image1;
   final String? image2;
 
@@ -80,7 +80,7 @@ class TextOverImageItem1 extends StatelessWidget {
 }
 
 class TextOverImageItem2 extends StatelessWidget {
-  const TextOverImageItem2({Key? key}) : super(key: key);
+  const TextOverImageItem2({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +138,7 @@ class TextOverImageItem2 extends StatelessWidget {
 }
 
 class TextOverImageItem3 extends StatelessWidget {
-   const TextOverImageItem3({Key? key}) : super(key: key);
+   const TextOverImageItem3({super.key});
    // Set your desired aspect ratio
 
   @override
@@ -193,7 +193,7 @@ class TextOverImageItem3 extends StatelessWidget {
 
 
 class TextOverImageItem4 extends StatelessWidget {
-  const TextOverImageItem4({Key? key}) : super(key: key);
+  const TextOverImageItem4({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -251,7 +251,7 @@ class TextOverImageItem4 extends StatelessWidget {
 
 
 class TextOverSVGImage6 extends StatelessWidget {
-  const TextOverSVGImage6({Key? key}) : super(key: key);
+  const TextOverSVGImage6({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -308,7 +308,7 @@ class TextOverSVGImage6 extends StatelessWidget {
 }
 
 class TextOverSVGImage5 extends StatelessWidget {
-  const TextOverSVGImage5({Key? key}) : super(key: key);
+  const TextOverSVGImage5({super.key});
 
   @override
   Widget build(BuildContext context) {

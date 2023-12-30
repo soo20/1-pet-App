@@ -18,7 +18,7 @@ import 'package:petapplication/pages/page2/logintext.dart';
 //import 'package:flutter_svg/flutter_svg.dart';
 
 class WelcomeBody extends StatefulWidget {
-  const WelcomeBody({Key? key}) : super(key: key);
+  const WelcomeBody({super.key});
 
   @override
   State<WelcomeBody> createState() => _WelcomeBodyState();

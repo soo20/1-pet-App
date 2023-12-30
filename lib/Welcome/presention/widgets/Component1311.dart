@@ -7,7 +7,7 @@ import 'package:petapplication/core/utils/size_config.dart';
 import 'package:petapplication/core/utils/widgets/constants.dart';
 
 class Component1311 extends StatelessWidget {
-  const Component1311({Key? key}) : super(key: key);
+  const Component1311({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +61,7 @@ class Component1311 extends StatelessWidget {
 }
 
 class Component1312 extends StatelessWidget {
-  const Component1312({Key? key}) : super(key: key);
+  const Component1312({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +120,7 @@ class Component1312 extends StatelessWidget {
 
 
 class Component1313 extends StatelessWidget {
-  const Component1313({Key? key}) : super(key: key);
+  const Component1313({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -172,7 +172,7 @@ class Component1313 extends StatelessWidget {
 }
 
 class Component1314 extends StatelessWidget {
-  const Component1314({Key? key}) : super(key: key);
+  const Component1314({super.key});
 
   @override
   Widget build(BuildContext context) {

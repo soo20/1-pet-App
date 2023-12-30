@@ -7,7 +7,7 @@ import 'package:petapplication/core/utils/widgets/constants.dart';
 
 class Dot extends StatelessWidget {
   // ignore: invalid_required_positional_param
-  const Dot( {Key? key, @required this.dotIndex}) : super(key: key);
+  const Dot( {super.key, @required this.dotIndex});
   final double? dotIndex;
 
   @override

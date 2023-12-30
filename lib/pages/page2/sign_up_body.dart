@@ -1,6 +1,8 @@
 
 // ignore_for_file: non_constant_identifier_names
 
+
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
@@ -11,27 +13,52 @@ import 'package:petapplication/core/utils/widgets/floating_action.dart';
 import 'package:petapplication/core/utils/widgets/space.dart';
 import 'package:petapplication/pages/page2/login_info.dart';
 
+
 class SignUpPody extends StatefulWidget {
 const SignUpPody({super.key});
 
   @override
   State<SignUpPody> createState() => _SignUpPodyState();
+  
 }
 
-class _SignUpPodyState extends State<SignUpPody> {
+class _SignUpPodyState extends State<SignUpPody> with TickerProviderStateMixin {
+   late AnimationController _controller;
+  late Animation _animation;
+  AnimationStatus _status = AnimationStatus.dismissed;
+  bool showButtons = true;
   void LoginBodyStat(BuildContext context) {
     showModalBottomSheet(
       context: context,
       builder: (context) => const SignUpPody(),
     );
   }
+  
  
   void initstate(){
     super.initState();
+     _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    _animation = Tween(end: 1.0, begin: 0.0).animate(_controller)
+      ..addListener(() {
+        setState(() {
+
+        });
+      })
+      ..addStatusListener((status) {
+        _status = status;
+      });
   }
+  
   //final TextEditingController _titlecontroller = TextEditingController();
   void showBottomSheet(param0) {
-  showModalBottomSheet(
+    var border = OutlineInputBorder(
+      borderRadius: BorderRadius.circular(19),
+      borderSide: const BorderSide(width: 1.0, color:  Color.fromARGB(70, 112, 112, 112)));
+  
+   
+ 
+   showModalBottomSheet(
     backgroundColor: const Color.fromARGB(0, 255, 214, 64),
     elevation: 0,
     isScrollControlled: true,
@@ -42,8 +69,8 @@ class _SignUpPodyState extends State<SignUpPody> {
             decoration: const BoxDecoration(
         color: Color(0xffEEEFEF),
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(100.0),
-          topRight: Radius.circular(100.0),
+          topLeft: Radius.circular(80.0),
+          topRight: Radius.circular(80.0),
         ),
             ),
              child: Padding(
@@ -97,15 +124,42 @@ class _SignUpPodyState extends State<SignUpPody> {
                 padding: EdgeInsets.symmetric(
                     vertical: SizeConfig.defaultSize! * 1.5,
                     horizontal: SizeConfig.defaultSize! * 7),
-                child: const CustomGeneralButtom2(
-                  height: 42,
-                  text: 'Continue With Google',
-                  textColor: kMainColorPage,
-                  icon: FontAwesomeIcons.google,
-                  iconcolor: Color.fromARGB(255, 248, 54, 90),
-                  boxColor: kMainColor,
-                  borderColor: kMainColor,
-                  width: null,
+
+               child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 500),
+                  child: showButtons
+                      ? const CustomGeneralButtom2(
+                          height: 42,
+                          text: 'Continue With Google',
+                          textColor: kMainColorPage,
+                          icon: FontAwesomeIcons.google,
+                          iconcolor: Color.fromARGB(255, 248, 54, 90),
+                          boxColor: kMainColor,
+                          borderColor: kMainColor,
+                          width: null,
+                        )
+                      : TextField(
+                    obscureText:true ,
+                    style:const TextStyle(color: Color(0xff090F0F)),
+                        decoration: InputDecoration(
+                          
+                          fillColor:const Color(0xFFFFFFFF),
+                          filled: true,
+                          hintText: 'Email',
+                         hintStyle: const TextStyle(
+                          fontFamily: 'Poppins',
+                             fontSize: 14,
+                           color: Color.fromARGB(116, 19, 79, 92),
+                            fontWeight: FontWeight.w600,
+                               ),
+                          enabledBorder: border,
+                          focusedBorder: border,
+                          prefixIcon: const Icon(
+                            Icons.email ,
+                            color:Color.fromARGB(116, 19, 79, 92), 
+                          )
+                         ),
+                        ),
                 ),
               ),
             ),
@@ -115,15 +169,48 @@ class _SignUpPodyState extends State<SignUpPody> {
                 padding: EdgeInsets.symmetric(
                     vertical: SizeConfig.defaultSize! * 0.001,
                     horizontal: SizeConfig.defaultSize! * 7),
-                child:const CustomGeneralButtom2(
-                  height: 42,
-                  text: 'Continue With Email',
-                  textColor: kMainColorPage,
-                  icon: FontAwesomeIcons.envelope,
-                  iconcolor: kMainColorPage,
-                  boxColor:  Color.fromARGB(255, 248, 54, 90),
-                  borderColor:  Color.fromARGB(255, 248, 54, 90),
-                  width: null,
+                   
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 500),
+                  child: showButtons
+                      ? CustomGeneralButtom2(
+                          height: 42,
+                          text: 'Cintinue With Email',
+                          onTap: () {
+                            setState(() {
+                              showButtons = false;
+                            });
+                            // Handle the "Continue With Email" button press
+                          },
+                          textColor: kMainColorPage,
+                          icon: FontAwesomeIcons.envelope,
+                          iconcolor: kMainColorPage,
+                          boxColor: const Color.fromARGB(255, 248, 54, 90),
+                          borderColor: const Color.fromARGB(255, 248, 54, 90),
+                          width: null,
+                        )
+                      :  TextField(
+                    obscureText:true ,
+                    style:const TextStyle(color: Color(0xff090F0F)),
+                        decoration: InputDecoration(
+                          
+                          fillColor:const Color(0xFFFFFFFF),
+                          filled: true,
+                          hintText: 'Email',
+                         hintStyle: const TextStyle(
+                          fontFamily: 'Poppins',
+                             fontSize: 14,
+                           color: Color.fromARGB(116, 19, 79, 92),
+                            fontWeight: FontWeight.w600,
+                               ),
+                          enabledBorder: border,
+                          focusedBorder: border,
+                          prefixIcon: const Icon(
+                            Icons.email ,
+                            color:Color.fromARGB(116, 19, 79, 92), 
+                          )
+                         ),
+                        ),
                 ),
               ),
             ),
@@ -133,17 +220,41 @@ class _SignUpPodyState extends State<SignUpPody> {
                 padding: EdgeInsets.symmetric(
                     vertical: SizeConfig.defaultSize! * 1.4,
                     horizontal: SizeConfig.defaultSize! * 7),
-                child:  CustomGeneralButtom2(
-                  height: 42,
-
-                   text: 'Continue With Facebook',
-                  icon: FontAwesomeIcons.facebook,
-                  iconcolor: kMainColorPage,
-                  textColor: kMainColorPage,
-                  boxColor: const Color(0xFF80CBC4),
-                  borderColor: kMainColorPage,
-                  width: SizeConfig.screenWidth,
-                 
+                child: AnimatedSwitcher(
+                  duration:const Duration(milliseconds: 500),
+                  child: showButtons
+                      ? CustomGeneralButtom2(
+                          height: 42,
+                          text: 'Continue With Facebook',
+                          icon: FontAwesomeIcons.facebook,
+                          iconcolor: kMainColorPage,
+                          textColor: kMainColorPage,
+                          boxColor: kMainColorSplash,
+                          borderColor: kMainColorPage,
+                          width: SizeConfig.screenWidth,
+                        )
+                      : TextField(
+                    obscureText:true ,
+                    style:const TextStyle(color: Color(0xff090F0F)),
+                        decoration: InputDecoration(
+                          
+                          fillColor:const Color(0xFFFFFFFF),
+                          filled: true,
+                          hintText: 'Email',
+                         hintStyle: const TextStyle(
+                          fontFamily: 'Poppins',
+                             fontSize: 14,
+                           color: Color.fromARGB(116, 19, 79, 92),
+                            fontWeight: FontWeight.w600,
+                               ),
+                          enabledBorder: border,
+                          focusedBorder: border,
+                          prefixIcon: const Icon(
+                            Icons.email ,
+                            color:Color.fromARGB(116, 19, 79, 92), 
+                          )
+                         ),
+                        ),
                 ),
               ),
             ),
@@ -153,8 +264,13 @@ class _SignUpPodyState extends State<SignUpPody> {
                       ],
                     ),
             ),
-         ),        
-         
+         ) ,
+
+
+
+  
+
+      
   );
 }
 
@@ -268,7 +384,7 @@ class _SignUpPodyState extends State<SignUpPody> {
       ),
       floatingActionButton: FloatingActionButton(
         elevation: 0,
-        splashColor: kMainColorPage,
+        splashColor: kMainColorSplash,
         highlightElevation: 0,
         backgroundColor: const Color.fromARGB(0, 255, 255, 253),
        

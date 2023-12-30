@@ -4,9 +4,8 @@ import 'package:petapplication/core/utils/widgets/constants.dart';
 //import 'package:petapplication/pages/page2/login_info.dart';
 
 import 'package:petapplication/pages/page2/sign_up_body.dart';
-//import 'package:petapplication/pages/page2/sign_up_body.dart';
-//import 'package:petapplication/pages/page2/sign_up_body.dart';
-//import 'package:petapplication/pages/page2/loginbody.dart';
+
+
 
 class LoginText extends StatelessWidget {
 
@@ -19,7 +18,8 @@ class LoginText extends StatelessWidget {
       body : Column(
         children: [
      
-     SignUpPody()
+    SignUpPody()
+    //LoginBody()
     ]
       )
     );

@@ -8,7 +8,7 @@ import 'package:petapplication/Welcome/presention/widgets/welcomet_image_text.da
 import 'package:petapplication/core/utils/widgets/constants.dart';*/
 
 class CustomWelcomPage extends StatelessWidget {
-  const CustomWelcomPage({Key? key,@required this.pageController, }) : super(key: key);
+  const CustomWelcomPage({super.key,@required this.pageController, });
   final PageController? pageController;
   @override
   Widget build(BuildContext context) {
