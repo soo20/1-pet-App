@@ -169,10 +169,10 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                                 width: double.infinity,
                                 height: 430,
                                 decoration: BoxDecoration(
-                                  color: const Color(0xffeeefef),
+                                  color: const Color(0xffEEEFEF),
                                   borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(100.0),
-                                    topRight: Radius.circular(100.0),
+                                    topLeft: Radius.circular(70.0),
+                                    topRight: Radius.circular(70.0),
                                     bottomLeft:Radius.circular(00.0), 
                                     bottomRight:Radius.circular(00.0), 
                                     
@@ -183,15 +183,15 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                                 ),
                                 child: Scaffold(
                                   backgroundColor:
-                                      Color.fromARGB(0, 219, 186, 68),
+                                      Color.fromARGB(0, 238, 239, 239),
                                   body: SingleChildScrollView(
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
-                                      children:  [
+                                      children:  const [
                                         SizedBox(
-                                          height: 55,
+                                          height: 40,
                                         ),
                                         Text.rich(
                                           TextSpan(
@@ -201,7 +201,7 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                                               color: Color(0xfff83658),
                                               height: 1.0434782608695652,
                                             ),
-                                            children: const [
+                                            children: [
                                               TextSpan(
                                                 text: 'create ',
                                                 style: TextStyle(
@@ -209,7 +209,7 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                                                 ),
                                               ),
                                               TextSpan(
-                                                text: 'an \naccount',
+                                                text: 'an \n  account',
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.w700,
                                                 ),
@@ -218,9 +218,9 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                                           ),
                                         ),
                                         SizedBox(
-                                          height: 250,
+                                          height: 280,
                                           child: PageViewLogin(
-                                            pageController: pageController,
+                                           
                                             ),
                                         ),
                                       ],
