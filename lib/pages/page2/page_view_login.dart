@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 
 
 import 'package:petapplication/core/utils/size_config.dart';
 import 'package:petapplication/core/utils/widgets/constants.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
+import 'package:petapplication/pages/page2/acount.dart';
 
 
 class PageViewLogin extends StatefulWidget {
@@ -118,6 +120,11 @@ class _PageViewLoginState extends State<PageViewLogin> {
                )       // Add more widgets as needed for the sign-up form
                       ],
                     ),
+
+
+                    //page2
+
+                    
        AspectRatio(
       aspectRatio: aspectRatio,
       child: Container(
@@ -228,6 +235,9 @@ class _PageViewLoginState extends State<PageViewLogin> {
                 child:CustomGeneralButtom(
                           height: 45,
                           text: 'Sign Up',
+                          onTap: () {
+                            Get.to(() => const Account(),transition: Transition.zoom );
+                          },
                           textColor: kMainColorPage,
                           boxColor: kMainColor,
                           fontWeight: FontWeight.w800,

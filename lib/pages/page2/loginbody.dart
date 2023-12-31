@@ -13,7 +13,6 @@ import 'package:petapplication/core/utils/widgets/space.dart';
 import 'package:petapplication/pages/page2/login_info.dart';
 import 'package:petapplication/pages/page2/page_view_login.dart';
 
-
 class LoginBody extends StatefulWidget {
   const LoginBody({super.key});
 
@@ -22,7 +21,7 @@ class LoginBody extends StatefulWidget {
 }
 
 class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
-   PageController? pageController;
+  PageController? pageController;
   @override
   void initState() {
     pageController = PageController(initialPage: 0)
@@ -31,9 +30,9 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
       });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    
     double aspectRatio = SizeConfig.screenWidth! / SizeConfig.screenHeight!;
     return AspectRatio(
       aspectRatio: aspectRatio,
@@ -173,9 +172,8 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                                   borderRadius: const BorderRadius.only(
                                     topLeft: Radius.circular(70.0),
                                     topRight: Radius.circular(70.0),
-                                    bottomLeft:Radius.circular(00.0), 
-                                    bottomRight:Radius.circular(00.0), 
-                                    
+                                    bottomLeft: Radius.circular(00.0),
+                                    bottomRight: Radius.circular(00.0),
                                   ),
                                   border: Border.all(
                                       width: 0.5,
@@ -189,7 +187,7 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                                       mainAxisSize: MainAxisSize.min,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
-                                      children:  const [
+                                      children: const [
                                         SizedBox(
                                           height: 40,
                                         ),
@@ -219,9 +217,7 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                                         ),
                                         SizedBox(
                                           height: 280,
-                                          child: PageViewLogin(
-                                           
-                                            ),
+                                          child: PageViewLogin(),
                                         ),
                                       ],
                                     ),
