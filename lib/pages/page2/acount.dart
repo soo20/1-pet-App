@@ -25,17 +25,18 @@ class Account extends StatelessWidget {
         //iconTheme: IconThemeData.fallback(),
         forceMaterialTransparency: true,
         toolbarOpacity: 1,
-        toolbarHeight: 80,
+        toolbarHeight: 47,
         actions: [
           IconButton(
-              icon: const Icon(Icons.delete_outline),
+              icon: SvgPicture.asset('assets/icons/trash.svg'
+              ,width: 30,height: 40,),
               onPressed: () {},
                 // Add your search action here
                 ), ],
               iconTheme:const  IconThemeData(
 
             color: Color(0xff707070), // Set the color of the icons
-            size: 38.0, 
+            size: 50.0, 
            
                   // Set the size of the icons
           ),
@@ -46,26 +47,99 @@ class Account extends StatelessWidget {
       extendBodyBehindAppBar: true,
       body: Stack(
         children: [
+          
           Positioned(
-            top: 40,
-            right: SizeConfig.defaultSize! / 0.1,
-            width: 00,
-            child: AspectRatio(
+            top: -25,
+            right: 110,
+            width: 300,
+            child: 
+            AspectRatio(
               aspectRatio: aspectRatio,
-              child: Image.asset(
-                'assets/image/Group286.png',
-                fit: BoxFit.contain,
-              ),
+              child: Container(
+                padding: const EdgeInsets.only(left: 50,bottom: 00
+                ,right: 100,top: 0),
+                child: GestureDetector(
+                  onTap: () {
+                    FocusScope.of(context).unfocus();
+                  },
+                  child: ListView(children: [
+                    Stack(
+                      children: [
+                      Container(
+                        width: 200,
+                        height: 90,
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 4,color:Colors.white ),
+                          boxShadow: [
+                            BoxShadow(
+                              spreadRadius: 2,
+                              blurRadius: 10,
+                              color: Colors.black.withOpacity(0.2)
+              
+                            )
+                          ],
+                          shape: BoxShape.circle,
+                          image: const DecorationImage
+                          (fit: BoxFit.contain,
+                            image: AssetImage('assets/image/Group998.png')
+                             )
+                        ),
+                       
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 25,
+                          child: Container(
+                            height: 30,
+                            width: 28,
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                            BoxShadow(
+                              spreadRadius: 5,
+                              blurRadius: 20,
+                              color: Colors.black.withOpacity(0.1)
+              
+                            )
+                          ],
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                width: 0.1,
+                                color: const Color(0xff707070),
+                              ),
+                              color: const Color(0xff80CBC4),
+                             
+                            ),
+                            child: Icon(
+                              Icons.edit,
+                              size: 21,
+                              color: const Color(0xff707070),
+                              shadows: [
+                            BoxShadow(
+                              spreadRadius: 15,
+                              blurRadius: 20,
+                              color: Colors.grey.withOpacity(0.1)
+              
+                            )
+                          ],
+                            ),
+                          )) 
+                         
+                      ],),
+                    ],),
+                  ),
+                ),
             ),
           ),
-          Positioned.fill(
+           Positioned.fill(
             child: AspectRatio(
               aspectRatio: aspectRatio,
               child: content(),
             ),
           ),
+        
         ],
       ),
+        
     );
   }
 
@@ -81,18 +155,21 @@ class Account extends StatelessWidget {
         backgroundColor: Colors.transparent,
         body: Stack(
           children: [
-            SvgPicture.string(
-              '<svg viewBox="0.0 0.0 1080.0 1776.0" ><path transform="translate(0.0, 201.96)" d="M 285.8271484375 166.3972778320312 C 85.981689453125 104.1020584106445 1.4736328125 -201.95654296875 1.4736328125 -201.95654296875 L 0 1574.04345703125 L 1080 1574.04345703125 L 1080 298.3213500976562 C 1080 243.4685974121094 999.398681640625 80.20536041259766 800.85546875 47.22433471679688 C 602.312255859375 14.24331855773926 485.672607421875 228.6924743652344 285.8271484375 166.3972778320312 Z" fill="#f3f2f2" stroke="none" stroke-width="1" stroke-miterlimit="4" stroke-linecap="round" /></svg>',
-              allowDrawingOutsideViewBox: false,
-              fit: BoxFit.fill,
-              excludeFromSemantics: true,
-              clipBehavior: Clip.none,
-              matchTextDirection: false,
+            Padding(
+            padding: const EdgeInsets.fromLTRB(00.0, 15.0, 0.0, 00.0),
+              child: SvgPicture.string(
+                '<svg viewBox="0.0 0.0 1080.0 1776.0" ><path transform="translate(0.0, 201.96)" d="M 285.8271484375 166.3972778320312 C 85.981689453125 104.1020584106445 1.4736328125 -201.95654296875 1.4736328125 -201.95654296875 L 0 1574.04345703125 L 1080 1574.04345703125 L 1080 298.3213500976562 C 1080 243.4685974121094 999.398681640625 80.20536041259766 800.85546875 47.22433471679688 C 602.312255859375 14.24331855773926 485.672607421875 228.6924743652344 285.8271484375 166.3972778320312 Z" fill="#f3f2f2" stroke="none" stroke-width="1" stroke-miterlimit="4" stroke-linecap="round" /></svg>',
+                allowDrawingOutsideViewBox: false,
+                fit: BoxFit.cover,
+                excludeFromSemantics: true,
+                clipBehavior: Clip.none,
+                matchTextDirection: false,
+              ),
             ),
             SingleChildScrollView(
               child: Container(
                 padding: EdgeInsets.only(
-                    top: screenHeight * 0.085,
+                    top: screenHeight * 0.095,
                     right: screenWidth * 0.045,
                     left: screenWidth * 0.045),
                 child: Column(

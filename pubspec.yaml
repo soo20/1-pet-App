@@ -67,6 +67,8 @@ flutter:
     - assets/image/Group841.png
     - assets/image/Group1021.png
     - assets/image/login.png
+    - assets/image/Group998.png
+    - assets/image/Round.png
     
     
     - assets/icons/Group312.svg
@@ -81,6 +83,7 @@ flutter:
     - assets/icons/cat_button.svg
     - assets/icons/Component1314.svg
     - assets/icons/ic_arrow_back.svg
+    - assets/icons/trash.svg
     
     
     
