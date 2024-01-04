@@ -136,12 +136,12 @@ class Component1313 extends StatelessWidget {
               borderRadius: BorderRadius.circular(29.0),
               border: Border.all(width: 0.6, color: const Color(0xff707070)),
             ),
-            margin: const EdgeInsets.fromLTRB(20.0, 110.0, 180.0, 450.2),
+            margin: const EdgeInsets.fromLTRB(20.0, 85.0, 180.0, 488.2),
           ),
         ),
         Positioned(
           right: 200.7,
-          top: 256.0,
+          top: 218.0,
           width: 75,
           height: 60,
           child: SvgPicture.string(
@@ -151,7 +151,7 @@ class Component1313 extends StatelessWidget {
           ),
         ),
         const Padding(
-          padding: EdgeInsets.fromLTRB(00.0, 122.0, 155.0, 00.0),
+          padding: EdgeInsets.fromLTRB(00.0, 92.0, 155.0, 00.0),
           child: SizedBox.expand(
               child: Text(
             overflow: TextOverflow.ellipsis,
@@ -243,6 +243,61 @@ class Component1314 extends StatelessWidget {
     );
   } 
 }
+
+class Component1315 extends StatelessWidget {
+  const Component1315({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    double aspectRatio = screenWidth / screenHeight;
+    return AspectRatio(aspectRatio: aspectRatio ,
+    child :
+    Stack(
+      children: <Widget>[
+        Positioned(
+          child: Container(
+            decoration: BoxDecoration(
+              color: kMainColorPage,
+              borderRadius: BorderRadius.circular(23.0),
+              border: Border.all(width: 0.4, color: const Color(0xff707070)),
+            ),
+            margin: const EdgeInsets.fromLTRB(45.0, 62.0, 145.0, 515.2),
+          ),
+        ),
+        Positioned(
+          right: 155.7,
+          top: 192.0,
+          width: 80,
+          height: 62,
+          child: SvgPicture.string(
+            _svg_pp2ta,
+            allowDrawingOutsideViewBox: true,
+            fit: BoxFit.contain,
+          ),
+        ),
+        const Padding(
+          padding: EdgeInsets.fromLTRB(50.0, 88.0, 155.0, 20.0),
+          child: SizedBox.expand(
+              child: Text(
+            overflow: TextOverflow.ellipsis,
+           'hello, my friend, please \ntake a photo of your pet \n to provide some\ninformation about it',
+            style: TextStyle(
+              fontFamily: 'Poppins',
+              fontSize: 15,
+              color: Colors.black,
+              fontWeight: FontWeight.w600,
+            ),
+            textAlign: TextAlign.center,
+          )),
+        ),
+      ],
+    ),
+    );
+  }
+}
+
+
+
 
 // ignore: constant_identifier_names
 const String _svg_pp2ta =

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="928" height="543" viewBox="0 0 928 543">
+  <g id="Group_797" data-name="Group 797" transform="translate(-26 -35.43)">
+    <g id="permission_message" data-name="permission message" transform="translate(26 35.43)">
+      <g id="bone_message_jack_" data-name="bone message(jack)">
+        <g id="Rectangle_205" data-name="Rectangle 205" transform="translate(121 38)" fill="#e3b1a8" stroke="#040404" stroke-width="1">
+          <rect width="701" height="442" rx="117" stroke="none"/>
+          <rect x="0.5" y="0.5" width="700" height="441" rx="116.5" fill="none"/>
+        </g>
+        <g id="Group_819" data-name="Group 819" transform="translate(-17 -14)">
+          <ellipse id="Ellipse_283" data-name="Ellipse 283" cx="154" cy="155" rx="154" ry="155" transform="translate(637 14)" fill="#e3b1a8"/>
+          <ellipse id="Ellipse_284" data-name="Ellipse 284" cx="154" cy="154.5" rx="154" ry="154.5" transform="translate(637 248)" fill="#e3b1a8"/>
+        </g>
+        <g id="Group_820" data-name="Group 820" transform="translate(-637 -14)">
+          <ellipse id="Ellipse_283-2" data-name="Ellipse 283" cx="154" cy="155" rx="154" ry="155" transform="translate(637 14)" fill="#e3b1a8"/>
+          <ellipse id="Ellipse_284-2" data-name="Ellipse 284" cx="154" cy="154.5" rx="154" ry="154.5" transform="translate(637 248)" fill="#e3b1a8"/>
+        </g>
+        <path id="Path_2934" data-name="Path 2934" d="M890.4,272.972" transform="translate(-17 -14)" fill="none" stroke="#707070" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+</svg>

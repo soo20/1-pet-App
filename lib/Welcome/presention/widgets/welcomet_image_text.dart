@@ -1,11 +1,16 @@
 // ignore_for_file: unused_import, constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:petapplication/Welcome/presention/widgets/Component1311.dart';
 import 'package:petapplication/core/utils/widgets/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:petapplication/core/utils/size_config.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
+import 'package:petapplication/pages/page1/widgets/alart_dialog.dart';
+import 'package:petapplication/pages/page2/popup_surface.dart';
 
 //import 'package:google_fonts/google_fonts.dart';
 class TextOverImageItem1 extends StatelessWidget {
@@ -363,6 +368,68 @@ class TextOverSVGImage5 extends StatelessWidget {
     );
   }
 }
+
+class JackDefineText extends StatelessWidget {
+  const JackDefineText({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    
+
+    // Calculate aspect ratio based on screen dimensions
+    double aspectRatio = screenWidth / screenHeight;
+
+    // Calculate height based on a 16:9 aspect ratio
+    double itemWidth = screenWidth - 70; // Adjust the width as needed
+    double itemHeight = itemWidth / 16 * 9;
+
+    return AspectRatio(
+      aspectRatio: aspectRatio, // Set your desired aspect ratio here
+      child: Stack(
+        children: [
+          Positioned(
+            top: 90,
+            left: -250,
+            bottom: 10,
+            width: itemWidth,
+            child: Padding(
+              padding: const EdgeInsets.all(90.0),
+              child: Image.asset(
+                'assets/image/Group1340.png',
+                width: itemWidth,
+                height: itemHeight,
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+            Stack(
+            alignment: Alignment.topLeft,
+            children: [
+             const  Component1315(),
+              Positioned(
+                right: 140,
+                left: SizeConfig.defaultSize! * 15.5,
+                bottom: SizeConfig.defaultSize! * 6,
+                child:  CustomGeneralButtom3(
+                  text: '', boxColor: kMainColor,  height: 58, textColor: null,
+                  onTap: () {
+                     showDialog(
+            context: context,
+            builder: (context) =>  const AlartDialogPage()
+          );
+        },
+                ),
+              ),
+              // Other widgets can be added here within the Stack if needed
+            ],
+          ),
+        ],
+        
+      ),
+    );
+  }
+}
+
 
 
 // ignore: unused_element
