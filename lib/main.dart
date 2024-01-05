@@ -1,9 +1,12 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petapplication/pages/splashscreen.dart';
 
-//import 'package:petapplication/pages/welcome_page1.dart';
-void main() {
+List<CameraDescription> cameras = [];
+Future<void> main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+  cameras = await availableCameras();
   runApp(const MyApp());
 }
 

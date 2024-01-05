@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/routes/transitions_type.dart';
 
 import 'package:petapplication/core/utils/size_config.dart';
 import 'package:petapplication/core/utils/widgets/constants.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
+import 'package:petapplication/main.dart';
+import 'package:petapplication/pages/page3/camera.dart';
 
 
 class AlartDialogPage extends StatelessWidget {
@@ -68,7 +73,9 @@ class AlartDialogPage extends StatelessWidget {
         child: CustomGeneralButtom4(
           height: 38,
           text: 'While Using this app',
-          
+          onTap: () {
+                            //Get.to(() =>  CameraAlt(cameras),transition: Transition.native);
+                          },
           
           textColor: kMainColorPage,
           boxColor: kMainColor,
