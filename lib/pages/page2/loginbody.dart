@@ -56,12 +56,12 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
               width: SizeConfig.defaultSize! * 30,
               child: Image.asset('assets/image/Group841.png'),
             ),
-
+            SizedBox(height: 20,),
             Flexible(
               flex: 3,
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: SizeConfig.defaultSize! * 1.5,
+                    vertical: SizeConfig.defaultSize! * .5,
                     horizontal: SizeConfig.defaultSize! * 8),
                 child: const CustomGeneralButtom2(
                   height: 42,
@@ -80,7 +80,7 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
               flex: 2,
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: SizeConfig.defaultSize! * 0.001,
+                    vertical: SizeConfig.defaultSize! * 0.1,
                     horizontal: SizeConfig.defaultSize! * 8),
                 child: CustomGeneralButtom2(
                   height: 42,
@@ -99,7 +99,7 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
               flex: 2,
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: SizeConfig.defaultSize! * 1.2,
+                    vertical: SizeConfig.defaultSize! * .5,
                     horizontal: SizeConfig.defaultSize! * 8),
                 child: CustomGeneralButtom2(
                   height: 42,

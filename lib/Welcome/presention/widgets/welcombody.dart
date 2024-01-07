@@ -50,29 +50,11 @@ class _WelcomeBodyState extends State<WelcomeBody> {
             dotIndex: pageController!.hasClients ? pageController?.page : 0,
           ),
         ),
-        Visibility(
-          visible: pageController!.hasClients
-              ? (pageController?.page == 0 ? true : false)
-              : true,
-          child: Positioned(
-            top: SizeConfig.defaultSize! * 6,
-            right: 32,
-            child: const Text(
-              'Skip',
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                fontSize: 12,
-                color: Color.fromRGBO(11, 47, 55, 1),
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.left,
-            ),
-          ),
-        ),
+       
         Stack(
           alignment: Alignment.topLeft,
-          children: [
-            Positioned(
+          children:const [
+           /* Positioned(
               top: SizeConfig.defaultSize! * 6.5,
               left: 15,
               child: SvgPicture.asset(
@@ -81,11 +63,11 @@ class _WelcomeBodyState extends State<WelcomeBody> {
                 height: 27,
                 fit: BoxFit.cover,
               ),
-            ),
+            ),*/
             Stack(
               alignment: Alignment.topLeft,
-              children: [
-                Positioned(
+              children:  [
+                /*const Positioned(
                   right: 33,
                   left: SizeConfig.defaultSize! * 28,
                   bottom: SizeConfig.defaultSize! * 4,
@@ -109,7 +91,7 @@ class _WelcomeBodyState extends State<WelcomeBody> {
                         ? (pageController?.page == 5 ? 'Finish' : 'Contnous')
                         : 'Let\'s Meet', textColor: kMainColorPage, height: 60,
                   ),
-                ),
+                ),*/
               ],
             ),
           ],

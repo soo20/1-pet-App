@@ -16,8 +16,8 @@ class CustomWelcomPage extends StatelessWidget {
       controller: pageController,
       children: const [
         TextOverImageItem1(
-          image1: 'assets/image/Group315.png',
-          image2: 'assets/icons/k1.svg',
+         
+          //image2: 'assets/icons/k1.svg',
         ),
         TextOverImageItem2(),
         TextOverImageItem3(),

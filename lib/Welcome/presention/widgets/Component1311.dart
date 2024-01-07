@@ -3,8 +3,72 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+
 import 'package:petapplication/core/utils/size_config.dart';
 import 'package:petapplication/core/utils/widgets/constants.dart';
+import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
+import 'package:petapplication/pages/page2/logintext.dart';
+
+class Component1310 extends StatelessWidget {
+  const Component1310({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    
+
+
+    // Calculate aspect ratio based on screen dimensions
+    double aspectRatio = screenWidth / screenHeight;
+
+    return AspectRatio(aspectRatio: aspectRatio ,
+    child : Stack(
+      children: <Widget>[
+        Positioned(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(22.0),
+              border: Border.all(width: 0.4, color: const Color(0xff707070)),
+            ),
+            margin: const EdgeInsets.fromLTRB(170.0, 75.0, 10.0, 465.2),
+            width: screenWidth,
+            height: screenHeight,
+          ),
+        ),
+        Positioned(
+          right: 100.7,
+          bottom: 403.0,
+          //width: 90,
+          height: 63,
+          child: SvgPicture.string(
+            
+            '<svg viewBox="76.2 386.5 158.9 140.5" ><path transform="translate(-1877.52, 4023.51)" d="M 2112.6181640625 -3637 L 2060.0625 -3545.62158203125 L 1953.72900390625 -3496.4853515625 L 1953.72900390625 -3496.4853515625 L 2016.062255859375 -3545.62158203125 L 2003.840087890625 -3637 L 2112.6181640625 -3637 Z" fill="none" stroke="#707070" stroke-width="1" stroke-miterlimit="4" stroke-linecap="butt" /></svg>',
+            allowDrawingOutsideViewBox: true,
+            width: 90,
+            fit: BoxFit.fill,
+          ),
+        ),
+       const Padding(
+          padding:  EdgeInsets.fromLTRB(160.0, 100.0, 00.0, 00.0),
+          child: SizedBox.expand(
+            child: Text(
+              'Unlock a world of pet love\nwith me and my friends: \n Connect,share, and\nenhance your furry friend\'s\n life,are you ready to meet \nmy friends?',
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 14.0,
+                color: Color(0xff000000),
+                fontWeight: FontWeight.w600,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+       
+      ],
+    ),
+    );
+  }
+}
 
 class Component1311 extends StatelessWidget {
   const Component1311({super.key});
@@ -77,17 +141,17 @@ class Component1312 extends StatelessWidget {
         Positioned(
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30.0),
-              border: Border.all(width: 0.6, color: const Color(0xff707070)),
+              borderRadius: BorderRadius.circular(25.0),
+              border: Border.all(width: 0.4, color: const Color(0xff707070)),
             ),
-            margin: const EdgeInsets.fromLTRB(170.0, 105.0, 0.0, 445.2),
+            margin: const EdgeInsets.fromLTRB(175.0, 80.0, 10.0, 477.2),
             width: screenWidth,
             height: screenHeight,
           ),
         ),
         Positioned(
           right: 120.7,
-          bottom: 387.0,
+          bottom: 417.0,
           width: 72,
           height: 60,
           child: SvgPicture.string(
@@ -97,13 +161,13 @@ class Component1312 extends StatelessWidget {
           ),
         ),
        const Padding(
-          padding:  EdgeInsets.fromLTRB(170.0, 120.0, 00.0, 00.0),
+          padding:  EdgeInsets.fromLTRB(166.0, 100.0, 00.0, 00.0),
           child: SizedBox.expand(
             child: Text(
               'Hello, I am Tesla. Many pet\nowners want to train their\npets and acquire the\nnecessary information\nabout them, and I am here\nto assist with that',
               style: TextStyle(
                 fontFamily: 'Poppins',
-                fontSize: 15.1,
+                fontSize: 13.5,
                 color: Color(0xff000000),
                 fontWeight: FontWeight.w600,
               ),
@@ -111,6 +175,27 @@ class Component1312 extends StatelessWidget {
             ),
           ),
         ),
+        Positioned(
+                  right: 23,
+                  left: SizeConfig.defaultSize! * 28,
+                  bottom: SizeConfig.defaultSize! * 4,
+                  child: CustomGeneralButtom(
+                    text: 'Finish',
+                    boxColor: kMainColor,
+                    fontWeight: FontWeight.w600,
+                    onTap: () {
+                      
+                        Get.to(
+                          () =>
+                              const LoginText(), // Replace YourNextPage with the actual class for the next page
+                          transition: Transition.rightToLeft,
+                          duration: const Duration(milliseconds: 300),
+                        );
+                      }, textColor: kMainColorPage, height: 55,
+                  
+                  ),
+                ),
+                
       ],
     ),
     );
@@ -296,6 +381,138 @@ class Component1315 extends StatelessWidget {
   }
 }
 
+class Component1316 extends StatelessWidget {
+  const Component1316({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    
+
+
+    // Calculate aspect ratio based on screen dimensions
+    double aspectRatio = screenWidth / screenHeight;
+
+    return AspectRatio(aspectRatio: aspectRatio ,
+    child : Stack(
+      children: <Widget>[
+        Positioned(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(25.0),
+              border: Border.all(width: 0.4, color: const Color(0xff707070)),
+            ),
+            margin: const EdgeInsets.fromLTRB(170.0, 110.0, 10.0, 445.2),
+            width: screenWidth,
+            height: screenHeight,
+          ),
+        ),
+        Positioned(
+          right: 120.7,
+          bottom: 387.0,
+          width: 72,
+          height: 60,
+          child: SvgPicture.string(
+            '<svg viewBox="76.2 386.5 158.9 140.5" ><path transform="translate(-1877.52, 4023.51)" d="M 2112.6181640625 -3637 L 2060.0625 -3545.62158203125 L 1953.72900390625 -3496.4853515625 L 1953.72900390625 -3496.4853515625 L 2016.062255859375 -3545.62158203125 L 2003.840087890625 -3637 L 2112.6181640625 -3637 Z" fill="none" stroke="#707070" stroke-width="1" stroke-miterlimit="4" stroke-linecap="butt" /></svg>',
+            allowDrawingOutsideViewBox: true,
+            fit: BoxFit.cover,
+          ),
+        ),
+       Padding(
+          padding: const EdgeInsets.fromLTRB(160.0, 125.0, 00.0, 00.0),
+          child: SizedBox.expand(
+              child: RichText(
+            text: const TextSpan(
+              text:  'Hi, I\'m Gizmo' ,
+              style: TextStyle(
+              fontFamily: 'Poppins',
+              fontSize: 15,
+              color: Colors.black,
+              fontWeight: FontWeight.w900,
+              ),
+              children:  <TextSpan>[
+                TextSpan( 
+                  text:'.Hey pet pals! \nGizmo here. Our app now \ndetects skin and fecal\n issues for your furry\nbuddies. It\'s like a health \nsuperhero in your pocket! ',
+                  style: TextStyle(
+              fontFamily: 'Poppins',
+              fontSize: 14,
+              color: Colors.black,
+              fontWeight: FontWeight.w600,
+            ),
+           
+                )
+              ],
+              
+          ),
+           textAlign: TextAlign.center,
+          ),
+          
+          ),
+        ),
+       
+      ],
+    ),
+    );
+  }
+}
+
+class Component1317 extends StatelessWidget {
+  const Component1317({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    
+    
+
+    // Calculate aspect ratio based on screen dimensions
+    double aspectRatio = screenWidth / screenHeight;
+
+    // Calculate dimensions based on a 16:9 aspect ratio
+    
+    return AspectRatio(aspectRatio: aspectRatio ,
+    child :Stack(
+      children: <Widget>[
+        Positioned(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(25.0),
+              border: Border.all(width: 0.4, color: const Color(0xff707070)),
+            ),
+            margin: const EdgeInsets.fromLTRB(60.0, 85.0, 130.0, 480.2),
+          ),
+        ),
+        Positioned(
+          right: 180.7,
+          bottom: 409.0,
+          width: 70,
+          height: 80,
+          child: SvgPicture.string(
+            _svg_pp2ta,
+            allowDrawingOutsideViewBox: true,
+            fit: BoxFit.fitWidth,
+          ),
+        ),
+        const Padding(
+          padding:  EdgeInsets.fromLTRB(30.0, 105.0, 99.0, 00.0),
+          child: SizedBox.expand(
+               child: Text(
+            overflow: TextOverflow.ellipsis,
+           'Hey pet pals! Wanda here.\nExciting news—our app\'s\n community is now open to\nallpet lovers! Dive in for\nheartwarming stories and\n  furry friendships',
+            style: TextStyle(
+              fontFamily: 'Poppins',
+              fontSize: 13.5,
+              color: Colors.black,
+              fontWeight: FontWeight.w600,
+            ),
+            textAlign: TextAlign.center,
+          )
+          
+          ),
+        ),
+      ],
+    ),
+    );
+  } 
+}
 
 
 

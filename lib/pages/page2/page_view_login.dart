@@ -21,11 +21,17 @@ class PageViewLogin extends StatefulWidget {
 
 class _PageViewLoginState extends State<PageViewLogin> {
   late PageController _pageController;
+   TextEditingController myController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     _pageController = PageController();
+  }
+   @override
+  void dispose() {
+    myController.dispose();
+    super.dispose();
   }
 
   @override
@@ -46,18 +52,18 @@ class _PageViewLoginState extends State<PageViewLogin> {
           children: [
             
                         const SizedBox(
-                          height: 25,
+                          height: 30,
                         )
         ,          
             Flexible(
               flex: 4,
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: SizeConfig.defaultSize! * 1.0,
+                    vertical: SizeConfig.defaultSize! * 0.7,
                     horizontal: SizeConfig.defaultSize! * 7),
 
                child:  const CustomGeneralButtom2(
-                          height: 45,
+                          height: 43,
                           text: 'Continue With Google',
                           textColor: kMainColorPage,
                           icon: FontAwesomeIcons.google,
@@ -69,20 +75,40 @@ class _PageViewLoginState extends State<PageViewLogin> {
                      
               ),
             ),
+            
             Flexible(
               flex: 4,
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: SizeConfig.defaultSize! * 0.001,
+                    vertical: SizeConfig.defaultSize! * 0.7,
+                    horizontal: SizeConfig.defaultSize! * 7),
+                child:CustomGeneralButtom2(
+                          height: 43,
+                          text: 'Continue With Facebook',
+                          icon: FontAwesomeIcons.facebook,
+                          iconcolor: kMainColorPage,
+                          textColor: kMainColorPage,
+                          boxColor: const Color(0xff80CBC4),
+                          borderColor: kMainColorPage,
+                          width: SizeConfig.screenWidth,
+                        )
+                      
+              ),
+            ),
+            Flexible(
+              flex: 4,
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: SizeConfig.defaultSize! * 0.7,
                     horizontal: SizeConfig.defaultSize! * 7),
                    
                 child: CustomGeneralButtom2(
-                          height: 45,
+                          height: 43,
                           text: 'Continue with Email',
                       onTap: () {
                       if (_pageController.page! < 1) {
                         _pageController.nextPage(
-                            duration: const Duration(milliseconds: 400),
+                            duration: const Duration(milliseconds: 300),
                             curve: Curves.fastOutSlowIn);
                       } 
                     },
@@ -94,25 +120,6 @@ class _PageViewLoginState extends State<PageViewLogin> {
                           width: null,
                         )
                      
-              ),
-            ),
-            Flexible(
-              flex: 4,
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical: SizeConfig.defaultSize! * 1.0,
-                    horizontal: SizeConfig.defaultSize! * 7),
-                child:CustomGeneralButtom2(
-                          height: 45,
-                          text: 'Continue With Facebook',
-                          icon: FontAwesomeIcons.facebook,
-                          iconcolor: kMainColorPage,
-                          textColor: kMainColorPage,
-                          boxColor: const Color(0xff80CBC4),
-                          borderColor: kMainColorPage,
-                          width: SizeConfig.screenWidth,
-                        )
-                      
               ),
             ),
               const  SizedBox(
@@ -127,126 +134,139 @@ class _PageViewLoginState extends State<PageViewLogin> {
                     
        AspectRatio(
       aspectRatio: aspectRatio,
-      child: Container(
-        padding: EdgeInsets.only(
-                      bottom: screenHeight*0 ,
-                      right: screenWidth *0.055,
-                      left:screenWidth*0.055,
-                      //top: screenWidth *0.08
-                    ),
-        child: Column(
-             
-              mainAxisSize: MainAxisSize.min,
-        
-               crossAxisAlignment : CrossAxisAlignment.center ,
-              children: [
-                
-                           const  SizedBox(
-                              height: 12,
-                            )
-            ,   
-                   
-               TextFormField(
-                 expands: false,
-                        obscureText:true ,
-                        keyboardType: TextInputType.emailAddress,
-                        onSaved: (newValue) => 2,
-                        style:const TextStyle(color: Color(0xff090F0F)),
-                        keyboardAppearance: Brightness.light,
-                            decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.symmetric(vertical: 15,),
-                              
-                              fillColor:const Color(0xFFFFFFFF),
-                              filled: true,
-                              hintText: 'Name',
-                             hintStyle: const TextStyle(
-                              fontFamily: 'Poppins',
-                                 fontSize: 15,
-                               color: Color.fromARGB(116, 19, 79, 92),
-                                fontWeight: FontWeight.w800,
-                                   ),
-                              enabledBorder: border,
-                              focusedBorder: border,
-                              prefixIcon: const Icon(
-                                Icons.man_2_outlined ,
-                                color:Color.fromARGB(116, 19, 79, 92), 
-                              )
-                             ),
-                            ),
-                          const SizedBox(
-                            height: 7,
-                          ),
-
-                       TextFormField(
-                        obscureText:true ,
-                        style:const TextStyle(color: Color(0xff090F0F)),
-                            decoration: InputDecoration(
-                               contentPadding: const EdgeInsets.symmetric(vertical: 15),
-                              fillColor: const Color(0xFFFFFFFF),
-                              filled: true,
-                              hintText: 'Email',
-                             hintStyle: const TextStyle(
-                              fontFamily: 'Poppins',
-                                 fontSize: 15,
-                               color: Color.fromARGB(116, 19, 79, 92),
-                                fontWeight: FontWeight.w800,
-                                   ),
-                              enabledBorder: border,
-                              focusedBorder: border,
-                              prefixIcon:const Icon(
-                              Icons.email,
-                                color: Color.fromARGB(116, 19, 79, 92),
-                                    ),
-                             ),
-                            ),
-                            
-                  const  SizedBox(
-                    height: 7,
-                   ) ,
-                    TextFormField(
-                        obscureText:true ,
-                        style:const TextStyle(color: Color(0xff090F0F)),
-                            decoration: InputDecoration(
-                               contentPadding: const EdgeInsets.symmetric(vertical: 15),
-                              fillColor: const Color(0xFFFFFFFF),
-                              filled: true,
-                              hintText: 'Password',
-                             hintStyle: const TextStyle(
-                              fontFamily: 'Poppins',
-                                 fontSize: 15,
-                               color: Color.fromARGB(116, 19, 79, 92),
-                                fontWeight: FontWeight.w800,
-                                   ),
-                              enabledBorder: border,
-                              focusedBorder: border,
-                              prefixIcon:const Icon(
-                              Icons.vpn_key,
-                                color: Color.fromARGB(116, 19, 79, 92),
-                                    ),
-                             ),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                             Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical: SizeConfig.defaultSize! * 2.1,
-                    horizontal: SizeConfig.defaultSize! * 8.5),
-                child:CustomGeneralButtom(
-                          height: 45,
-                          text: 'Sign Up',
-                          onTap: () {
-                            Get.to(() => const Account(),transition: Transition.zoom );
-                          },
-                          textColor: kMainColorPage,
-                          boxColor: kMainColor,
-                          fontWeight: FontWeight.w800,
-                          width: SizeConfig.screenWidth,
-                        )
-                      
-              ),     // Add more widgets as needed for the sign-up form
-                          ],
+      
+      child:GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          FocusScope.of(context).unfocus(); // Manually dismiss the keyboard
+        },
+        child: SingleChildScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
+          
+          child: Container(
+            padding: EdgeInsets.only(
+                          bottom: screenHeight*0 ,
+                          right: screenWidth *0.055,
+                          left:screenWidth*0.055,
+                          //top: screenWidth *0.08
                         ),
+            child: Column(
+                 
+                  mainAxisSize: MainAxisSize.min,
+            
+                   crossAxisAlignment : CrossAxisAlignment.center ,
+                  children: [
+                    
+                               const  SizedBox(
+                                  height: 12,
+                                )
+                ,   
+                       
+                   TextFormField(
+                     expands: false,
+                     controller: myController,
+                            obscureText:false ,
+                           
+                            onSaved: (newValue) => 2,
+                            style:const TextStyle(color: Color(0xff090F0F)),
+                            keyboardAppearance: Brightness.light,
+                                decoration: InputDecoration(
+                                  contentPadding: const EdgeInsets.symmetric(vertical: 15,),
+                                
+                                  fillColor:const Color(0xFFFFFFFF),
+                                  filled: true,
+                                  hintText: 'Name',
+                                 hintStyle: const TextStyle(
+                                  fontFamily: 'Poppins',
+                                     fontSize: 15,
+                                   color: Color.fromARGB(116, 19, 79, 92),
+                                    fontWeight: FontWeight.w800,
+                                       ),
+                                  enabledBorder: border,
+                                  focusedBorder: border,
+                                  prefixIcon: const Icon(
+                                    Icons.man_2_outlined ,
+                                    color:Color.fromARGB(116, 19, 79, 92), 
+                                  )
+                                 ),
+                                ),
+                              const SizedBox(
+                                height: 7,
+                              ),
+          
+                           TextFormField(
+                            obscureText:false ,
+                              keyboardType: TextInputType.emailAddress,
+                            style:const TextStyle(color: Color(0xff090F0F)),
+                                decoration: InputDecoration(
+                                   contentPadding: const EdgeInsets.symmetric(vertical: 15),
+                                  fillColor: const Color(0xFFFFFFFF),
+                                  filled: true,
+                                  hintText: 'Email',
+                                 hintStyle: const TextStyle(
+                                  fontFamily: 'Poppins',
+                                     fontSize: 15,
+                                   color: Color.fromARGB(116, 19, 79, 92),
+                                    fontWeight: FontWeight.w800,
+                                       ),
+                                  enabledBorder: border,
+                                  focusedBorder: border,
+                                  prefixIcon:const Icon(
+                                  Icons.email,
+                                    color: Color.fromARGB(116, 19, 79, 92),
+                                        ),
+                                 ),
+                                ),
+                                
+                      const  SizedBox(
+                        height: 7,
+                       ) ,
+                        TextFormField(
+                            obscureText:true ,
+                            style:const TextStyle(color: Color(0xff090F0F)),
+                                decoration: InputDecoration(
+                                   contentPadding: const EdgeInsets.symmetric(vertical: 15),
+                                  fillColor: const Color(0xFFFFFFFF),
+                                  filled: true,
+                                  hintText: 'Password',
+                                 hintStyle: const TextStyle(
+                                  fontFamily: 'Poppins',
+                                     fontSize: 15,
+                                   color: Color.fromARGB(116, 19, 79, 92),
+                                    fontWeight: FontWeight.w800,
+                                       ),
+                                  enabledBorder: border,
+                                  focusedBorder: border,
+                                  prefixIcon:const Icon(
+                                  Icons.vpn_key,
+                                    color: Color.fromARGB(116, 19, 79, 92),
+                                        ),
+                                 ),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                 Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: SizeConfig.defaultSize! * 2.1,
+                        horizontal: SizeConfig.defaultSize! * 8.5),
+                    child:CustomGeneralButtom(
+                              height: 45,
+                              text: 'Sign Up',
+                              onTap: () {
+                                Get.to(() => const Account(),transition: Transition.zoom );
+                              },
+                              textColor: kMainColorPage,
+                              boxColor: kMainColor,
+                              fontWeight: FontWeight.w800,
+                              width: SizeConfig.screenWidth,
+                            )
+                          
+                  ),     // Add more widgets as needed for the sign-up form
+                              ],
+                            ),
+          ),
+        ),
       ),
     ),
       ],
