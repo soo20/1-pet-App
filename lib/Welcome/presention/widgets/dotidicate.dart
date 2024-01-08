@@ -3,11 +3,11 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 //import 'package:petapplication/core/utils/size_config.dart';
-import 'package:petapplication/core/utils/widgets/constants.dart';
+import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 
 class Dot extends StatelessWidget {
   // ignore: invalid_required_positional_param
-  const Dot( {super.key, @required this.dotIndex});
+  const Dot({super.key, @required this.dotIndex});
   final double? dotIndex;
 
   @override

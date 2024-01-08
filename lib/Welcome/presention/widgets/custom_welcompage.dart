@@ -5,7 +5,7 @@ import 'package:petapplication/Welcome/presention/widgets/welcomet_image_text.da
 //import 'package:petapplication/pages/defind.dart';
 //import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 /*import 'package:petapplication/core/utils/size_config.dart';
-import 'package:petapplication/core/utils/widgets/constants.dart';*/
+import 'package:petapplication/core/utils/widgets/repeatingColorsUse.dart';*/
 
 class CustomWelcomPage extends StatelessWidget {
   const CustomWelcomPage({super.key,@required this.pageController, });

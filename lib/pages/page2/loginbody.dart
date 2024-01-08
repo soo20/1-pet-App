@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:petapplication/core/utils/size_config.dart';
-import 'package:petapplication/core/utils/widgets/constants.dart';
+import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 
 import 'package:petapplication/core/utils/widgets/space.dart';

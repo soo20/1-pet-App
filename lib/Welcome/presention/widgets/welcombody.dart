@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:petapplication/Welcome/presention/widgets/custom_welcompage.dart';
 import 'package:petapplication/Welcome/presention/widgets/dotidicate.dart';
 import 'package:petapplication/core/utils/size_config.dart';
-import 'package:petapplication/core/utils/widgets/constants.dart';
+import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 import 'package:petapplication/pages/page1/Defindpage.dart';
 import 'package:petapplication/pages/page1/widgets/Defind.dart';
@@ -50,11 +50,10 @@ class _WelcomeBodyState extends State<WelcomeBody> {
             dotIndex: pageController!.hasClients ? pageController?.page : 0,
           ),
         ),
-       
         Stack(
           alignment: Alignment.topLeft,
-          children:const [
-           /* Positioned(
+          children: const [
+            /* Positioned(
               top: SizeConfig.defaultSize! * 6.5,
               left: 15,
               child: SvgPicture.asset(
@@ -66,7 +65,7 @@ class _WelcomeBodyState extends State<WelcomeBody> {
             ),*/
             Stack(
               alignment: Alignment.topLeft,
-              children:  [
+              children: [
                 /*const Positioned(
                   right: 33,
                   left: SizeConfig.defaultSize! * 28,
