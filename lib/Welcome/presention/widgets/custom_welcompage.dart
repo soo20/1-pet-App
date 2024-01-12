@@ -8,7 +8,11 @@ import 'package:petapplication/Welcome/presention/widgets/welcomet_image_text.da
 import 'package:petapplication/core/utils/widgets/repeatingColorsUse.dart';*/
 
 class CustomWelcomPage extends StatelessWidget {
-  const CustomWelcomPage({super.key,@required this.pageController, });
+  const CustomWelcomPage({
+    super.key,
+    @required this.pageController,
+  });
+  //in this variable we put the argument value when calling widget
   final PageController? pageController;
   @override
   Widget build(BuildContext context) {
@@ -16,18 +20,13 @@ class CustomWelcomPage extends StatelessWidget {
       controller: pageController,
       children: const [
         TextOverImageItem1(
-         
-          //image2: 'assets/icons/k1.svg',
-        ),
+            //image2: 'assets/icons/k1.svg',
+            ),
         TextOverImageItem2(),
         TextOverImageItem3(),
         TextOverImageItem4(),
         TextOverSVGImage5(),
         TextOverSVGImage6(),
-        
-       
-
-        
       ],
     );
   }
