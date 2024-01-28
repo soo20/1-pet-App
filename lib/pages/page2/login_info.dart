@@ -1,6 +1,8 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:petapplication/core/utils/size_config.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
+import 'package:petapplication/pages/pageforgetpass/forgetpass.dart';
 //import 'package:flutter_svg/svg.dart';
 
 
@@ -129,26 +131,36 @@ class _LoginInfoState extends State<LoginInfo> {
                            width: 40, 
                           
                         ),
-                       RichText(
-            text: const TextSpan(
-              text:  'Forget Your Password? ' ,
-              style: TextStyle(
-              fontFamily: 'Poppins',
-                 fontSize: 14,
-              color: Color(0xff090f0f),
-              fontWeight: FontWeight.w400,
+                      RichText(
+            text: TextSpan(
+              text: 'Forget Your Password? ',
+              style: const TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 14,
+                color: Color(0xff090f0f),
+                fontWeight: FontWeight.w400,
               ),
-              children:  <TextSpan>[
-                TextSpan( 
-                 text : 'click here',
-                  style: TextStyle(
-              fontFamily: 'Poppins',
-              fontSize: 14.4,
-              color:  Color(0xff090f0f),
-              fontWeight: FontWeight.w900,
-           
-           
-            ), ),], ),),
+              children: <TextSpan>[
+                TextSpan(
+                  text: 'click here',
+                  style: const TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 14.4,
+                    color: Color(0xff090f0f),
+                    fontWeight: FontWeight.w900,
+                  ),
+                  // Add onTap callback to navigate to the next page
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const MyVerify()),
+                      );
+                    },
+                ),
+              ],
+            ),
+          ),
             ],),
             
             ], ),), ),

@@ -53,6 +53,7 @@ dependencies:
   image: ^4.1.3
   image_picker: ^1.0.6
   syncfusion_flutter_sliders: ^24.1.44
+  pinput: ^3.0.1
 dev_dependencies:
   flutter_lints: ^3.0.1
   flutter_test:
@@ -87,6 +88,7 @@ flutter:
     - assets/image/Group791.png
     - assets/image/Group1340.png
     - assets/image/Group797.png
+    - assets/image/cloud.png
     
     
     - assets/icons/Group312.svg
