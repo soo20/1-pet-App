@@ -82,6 +82,7 @@ class _MyVerifyState extends State<MyVerify> {
     );
 
     return Scaffold(
+      backgroundColor: const Color(0xffF3F2F2),
       extendBodyBehindAppBar: true,
       body: Container(
         margin:
