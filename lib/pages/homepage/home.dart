@@ -11,26 +11,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  double _page = 0 ;
-  // the index of the left most element of the list to be display
-  int get _firstIndex => _page.toInt();
- // controller to the current postion of page view
-  final _controller = PageController(
-    viewportFraction: 0.5
-  ); 
-  // width of item
-  late final _firstItemWidth = MediaQuery.of(context).size.width*_controller.viewportFraction;
+  
   @override
 
-  void initState(){
-    super.initState();
-    _controller.addListener(()=>setState(() {
-      _page=_controller.page!;
-    })); 
-  }
+  
   @override
   Widget build(BuildContext context) {
-    double aspectRatio = screenHeight / screenWidth;
+    //double aspectRatio = screenHeight / screenWidth;
     return Scaffold(
       backgroundColor: const Color(0xffFFFFFF),
       drawer: const Drawer(
@@ -65,14 +52,14 @@ class _HomePageState extends State<HomePage> {
               width: 36,
             ),
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: 13),
         ],
       ),
       extendBodyBehindAppBar: false,
       body:  Stack(
         children: [
-           const Positioned(
-            top: 0,
+          const  Positioned(
+            top: 10,
             left: 20,
             child: Text(
               'Future Events',
@@ -92,7 +79,7 @@ class _HomePageState extends State<HomePage> {
               softWrap: false,
             ),
           ),
-        const Positioned(
+       const  Positioned(
               right: 30,
               top: 20,
               child: Text(
@@ -108,14 +95,10 @@ class _HomePageState extends State<HomePage> {
                 softWrap: false,
               )),
            
-             Positioned.fill(child: 
-             Align(
-              alignment: Alignment.centerLeft,
-              child: SizedBox(
-                width: screenWidth,
-               // child: FractionallySizedBox(child: HomePageView(index: _firstIndex, url: model[_firstIndex], width: _itemWidth),
-              ),
-             ))
+             Positioned.fill(
+              bottom: screenHeight/4.7,
+              left: 15,
+              child: HomePageView())
         ],
       ),
     );

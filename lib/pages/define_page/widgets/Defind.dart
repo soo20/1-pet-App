@@ -3,11 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 //import 'package:flutter_svg/svg.dart';
-import 'package:petapplication/Welcome/presention/widgets/Component1311.dart';
+import 'package:petapplication/Welcome/presention/widgets/speaks_of_wanda_jack_yuna_gizmo.dart';
 import 'package:petapplication/core/utils/size_config.dart';
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
-import 'package:petapplication/pages/page1/Jack_Define.dart';
+import 'package:petapplication/pages/define_page/jack_define.dart';
+
 //import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 
 class Deefine extends StatelessWidget {

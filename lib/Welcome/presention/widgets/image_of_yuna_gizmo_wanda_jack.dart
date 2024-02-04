@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
-import 'package:petapplication/Welcome/presention/widgets/Component1311.dart';
+import 'package:petapplication/Welcome/presention/widgets/speaks_of_wanda_jack_yuna_gizmo.dart';
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:petapplication/core/utils/size_config.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
-import 'package:petapplication/pages/page1/widgets/alart_dialog.dart';
+import 'package:petapplication/pages/define_page/widgets/alart_dialog.dart';
 import 'package:petapplication/pages/page2/popup_surface.dart';
 
 //import 'package:google_fonts/google_fonts.dart';
-class TextOverImageItem1 extends StatelessWidget {
-  const TextOverImageItem1({super.key});
+class Yuna extends StatelessWidget {
+  const Yuna({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class TextOverImageItem1 extends StatelessWidget {
           const Stack(
             alignment: Alignment.topLeft,
             children: [
-              Component1310(),
+              YunaSpeak(),
               /*Positioned(
                   right: 33,
                   left: SizeConfig.defaultSize! * 28,
@@ -69,8 +69,8 @@ class TextOverImageItem1 extends StatelessWidget {
   }
 }
 
-class TextOverImageItem2 extends StatelessWidget {
-  const TextOverImageItem2({super.key});
+class Jack extends StatelessWidget {
+  const Jack({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +93,7 @@ class TextOverImageItem2 extends StatelessWidget {
               bottom: 40,
               width: itemWidth,
               child: Padding(
-                padding: const EdgeInsets.all(105.0),
+                padding: const EdgeInsets.all(92.0),
                 child: Image.asset(
                   'assets/image/Group327.png',
                   width: itemWidth,
@@ -105,7 +105,7 @@ class TextOverImageItem2 extends StatelessWidget {
             const Stack(
               alignment: Alignment.topLeft,
               children: [
-                Component1314(),
+                JackSpeak(),
                 /*Positioned(
                   right: 33,
                   left: SizeConfig.defaultSize! * 28,
@@ -124,8 +124,8 @@ class TextOverImageItem2 extends StatelessWidget {
   }
 }
 
-class TextOverImageItem3 extends StatelessWidget {
-  const TextOverImageItem3({super.key});
+class Gizmo extends StatelessWidget {
+  const Gizmo({super.key});
   // Set your desired aspect ratio
 
   @override
@@ -140,12 +140,12 @@ class TextOverImageItem3 extends StatelessWidget {
         child: Stack(
           children: [
             Positioned(
-              top: 170,
-              right: 170,
+              top: 160,
+              right: 155,
               bottom: 55,
               width: screenWidth / 4.5,
               child: Padding(
-                padding: const EdgeInsets.all(0.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Image.asset(
                   'assets/image/Group737.png',
                   width: screenWidth / 1.55, // Adjust the width
@@ -157,7 +157,7 @@ class TextOverImageItem3 extends StatelessWidget {
             const Stack(
               alignment: Alignment.topLeft,
               children: [
-                Component1316(),
+                GizmoSpeak(),
               ],
             )
           ],
@@ -167,7 +167,7 @@ class TextOverImageItem3 extends StatelessWidget {
   }
 }
 
-class TextOverImageItem4 extends StatelessWidget {
+/*class TextOverImageItem4 extends StatelessWidget {
   const TextOverImageItem4({super.key});
 
   @override
@@ -221,8 +221,8 @@ class TextOverImageItem4 extends StatelessWidget {
     );
   }
 }
-
-class TextOverSVGImage6 extends StatelessWidget {
+*/
+/*class TextOverSVGImage6 extends StatelessWidget {
   const TextOverSVGImage6({super.key});
 
   @override
@@ -306,10 +306,10 @@ class TextOverSVGImage6 extends StatelessWidget {
       ),
     );
   }
-}
+}*/
 
-class TextOverSVGImage5 extends StatelessWidget {
-  const TextOverSVGImage5({super.key});
+class Wanda extends StatelessWidget {
+  const Wanda({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -327,12 +327,12 @@ class TextOverSVGImage5 extends StatelessWidget {
         child: Stack(
           children: <Widget>[
             Positioned(
-              top: 164,
+              top: 144,
               left: -130,
               bottom: 20,
               width: itemWidth,
               child: Padding(
-                padding: const EdgeInsets.all(110.0),
+                padding: const EdgeInsets.all(124.0),
                 child: Image.asset(
                   'assets/image/Group1021.png',
                   width: itemWidth,
@@ -344,17 +344,8 @@ class TextOverSVGImage5 extends StatelessWidget {
             const Stack(
               alignment: Alignment.topLeft,
               children: [
-                Component1317(),
-                /*Positioned(
-                  right: 33,
-                  left: SizeConfig.defaultSize! * 28,
-                  bottom: SizeConfig.defaultSize! * 6,
-                  child: const CustomGeneralButtom(
-                    text: 'continue',
-                  ),
-                ),*/
-                // Other widgets can be added here within the Stack if needed
-              ],
+                WandaSpeak(),
+                ],
             ),
           ],
         ),

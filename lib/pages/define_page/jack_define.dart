@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:petapplication/Welcome/presention/widgets/welcomet_image_text.dart';
+import 'package:petapplication/Welcome/presention/widgets/image_of_yuna_gizmo_wanda_jack.dart';
+
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 
 class JackDefine extends StatelessWidget {

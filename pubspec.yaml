@@ -141,6 +141,12 @@ flutter:
         - asset: assets/fonts/Sugar Peachy Light.ttf
         - asset: assets/fonts/Sugar Peachy Medium.ttf
         - asset: assets/fonts/Sugar Peachy Regular.ttf
+    - family: Cosffira 
+      fonts:
+        - asset: assets/fonts/Cosffira-Bold.otf
+        - asset: assets/fonts/Cosffira-BoldItalic.otf
+        - asset: assets/fonts/Cosffira-Italic.otf
+        - asset: assets/fonts/Cosffira.otf
          
 
   # For details regarding fonts from package dependencies,

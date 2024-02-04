@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:petapplication/pages/page1/widgets/Defind.dart';
+import 'package:petapplication/pages/define_page/widgets/Defind.dart';
 
 class DeefindPage extends StatelessWidget {
   const DeefindPage({super.key});
