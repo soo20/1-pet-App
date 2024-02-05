@@ -36,22 +36,24 @@ class AlartDialogPage extends StatelessWidget {
                       const Text.rich(
                         TextSpan(
                           style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 13.5,
+                            fontFamily: 'Cosffira',
+                            fontSize: 17,
                             color: Color(0xff080808),
                           ),
                           children: [
                             TextSpan(
                               text: 'allow',
+                              
+                              
                             ),
                             TextSpan(
                               text: ' "yuna app" ',
                               style: TextStyle(
-                                fontWeight: FontWeight.w700,
+                                fontWeight: FontWeight.w800,
                               ),
                             ),
                             TextSpan(
-                              text: 'to access camera \n on this device"',
+                              text: 'to access\nyour camera on this device"',
                             ),
                           ],
                         ),
@@ -71,7 +73,7 @@ class AlartDialogPage extends StatelessWidget {
                           },
                           textColor: kMainColorPage,
                           boxColor: kMainColor,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w900,
                           width: SizeConfig.screenWidth,
                           borderColor: kMainColor,
                         ),
@@ -81,10 +83,10 @@ class AlartDialogPage extends StatelessWidget {
                             vertical: 0, horizontal: 20),
                         child: CustomGeneralButtom4(
                           height: 38,
-                          text: 'DECLINE',
+                          text: 'Decline',
                           textColor: kMainColorPage,
                           boxColor: const Color(0xffE3B1A8),
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w900,
                           width: SizeConfig.screenWidth,
                           borderColor: kMainColorPage,
                           onTap: () {

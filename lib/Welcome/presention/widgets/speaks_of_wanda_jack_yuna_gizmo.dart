@@ -8,7 +8,7 @@ import 'package:petapplication/core/utils/size_config.dart';
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
-import 'package:petapplication/pages/page2/logintext.dart';
+import 'package:petapplication/pages/sign_login_acount/logintext.dart';
 
 class YunaSpeak extends StatelessWidget {
   const YunaSpeak({super.key});
@@ -138,8 +138,8 @@ class JackSpeak extends StatelessWidget {
   }
 }
 
-class Component1315 extends StatelessWidget {
-  const Component1315({super.key});
+class JackDefineSpeak extends StatelessWidget {
+  const JackDefineSpeak({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -169,20 +169,34 @@ class Component1315 extends StatelessWidget {
               fit: BoxFit.contain,
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.fromLTRB(50.0, 88.0, 155.0, 20.0),
+         Padding(
+            padding: const EdgeInsets.fromLTRB(50.0, 93.0, 155.0, 20.0),
             child: SizedBox.expand(
-                child: Text(
-              overflow: TextOverflow.ellipsis,
-              'hello, my friend, please \ntake a photo of your pet \n to provide some\ninformation about it',
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                fontSize: 15,
-                color: Colors.black,
-                fontWeight: FontWeight.w600,
+              child: RichText(
+                text: const TextSpan(
+                  text: '',
+                  style: TextStyle(
+                    fontFamily: 'Cosffira',
+                    fontSize: 16,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text:
+                          'hello, my friend, please \ntake a photo of your pet \n to provide some\ninformation about it',
+                      style: TextStyle(
+                        fontFamily: 'Cosffira',
+                        fontSize: 16.5,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    )
+                  ],
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
-            )),
+            ),
           ),
         ],
       ),
@@ -191,6 +205,7 @@ class Component1315 extends StatelessWidget {
 }
 
 //3
+
 class GizmoSpeak extends StatelessWidget {
   const GizmoSpeak({super.key});
 
@@ -331,6 +346,7 @@ class WandaSpeak extends StatelessWidget {
               text: 'Finish',
               boxColor: kMainColor,
               fontWeight: FontWeight.w600,
+              borderColor: const Color(0xff707070),
               onTap: () {
                 Get.to(
                   () =>
@@ -349,8 +365,8 @@ class WandaSpeak extends StatelessWidget {
   }
 }
 // 
-class Component1313 extends StatelessWidget {
-  const Component1313({super.key});
+class YunaDefine extends StatelessWidget {
+  const YunaDefine({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -364,9 +380,9 @@ class Component1313 extends StatelessWidget {
               decoration: BoxDecoration(
                 color: kMainColorPage,
                 borderRadius: BorderRadius.circular(29.0),
-                border: Border.all(width: 0.6, color: const Color(0xff707070)),
+                border: Border.all(width: 0.4, color: const Color(0xff707070)),
               ),
-              margin: const EdgeInsets.fromLTRB(20.0, 85.0, 180.0, 488.2),
+              margin: const EdgeInsets.fromLTRB(20.0, 73.0, 180.0, 488.2),
             ),
           ),
           Positioned(
@@ -381,14 +397,14 @@ class Component1313 extends StatelessWidget {
             ),
           ),
           const Padding(
-            padding: EdgeInsets.fromLTRB(00.0, 92.0, 155.0, 00.0),
+            padding: EdgeInsets.fromLTRB(00.0, 95.0, 155.0, 00.0),
             child: SizedBox.expand(
                 child: Text(
               overflow: TextOverflow.ellipsis,
-              'Let\'s start by defining\nyour lovely pet. You can \nchoose to define it with\nJack, or you can\nmanually add your pet\'s\ndetails.',
+              'Let\'s start by defining your \nlovely pet. You can choose \nto define it with Jack, or\n you can manually add your \n pet\'sdetails.',
               style: TextStyle(
-                fontFamily: 'Poppins',
-                fontSize: 14.4,
+                fontFamily: 'Cosffira',
+                fontSize: 14.0,
                 color: Colors.black,
                 fontWeight: FontWeight.w600,
               ),

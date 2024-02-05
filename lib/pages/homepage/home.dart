@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
              Positioned.fill(
               bottom: screenHeight/4.7,
               left: 15,
-              child: HomePageView())
+              child: const HomePageView())
         ],
       ),
     );

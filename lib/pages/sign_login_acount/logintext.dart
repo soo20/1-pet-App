@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
-import 'package:petapplication/pages/define_page/Defindpage.dart';
-import 'package:petapplication/pages/page2/loginbody.dart';
+
+import 'package:petapplication/pages/define_page/widgets/Defind.dart';
+import 'package:petapplication/pages/sign_login_acount/loginbody.dart';
 //import 'package:petapplication/core/utils/widgets/constants.dart';
 //import 'package:petapplication/pages/page2/login_info.dart';
 
@@ -25,14 +26,14 @@ class LoginText extends StatelessWidget {
               icon: const Text(
                 'Skip',
                 style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 17,
+                  fontFamily: 'Cosffira',
+                  fontSize: 22,
                   color: Color(0xffEEEFEF),
                   fontWeight: FontWeight.w900,
                 ),
               ),
               onPressed: () {
-                Get.to(() => const DeefindPage(), transition: Transition.size);
+                Get.to(() => const Deefine(), transition: Transition.size);
                 // Add any functionality you want when the icon is pressed
               },
             )),

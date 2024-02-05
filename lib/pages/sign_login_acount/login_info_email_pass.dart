@@ -26,7 +26,19 @@ class _LoginInfoState extends State<LoginInfo> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        foregroundColor: const Color(0xff707070),
+        foregroundColor: const Color.fromARGB(255, 108, 107, 107),
+         leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_rounded,
+            color: Color.fromARGB(255, 96, 96, 96),
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          iconSize: 39.0,
+          padding: const EdgeInsets.only(
+              left: 6.0), // Set the size of the arrow icon
+        ),
       ),
       extendBodyBehindAppBar: true,
       body: Stack(
@@ -88,7 +100,7 @@ class _LoginInfoState extends State<LoginInfo> {
                       BoxShadow(
                           blurRadius: 10,
                           spreadRadius: 7,
-                          offset: const Offset(1, 10),
+                          offset: const Offset(1, 3),
                           color: Colors.grey.withOpacity(0.2))
                     ]),
                     child: TextField(
@@ -100,8 +112,8 @@ class _LoginInfoState extends State<LoginInfo> {
                           filled: true,
                           hintText: 'Email',
                           hintStyle: const TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 14,
+                            fontFamily: 'Cosffira',
+                            fontSize: 16,
                             color: Color.fromARGB(116, 19, 79, 92),
                             fontWeight: FontWeight.w600,
                           ),
@@ -148,8 +160,8 @@ class _LoginInfoState extends State<LoginInfo> {
                         filled: true,
                         hintText: 'Password',
                         hintStyle: const TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 14,
+                          fontFamily: 'Cosffira',
+                          fontSize: 16,
                           color: Color.fromARGB(116, 19, 79, 92),
                           fontWeight: FontWeight.w600,
                         ),
@@ -163,15 +175,16 @@ class _LoginInfoState extends State<LoginInfo> {
                     ),
                   ),
                   SizedBox(
-                    height: screenHeight * 0.027,
+                    height: screenHeight * 0.021,
                     width: 0,
                   ),
                   CustomGeneralButtom(
                     boxColor: const Color(0xff134F5C),
                     textColor: const Color(0xffFFFFFF),
-                    height: screenHeight * 0.029,
-                    width: SizeConfig.defaultSize! * 16,
+                    height: screenHeight * 0.024,
+                    width: SizeConfig.defaultSize! * 13,
                     text: 'Log in',
+                    borderColor: const Color(0xff707070),
                     fontWeight: FontWeight.w900,
                     onTap: () {
               Get.to(() => const HomePage(), transition: Transition.zoom);
@@ -181,15 +194,15 @@ class _LoginInfoState extends State<LoginInfo> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       SizedBox(
-                        height: screenHeight * 0.025,
+                        height: screenHeight * 0.016,
                         width: 40,
                       ),
                       RichText(
                         text: TextSpan(
                           text: 'Forget Your Password? ',
                           style: const TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 14,
+                            fontFamily: 'Cosffira',
+                            fontSize: 16,
                             color: Color(0xff090f0f),
                             fontWeight: FontWeight.w400,
                           ),
@@ -197,10 +210,10 @@ class _LoginInfoState extends State<LoginInfo> {
                             TextSpan(
                               text: 'click here',
                               style: const TextStyle(
-                                fontFamily: 'Poppins',
-                                fontSize: 14.4,
-                                color: Color(0xff090f0f),
-                                fontWeight: FontWeight.w900,
+                                fontFamily: 'Cosffira',
+                                fontSize: 17.5,
+                                color: Color(0xff134F5C),
+                                fontWeight: FontWeight.w800,
                               ),
                               // Add onTap callback to navigate to the next page
                               recognizer: TapGestureRecognizer()

@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-
-
-
-
 import 'package:petapplication/core/utils/size_config.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
-import 'package:petapplication/pages/page2/popup_surface.dart';
+import 'package:petapplication/pages/sign_login_acount/popup_surface.dart';
 
 class Account extends StatelessWidget {
   const Account({super.key});
@@ -16,7 +12,7 @@ class Account extends StatelessWidget {
   Widget build(BuildContext context) {
     double aspectRatio = screenHeight / screenWidth;
     return Scaffold(
-      backgroundColor: const Color(0xff80CBC4),
+      backgroundColor: const Color(0xffB8D8D4),
       appBar: AppBar(
         
         elevation: 0,
@@ -110,9 +106,9 @@ class Account extends StatelessWidget {
                              
                             ),
                             child: Icon(
-                              Icons.edit,
+                              Icons.add,
                               size: 21,
-                              color: const Color(0xff707070),
+                              color: const Color(0xff2E5950),
                               shadows: [
                             BoxShadow(
                               spreadRadius: 15,
@@ -166,76 +162,76 @@ class Account extends StatelessWidget {
                 matchTextDirection: false,
               ),
             ),
-            SingleChildScrollView(
-              child: Container(
-                padding: EdgeInsets.only(
-                    top: screenHeight * 0.095,
-                    right: screenWidth * 0.045,
-                    left: screenWidth * 0.045),
+            Container(
+              padding: EdgeInsets.only(
+                  top: screenHeight * 0.1,
+                  right: screenWidth * 0.045,
+                  left: screenWidth * 0.045),
+              child: SingleChildScrollView(
                 child: Column(
                   children: [
                      const Text.rich(
-    TextSpan(
-      style: TextStyle(
-        fontFamily: 'Poppins',
-        fontSize: 40,
-        color:  Color(0xff134f5c),
-        height: 0.970873786407767,
-      ),
-      children: [
-        TextSpan(
-          text: 'My ',
-          style: TextStyle(
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        TextSpan(
-          text: 'account',
-          style: TextStyle(
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-      ],
-    ),
-    textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
-    softWrap: false,
-  ),
- const  SizedBox(height: 20,),
+                  TextSpan(
+                    style: TextStyle(
+                      fontFamily: 'Cosffira',
+                      fontSize: 40,
+                      color:  Color(0xff134f5c),
+                      height: 0.970873786407767,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: 'My ',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      TextSpan(
+                        text: 'account',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
+                  textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false),
+                  softWrap: false,
+                ),
+                             const  SizedBox(height: 20,),
                     TextField(
-                      obscureText: true,
+                      obscureText: false,
                       style: const TextStyle(color: Color(0xff090F0F)),
                       decoration: InputDecoration(
                         fillColor: const Color(0xFFFFFFFF),
                         filled: true,
                         hintText: 'Name',
                         hintStyle: const TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 14,
+                          fontFamily: 'Cosffira',
+                          fontSize: 16,
                           color: Color.fromARGB(116, 19, 79, 92),
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w800,
                         ),
                         enabledBorder: border,
                         focusedBorder: border,
                         prefixIcon: const Icon(
                           Icons.man_sharp,
-
+                            
                           color: Color.fromARGB(116, 19, 79, 92),
                         ),
                       ),
                     ),
-                   const  SizedBox(height: 20,),
+                   const  SizedBox(height: 15,),
                     TextField(
-                      obscureText: true,
+                      obscureText: false,
                       style: const TextStyle(color: Color(0xff090F0F)),
                       decoration: InputDecoration(
                         fillColor: const Color(0xFFFFFFFF),
                         filled: true,
                         hintText: 'Email',
                         hintStyle: const TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 14,
+                          fontFamily: 'Cosffira',
+                          fontSize: 16,
                           color: Color.fromARGB(116, 19, 79, 92),
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w800,
                         ),
                         enabledBorder: border,
                         focusedBorder: border,
@@ -245,41 +241,20 @@ class Account extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const  SizedBox(height: 20,),
+                
+                    const  SizedBox(height: 15,),
                     TextField(
-                      obscureText: true,
-                      style: const TextStyle(color: Color(0xff090F0F)),
-                      decoration: InputDecoration(
-                        fillColor: const Color(0xFFFFFFFF),
-                        filled: true,
-                        hintText: 'Location',
-                        hintStyle: const TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 14,
-                          color: Color.fromARGB(116, 19, 79, 92),
-                          fontWeight: FontWeight.w600,
-                        ),
-                        enabledBorder: border,
-                        focusedBorder: border,
-                        prefixIcon: const Icon(
-                          Icons.location_on,
-                          color: Color.fromARGB(116, 19, 79, 92),
-                        ),
-                      ),
-                    ),
-                    const  SizedBox(height: 20,),
-                    TextField(
-                      obscureText: true,
+                      obscureText: false,
                       style: const TextStyle(color: Color(0xff090F0F)),
                       decoration: InputDecoration(
                         fillColor: const Color(0xFFFFFFFF),
                         filled: true,
                         hintText: 'Phone Number',
                         hintStyle: const TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 14,
+                          fontFamily: 'Cosffira',
+                          fontSize: 17,
                           color: Color.fromARGB(116, 19, 79, 92),
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w800,
                         ),
                         enabledBorder: border,
                         focusedBorder: border,
@@ -290,19 +265,20 @@ class Account extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: screenHeight * 0.023,
+                      height: screenHeight * 0.048,
                       width: 0,
                     ),
                     CustomGeneralButtom(
-                      boxColor: const Color(0xff80CBC4),
-                      textColor: const Color(0xffFFFFFF),
-                      height: screenHeight * 0.029,
-                      width: SizeConfig.defaultSize! * 16,
-                      text: 'LOG OUT',
+                      boxColor: const Color(0xffB8D8D4),
+                      textColor: const Color(0xff134F5C),
+                      height: screenHeight * 0.025,
+                      width: SizeConfig.defaultSize! * 14,
+                      borderColor: const Color.fromARGB(60, 112, 112, 112),
+                      text: 'Finish',
                        onTap: () {
                             Get.to(() => const Serface(),transition: Transition.zoom );
                           },
-                      fontWeight: FontWeight.w900,
+                      fontWeight: FontWeight.w800,
                     ),
                   ],
                 ),

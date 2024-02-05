@@ -10,7 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:petapplication/core/utils/size_config.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 import 'package:petapplication/pages/define_page/widgets/alart_dialog.dart';
-import 'package:petapplication/pages/page2/popup_surface.dart';
+import 'package:petapplication/pages/sign_login_acount/popup_surface.dart';
 
 //import 'package:google_fonts/google_fonts.dart';
 class Yuna extends StatelessWidget {
@@ -354,8 +354,8 @@ class Wanda extends StatelessWidget {
   }
 }
 
-class JackDefineText extends StatelessWidget {
-  const JackDefineText({super.key});
+class JackDefineImage extends StatelessWidget {
+  const JackDefineImage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -388,7 +388,7 @@ class JackDefineText extends StatelessWidget {
           Stack(
             alignment: Alignment.topLeft,
             children: [
-              const Component1315(),
+              const JackDefineSpeak(),
               Positioned(
                 right: 140,
                 left: SizeConfig.defaultSize! * 15.5,

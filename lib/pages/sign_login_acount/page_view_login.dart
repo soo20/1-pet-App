@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:petapplication/core/utils/size_config.dart';
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
-import 'package:petapplication/pages/page2/acount.dart';
+import 'package:petapplication/pages/sign_login_acount/acount.dart';
 
 class PageViewLogin extends StatefulWidget {
   const PageViewLogin({super.key});
@@ -47,7 +47,7 @@ class _PageViewLoginState extends State<PageViewLogin> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(
-              height: 30,
+              height: 12
             ),
             Flexible(
               flex: 4,
@@ -155,8 +155,8 @@ class _PageViewLoginState extends State<PageViewLogin> {
                           filled: true,
                           hintText: 'Name',
                           hintStyle: const TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 15,
+                            fontFamily: 'Cosffira',
+                            fontSize: 17,
                             color: Color.fromARGB(116, 19, 79, 92),
                             fontWeight: FontWeight.w800,
                           ),
@@ -182,8 +182,8 @@ class _PageViewLoginState extends State<PageViewLogin> {
                         filled: true,
                         hintText: 'Email',
                         hintStyle: const TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 15,
+                          fontFamily: 'Cosffira',
+                          fontSize: 17,
                           color: Color.fromARGB(116, 19, 79, 92),
                           fontWeight: FontWeight.w800,
                         ),
@@ -209,8 +209,8 @@ class _PageViewLoginState extends State<PageViewLogin> {
                         filled: true,
                         hintText: 'Password',
                         hintStyle: const TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 15,
+                          fontFamily: 'Cosffira',
+                          fontSize: 17,
                           color: Color.fromARGB(116, 19, 79, 92),
                           fontWeight: FontWeight.w800,
                         ),
@@ -238,6 +238,7 @@ class _PageViewLoginState extends State<PageViewLogin> {
                           },
                           textColor: kMainColorPage,
                           boxColor: kMainColor,
+                          borderColor: const Color(0xff707070),
                           fontWeight: FontWeight.w800,
                           width: SizeConfig.screenWidth,
                         )), // Add more widgets as needed for the sign-up form

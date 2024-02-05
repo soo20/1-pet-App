@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:petapplication/core/utils/size_config.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
-import 'package:petapplication/pages/page2/login_info.dart';
+import 'package:petapplication/pages/sign_login_acount/login_info_email_pass.dart';
 
 class GreateNewPass extends StatefulWidget {
   const GreateNewPass({super.key});
@@ -58,8 +58,8 @@ class _GreateNewPassState extends State<GreateNewPass> {
             child: const Text(
               'Create New Password',
               style: TextStyle(
-                fontFamily: 'Poppins',
-                fontSize: 27,
+                fontFamily: 'Cosffira',
+                fontSize: 30,
                 color: Color(0xff105952),
                 fontWeight: FontWeight.w700,
               ),
@@ -68,12 +68,12 @@ class _GreateNewPassState extends State<GreateNewPass> {
         ),
         Positioned(
             top: screenHeight * 0.095,
-            right: screenWidth * 0.21,
+            right: screenWidth * 0.22,
             child: const Text(
               'New password',
               style: TextStyle(
-                fontFamily: 'Poppins',
-                fontSize: 19,
+                fontFamily: 'Cosffira',
+                fontSize: 20,
                 color: Color(0xfa134f5c),
                 fontWeight: FontWeight.w700,
                 height: 1.9411764705882353,
@@ -88,10 +88,10 @@ class _GreateNewPassState extends State<GreateNewPass> {
             child: const Text(
               'Must be at least 8 characters',
               style: TextStyle(
-                fontFamily: 'Poppins',
-                fontSize: 12,
+                fontFamily: 'Cosffira',
+                fontSize: 14,
                 color: Color(0xff50B1AF),
-                fontWeight: FontWeight.w900,
+                fontWeight: FontWeight.w800,
                 height: 1.9411764705882353,
               ),
               textHeightBehavior:
@@ -125,7 +125,7 @@ class _GreateNewPassState extends State<GreateNewPass> {
               fillColor: const Color(0xFFFFFFFF),
               filled: true,
               hintStyle: const TextStyle(
-                fontFamily: 'Poppins',
+                fontFamily: 'Cosffira',
                 fontSize: 14,
                 color: Color.fromARGB(116, 19, 79, 92),
                 fontWeight: FontWeight.w600,
@@ -137,12 +137,12 @@ class _GreateNewPassState extends State<GreateNewPass> {
         ),
         Positioned(
             top: screenHeight * 0.172,
-            right: screenWidth * 0.172,
+            right: screenWidth * 0.18,
             child: const Text(
               'Confirm Password',
               style: TextStyle(
-                fontFamily: 'Poppins',
-                fontSize: 19,
+                fontFamily: 'Cosffira',
+                fontSize: 21,
                 color: Color(0xfa134f5c),
                 fontWeight: FontWeight.w700,
                 height: 1.9411764705882353,
@@ -178,7 +178,7 @@ class _GreateNewPassState extends State<GreateNewPass> {
               fillColor: const Color(0xFFFFFFFF),
               filled: true,
               hintStyle: const TextStyle(
-                fontFamily: 'Poppins',
+                fontFamily: 'Cosffira',
                 fontSize: 14,
                 color: Color.fromARGB(116, 19, 79, 92),
                 fontWeight: FontWeight.w600,
@@ -189,7 +189,7 @@ class _GreateNewPassState extends State<GreateNewPass> {
           ),
         ),
         Padding(
-            padding: const EdgeInsets.fromLTRB(140.5, 453, 140.5, 227.0),
+            padding: const EdgeInsets.fromLTRB(140.5, 455, 140.5, 227.0),
             child: SizedBox.expand(
                 child: SvgPicture.string(
               '<svg viewBox="0.0 0.0 332.3 56.8" ><path transform="translate(-634.34, 3069.19)" d="M 634.3416748046875 -3012.3876953125 L 643.8690795898438 -3069.18896484375 L 672.4514770507812 -3034.89404296875 L 920.1640625 -3034.89404296875 L 949.9368896484375 -3069.18896484375 L 966.6100463867188 -3012.3876953125" fill="none" stroke="#081e17" stroke-width="2" stroke-miterlimit="4" stroke-linecap="butt" /></svg>',
@@ -204,6 +204,7 @@ class _GreateNewPassState extends State<GreateNewPass> {
             textColor: const Color(0xffFFFFFF),
             height: screenHeight * 0.025,
             width: SizeConfig.defaultSize! * 13,
+            borderColor: const Color.fromARGB(108, 112, 112, 112),
             text: 'Submit',
             onTap: () {
               Get.to(() => const LoginInfo(), transition: Transition.zoom);

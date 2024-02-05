@@ -103,7 +103,8 @@ class _MyVerifyState extends State<MyVerify> {
               const Text(
                 "Please Enter 5-Digit Code",
                 style: TextStyle(
-                  fontSize: 26,
+                  fontFamily: 'Cosffira',
+                  fontSize: 29,
                   fontWeight: FontWeight.w700,
                   color: Color(0xff020202),
                 ),
@@ -113,9 +114,10 @@ class _MyVerifyState extends State<MyVerify> {
               ),
               RichText(
                 text: const TextSpan(
-                  text: 'We\'ve Sent A Code To',
+                  text: 'We\'ve Sent A Code To ',
                   style: TextStyle(
-                    fontSize: 14,
+                    fontFamily: 'Cosffira',
+                    fontSize: 16,
                     color: Color.fromARGB(184, 9, 15, 15),
                     fontWeight: FontWeight.w800,
                   ),
@@ -123,7 +125,7 @@ class _MyVerifyState extends State<MyVerify> {
                     TextSpan(
                       text: 'Malk22@gmail.com\n',
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 17,
                         color: Color(0xff548987),
                         fontWeight: FontWeight.w900,
                       ),
@@ -131,7 +133,7 @@ class _MyVerifyState extends State<MyVerify> {
                     TextSpan(
                       text: 'Enter a Code In That Message',
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 16,
                         color: Color.fromARGB(184, 9, 15, 15),
                         fontWeight: FontWeight.w800,
                       ),
@@ -193,8 +195,9 @@ class _MyVerifyState extends State<MyVerify> {
                           child: const Text(
                             'Resend',
                             style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w900,
+                              fontFamily: 'Cosffira',
+                              fontSize: 20,
+                              fontWeight: FontWeight.w800,
                               color: Color(0xff2A606C),
                             ),
                           ),

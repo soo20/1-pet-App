@@ -10,8 +10,8 @@ import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 
 import 'package:petapplication/core/utils/widgets/space.dart';
-import 'package:petapplication/pages/page2/login_info.dart';
-import 'package:petapplication/pages/page2/page_view_login.dart';
+import 'package:petapplication/pages/sign_login_acount/login_info_email_pass.dart';
+import 'package:petapplication/pages/sign_login_acount/page_view_login.dart';
 
 class LoginBody extends StatefulWidget {
   const LoginBody({super.key});
@@ -44,7 +44,7 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
             Text(
               'Yuna\n',
               style: TextStyle(
-                fontFamily: 'Poppins',
+                fontFamily: 'Cosffira',
                 fontSize: 50,
                 color: const Color(0xff0b2f37),
                 fontWeight: FontWeight.w600,
@@ -61,11 +61,11 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
               flex: 3,
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: SizeConfig.defaultSize! * .5,
-                    horizontal: SizeConfig.defaultSize! * 8),
+                    vertical: SizeConfig.defaultSize! * 0.5,
+                    horizontal: SizeConfig.defaultSize! * 7.5),
                 child: const CustomGeneralButtom2(
                   height: 42,
-                  text: 'LOGIN WITH GMAIL',
+                  text: 'Login With GmaiL',
                   textColor: kMainColorPage,
                   icon: FontAwesomeIcons.google,
                   iconcolor: Color.fromARGB(255, 248, 54, 90),
@@ -81,10 +81,10 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
               child: Padding(
                 padding: EdgeInsets.symmetric(
                     vertical: SizeConfig.defaultSize! * 0.1,
-                    horizontal: SizeConfig.defaultSize! * 8),
+                    horizontal: SizeConfig.defaultSize! * 7.5),
                 child: CustomGeneralButtom2(
                   height: 42,
-                  text: 'LOGIN WITH FACEBOOK',
+                  text: 'Login With Facebook',
                   icon: FontAwesomeIcons.facebook,
                   iconcolor: kMainColorPage,
                   textColor: kMainColorPage,
@@ -100,10 +100,10 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
               child: Padding(
                 padding: EdgeInsets.symmetric(
                     vertical: SizeConfig.defaultSize! * .5,
-                    horizontal: SizeConfig.defaultSize! * 8),
+                    horizontal: SizeConfig.defaultSize! * 7.5),
                 child: CustomGeneralButtom2(
                   height: 42,
-                  text: 'LOGIN WITH EMAIL',
+                  text: 'Login With Email',
                   onTap: () {
                     navigator?.pushAndRemoveUntil(
                       MaterialPageRoute(builder: (e) => const LoginInfo()),
@@ -130,7 +130,7 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                   Text(
                     'Don\'t have an account? ',
                     style: TextStyle(
-                      fontFamily: 'Poppins',
+                      fontFamily: 'Cosffira',
                       fontSize: 15.5,
                       color: Color(0xff090f0f),
                       fontWeight: FontWeight.w400,
@@ -151,7 +151,7 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                   child: Text(
                     'Sign Up',
                     style: TextStyle(
-                      fontFamily: 'Poppins',
+                      fontFamily: 'Cosffira',
                       fontSize: 20,
                       color: Color(0xff090f0f),
                       fontWeight: FontWeight.w900,
@@ -166,7 +166,7 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                               isSurfacePainted: false,
                               child: Container(
                                 width: double.infinity,
-                                height: 430,
+                                height: 400,
                                 decoration: BoxDecoration(
                                   color: const Color(0xffEEEFEF),
                                   borderRadius: const BorderRadius.only(
@@ -189,25 +189,25 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                                           CrossAxisAlignment.center,
                                       children: const [
                                         SizedBox(
-                                          height: 40,
+                                          height: 80,
                                         ),
                                         Text.rich(
                                           TextSpan(
                                             style: TextStyle(
-                                              fontFamily: 'Poppins',
-                                              fontSize: 45,
+                                              fontFamily: 'Cosffira',
+                                              fontSize: 38,
                                               color: Color(0xfff83658),
                                               height: 1.0434782608695652,
                                             ),
                                             children: [
                                               TextSpan(
-                                                text: 'create ',
+                                                text: 'Create ',
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.w700,
                                                 ),
                                               ),
                                               TextSpan(
-                                                text: 'an \n  account',
+                                                text: 'an account',
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.w700,
                                                 ),
