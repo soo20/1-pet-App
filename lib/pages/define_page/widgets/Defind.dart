@@ -35,11 +35,11 @@ class Deefine extends StatelessWidget {
               bottom: 150,
               width: 320,
               child: Padding(
-                padding:
-                    const EdgeInsets.all(15.0), // Add padding of 8.0 to all sides
+                padding: const EdgeInsets.all(
+                    15.0), // Add padding of 8.0 to all sides
                 child: Image.asset(
                   'assets/image/Group786.png',
-        
+
                   fit: BoxFit.contain, // Adjust the fit as needed
                 ),
               ),
@@ -65,7 +65,7 @@ class Deefine extends StatelessWidget {
                 bottom: SizeConfig.defaultSize! * 6,
                 child: CustomGeneralButtom(
                   text: 'Define With Jack',
-                  borderColor: Color(0xff707070),
+                  borderColor: const Color(0xff707070),
                   onTap: () {
                     navigator?.pushAndRemoveUntil(
                       MaterialPageRoute(builder: (e) => const JackDefine()),
