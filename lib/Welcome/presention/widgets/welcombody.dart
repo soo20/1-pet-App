@@ -1,5 +1,4 @@
 // ignore_for_file: unused_import, prefer_const_constructors
-
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -9,7 +8,6 @@ import 'package:petapplication/Welcome/presention/widgets/dotidicate.dart';
 import 'package:petapplication/core/utils/size_config.dart';
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
-
 import 'package:petapplication/pages/define_page/widgets/Defind.dart';
 import 'package:petapplication/pages/sign_login_acount/logintext.dart';
 //import 'package:petapplication/core/utils/widgets/constants.dart';
@@ -41,7 +39,7 @@ class _WelcomeBodyState extends State<WelcomeBody> {
       backgroundColor: kMainColorPage,
       body: Stack(
         children: [
-         WelcomPageView(
+          WelcomPageView(
             pageController: pageController,
           ),
           Positioned(
