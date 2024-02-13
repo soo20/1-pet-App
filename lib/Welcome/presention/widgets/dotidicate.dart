@@ -15,7 +15,7 @@ class Dot extends StatelessWidget {
     // Adjust these values based on your preference
     const dotSize = 10.0;
     const spaceBetweenDots = 2.5;
-    const totalDots = 6;
+    const totalDots = 4;
 
     return Row(
       mainAxisSize: MainAxisSize.min,

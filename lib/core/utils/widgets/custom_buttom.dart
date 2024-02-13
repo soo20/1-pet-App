@@ -47,6 +47,16 @@ class CustomGeneralButtom extends StatelessWidget {
         decoration: BoxDecoration(
           color: boxColor,
           borderRadius: BorderRadius.circular(35),
+           border: Border.all(color: borderColor!),
+           boxShadow: [
+             BoxShadow(
+                  color: const Color.fromARGB(255, 106, 105, 105).withOpacity(0.3), // Shadow color
+                  offset: const Offset(0.5, 2.0), // Shadow offset
+                  blurRadius: 1, // Shadow blur radius
+                  spreadRadius: 1.0, // Shadow spread radius
+                ),
+
+          ]
         ),
         //The Row widget contains an Expanded widget that wraps your existing
         child: Row(
@@ -63,8 +73,8 @@ class CustomGeneralButtom extends StatelessWidget {
                       text ??
                           'Default Text', // Provide a default value if text is null
                       style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontSize: 14,
+                        fontFamily: 'Cosffira',
+                        fontSize: 17,
                         color: textColor,
                         fontWeight: fontWeight,
                       ),
@@ -124,6 +134,7 @@ class CustomGeneralButtom2 extends StatelessWidget {
           color: boxColor,
           borderRadius: BorderRadius.circular(35),
           border: Border.all(color: borderColor!),
+          
         ),
         //The Row widget contains an Expanded widget that wraps your existing
         child: Row(
@@ -151,10 +162,10 @@ class CustomGeneralButtom2 extends StatelessWidget {
                       child: Text(
                         text!, // Provide a default value if text is null
                         style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 14,
+                          fontFamily: 'Cosffira',
+                          fontSize: 16.5,
                           color: textColor,
-                          fontWeight: FontWeight.w900,
+                          fontWeight: FontWeight.w800,
                         ),
                         textAlign: TextAlign.left,
                         softWrap: false,
@@ -313,7 +324,7 @@ class CustomGeneralButtom4 extends StatelessWidget {
                       child: Text(
                         text!, // Provide a default value if text is null
                         style: TextStyle(
-                          fontFamily: 'Poppins',
+                          fontFamily: 'Cosffira',
                           fontSize: 14,
                           color: textColor,
                           fontWeight: fontWeight,

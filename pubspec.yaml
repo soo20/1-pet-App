@@ -53,6 +53,7 @@ dependencies:
   image: ^4.1.3
   image_picker: ^1.0.6
   syncfusion_flutter_sliders: ^24.1.44
+  pinput: ^3.0.1
 dev_dependencies:
   flutter_lints: ^3.0.1
   flutter_test:
@@ -87,6 +88,8 @@ flutter:
     - assets/image/Group791.png
     - assets/image/Group1340.png
     - assets/image/Group797.png
+    - assets/image/cloud.png
+    - assets/image/MaskGroup8.png
     
     
     - assets/icons/Group312.svg
@@ -104,6 +107,14 @@ flutter:
     - assets/icons/trash.svg
     - assets/icons/Group791.svg
     - assets/icons/Group797.svg
+    - assets/icons/Path.svg
+    - assets/icons/Group940.svg
+    - assets/icons/Group1278.svg
+    - assets/icons/Group1279.svg
+    - assets/icons/Mask Group8.svg
+    - assets/icons/kisspng-cat-kitten-dog-veterinarian-veterinary-medicine-cat-wearing-a-stethoscope-5aa8950c1229b5.3690385715209976440744.svg
+    - assets/icons/pngtree-dog-yellow-glasses-silence-calm-cartoon-png-image_6661438.svg
+    
     
     
     
@@ -123,5 +134,20 @@ flutter:
         - asset: assets/fonts/Poppins-Bold.ttf
         - asset: assets/fonts/Poppins-Regular.ttf
           weight: 700
+    - family: SugarFont
+      fonts:         
+        - asset: assets/fonts/Sugar Peachy Black.ttf
+        - asset: assets/fonts/Sugar Peachy Bold.ttf
+        - asset: assets/fonts/Sugar Peachy Light.ttf
+        - asset: assets/fonts/Sugar Peachy Medium.ttf
+        - asset: assets/fonts/Sugar Peachy Regular.ttf
+    - family: Cosffira 
+      fonts:
+        - asset: assets/fonts/Cosffira-Bold.otf
+        - asset: assets/fonts/Cosffira-BoldItalic.otf
+        - asset: assets/fonts/Cosffira-Italic.otf
+        - asset: assets/fonts/Cosffira.otf
+         
+
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

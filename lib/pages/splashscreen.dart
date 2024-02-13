@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:petapplication/Welcome/presention/welcome_page1.dart';
+
 import 'package:get/get.dart';
+import 'package:petapplication/Welcome/presention/widgets/welcombody.dart';
 import 'package:petapplication/core/utils/size_config.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -45,9 +46,9 @@ class _SplashScreenState extends State<SplashScreen>
     body: Stack(
       children: [
         Positioned(
-          top: SizeConfig.defaultSize!*20,
-          right: SizeConfig.defaultSize!/12,
-          bottom: 220,
+          top: SizeConfig.defaultSize!*13.5,
+          //right: SizeConfig.defaultSize!/10,
+          bottom: SizeConfig.defaultSize!*28.5,
           width: 410,
           child: AspectRatio(
             aspectRatio: aspectRatio,
@@ -59,7 +60,7 @@ class _SplashScreenState extends State<SplashScreen>
           ),
         ),
         Positioned(
-          top: 490, // Adjust the position of the text as per your layout
+          bottom: SizeConfig.defaultSize!*21.5, // Adjust the position of the text as per your layout
           left: 0,
           right: 0,
           child: Center(
@@ -68,8 +69,8 @@ class _SplashScreenState extends State<SplashScreen>
               child: const Text(
                 'Hello,', // Replace with your desired text
                 style: TextStyle(
-                  fontFamily: 'poppins', // Use Poppins font
-                  fontSize: 49, // Adjust the font size as needed
+                  fontFamily: 'Cosffira', // Use Poppins font
+                  fontSize: 59, // Adjust the font size as needed
                   color: Color.fromRGBO(11, 47, 55, 1),
                   fontWeight:
                       FontWeight.bold, // Use FontWeight.bold for bold style
@@ -78,18 +79,18 @@ class _SplashScreenState extends State<SplashScreen>
             ),
           ),
         ),
-        const Positioned(
-          top: 555, // Adjust the position of the text as per your layout
+         Positioned(
+          bottom: SizeConfig.defaultSize!*21.0, // Adjust the position of the text as per your layout
           left: 0,
           right: 0,
-          child: Center(
+          child: const Center(
             child: Text(
               'I\'m Yuna. Ready to explore the world of pets together?', // Replace with your desired text
               style: TextStyle(
-                fontFamily: 'Poppins', // Use Poppins font
-                fontSize: 13.3, // Adjust the font size as needed
+                fontFamily: 'Cosffira', // Use Poppins font
+                fontSize: 14.5, // Adjust the font size as needed
                 color: Color.fromRGBO(0, 0, 0, 1),
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w400,
               ),
             ),
           ),
@@ -102,6 +103,6 @@ class _SplashScreenState extends State<SplashScreen>
 void goToNextView() {
   Future.delayed(const Duration(seconds: 3), () {
     // function doing return to widgets
-    Get.to(() => const WelcomePage(), transition: Transition.fade);
+    Get.to(() => const WelcomeBody(), transition: Transition.fade);
   });
 }}
