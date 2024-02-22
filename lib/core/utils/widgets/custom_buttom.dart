@@ -5,11 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 //ده فايل هستخدمه كتير علشان هحط فيه كل البوتمز الي هستخدمها
 import 'package:petapplication/core/utils/size_config.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 //ده يستخدم اكتر حاجه
 class CustomGeneralButtom extends StatelessWidget {
-  final Color boxColor;
-
   const CustomGeneralButtom({
     super.key,
     this.text,
@@ -23,6 +22,7 @@ class CustomGeneralButtom extends StatelessWidget {
     this.width,
     this.borderColor,
   });
+  final Color boxColor;
   final String? text;
   final String? svgPath;
   final FontWeight? fontWeight;
@@ -45,19 +45,18 @@ class CustomGeneralButtom extends StatelessWidget {
         // خليته ياخد العرض بتاع الاسكرين علشان اغير في الحجم براحتي
         width: width,
         decoration: BoxDecoration(
-          color: boxColor,
-          borderRadius: BorderRadius.circular(35),
-           border: Border.all(color: borderColor!),
-           boxShadow: [
-             BoxShadow(
-                  color: const Color.fromARGB(255, 106, 105, 105).withOpacity(0.3), // Shadow color
-                  offset: const Offset(0.5, 2.0), // Shadow offset
-                  blurRadius: 1, // Shadow blur radius
-                  spreadRadius: 1.0, // Shadow spread radius
-                ),
-
-          ]
-        ),
+            color: boxColor,
+            borderRadius: BorderRadius.circular(35.r),
+            border: Border.all(color: borderColor!),
+            boxShadow: [
+              BoxShadow(
+                color: const Color.fromARGB(255, 106, 105, 105)
+                    .withOpacity(0.3), // Shadow color
+                offset: const Offset(0.5, 2.0), // Shadow offset
+                blurRadius: 1, // Shadow blur radius
+                spreadRadius: 1.0, // Shadow spread radius
+              ),
+            ]),
         //The Row widget contains an Expanded widget that wraps your existing
         child: Row(
           mainAxisAlignment:
@@ -74,7 +73,7 @@ class CustomGeneralButtom extends StatelessWidget {
                           'Default Text', // Provide a default value if text is null
                       style: TextStyle(
                         fontFamily: 'Cosffira',
-                        fontSize: 17,
+                        fontSize: 17.sp,
                         color: textColor,
                         fontWeight: fontWeight,
                       ),
@@ -132,9 +131,8 @@ class CustomGeneralButtom2 extends StatelessWidget {
         width: width,
         decoration: BoxDecoration(
           color: boxColor,
-          borderRadius: BorderRadius.circular(35),
+          borderRadius: BorderRadius.circular(35.r),
           border: Border.all(color: borderColor!),
-          
         ),
         //The Row widget contains an Expanded widget that wraps your existing
         child: Row(
@@ -163,7 +161,7 @@ class CustomGeneralButtom2 extends StatelessWidget {
                         text!, // Provide a default value if text is null
                         style: TextStyle(
                           fontFamily: 'Cosffira',
-                          fontSize: 16.5,
+                          fontSize: 16.5.sp,
                           color: textColor,
                           fontWeight: FontWeight.w800,
                         ),
@@ -221,10 +219,10 @@ class CustomGeneralButtom3 extends StatelessWidget {
         width: width,
         decoration: BoxDecoration(
           color: boxColor,
-          borderRadius: const BorderRadius.all(Radius.elliptical(60, 55)),
+          borderRadius: const BorderRadius.all(Radius.elliptical(60, 55)).r,
         ),
         //The Row widget contains an Expanded widget that wraps your existing
-        child: const Row(
+        child: Row(
           mainAxisAlignment:
               MainAxisAlignment.end, // Align content to the end (far right)
           children: [
@@ -236,9 +234,9 @@ class CustomGeneralButtom3 extends StatelessWidget {
                   Positioned(
                     child: Icon(
                       Icons.camera_alt,
-                      weight: 600,
-                      size: 40,
-                      color: Color(0xffE3B1A8),
+                      weight: 600.w,
+                      size: 40.sp,
+                      color: const Color(0xffE3B1A8),
                     ),
                   ),
                 ],

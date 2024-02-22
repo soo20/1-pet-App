@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:petapplication/core/utils/size_config.dart';
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
@@ -9,6 +8,8 @@ class AlartDialogPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     double aspectRatio = screenHeight / screenWidth;
     return AspectRatio(
       aspectRatio: aspectRatio,
@@ -43,8 +44,6 @@ class AlartDialogPage extends StatelessWidget {
                           children: [
                             TextSpan(
                               text: 'allow',
-                              
-                              
                             ),
                             TextSpan(
                               text: ' "yuna app" ',

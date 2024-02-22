@@ -1,23 +1,38 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:petapplication/pages/splashscreen.dart';
 
 List<CameraDescription> cameras = [];
-Future<void> main()async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   cameras = await availableCameras();
-  runApp(const MyApp());
+  runApp(const YunaPetApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class YunaPetApp extends StatelessWidget {
+  const YunaPetApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      theme: ThemeData(fontFamily: 'Poppins'),
-      debugShowCheckedModeBanner: false,
-      home: const SplashScreen(), // Display the splash screen first
+    //A flutter plugin for adapting screen and font size.
+    return ScreenUtilInit(
+      //The size of the device screen in the design
+      designSize: const Size(1080, 1920),
+      //support for split screen
+      splitScreenMode: true,
+      //Whether to adapt the text according to the minimum of width and height
+      minTextAdapt: true,
+      //Return widget that uses the library in a property (ex: MaterialApp's theme)
+      builder: (_, child) {
+        return GetMaterialApp(
+          theme: ThemeData(fontFamily: 'Poppins'),
+          debugShowCheckedModeBanner: false,
+          home: child, // Display the splash screen first
+        );
+      },
+      //A part of builder that its dependencies/properties don't use the library
+      child: const SplashScreen(),
     );
   }
 }

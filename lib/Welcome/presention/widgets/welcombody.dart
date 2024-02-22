@@ -45,7 +45,7 @@ class _WelcomeBodyState extends State<WelcomeBody> {
           Positioned(
             left: 30,
             right: 0,
-            bottom: SizeConfig.defaultSize! * 6,
+            // bottom: SizeConfig.defaultSize! * 6,
             child: Dot(
               dotIndex: pageController!.hasClients ? pageController?.page : 0,
             ),

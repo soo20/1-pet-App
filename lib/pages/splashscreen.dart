@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:petapplication/Welcome/presention/widgets/welcombody.dart';
-import 'package:petapplication/core/utils/size_config.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -19,8 +22,8 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
-    animationController =
-        AnimationController(vsync: this, duration:const Duration(milliseconds: 600));
+    animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 600));
     fadingAnimation =
         Tween<double>(begin: .2, end: 1).animate(animationController!);
 
@@ -37,72 +40,53 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-  int backgroundColor = 0xFFBBB2B4; // Color code represented as an integer
-  SizeConfig().init(context);
-  double aspectRatio = screenHeight/screenWidth; // Set your desired aspect ratio
-
-  return Scaffold(
-    backgroundColor: Color(backgroundColor),
-    body: Stack(
-      children: [
-        Positioned(
-          top: SizeConfig.defaultSize!*13.5,
-          //right: SizeConfig.defaultSize!/10,
-          bottom: SizeConfig.defaultSize!*28.5,
-          width: 410,
-          child: AspectRatio(
-            aspectRatio: aspectRatio,
-                child: Image.asset(
+    int backgroundColor = 0xFFBBB2B4; // Color code represented as an integer
+    return Scaffold(
+      backgroundColor: Color(backgroundColor),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset(
               'assets/image/Group286.png',
-              fit: BoxFit.contain, // Adjust the fit as needed
+              width: 694.w,
+              //height: 808.48.h,
+              // Adjust the fit as needed
             ),
-         
-          ),
-        ),
-        Positioned(
-          bottom: SizeConfig.defaultSize!*21.5, // Adjust the position of the text as per your layout
-          left: 0,
-          right: 0,
-          child: Center(
-            child: FadeTransition(
-              opacity: fadingAnimation!,
-              child: const Text(
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Text(
                 'Hello,', // Replace with your desired text
                 style: TextStyle(
+                  height: 2.h,
                   fontFamily: 'Cosffira', // Use Poppins font
-                  fontSize: 59, // Adjust the font size as needed
-                  color: Color.fromRGBO(11, 47, 55, 1),
-                  fontWeight:
-                      FontWeight.bold, // Use FontWeight.bold for bold style
+                  fontSize: 147.sp, // Adjust the font size as needed
+                  color: const Color.fromRGBO(11, 47, 55, 1),
+                  fontWeight: FontWeight.bold,
+                  // Use FontWeight.bold for bold style
                 ),
               ),
             ),
-          ),
-        ),
-         Positioned(
-          bottom: SizeConfig.defaultSize!*21.0, // Adjust the position of the text as per your layout
-          left: 0,
-          right: 0,
-          child: const Center(
-            child: Text(
+            Text(
               'I\'m Yuna. Ready to explore the world of pets together?', // Replace with your desired text
               style: TextStyle(
-                fontFamily: 'Cosffira', // Use Poppins font
-                fontSize: 14.5, // Adjust the font size as needed
-                color: Color.fromRGBO(0, 0, 0, 1),
-                fontWeight: FontWeight.w400,
+                fontFamily: 'Cosffira', // Use Cosffira font
+                fontSize: 40.sp, // Adjust the font size as needed
+                color: const Color.fromRGBO(0, 0, 0, 1),
+                fontWeight: FontWeight.normal,
               ),
+              textAlign: TextAlign.center,
             ),
-          ),
+          ],
         ),
-      ],
-    ),
-  );
-}
+      ),
+    );
+  }
 
-void goToNextView() {
-  Future.delayed(const Duration(seconds: 3), () {
-    // function doing return to widgets
-    Get.to(() => const WelcomeBody(), transition: Transition.fade);
-  });
-}}
+  void goToNextView() {
+    Future.delayed(const Duration(seconds: 3), () {
+      // function doing return to widgets
+      Get.to(() => const WelcomeBody(), transition: Transition.fade);
+    });
+  }
+}

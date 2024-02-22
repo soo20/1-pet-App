@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-
-import 'package:petapplication/core/utils/size_config.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+//import 'package:petapplication/core/utils/size_config.dart';
 
 class HorizintalSpace extends StatelessWidget {
   const HorizintalSpace(this.value, {super.key});
@@ -8,7 +8,7 @@ class HorizintalSpace extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: SizeConfig.defaultSize! * value!,
+      width: value!.w,
     );
   }
 }
@@ -19,7 +19,7 @@ class VerticalSpace extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: SizeConfig.defaultSize! * value!,
+      height: value!.h,
     );
   }
 }
