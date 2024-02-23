@@ -69,11 +69,11 @@ class CustomGeneralButtom extends StatelessWidget {
                 children: <Widget>[
                   Positioned(
                     child: Text(
-                      text ??
-                          'Default Text', // Provide a default value if text is null
+                      text !
+                         , // Provide a default value if text is null
                       style: TextStyle(
                         fontFamily: 'Cosffira',
-                        fontSize: 17.sp,
+                        fontSize: 45.sp,
                         color: textColor,
                         fontWeight: fontWeight,
                       ),

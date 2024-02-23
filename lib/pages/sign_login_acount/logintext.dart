@@ -39,9 +39,9 @@ class LoginText extends StatelessWidget {
             )),
         extendBodyBehindAppBar: true,
         backgroundColor: kMainColorSplash,
-        body: const Column(children: [
+        body: 
           // SignUpPody()
-          LoginBody()
-        ]));
+          const LoginBody()
+        );
   }
 }

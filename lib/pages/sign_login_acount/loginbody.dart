@@ -3,6 +3,8 @@
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:petapplication/core/utils/size_config.dart';
@@ -33,76 +35,76 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    double aspectRatio = SizeConfig.screenWidth! / SizeConfig.screenHeight!;
-    return AspectRatio(
-      aspectRatio: aspectRatio,
-      child: Scaffold(
-        backgroundColor: kMainColorSplash,
-        body: Column(
+   // double aspectRatio = SizeConfig.screenWidth! / SizeConfig.screenHeight!;
+    return Scaffold(
+      backgroundColor: kMainColorSplash,
+     body: Center(
+       child: Column(
+        
           children: [
-            const VerticalSpace(8.0),
+            SizedBox(height: 200.h,),
             Text(
               'Yuna\n',
               style: TextStyle(
                 fontFamily: 'Cosffira',
-                fontSize: 50,
+                fontSize: 135.sp,
                 color: const Color(0xff0b2f37),
                 fontWeight: FontWeight.w600,
-                height: SizeConfig.defaultSize! * 0.03,
+                height:  1.h,
               ),
             ),
-            SizedBox(
-              height: SizeConfig.defaultSize! * 30,
-              width: SizeConfig.defaultSize! * 30,
-              child: Image.asset('assets/image/Group841.png'),
-            ),
-            SizedBox(height: 20,),
+           SizedBox(height: 0,),
+         Image.asset('assets/image/Group841.png',width: 687.w,),
+           
+            //
+            //SizedBox(height: 20.h,),
+       
             Flexible(
               flex: 3,
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: SizeConfig.defaultSize! * 0.5,
-                    horizontal: SizeConfig.defaultSize! * 7.5),
-                child: const CustomGeneralButtom2(
-                  height: 42,
+                    vertical: 10,
+                    horizontal:  0),
+                child:  CustomGeneralButtom2(
+                  height: 124.h,
                   text: 'Login With GmaiL',
                   textColor: kMainColorPage,
                   icon: FontAwesomeIcons.google,
                   iconcolor: Color.fromARGB(255, 248, 54, 90),
                   boxColor: kMainColor,
                   borderColor: kMainColor,
-                  width: null,
+                  width: 730.w,
                 ),
               ),
             ),
-
+        
             Flexible(
               flex: 2,
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: SizeConfig.defaultSize! * 0.1,
-                    horizontal: SizeConfig.defaultSize! * 7.5),
+                    vertical:0,
+                    horizontal:  0),
                 child: CustomGeneralButtom2(
-                  height: 42,
+                  height: 124.h,
                   text: 'Login With Facebook',
                   icon: FontAwesomeIcons.facebook,
                   iconcolor: kMainColorPage,
                   textColor: kMainColorPage,
                   boxColor: kMainColorSplash,
                   borderColor: kMainColorPage,
-                  width: SizeConfig.screenWidth,
+                  width: 730.w,
                 ),
               ),
             ),
-
+           
             Flexible(
               flex: 2,
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: SizeConfig.defaultSize! * .5,
-                    horizontal: SizeConfig.defaultSize! * 7.5),
+                    vertical:10,
+                    horizontal:  0),
                 child: CustomGeneralButtom2(
-                  height: 42,
+                  height: 124.h,
                   text: 'Login With Email',
                   onTap: () {
                     navigator?.pushAndRemoveUntil(
@@ -115,32 +117,32 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                   iconcolor: kMainColorPage,
                   boxColor: const Color.fromARGB(255, 248, 54, 90),
                   borderColor: const Color.fromARGB(255, 248, 54, 90),
-                  width: null,
+                  width: 730.w,
                 ),
               ),
             ),
-
-            const Row(
+           
+             Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: 115,
+                    width: 300.w,
                   ),
                   Text(
                     'Don\'t have an account? ',
                     style: TextStyle(
                       fontFamily: 'Cosffira',
-                      fontSize: 15.5,
+                      fontSize: 39.sp,
                       color: Color(0xff090f0f),
                       fontWeight: FontWeight.w400,
                     ),
                   ),
                 ]),
             SizedBox(
-              width: 50,
+              width: 50.w,
             ),
-
+           /*
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -152,7 +154,7 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                     'Sign Up',
                     style: TextStyle(
                       fontFamily: 'Cosffira',
-                      fontSize: 20,
+                      fontSize: 20.sp,
                       color: Color(0xff090f0f),
                       fontWeight: FontWeight.w900,
                     ),
@@ -166,7 +168,7 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                               isSurfacePainted: false,
                               child: Container(
                                 width: double.infinity,
-                                height: 400,
+                                height: 400.h,
                                 decoration: BoxDecoration(
                                   color: const Color(0xffEEEFEF),
                                   borderRadius: const BorderRadius.only(
@@ -176,7 +178,7 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                                     bottomRight: Radius.circular(00.0),
                                   ),
                                   border: Border.all(
-                                      width: 0.5,
+                                      width: 0.5.w,
                                       color: const Color(0xff707070)),
                                 ),
                                 child: Scaffold(
@@ -187,19 +189,19 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                                       mainAxisSize: MainAxisSize.min,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
-                                      children: const [
+                                      children: [
                                         SizedBox(
-                                          height: 80,
+                                          height: 80.h,
                                         ),
                                         Text.rich(
                                           TextSpan(
                                             style: TextStyle(
                                               fontFamily: 'Cosffira',
-                                              fontSize: 38,
+                                              fontSize: 38.sp,
                                               color: Color(0xfff83658),
                                               height: 1.0434782608695652,
                                             ),
-                                            children: [
+                                            children: const [
                                               TextSpan(
                                                 text: 'Create ',
                                                 style: TextStyle(
@@ -216,7 +218,7 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                                           ),
                                         ),
                                         SizedBox(
-                                          height: 280,
+                                          height: 280.h,
                                           child: PageViewLogin(),
                                         ),
                                       ],
@@ -229,11 +231,11 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                 ),
               ],
             ),
-
+           */
             // Add the rest of your widgets here, for example, text fields, buttons, etc.
           ],
         ),
-      ),
+     ),
     );
   }
 }
