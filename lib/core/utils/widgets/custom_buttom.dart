@@ -46,7 +46,7 @@ class CustomGeneralButtom extends StatelessWidget {
         width: width,
         decoration: BoxDecoration(
             color: boxColor,
-            borderRadius: BorderRadius.circular(35.r),
+            borderRadius: BorderRadius.circular(50.r),
             border: Border.all(color: borderColor!),
             boxShadow: [
               BoxShadow(
@@ -131,7 +131,7 @@ class CustomGeneralButtom2 extends StatelessWidget {
         width: width,
         decoration: BoxDecoration(
           color: boxColor,
-          borderRadius: BorderRadius.circular(35.r),
+          borderRadius: BorderRadius.circular(50.r),
           border: Border.all(color: borderColor!),
         ),
         //The Row widget contains an Expanded widget that wraps your existing
@@ -161,7 +161,7 @@ class CustomGeneralButtom2 extends StatelessWidget {
                         text!, // Provide a default value if text is null
                         style: TextStyle(
                           fontFamily: 'Cosffira',
-                          fontSize: 16.5.sp,
+                          fontSize: 35.sp,
                           color: textColor,
                           fontWeight: FontWeight.w800,
                         ),
