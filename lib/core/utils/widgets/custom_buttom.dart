@@ -46,7 +46,7 @@ class CustomGeneralButtom extends StatelessWidget {
         width: width,
         decoration: BoxDecoration(
             color: boxColor,
-            borderRadius: BorderRadius.circular(50.r),
+            borderRadius: BorderRadius.circular(70.r),
             border: Border.all(color: borderColor!),
             boxShadow: [
               BoxShadow(
@@ -73,7 +73,7 @@ class CustomGeneralButtom extends StatelessWidget {
                          , // Provide a default value if text is null
                       style: TextStyle(
                         fontFamily: 'Cosffira',
-                        fontSize: 45.sp,
+                        fontSize: 40.sp,
                         color: textColor,
                         fontWeight: fontWeight,
                       ),

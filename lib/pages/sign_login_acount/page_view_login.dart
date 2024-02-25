@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -46,7 +46,7 @@ class _PageViewLoginState extends State<PageViewLogin> {
       children: [
         Container(
            padding: const EdgeInsets.only(
-                    bottom: 45,
+                    bottom: 150,
                     right: 50,
                     left: 50,
                     //top: screenWidth *0.08
@@ -244,7 +244,7 @@ class _PageViewLoginState extends State<PageViewLogin> {
                       ),
                       Padding(
                           padding: const EdgeInsets.symmetric(
-                              vertical: 10,
+                              vertical: 25,
                               horizontal: 10),
                           child: CustomGeneralButtom(
                             height: 113.h,

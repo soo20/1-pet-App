@@ -213,7 +213,7 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 660.h,
+                                      height: 1000.h,
                                       child: PageViewLogin(),
                                     ),
                                   ],
