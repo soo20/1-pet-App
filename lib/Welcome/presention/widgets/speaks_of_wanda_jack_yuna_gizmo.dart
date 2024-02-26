@@ -1,12 +1,9 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:petapplication/core/utils/size_config.dart';
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
-
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 import 'package:petapplication/pages/sign_login_acount/logintext.dart';
 
@@ -65,8 +62,6 @@ class YunaSpeak extends StatelessWidget {
     );
   }
 }
-
-
 
 ///2
 class JackSpeak extends StatelessWidget {
@@ -169,7 +164,7 @@ class JackDefineSpeak extends StatelessWidget {
               fit: BoxFit.contain,
             ),
           ),
-         Padding(
+          Padding(
             padding: const EdgeInsets.fromLTRB(50.0, 93.0, 155.0, 20.0),
             child: SizedBox.expand(
               child: RichText(
@@ -313,7 +308,7 @@ class WandaSpeak extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(30.0, 110.0, 99.0, 00.0),
             child: SizedBox.expand(
-                child: RichText(
+              child: RichText(
                 text: const TextSpan(
                   text: 'Hey pet lovers! Wanda here',
                   style: TextStyle(
@@ -325,7 +320,7 @@ class WandaSpeak extends StatelessWidget {
                   children: <TextSpan>[
                     TextSpan(
                       text:
-                         ' with \nexciting news—our app now has a\nreminder system! Enjoy timely pet\ncare prompts and manage\nimportant dates, Join Us on this\nConvenient, journey!',
+                          ' with \nexciting news—our app now has a\nreminder system! Enjoy timely pet\ncare prompts and manage\nimportant dates, Join Us on this\nConvenient, journey!',
                       style: TextStyle(
                         fontFamily: 'Cosffira',
                         fontSize: 14.7,
@@ -336,7 +331,8 @@ class WandaSpeak extends StatelessWidget {
                   ],
                 ),
                 textAlign: TextAlign.center,
-              ),),
+              ),
+            ),
           ),
           Positioned(
             right: 30,
@@ -364,7 +360,8 @@ class WandaSpeak extends StatelessWidget {
     );
   }
 }
-// 
+
+//
 class YunaDefine extends StatelessWidget {
   const YunaDefine({super.key});
 
@@ -517,7 +514,6 @@ class Component1312 extends StatelessWidget {
               ),
             ),
           ),
-          
         ],
       ),
     );

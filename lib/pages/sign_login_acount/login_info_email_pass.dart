@@ -1,10 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:petapplication/pages/homepage/home_page_after_adding_reminders.dart';
 import 'package:petapplication/core/utils/size_config.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
-import 'package:petapplication/pages/homepage/home.dart';
 import 'package:petapplication/pages/pageforgetpass/my_verify_pass.dart';
 //import 'package:flutter_svg/svg.dart';
 
@@ -27,7 +26,7 @@ class _LoginInfoState extends State<LoginInfo> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         foregroundColor: const Color.fromARGB(255, 108, 107, 107),
-         leading: IconButton(
+        leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_rounded,
             color: Color.fromARGB(255, 96, 96, 96),
@@ -187,8 +186,9 @@ class _LoginInfoState extends State<LoginInfo> {
                     borderColor: const Color(0xff707070),
                     fontWeight: FontWeight.w900,
                     onTap: () {
-              Get.to(() => const HomePage(), transition: Transition.zoom);
-            },
+                      Get.to(() => const HomePageAfterAddingPets(),
+                          transition: Transition.zoom);
+                    },
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
