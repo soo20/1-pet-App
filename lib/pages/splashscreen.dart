@@ -40,7 +40,8 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    int backgroundColor = 0xFFBBB2B4; // Color code represented as an integer
+    int backgroundColor = 0xFFBBB2B4;
+    // Color code represented as an integer
     return Scaffold(
       backgroundColor: Color(backgroundColor),
       body: Center(
@@ -55,25 +56,29 @@ class _SplashScreenState extends State<SplashScreen>
               //set the width of image
               width: 694.w,
             ),
+
             //you have two different text styles, so we make two text widgets.
             Padding(
               /*We put it in the padding widget because we don't want any
                height but want space between the image and the text.*/
               padding: const EdgeInsets.only(top: 10.0),
-              child: Text(
-                // we put the text string.
-                'Hello,',
-                //to style your text:
-                style: TextStyle(
-                  //to make adaptive font size we call 'h' function:
-                  height: 2.h,
-                  //to customize your font.
-                  fontFamily: 'Cosffira',
-                  //to make adaptive font size we call 'sp' function.
-                  fontSize: 147.sp,
-                  color: const Color.fromRGBO(11, 47, 55, 1),
-                  //to make your font bold or normal "regular".
-                  fontWeight: FontWeight.bold,
+              child: FadeTransition(
+                opacity: fadingAnimation!,
+                child: Text(
+                  // we put the text string.
+                  'Hello,',
+                  //to style your text:
+                  style: TextStyle(
+                    //to make adaptive font size we call 'h' function:
+                    height: 2.h,
+                    //to customize your font.
+                    fontFamily: 'Cosffira',
+                    //to make adaptive font size we call 'sp' function.
+                    fontSize: 147.sp,
+                    color: const Color.fromRGBO(11, 47, 55, 1),
+                    //to make your font bold or normal "regular".
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
