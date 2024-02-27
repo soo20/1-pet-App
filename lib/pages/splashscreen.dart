@@ -68,7 +68,7 @@ class _SplashScreenState extends State<SplashScreen>
                   //to customize your font.
                   fontFamily: 'Cosffira',
                   //to make adaptive font size we call 'sp' function.
-                  fontSize: 147.sp,
+                  fontSize: 140.sp,
                   color: const Color.fromRGBO(11, 47, 55, 1),
                   //to make your font bold or normal "regular".
                   fontWeight: FontWeight.bold,
@@ -83,7 +83,7 @@ class _SplashScreenState extends State<SplashScreen>
               style: TextStyle(
                 fontFamily: 'Cosffira',
                 //to make adaptive font size we call 'sp' function.
-                fontSize: 40.sp,
+                fontSize: 34.sp,
                 color: const Color.fromRGBO(0, 0, 0, 1),
                 //to make your font normal "regular" or bold.
                 fontWeight: FontWeight.normal,

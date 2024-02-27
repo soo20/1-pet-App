@@ -118,7 +118,7 @@ class _LoginInfoState extends State<LoginInfo> {
                   style: const TextStyle(color: Color(0xff090F0F)),
                   decoration: InputDecoration(
                      contentPadding:
-                              const EdgeInsets.symmetric(vertical: 17),
+                              const EdgeInsets.symmetric(vertical: 15),
                       fillColor: const Color(0xFFFFFFFF),
                       filled: true,
                       hintText: 'Email',
@@ -158,7 +158,7 @@ class _LoginInfoState extends State<LoginInfo> {
                   style: const TextStyle(color: Color(0xff090F0F)),
                   decoration: InputDecoration(
                      contentPadding:
-                              const EdgeInsets.symmetric(vertical: 17),
+                              const EdgeInsets.symmetric(vertical: 15),
                     suffixIcon: IconButton(
                       icon: Icon(
                         _obscureText3
