@@ -20,7 +20,7 @@ class CustomGeneralButtom extends StatelessWidget {
     this.fontWeight,
     required this.height,
     this.width,
-    this.borderColor,
+    this.borderColor, this.customFontSize,
   });
   final Color boxColor;
   final String? text;
@@ -30,6 +30,8 @@ class CustomGeneralButtom extends StatelessWidget {
   final double? width;
   final Color? textColor;
   final Color? borderColor;
+  final double? customFontSize;  // قيمة افتراضية
+
 
   final String Function(int)? buttonTextResolver;
   // void function
@@ -73,7 +75,7 @@ class CustomGeneralButtom extends StatelessWidget {
                          , // Provide a default value if text is null
                       style: TextStyle(
                         fontFamily: 'Cosffira',
-                        fontSize: 40.sp,
+                       fontSize: customFontSize ?? 35.r,
                         color: textColor,
                         fontWeight: fontWeight,
                       ),
@@ -98,6 +100,7 @@ class CustomGeneralButtom2 extends StatelessWidget {
   final Color? borderColor;
   final double height;
   final double? width;
+  
   const CustomGeneralButtom2({
     super.key,
     this.text,
@@ -114,7 +117,7 @@ class CustomGeneralButtom2 extends StatelessWidget {
   });
   final String? text;
   final String? svgPath;
-
+  
   final String Function(int)? buttonTextResolver;
   // void function
   final VoidCallback? onTap;
@@ -219,7 +222,7 @@ class CustomGeneralButtom3 extends StatelessWidget {
         width: width,
         decoration: BoxDecoration(
           color: boxColor,
-          borderRadius: const BorderRadius.all(Radius.elliptical(60, 55)).r,
+          borderRadius: const BorderRadius.all(Radius.elliptical(80, 75)).r,
         ),
         //The Row widget contains an Expanded widget that wraps your existing
         child: Row(
@@ -235,7 +238,7 @@ class CustomGeneralButtom3 extends StatelessWidget {
                     child: Icon(
                       Icons.camera_alt,
                       weight: 600.w,
-                      size: 40.sp,
+                      size: 90.sp,
                       color: const Color(0xffE3B1A8),
                     ),
                   ),

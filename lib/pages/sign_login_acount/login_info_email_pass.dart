@@ -88,10 +88,10 @@ class _LoginInfoState extends State<LoginInfo> {
             width: 0.5, color: Color.fromARGB(70, 112, 112, 112)));
 
     return Padding(
-      padding: const EdgeInsets.only(top :125),
+      padding: const EdgeInsets.only(top :135),
       child: Container(
        
-           height:1500.h ,
+           height:1550.h ,
            width: 1080.w,
             decoration: const BoxDecoration(
               image: DecorationImage(

@@ -22,21 +22,24 @@ class LoginText extends StatelessWidget {
             //iconTheme: IconThemeData.fallback(),
             forceMaterialTransparency: true,
             toolbarOpacity: 1,
-            toolbarHeight: 40,
+            toolbarHeight: 50,
             leading: IconButton(
               icon:  Text(
-                'Skip',
+                'skip',
                 style: TextStyle(
                   fontFamily: 'Cosffira',
                   fontSize: 45.sp,
                   color: const Color(0xffEEEFEF),
                   fontWeight: FontWeight.w900,
+                  
                 ),
               ),
               onPressed: () {
                 Get.to(() => const Deefine(), transition: Transition.size);
                 // Add any functionality you want when the icon is pressed
               },
+               padding: const EdgeInsets.only(
+              left: 15.0),
             )),
         extendBodyBehindAppBar: true,
         backgroundColor: kMainColorSplash,

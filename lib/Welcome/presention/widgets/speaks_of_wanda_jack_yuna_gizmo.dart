@@ -144,63 +144,58 @@ class JackDefineSpeak extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double aspectRatio = screenWidth / screenHeight;
-    return AspectRatio(
-      aspectRatio: aspectRatio,
-      child: Stack(
-        children: <Widget>[
-          Positioned(
-            child: Container(
-              decoration: BoxDecoration(
-                color: kMainColorPage,
-                borderRadius: BorderRadius.circular(23.0),
-                border: Border.all(width: 0.4, color: const Color(0xff707070)),
-              ),
-              margin: const EdgeInsets.fromLTRB(45.0, 62.0, 145.0, 515.2),
-            ),
+    
+    return Stack(
+      children: <Widget>[
+        Container(
+          decoration: BoxDecoration(
+            color: kMainColorPage,
+            borderRadius: BorderRadius.circular(50.r),
+            border: Border.all(width: 0.4, color: const Color(0xff707070)),
           ),
-          Positioned(
-            right: 155.7,
-            top: 192.0,
-            width: 80,
-            height: 62,
-            child: SvgPicture.string(
-              _svg_pp2ta,
-              allowDrawingOutsideViewBox: true,
-              fit: BoxFit.contain,
-            ),
+          margin: const EdgeInsets.fromLTRB(45.0, 70, 155.0, 470.2),
+        ),
+       Positioned(
+          right: 155.7,
+          top: 192.0,
+          width: 80,
+          height: 62,
+          child: SvgPicture.string(
+            _svg_pp2ta,
+            allowDrawingOutsideViewBox: true,
+            fit: BoxFit.contain,
           ),
-         Padding(
-            padding: const EdgeInsets.fromLTRB(50.0, 93.0, 155.0, 20.0),
-            child: SizedBox.expand(
-              child: RichText(
-                text: const TextSpan(
-                  text: '',
-                  style: TextStyle(
-                    fontFamily: 'Cosffira',
-                    fontSize: 16,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  children: <TextSpan>[
-                    TextSpan(
-                      text:
-                          'hello, my friend, please \ntake a photo of your pet \n to provide some\ninformation about it',
-                      style: TextStyle(
-                        fontFamily: 'Cosffira',
-                        fontSize: 16.5,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    )
-                  ],
+        ),
+       Padding(
+          padding: const EdgeInsets.fromLTRB(50.0, 93.0, 155.0, 20.0),
+          child: SizedBox.expand(
+            child: RichText(
+              text: TextSpan(
+                text: '',
+                style: TextStyle(
+                  fontFamily: 'Cosffira',
+                  fontSize: 42.sp,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w600,
                 ),
-                textAlign: TextAlign.center,
+                children: <TextSpan>[
+                  TextSpan(
+                    text:
+                        'hello, my friend, please \ntake a photo of your pet \n to provide some\ninformation about it',
+                    style: TextStyle(
+                      fontFamily: 'Cosffira',
+                      fontSize:42.sp,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  )
+                ],
               ),
+              textAlign: TextAlign.center,
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -371,49 +366,49 @@ class YunaDefine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double aspectRatio = screenWidth / screenHeight;
-    return AspectRatio(
-      aspectRatio: aspectRatio,
-      child: Stack(
-        children: <Widget>[
-          Positioned(
-            child: Container(
-              decoration: BoxDecoration(
-                color: kMainColorPage,
-                borderRadius: BorderRadius.circular(29.0),
-                border: Border.all(width: 0.4, color: const Color(0xff707070)),
-              ),
-              margin: const EdgeInsets.fromLTRB(20.0, 73.0, 180.0, 488.2),
+   
+    return Stack(
+      children: <Widget>[
+        Positioned(
+          child: Container(
+            decoration: BoxDecoration(
+              color: kMainColorPage,
+              borderRadius: BorderRadius.circular(60.0.r),
+              border: Border.all(width: 0.4, color: const Color(0xff707070)),
             ),
+            margin: const EdgeInsets.fromLTRB(20.0, 50.0, 200.0,0.2),
           ),
-          Positioned(
-            right: 200.7,
-            top: 218.0,
-            width: 75,
-            height: 60,
-            child: SvgPicture.string(
-              _svg_pp2ta,
-              allowDrawingOutsideViewBox: true,
-              fit: BoxFit.contain,
+        ),
+
+
+
+        Positioned(
+          right: 200.7,
+          top: 218.0,
+          width: 275.w,
+          height: 160.h,
+          child: SvgPicture.string(
+            _svg_pp2ta,
+            allowDrawingOutsideViewBox: true,
+            fit: BoxFit.contain,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(00.0, 95.0, 155.0, 00.0),
+          child: SizedBox.expand(
+              child: Text(
+            overflow: TextOverflow.ellipsis,
+            'Let\'s start by defining your \nlovely pet. You can choose \nto define it with Jack, or\n you can manually add your \n pet\'sdetails.',
+            style: TextStyle(
+              fontFamily: 'Cosffira',
+              fontSize: 24.0.sp,
+              color: Colors.black,
+              fontWeight: FontWeight.w600,
             ),
-          ),
-          const Padding(
-            padding: EdgeInsets.fromLTRB(00.0, 95.0, 155.0, 00.0),
-            child: SizedBox.expand(
-                child: Text(
-              overflow: TextOverflow.ellipsis,
-              'Let\'s start by defining your \nlovely pet. You can choose \nto define it with Jack, or\n you can manually add your \n pet\'sdetails.',
-              style: TextStyle(
-                fontFamily: 'Cosffira',
-                fontSize: 14.0,
-                color: Colors.black,
-                fontWeight: FontWeight.w600,
-              ),
-              textAlign: TextAlign.center,
-            )),
-          ),
-        ],
-      ),
+            textAlign: TextAlign.center,
+          )),
+        ),
+      ],
     );
   }
 }
