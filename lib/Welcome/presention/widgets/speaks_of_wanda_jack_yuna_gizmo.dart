@@ -520,6 +520,17 @@ class Component1312 extends StatelessWidget {
   }
 }
 
+
+class Try extends StatelessWidget {
+  const Try({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return  Container(
+      
+    );
+  }
+}
 // ignore: constant_identifier_names
 const String _svg_pp2ta =
     '<svg viewBox="299.2 364.0 181.2 160.2" ><path transform="translate(-1654.57, 4001.0)" d="M 1953.72900390625 -3637 L 2013.6484375 -3532.818359375 L 2134.880859375 -3476.79736328125 L 2134.880859375 -3476.79736328125 L 2063.813720703125 -3532.818359375 L 2077.748291015625 -3637 L 1953.72900390625 -3637 Z" fill="none" stroke="#707070" stroke-width="1" stroke-miterlimit="4" stroke-linecap="butt" /></svg>';
