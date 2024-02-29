@@ -29,16 +29,14 @@ return Scaffold(
       body: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left:20,top:30),
+            padding: const EdgeInsets.only(left:25,top:30),
             child: SafeArea(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                 SizedBox(width: 20.w), // Add space to the left
+               // Add space to the left
+               child: 
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 20.h), // Add space to the top
+                      SizedBox(height: 20.h,), // Add space to the top
                       Container(
                         width: 540.w,
                         height: 400.h,
@@ -46,12 +44,12 @@ return Scaffold(
                         decoration: BoxDecoration(
                          // color: const Color(0xffEEEFEF), // Box color
                           borderRadius: BorderRadius.circular(60.r),
-                          border: Border.all(color: Colors.black,width: 0.3) // Border radius if needed
+                          border: Border.all(color: const Color(0xff707070),width: 0.4) // Border radius if needed
                         ),
                         child:  Center(
                           child: Text(
                      overflow: TextOverflow.ellipsis,
-            'Let\'s start by defining your \nlovely pet. You can choose \nto define it with Jack, or\n you can manually add your \n pet\'sdetails.',
+            'Let\'s start by defining your \nlovely pet. You can choose \nto define it with Jack, or\n you can manually add your \n pet\'s details.',
                     style: TextStyle(
                       fontFamily: 'Cosffira',
                       fontSize: 33.sp,
@@ -68,8 +66,8 @@ return Scaffold(
                                     _svg_pp2ta,
                                     allowDrawingOutsideViewBox: true,
                                     fit: BoxFit.contain,
-                                     width: 72,
-                                    height: 60,
+                                     width: 160.w,
+                                    height: 150.h,
                         ),
                       ),
 SizedBox(height: 850.h, ),
@@ -100,7 +98,7 @@ SizedBox(height: 850.h, ),
                                     height: 125.h,
                                     width: 355.w,
                                     customFontSize: 35.r,
-                                    //fontWeight: FontWeight.w700,
+                                  
                                   ),
                                   SizedBox(width: 70.w,),
                                     CustomGeneralButtom(
@@ -111,7 +109,7 @@ SizedBox(height: 850.h, ),
                                    width:355.w ,
                                    customFontSize: 35.r,
                                   
-                                   //fontWeight: FontWeight.w700,
+                                  
                                    borderColor: const Color(0xff707070),
                                  ),
                                   ],
@@ -119,8 +117,7 @@ SizedBox(height: 850.h, ),
                         )
                     ],
                   ),
-                ],
-              ),
+               
             ),
           ),
            Padding(
@@ -139,66 +136,6 @@ SizedBox(height: 850.h, ),
      
         ],
       ),
-    
-    /*Scaffold(
-      backgroundColor: const Color(0xffEEEFEF),
-      body: 
-      Column(
-        children: [
-          Try(),
-          //SizedBox(height: 20.h,),
-          // YunaDefine(),
-
-        Padding(
-          padding: const EdgeInsets.fromLTRB(
-              200.50,150,0,0), // Add padding of 8.0 to all sides
-          child: Image.asset(
-            'assets/image/Group786.png',
-            width:500.w ,
-            height: 1000.h,
-            fit: BoxFit.contain, // Adjust the fit as needed
-          ),
-        ),
-     
-       SizedBox(height: 120.h),
-       Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-      
-        
-             
-        
-        CustomGeneralButtom(
-          text: 'Define With Jack',
-          borderColor: const Color(0xff707070),
-          onTap: () {
-            navigator?.pushAndRemoveUntil(
-              MaterialPageRoute(builder: (e) => const JackDefine()),
-              (route) => true,
-            );
-          },
-          textColor: kMainColor,
-          boxColor: const Color(0xFFE3B1A8),
-          height: 115.h,
-          width: 340.w,
-          customFontSize: 28.r,
-          //fontWeight: FontWeight.w700,
-        ),
-        SizedBox(width: 70.w,),
-          CustomGeneralButtom(
-         text: 'Add Manually ',
-         textColor: const Color(0xFFE3B1A8),
-         boxColor: kMainColor,
-         height: 115.h,
-         width:340.w ,
-         customFontSize: 30.r,
-        
-         //fontWeight: FontWeight.w700,
-         borderColor: const Color(0xff707070),
-       ),
-        ],
-       )
-      ]),*/
     );
   }
 }
