@@ -2,14 +2,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
+
 import 'package:petapplication/Welcome/presention/widgets/speaks_of_wanda_jack_yuna_gizmo.dart';
-import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:petapplication/core/utils/size_config.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
+import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/pages/define_page/widgets/alart_dialog.dart';
 import 'package:petapplication/pages/sign_login_acount/popup_surface.dart';
 
