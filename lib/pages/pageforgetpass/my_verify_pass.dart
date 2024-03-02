@@ -3,7 +3,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:petapplication/core/utils/size_config.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/pages/pageforgetpass/greate_new_pass.dart';
@@ -56,14 +57,14 @@ class _MyVerifyState extends State<MyVerify> {
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
       margin: const EdgeInsets.symmetric(horizontal: 5),
-      width: 40,
-      height: 65,
-      textStyle: const TextStyle(
-          fontSize: 22, color: Color(0xff020202), fontWeight: FontWeight.w500),
+      width: 100.w,
+      height: 160.h,
+      textStyle:  TextStyle(
+          fontSize: 42.sp, color: const Color(0xff020202), fontWeight: FontWeight.w500),
       decoration: BoxDecoration(
         color: const Color.fromARGB(255, 231, 229, 229),
         border: Border.all(color: const Color.fromARGB(88, 112, 112, 112)),
-        borderRadius: BorderRadius.circular(13),
+        borderRadius: BorderRadius.circular(30.r),
       ),
     );
 
@@ -72,7 +73,7 @@ class _MyVerifyState extends State<MyVerify> {
       border: Border.all(
         color: kMainColorSplash,
       ),
-      borderRadius: BorderRadius.circular(13),
+      borderRadius: BorderRadius.circular(30.r),
     );
 
     final submittedPinTheme = defaultPinTheme.copyWith(
@@ -86,7 +87,7 @@ class _MyVerifyState extends State<MyVerify> {
       extendBodyBehindAppBar: true,
       body: Container(
         margin:
-            EdgeInsets.only(left: 25, right: 25, bottom: screenHeight * 0.015),
+           const  EdgeInsets.only(left: 25, right: 25, bottom: 10),
         alignment: Alignment.center,
         child: SingleChildScrollView(
           child: Column(
@@ -94,55 +95,55 @@ class _MyVerifyState extends State<MyVerify> {
             children: [
               Image.asset(
                 'assets/image/cloud.png',
-                width: 180,
-                height: 150,
+                width: 500.w,
+                height: 280.h,
               ),
-              const SizedBox(
-                height: 5,
+              SizedBox(
+                height: 100.h,
               ),
-              const Text(
+               Text(
                 "Please Enter 5-Digit Code",
                 style: TextStyle(
                   fontFamily: 'Cosffira',
-                  fontSize: 29,
+                  fontSize: 60.sp,
                   fontWeight: FontWeight.w700,
-                  color: Color(0xff020202),
+                  color: const Color(0xff020202),
                 ),
               ),
               const SizedBox(
                 height: 0,
               ),
               RichText(
-                text: const TextSpan(
+                text:  TextSpan(
                   text: 'We\'ve Sent A Code To ',
                   style: TextStyle(
                     fontFamily: 'Cosffira',
-                    fontSize: 16,
-                    color: Color.fromARGB(184, 9, 15, 15),
+                    fontSize:44.sp ,
+                    color: const Color.fromARGB(184, 9, 15, 15),
                     fontWeight: FontWeight.w800,
                   ),
                   children: <TextSpan>[
                     TextSpan(
-                      text: 'Malk22@gmail.com\n',
+                      text: 'malk22@gmail.com\n',
                       style: TextStyle(
-                        fontSize: 17,
-                        color: Color(0xff548987),
+                        fontSize: 44.sp,
+                        color: const Color(0xff548987),
                         fontWeight: FontWeight.w900,
                       ),
                     ),
                     TextSpan(
                       text: 'Enter a Code In That Message',
                       style: TextStyle(
-                        fontSize: 16,
-                        color: Color.fromARGB(184, 9, 15, 15),
+                        fontSize: 42.sp,
+                        color: const Color.fromARGB(184, 9, 15, 15),
                         fontWeight: FontWeight.w800,
                       ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 30,
+               SizedBox(
+                height: 60.h,
               ),
               Pinput(
                 length: 5,
@@ -157,13 +158,13 @@ class _MyVerifyState extends State<MyVerify> {
                   );
                 },
               ),
-              const SizedBox(
-                height: 10,
+               SizedBox(
+                height: 40.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const SizedBox(width: 260),
+                   SizedBox(width: 660.w),
                   isTimerRunning
                       ? Row(
                           children: [
@@ -172,13 +173,13 @@ class _MyVerifyState extends State<MyVerify> {
                               color: Color.fromARGB(255, 108, 42, 50),
                               size: 18,
                             ),
-                            const SizedBox(width: 0),
+                            SizedBox(width: 0.w),
                             Text(
                               ' ${getFormattedTime()} Min',
-                              style: const TextStyle(
-                                fontSize: 15,
+                              style:  TextStyle(
+                                fontSize: 30.sp,
                                 fontWeight: FontWeight.w700,
-                                color: Color.fromARGB(255, 108, 42, 50),
+                                color: const Color.fromARGB(255, 108, 42, 50),
                               ),
                             ),
                           ],
@@ -192,13 +193,13 @@ class _MyVerifyState extends State<MyVerify> {
                             });
                             starttimer();
                           },
-                          child: const Text(
+                          child:  Text(
                             'Resend',
                             style: TextStyle(
                               fontFamily: 'Cosffira',
-                              fontSize: 20,
+                              fontSize: 45.sp,
                               fontWeight: FontWeight.w800,
-                              color: Color(0xff2A606C),
+                              color: const Color(0xff2A606C),
                             ),
                           ),
                         ),
