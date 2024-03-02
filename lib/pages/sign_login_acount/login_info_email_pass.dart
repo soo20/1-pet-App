@@ -35,8 +35,14 @@ class _LoginInfoState extends State<LoginInfo> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+<<<<<<< HEAD
+        toolbarHeight: 40,
+        foregroundColor: kMainColor,
+         leading: IconButton(
+=======
         foregroundColor: const Color.fromARGB(255, 108, 107, 107),
         leading: IconButton(
+>>>>>>> 5ba0b1bdbd6fd2a4802c5544de168551227d3699
           icon: const Icon(
             Icons.arrow_back_rounded,
             color: kMainColor,
