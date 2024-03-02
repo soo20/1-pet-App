@@ -347,7 +347,7 @@ class Wanda extends StatelessWidget {
               alignment: Alignment.topLeft,
               children: [
                 WandaSpeak(),
-                ],
+              ],
             ),
           ],
         ),

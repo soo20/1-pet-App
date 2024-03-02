@@ -117,10 +117,10 @@ flutter:
     - assets/icons/Mask Group8.svg
     - assets/icons/kisspng-cat-kitten-dog-veterinarian-veterinary-medicine-cat-wearing-a-stethoscope-5aa8950c1229b5.3690385715209976440744.svg
     - assets/icons/pngtree-dog-yellow-glasses-silence-calm-cartoon-png-image_6661438.svg
-    
-    
-    
-    
+    - assets/image/home_page_afterAdding_pets_assets/person_image_in_app_bar.png
+    - assets/icons/home_page_after_adding_reminders_icons/Round Btn Default Dark.png
+    - assets/image/home_page_afterAdding_pets_assets/dog_for_events.png
+    - assets/image/home_page_afterAdding_pets_assets/cat_for_events.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

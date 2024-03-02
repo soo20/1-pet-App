@@ -3,11 +3,17 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+<<<<<<< HEAD
 
 
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/pages/homepage/home.dart';
+=======
+import 'package:petapplication/pages/homepage/home_page_after_adding_reminders.dart';
+import 'package:petapplication/core/utils/size_config.dart';
+import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
+>>>>>>> 5ba0b1bdbd6fd2a4802c5544de168551227d3699
 import 'package:petapplication/pages/pageforgetpass/my_verify_pass.dart';
 //import 'package:flutter_svg/svg.dart';
 
@@ -29,9 +35,14 @@ class _LoginInfoState extends State<LoginInfo> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+<<<<<<< HEAD
         toolbarHeight: 40,
         foregroundColor: kMainColor,
          leading: IconButton(
+=======
+        foregroundColor: const Color.fromARGB(255, 108, 107, 107),
+        leading: IconButton(
+>>>>>>> 5ba0b1bdbd6fd2a4802c5544de168551227d3699
           icon: const Icon(
             Icons.arrow_back_rounded,
             color: kMainColor,
@@ -216,6 +227,7 @@ class _LoginInfoState extends State<LoginInfo> {
                     height:120.h,
                     width: 40.w,
                   ),
+<<<<<<< HEAD
                   RichText(
                     text: TextSpan(
                       text: 'Forget Your Password? ',
@@ -224,6 +236,27 @@ class _LoginInfoState extends State<LoginInfo> {
                         fontSize: 40.sp,
                         color: const Color(0xff090f0f),
                         fontWeight: FontWeight.w400,
+=======
+                  CustomGeneralButtom(
+                    boxColor: const Color(0xff134F5C),
+                    textColor: const Color(0xffFFFFFF),
+                    height: screenHeight * 0.024,
+                    width: SizeConfig.defaultSize! * 13,
+                    text: 'Log in',
+                    borderColor: const Color(0xff707070),
+                    fontWeight: FontWeight.w900,
+                    onTap: () {
+                      Get.to(() => const HomePageAfterAddingPets(),
+                          transition: Transition.zoom);
+                    },
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      SizedBox(
+                        height: screenHeight * 0.016,
+                        width: 40,
+>>>>>>> 5ba0b1bdbd6fd2a4802c5544de168551227d3699
                       ),
                       children: <TextSpan>[
                         TextSpan(

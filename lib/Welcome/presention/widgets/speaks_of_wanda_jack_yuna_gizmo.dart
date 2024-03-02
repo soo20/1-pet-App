@@ -1,13 +1,10 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:petapplication/core/utils/size_config.dart';
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
-
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 import 'package:petapplication/pages/sign_login_acount/logintext.dart';
 
@@ -66,8 +63,6 @@ class YunaSpeak extends StatelessWidget {
     );
   }
 }
-
-
 
 ///2
 class JackSpeak extends StatelessWidget {
@@ -144,58 +139,63 @@ class JackDefineSpeak extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
-    return Stack(
-      children: <Widget>[
-        Container(
-          decoration: BoxDecoration(
-            color: kMainColorPage,
-            borderRadius: BorderRadius.circular(50.r),
-            border: Border.all(width: 0.4, color: const Color(0xff707070)),
-          ),
-          margin: const EdgeInsets.fromLTRB(45.0, 70, 155.0, 470.2),
-        ),
-       Positioned(
-          right: 155.7,
-          top: 192.0,
-          width: 80,
-          height: 62,
-          child: SvgPicture.string(
-            _svg_pp2ta,
-            allowDrawingOutsideViewBox: true,
-            fit: BoxFit.contain,
-          ),
-        ),
-       Padding(
-          padding: const EdgeInsets.fromLTRB(50.0, 93.0, 155.0, 20.0),
-          child: SizedBox.expand(
-            child: RichText(
-              text: TextSpan(
-                text: '',
-                style: TextStyle(
-                  fontFamily: 'Cosffira',
-                  fontSize: 42.sp,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600,
-                ),
-                children: <TextSpan>[
-                  TextSpan(
-                    text:
-                        'hello, my friend, please \ntake a photo of your pet \n to provide some\ninformation about it',
-                    style: TextStyle(
-                      fontFamily: 'Cosffira',
-                      fontSize:42.sp,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  )
-                ],
+    double aspectRatio = screenWidth / screenHeight;
+    return AspectRatio(
+      aspectRatio: aspectRatio,
+      child: Stack(
+        children: <Widget>[
+          Positioned(
+            child: Container(
+              decoration: BoxDecoration(
+                color: kMainColorPage,
+                borderRadius: BorderRadius.circular(23.0),
+                border: Border.all(width: 0.4, color: const Color(0xff707070)),
               ),
-              textAlign: TextAlign.center,
+              margin: const EdgeInsets.fromLTRB(45.0, 62.0, 145.0, 515.2),
             ),
           ),
-        ),
-      ],
+          Positioned(
+            right: 155.7,
+            top: 192.0,
+            width: 80,
+            height: 62,
+            child: SvgPicture.string(
+              _svg_pp2ta,
+              allowDrawingOutsideViewBox: true,
+              fit: BoxFit.contain,
+            ),
+          ),
+         Padding(
+            padding: const EdgeInsets.fromLTRB(50.0, 93.0, 155.0, 20.0),
+            child: SizedBox.expand(
+              child: RichText(
+                text: const TextSpan(
+                  text: '',
+                  style: TextStyle(
+                    fontFamily: 'Cosffira',
+                    fontSize: 16,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text:
+                          'hello, my friend, please \ntake a photo of your pet \n to provide some\ninformation about it',
+                      style: TextStyle(
+                        fontFamily: 'Cosffira',
+                        fontSize: 16.5,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    )
+                  ],
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -309,7 +309,7 @@ class WandaSpeak extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(30.0, 110.0, 99.0, 00.0),
             child: SizedBox.expand(
-                child: RichText(
+              child: RichText(
                 text: const TextSpan(
                   text: 'Hey pet lovers! Wanda here',
                   style: TextStyle(
@@ -321,7 +321,7 @@ class WandaSpeak extends StatelessWidget {
                   children: <TextSpan>[
                     TextSpan(
                       text:
-                         ' with \nexciting news—our app now has a\nreminder system! Enjoy timely pet\ncare prompts and manage\nimportant dates, Join Us on this\nConvenient, journey!',
+                          ' with \nexciting news—our app now has a\nreminder system! Enjoy timely pet\ncare prompts and manage\nimportant dates, Join Us on this\nConvenient, journey!',
                       style: TextStyle(
                         fontFamily: 'Cosffira',
                         fontSize: 14.7,
@@ -332,7 +332,8 @@ class WandaSpeak extends StatelessWidget {
                   ],
                 ),
                 textAlign: TextAlign.center,
-              ),),
+              ),
+            ),
           ),
           Positioned(
             right: 30,
@@ -360,7 +361,8 @@ class WandaSpeak extends StatelessWidget {
     );
   }
 }
-// 
+
+//
 class YunaDefine extends StatelessWidget {
   const YunaDefine({super.key});
 
@@ -513,7 +515,6 @@ class Component1312 extends StatelessWidget {
               ),
             ),
           ),
-          
         ],
       ),
     );
