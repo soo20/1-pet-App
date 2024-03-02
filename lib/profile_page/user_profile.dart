@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
@@ -9,7 +9,7 @@ class ClipTry extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffEEEFEF),
+      backgroundColor: const Color(0xffEEEFEF),
       body: Stack(
         children: [
          Positioned(
