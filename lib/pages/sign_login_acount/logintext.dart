@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
@@ -21,27 +22,30 @@ class LoginText extends StatelessWidget {
             //iconTheme: IconThemeData.fallback(),
             forceMaterialTransparency: true,
             toolbarOpacity: 1,
-            toolbarHeight: 40,
+            toolbarHeight: 50,
             leading: IconButton(
-              icon: const Text(
-                'Skip',
+              icon:  Text(
+                'skip',
                 style: TextStyle(
                   fontFamily: 'Cosffira',
-                  fontSize: 22,
-                  color: Color(0xffEEEFEF),
+                  fontSize: 45.sp,
+                  color: const Color(0xffEEEFEF),
                   fontWeight: FontWeight.w900,
+                  
                 ),
               ),
               onPressed: () {
                 Get.to(() => const Deefine(), transition: Transition.size);
                 // Add any functionality you want when the icon is pressed
               },
+               padding: const EdgeInsets.only(
+              left: 15.0),
             )),
         extendBodyBehindAppBar: true,
         backgroundColor: kMainColorSplash,
-        body: const Column(children: [
+        body: 
           // SignUpPody()
-          LoginBody()
-        ]));
+          const LoginBody()
+        );
   }
 }
