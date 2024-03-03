@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+<<<<<<< HEAD
 import 'package:get/get.dart';
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/pages/homepage/home_page_after_adding_reminders.dart';
 import 'package:petapplication/core/utils/size_config.dart';
+=======
+
+import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
+
+
+>>>>>>> 4d09ab8eb63a762b8b0b4388662086d0c07fdb79
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 import 'package:petapplication/pages/pageforgetpass/my_verify_pass.dart';
 //import 'package:flutter_svg/svg.dart';
@@ -191,9 +198,14 @@ class _LoginInfoState extends State<LoginInfo> {
               borderColor: const Color(0xff707070),
               fontWeight: FontWeight.w700,
               onTap: () {
+<<<<<<< HEAD
                 Get.to(() => const HomePageAfterAddingPets(),
                     transition: Transition.zoom);
               },
+=======
+       // Get.to(() => const HomePage(), transition: Transition.zoom);
+      },
+>>>>>>> 4d09ab8eb63a762b8b0b4388662086d0c07fdb79
             ),
             Center(
               child: Row(
@@ -204,6 +216,7 @@ class _LoginInfoState extends State<LoginInfo> {
                     height: 120.h,
                     width: 40.w,
                   ),
+<<<<<<< HEAD
                   CustomGeneralButtom(
                     boxColor: const Color(0xff134F5C),
                     textColor: const Color(0xffFFFFFF),
@@ -223,6 +236,16 @@ class _LoginInfoState extends State<LoginInfo> {
                       SizedBox(
                         height: screenHeight * 0.016,
                         width: 40,
+=======
+                  RichText(
+                    text: TextSpan(
+                      text: 'Forget Your Password? ',
+                      style: TextStyle(
+                        fontFamily: 'Cosffira',
+                        fontSize: 40.sp,
+                        color: const Color(0xff090f0f),
+                        fontWeight: FontWeight.w400,
+>>>>>>> 4d09ab8eb63a762b8b0b4388662086d0c07fdb79
                       ),
                       // children: <TextSpan>[
                       //   TextSpan(

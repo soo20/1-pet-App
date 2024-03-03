@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4d09ab8eb63a762b8b0b4388662086d0c07fdb79
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:petapplication/Welcome/presention/widgets/welcombody.dart';
@@ -59,6 +62,7 @@ class _SplashScreenState extends State<SplashScreen>
               /*We put it in the padding widget because we don't want any
                height but want space between the image and the text.*/
               padding: const EdgeInsets.only(top: 10.0),
+<<<<<<< HEAD
               child: FadeTransition(
                 opacity: fadingAnimation!,
                 child: Text(
@@ -76,6 +80,22 @@ class _SplashScreenState extends State<SplashScreen>
                     //to make your font bold or normal "regular".
                     fontWeight: FontWeight.bold,
                   ),
+=======
+              child: Text(
+                // we put the text string.
+                'Hello,',
+                //to style your text:
+                style: TextStyle(
+                  //to make adaptive font size we call 'h' function:
+                  height: 2.h,
+                  //to customize your font.
+                  fontFamily: 'Cosffira',
+                  //to make adaptive font size we call 'sp' function.
+                  fontSize: 140.sp,
+                  color: const Color.fromRGBO(11, 47, 55, 1),
+                  //to make your font bold or normal "regular".
+                  fontWeight: FontWeight.bold,
+>>>>>>> 4d09ab8eb63a762b8b0b4388662086d0c07fdb79
                 ),
               ),
             ),
