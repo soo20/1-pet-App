@@ -1,14 +1,16 @@
 // ignore_for_file: unused_import, constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
+
 import 'package:petapplication/Welcome/presention/widgets/speaks_of_wanda_jack_yuna_gizmo.dart';
-import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:petapplication/core/utils/size_config.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
+import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/pages/define_page/widgets/alart_dialog.dart';
 import 'package:petapplication/pages/sign_login_acount/popup_surface.dart';
 
@@ -360,56 +362,47 @@ class JackDefineImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Calculate aspect ratio based on screen dimensions
-    double aspectRatio = screenWidth / screenHeight;
+    //double aspectRatio = screenWidth / screenHeight;
 
     // Calculate height based on a 16:9 aspect ratio
-    double itemWidth = screenWidth - 70; // Adjust the width as needed
-    double itemHeight = itemWidth / 16 * 9;
+    /*double itemWidth = screenWidth - 70; // Adjust the width as needed
+    double itemHeight = itemWidth / 16 * 9;*/
 
-    return AspectRatio(
-      aspectRatio: aspectRatio, // Set your desired aspect ratio here
-      child: Stack(
-        children: [
-          Positioned(
-            top: 90,
-            left: -250,
-            bottom: 10,
-            width: itemWidth,
-            child: Padding(
-              padding: const EdgeInsets.all(90.0),
-              child: Image.asset(
-                'assets/image/Group1340.png',
-                width: itemWidth,
-                height: itemHeight,
-                fit: BoxFit.contain,
-              ),
-            ),
+    return Stack(
+      children: [
+        const JackDefineSpeak(),
+       Padding(
+          padding: const EdgeInsets.only(
+            left: 135.90,
+            top: 180,),
+          child: Image.asset(
+            'assets/image/Group1340.png',
+            width: 600.w,
+            height: 1000.h,
+            fit: BoxFit.contain,
           ),
-          Stack(
-            alignment: Alignment.topLeft,
-            children: [
-              const JackDefineSpeak(),
-              Positioned(
-                right: 140,
-                left: SizeConfig.defaultSize! * 15.5,
-                bottom: SizeConfig.defaultSize! * 6,
-                child: CustomGeneralButtom3(
-                  text: '',
-                  boxColor: kMainColor,
-                  height: 58,
-                  textColor: null,
-                  onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) => const AlartDialogPage());
-                  },
-                ),
-              ),
-              // Other widgets can be added here within the Stack if needed
-            ],
-          ),
-        ],
-      ),
+        ),
+        //const JackDefineSpeak(),
+       
+       Padding(
+         padding: const EdgeInsets.only(top: 500),
+         child: Center(
+          
+           child: CustomGeneralButtom3(
+             text: '',
+             boxColor: kMainColor,
+             height: 140.h,
+             width: 260.w,
+             textColor: null,
+             onTap: () {
+               showDialog(
+                   context: context,
+                   builder: (context) => const AlartDialogPage());
+             },
+           ),
+         ),
+       ),
+      ],
     );
   }
 }

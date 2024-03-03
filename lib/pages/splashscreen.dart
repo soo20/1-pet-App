@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+
+import 'package:flutter/material.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:petapplication/Welcome/presention/widgets/welcombody.dart';
@@ -86,7 +89,7 @@ class _SplashScreenState extends State<SplashScreen>
               style: TextStyle(
                 fontFamily: 'Cosffira',
                 //to make adaptive font size we call 'sp' function.
-                fontSize: 40.sp,
+                fontSize: 34.sp,
                 color: const Color.fromRGBO(0, 0, 0, 1),
                 //to make your font normal "regular" or bold.
                 fontWeight: FontWeight.normal,

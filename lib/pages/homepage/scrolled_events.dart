@@ -11,7 +11,8 @@ class _ScrolledEvents extends State<ScrolledEvents> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 262.h,
+        //this is might be cause of overflow
+        height: 350.h,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: Pets.petsInformationList.length,
@@ -86,13 +87,17 @@ Widget buildEventCard(Pets petInformation) {
       ),
     ),
     child: Row(
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Column(
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(
                 left: 10.0,
                 top: 6.0,
+                bottom: 0.0,
+                right: 0.0,
               ),
               child: Text(
                 petInformation.eventTitle,
@@ -121,24 +126,27 @@ Widget buildEventCard(Pets petInformation) {
             SizedBox(
               width: 90.w,
             ),
-            ElevatedButton(
-              style: ButtonStyle(
-                minimumSize: MaterialStatePropertyAll(Size(157.w, 53.h)),
-                textStyle: MaterialStatePropertyAll(
-                  TextStyle(
-                    fontFamily: 'Cosffira',
-                    fontSize: 39.sp,
-                    fontWeight: FontWeight.bold,
+            Container(
+              margin: const EdgeInsets.all(0.0),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  minimumSize: MaterialStatePropertyAll(Size(157.w, 53.h)),
+                  textStyle: MaterialStatePropertyAll(
+                    TextStyle(
+                      fontFamily: 'Cosffira',
+                      fontSize: 39.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  foregroundColor:
+                      const MaterialStatePropertyAll(Color(0xff2A606C)),
+                  backgroundColor: const MaterialStatePropertyAll(
+                    Color.fromARGB(255, 248, 241, 227),
                   ),
                 ),
-                foregroundColor:
-                    const MaterialStatePropertyAll(Color(0xff2A606C)),
-                backgroundColor: const MaterialStatePropertyAll(
-                  Color.fromARGB(255, 248, 241, 227),
-                ),
+                onPressed: () {},
+                child: Text(petInformation.petName),
               ),
-              onPressed: () {},
-              child: Text(petInformation.petName),
             ),
           ],
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -164,7 +165,7 @@ class JackDefineSpeak extends StatelessWidget {
               fit: BoxFit.contain,
             ),
           ),
-          Padding(
+         Padding(
             padding: const EdgeInsets.fromLTRB(50.0, 93.0, 155.0, 20.0),
             child: SizedBox.expand(
               child: RichText(
@@ -336,8 +337,8 @@ class WandaSpeak extends StatelessWidget {
           ),
           Positioned(
             right: 30,
-            left: SizeConfig.defaultSize! * 26,
-            bottom: SizeConfig.defaultSize! * 6,
+            left: 720.w,
+            bottom: 170.h,
             child: CustomGeneralButtom(
               text: 'Finish',
               boxColor: kMainColor,
@@ -367,49 +368,49 @@ class YunaDefine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double aspectRatio = screenWidth / screenHeight;
-    return AspectRatio(
-      aspectRatio: aspectRatio,
-      child: Stack(
-        children: <Widget>[
-          Positioned(
-            child: Container(
-              decoration: BoxDecoration(
-                color: kMainColorPage,
-                borderRadius: BorderRadius.circular(29.0),
-                border: Border.all(width: 0.4, color: const Color(0xff707070)),
-              ),
-              margin: const EdgeInsets.fromLTRB(20.0, 73.0, 180.0, 488.2),
+   
+    return Stack(
+      children: <Widget>[
+        Positioned(
+          child: Container(
+            decoration: BoxDecoration(
+              color: kMainColorPage,
+              borderRadius: BorderRadius.circular(60.0.r),
+              border: Border.all(width: 0.4, color: const Color(0xff707070)),
             ),
+            margin: const EdgeInsets.fromLTRB(20.0, 50.0, 200.0,0.2),
           ),
-          Positioned(
-            right: 200.7,
-            top: 218.0,
-            width: 75,
-            height: 60,
-            child: SvgPicture.string(
-              _svg_pp2ta,
-              allowDrawingOutsideViewBox: true,
-              fit: BoxFit.contain,
+        ),
+
+
+
+        Positioned(
+          right: 200.7,
+          top: 218.0,
+          width: 275.w,
+          height: 160.h,
+          child: SvgPicture.string(
+            _svg_pp2ta,
+            allowDrawingOutsideViewBox: true,
+            fit: BoxFit.contain,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(00.0, 95.0, 155.0, 00.0),
+          child: SizedBox.expand(
+              child: Text(
+            overflow: TextOverflow.ellipsis,
+            'Let\'s start by defining your \nlovely pet. You can choose \nto define it with Jack, or\n you can manually add your \n pet\'sdetails.',
+            style: TextStyle(
+              fontFamily: 'Cosffira',
+              fontSize: 24.0.sp,
+              color: Colors.black,
+              fontWeight: FontWeight.w600,
             ),
-          ),
-          const Padding(
-            padding: EdgeInsets.fromLTRB(00.0, 95.0, 155.0, 00.0),
-            child: SizedBox.expand(
-                child: Text(
-              overflow: TextOverflow.ellipsis,
-              'Let\'s start by defining your \nlovely pet. You can choose \nto define it with Jack, or\n you can manually add your \n pet\'sdetails.',
-              style: TextStyle(
-                fontFamily: 'Cosffira',
-                fontSize: 14.0,
-                color: Colors.black,
-                fontWeight: FontWeight.w600,
-              ),
-              textAlign: TextAlign.center,
-            )),
-          ),
-        ],
-      ),
+            textAlign: TextAlign.center,
+          )),
+        ),
+      ],
     );
   }
 }
@@ -520,6 +521,17 @@ class Component1312 extends StatelessWidget {
   }
 }
 
+
+class Try extends StatelessWidget {
+  const Try({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return  Container(
+      
+    );
+  }
+}
 // ignore: constant_identifier_names
 const String _svg_pp2ta =
     '<svg viewBox="299.2 364.0 181.2 160.2" ><path transform="translate(-1654.57, 4001.0)" d="M 1953.72900390625 -3637 L 2013.6484375 -3532.818359375 L 2134.880859375 -3476.79736328125 L 2134.880859375 -3476.79736328125 L 2063.813720703125 -3532.818359375 L 2077.748291015625 -3637 L 1953.72900390625 -3637 Z" fill="none" stroke="#707070" stroke-width="1" stroke-miterlimit="4" stroke-linecap="butt" /></svg>';
