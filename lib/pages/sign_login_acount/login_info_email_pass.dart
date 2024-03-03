@@ -1,17 +1,7 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-<<<<<<< HEAD
-import 'package:get/get.dart';
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
-import 'package:petapplication/pages/homepage/home_page_after_adding_reminders.dart';
-import 'package:petapplication/core/utils/size_config.dart';
-=======
-
-import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
-
-
->>>>>>> 4d09ab8eb63a762b8b0b4388662086d0c07fdb79
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 import 'package:petapplication/pages/pageforgetpass/my_verify_pass.dart';
 //import 'package:flutter_svg/svg.dart';
@@ -198,80 +188,50 @@ class _LoginInfoState extends State<LoginInfo> {
               borderColor: const Color(0xff707070),
               fontWeight: FontWeight.w700,
               onTap: () {
-<<<<<<< HEAD
-                Get.to(() => const HomePageAfterAddingPets(),
-                    transition: Transition.zoom);
+                // Get.to(() => const HomePage(), transition: Transition.zoom);
               },
-=======
-       // Get.to(() => const HomePage(), transition: Transition.zoom);
-      },
->>>>>>> 4d09ab8eb63a762b8b0b4388662086d0c07fdb79
             ),
             Center(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 120.h,
-                    width: 40.w,
-                  ),
-<<<<<<< HEAD
-                  CustomGeneralButtom(
-                    boxColor: const Color(0xff134F5C),
-                    textColor: const Color(0xffFFFFFF),
-                    height: screenHeight * 0.024,
-                    width: SizeConfig.defaultSize! * 13,
-                    text: 'Log in',
-                    borderColor: const Color(0xff707070),
-                    fontWeight: FontWeight.w900,
-                    onTap: () {
-                      Get.to(() => const HomePageAfterAddingPets(),
-                          transition: Transition.zoom);
-                    },
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      SizedBox(
-                        height: screenHeight * 0.016,
-                        width: 40,
-=======
-                  RichText(
-                    text: TextSpan(
-                      text: 'Forget Your Password? ',
-                      style: TextStyle(
-                        fontFamily: 'Cosffira',
-                        fontSize: 40.sp,
-                        color: const Color(0xff090f0f),
-                        fontWeight: FontWeight.w400,
->>>>>>> 4d09ab8eb63a762b8b0b4388662086d0c07fdb79
-                      ),
-                      // children: <TextSpan>[
-                      //   TextSpan(
-                      //     text: 'click here',
-                      //     style: TextStyle(
-                      //       fontFamily: 'Cosffira',
-                      //       fontSize: 40.sp,
-                      //       color: const Color(0xffF83658),
-                      //       fontWeight: FontWeight.w800,
-                      //     ),
-                      //     // Add onTap callback to navigate to the next page
-                      //     recognizer: TapGestureRecognizer()
-                      //       ..onTap = () {
-                      //         Navigator.push(
-                      //           context,
-                      //           MaterialPageRoute(
-                      //               builder: (context) => const MyVerify()),
-                      //         );
-                      //       },
-                      //   ),
-                      // ]
+                child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 120.h,
+                  width: 40.w,
+                ),
+                RichText(
+                  text: TextSpan(
+                    text: 'Forget Your Password? ',
+                    style: TextStyle(
+                      fontFamily: 'Cosffira',
+                      fontSize: 40.sp,
+                      color: const Color(0xff090f0f),
+                      fontWeight: FontWeight.w400,
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: 'click here',
+                          style: TextStyle(
+                            fontFamily: 'Cosffira',
+                            fontSize: 40.sp,
+                            color: const Color(0xffF83658),
+                            fontWeight: FontWeight.w800,
+                          ),
+                          // Add onTap callback to navigate to the next page
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const MyVerify()),
+                              );
+                            }),
                     ],
                   ),
-                ],
-              ),
-            ),
+                ),
+              ],
+            )),
           ],
         ),
       ),
