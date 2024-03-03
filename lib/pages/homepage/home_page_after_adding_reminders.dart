@@ -3,8 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:petapplication/pages/homepage/scrolled_events.dart';
 import 'package:petapplication/pages/homepage/scrolled_reminder.dart';
 
-/*we will create this page with statefull widget because the content of widgets 
-in this page have a dynamic variables.*/
+/*We will use a stateful widget for this page since the content contains a dynamic variable.*/
 class HomePageAfterAddingPets extends StatefulWidget {
   const HomePageAfterAddingPets({super.key});
   @override
@@ -13,6 +12,16 @@ class HomePageAfterAddingPets extends StatefulWidget {
 }
 
 class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
+  //we create an object of "scrolledEvents" to control showing when scrolling.
+  final ScrolledEvents scrolledEvents = const ScrolledEvents();
+  ScrollController controller = ScrollController();
+
+  /*We have created a Boolean variable to manage the visibility of events.
+     This variable allows us to control the hiding and showing of events as
+      scrolling the page*/
+  bool closeTopevents = false;
+  double topContainer = 0;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

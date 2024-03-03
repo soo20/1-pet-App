@@ -10,16 +10,25 @@ class ScrolledEvents extends StatefulWidget {
 class _ScrolledEvents extends State<ScrolledEvents> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        //this is might be cause of overflow
-        height: 350.h,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: Pets.petsInformationList.length,
-          itemBuilder: (BuildContext context, int index) {
-            return buildEventCard(Pets.petsInformationList[index]);
-          },
-        ));
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      scrollDirection: Axis.horizontal,
+      child: Container(
+        margin: const EdgeInsets.symmetric(
+          vertical: 5.0,
+        ),
+        child: FittedBox(
+            fit: BoxFit.fill,
+            alignment: Alignment.topCenter,
+            //this is might be cause of overflow
+            child: Row(
+              children: [
+                // this will be dynamic coloumn that depends on the length of list
+                for (var i in Pets.petsInformationList) buildEventCard(i)
+              ],
+            )),
+      ),
+    );
   }
 }
 
