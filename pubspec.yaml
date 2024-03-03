@@ -121,6 +121,8 @@ flutter:
     - assets/icons/home_page_after_adding_reminders_icons/Round Btn Default Dark.png
     - assets/image/home_page_afterAdding_pets_assets/dog_for_events.png
     - assets/image/home_page_afterAdding_pets_assets/cat_for_events.png
+    - assets/icons/home_page_after_adding_reminders_icons/golden-retriever.png
+    - assets/icons/home_page_after_adding_reminders_icons/Rectangle_button.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
