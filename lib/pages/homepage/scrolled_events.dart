@@ -2,31 +2,60 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ScrolledEvents extends StatefulWidget {
-  const ScrolledEvents({super.key});
+  const ScrolledEvents({super.key, eventHeight});
   @override
   State<ScrolledEvents> createState() => _ScrolledEvents();
 }
 
+late double eventHeight;
+
 class _ScrolledEvents extends State<ScrolledEvents> {
   @override
   Widget build(BuildContext context) {
+    eventHeight = MediaQuery.of(context).size.height * 0.22 - 50;
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       scrollDirection: Axis.horizontal,
       child: Container(
         margin: const EdgeInsets.symmetric(
           vertical: 5.0,
+          horizontal: 8.0,
         ),
         child: FittedBox(
-            fit: BoxFit.fill,
-            alignment: Alignment.topCenter,
-            //this is might be cause of overflow
-            child: Row(
-              children: [
-                // this will be dynamic coloumn that depends on the length of list
-                for (var i in Pets.petsInformationList) buildEventCard(i)
-              ],
-            )),
+          fit: BoxFit.fill,
+          //this is might be cause of overflow
+          child: Column(
+            children: [
+              Container(
+                alignment: Alignment.centerLeft,
+                padding:
+                    const EdgeInsets.only(right: 900.0, bottom: 5.0, top: 0.0),
+                child: Text(
+                  'Future Events',
+                  style: TextStyle(
+                    fontFamily: 'Cosffira',
+                    fontSize: 90.sp,
+                    fontWeight: FontWeight.w800,
+                    color: const Color(0xff2A606C),
+                    shadows: [
+                      Shadow(
+                        color: const Color(0xff000000),
+                        offset: const Offset(1.0, 1.0),
+                        blurRadius: 10.0.r,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Row(
+                children: [
+                  // this will be dynamic coloumn that depends on the length of list
+                  for (var i in Pets.petsInformationList) buildEventCard(i)
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -83,97 +112,106 @@ class Pets {
 }
 
 Widget buildEventCard(Pets petInformation) {
-  return Card(
-    color: petInformation.petType == 'cat'
-        ? const Color(0xffE3B1A8)
-        : const Color(0xffB8D8D4),
-    elevation: 0.0,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(36.0.r),
-      side: BorderSide(
-        color: const Color(0xff707070), // Set the border color
-        width: 1.0.w, // Set the border width
+  return Container(
+    height: eventHeight,
+    margin: const EdgeInsets.only(right: 4),
+    child: Card(
+      color: petInformation.petType == 'cat'
+          ? const Color(0xffE3B1A8)
+          : const Color(0xffB8D8D4),
+      elevation: 0.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(36.0.r),
+        side: BorderSide(
+          color: const Color(0xff707070), // Set the border color
+          width: 1.0.w, // Set the border width
+        ),
       ),
-    ),
-    child: Row(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 10.0,
-                top: 6.0,
-                bottom: 0.0,
-                right: 0.0,
-              ),
-              child: Text(
-                petInformation.eventTitle,
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontFamily: 'Cosffira',
-                  fontSize: 42.sp,
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xffffffff),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10.0, top: 0.0),
-              child: Text(
-                textAlign: TextAlign.justify,
-                petInformation.eventDate,
-                style: TextStyle(
-                  fontFamily: 'Cosffira',
-                  fontSize: 42.sp,
-                  fontWeight: FontWeight.w100,
-                  color: const Color(0xffffffff),
-                ),
-              ),
-            ),
-            SizedBox(
-              width: 90.w,
-            ),
-            Container(
-              margin: const EdgeInsets.all(0.0),
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  minimumSize: MaterialStatePropertyAll(Size(157.w, 53.h)),
-                  textStyle: MaterialStatePropertyAll(
-                    TextStyle(
-                      fontFamily: 'Cosffira',
-                      fontSize: 39.sp,
-                      fontWeight: FontWeight.bold,
+      child: Column(
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 5.0,
+                      top: 6.0,
+                      bottom: 0.0,
+                      right: 0.0,
+                    ),
+                    child: Text(
+                      petInformation.eventTitle,
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        fontFamily: 'Cosffira',
+                        fontSize: 50.sp,
+                        fontWeight: FontWeight.bold,
+                        color: const Color(0xffffffff),
+                      ),
                     ),
                   ),
-                  foregroundColor:
-                      const MaterialStatePropertyAll(Color(0xff2A606C)),
-                  backgroundColor: const MaterialStatePropertyAll(
-                    Color.fromARGB(255, 248, 241, 227),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15.0, top: 0.0),
+                    child: Text(
+                      textAlign: TextAlign.justify,
+                      petInformation.eventDate,
+                      style: TextStyle(
+                        fontFamily: 'Cosffira',
+                        fontSize: 48.sp,
+                        fontWeight: FontWeight.w100,
+                        color: const Color(0xffffffff),
+                      ),
+                    ),
                   ),
-                ),
-                onPressed: () {},
-                child: Text(petInformation.petName),
+                  SizedBox(
+                    width: 90.w,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.all(0.0),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        minimumSize:
+                            MaterialStatePropertyAll(Size(157.w, 53.h)),
+                        textStyle: MaterialStatePropertyAll(
+                          TextStyle(
+                            fontFamily: 'Cosffira',
+                            fontSize: 39.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        foregroundColor:
+                            const MaterialStatePropertyAll(Color(0xff2A606C)),
+                        backgroundColor: const MaterialStatePropertyAll(
+                          Color.fromARGB(255, 248, 241, 227),
+                        ),
+                      ),
+                      onPressed: () {},
+                      child: Text(petInformation.petName),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
-        SizedBox(
-          width: 90.w,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 0.0, right: 0.0),
-          child: Image(
-            image: AssetImage(
-              petInformation.imageUrl,
-            ),
-            width: 323.w,
-            height: 256.h,
-            fit: BoxFit.fill,
+              SizedBox(
+                width: 90.w,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 0.0, right: 0.0),
+                child: Image(
+                  image: AssetImage(
+                    petInformation.imageUrl,
+                  ),
+                  width: 323.w,
+                  height: 256.h,
+                  fit: BoxFit.fill,
+                ),
+              )
+            ],
           ),
-        )
-      ],
+        ],
+      ),
     ),
   );
 }
