@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-=======
-
->>>>>>> c3a1044bdaee64311c2f2574d844a76fbacdcef5
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:petapplication/Welcome/presention/widgets/welcombody.dart';
