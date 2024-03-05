@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
@@ -8,7 +9,8 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/pages/define_page/jack_define.dart';
-import 'package:petapplication/profile_page/user_profile.dart';
+import 'package:petapplication/pages/sign_login_acount/acount.dart';
+
 
 //import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 
@@ -27,7 +29,7 @@ return Scaffold(
       body: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left:25,top:30),
+            padding: const EdgeInsets.only(left:22,top:30),
             child: SafeArea(
                // Add space to the left
                child: 
@@ -36,7 +38,7 @@ return Scaffold(
                     children: [
                       SizedBox(height: 20.h,), // Add space to the top
                       Container(
-                        width: 540.w,
+                        width: 555.w,
                         height: 400.h,
                         padding: const EdgeInsets.only(top:0,left:  0,),
                         decoration: BoxDecoration(
@@ -69,8 +71,8 @@ return Scaffold(
                         ),
                       ),
 SizedBox(height: 850.h, ),
-                        Padding(
-                          padding: const EdgeInsets.only(left:30),
+                        Center(
+                          //padding: const EdgeInsets.only(left:0),
                           child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -108,7 +110,7 @@ SizedBox(height: 850.h, ),
                                    customFontSize: 35.r,
                                    onTap: () {
                                        navigator?.pushAndRemoveUntil(
-                                        MaterialPageRoute(builder: (e) => const ClipTry())  ,
+                                        MaterialPageRoute(builder: (e) => const Account())  ,
                                         (route) => true,
                                       );
                                     },
@@ -125,7 +127,7 @@ SizedBox(height: 850.h, ),
           ),
            Padding(
           padding: const EdgeInsets.fromLTRB(
-              190.0,160,0,0), // Add padding of 8.0 to all sides
+              195.0,160,0,0), // Add padding of 8.0 to all sides
           child: Image.asset(
             'assets/image/Group786.png',
             width:540.w ,
