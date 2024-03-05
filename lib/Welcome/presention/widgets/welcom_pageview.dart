@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:petapplication/Welcome/presention/widgets/image_of_yuna_gizmo_wanda_jack.dart';
-//import 'package:petapplication/pages/page2/wlelcom2.dart';
-//import 'package:petapplication/pages/Defind.dart';
-//import 'package:petapplication/pages/defind.dart';
-//import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
-/*import 'package:petapplication/core/utils/size_config.dart';
-import 'package:petapplication/core/utils/widgets/repeatingColorsUse.dart';*/
+import 'package:petapplication/Welcome/yuna,wanda,jack,gizmo_speak_image.dart';
+
 
 class CustomWelcomPage extends StatelessWidget {
   const CustomWelcomPage({super.key, @required this.pageController});
@@ -26,11 +21,11 @@ class WelcomPageView extends StatelessWidget {
     return PageView(
       controller: pageController,
       children: const [
-        Yuna(),
-        Jack(),
-        Gizmo(),
+        Yyuna(),
+        Jjack(),
+        Ggizmo(),
         //TextOverImageItem4(),
-        Wanda(),
+        Wwanda(),
         // TextOverSVGImage6(),
       ],
     );

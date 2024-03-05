@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:petapplication/core/utils/size_config.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 
@@ -8,97 +9,101 @@ class AlartDialogPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    double aspectRatio = screenHeight / screenWidth;
-    return AspectRatio(
-      aspectRatio: aspectRatio,
-      child: Align(
-          alignment: Alignment.center,
-          child: Container(
-            height: 220,
-            width: 350, // Adjust as needed
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/image/Group797.png'),
-                fit: BoxFit.contain,
-              ),
+   
+   
+    return Align(
+       // alignment: Alignment.center,
+        child: Container(
+        
+          height: 520.h,
+          width: 950.w, // Adjust as needed
+          decoration: const BoxDecoration(
+           
+            image: DecorationImage(
+              image: AssetImage('assets/image/Group797.png'),
+              fit: BoxFit.contain,
             ),
-            child: Stack(
+          ),
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            body: Stack(
               children: [
                 SingleChildScrollView(
-                    child: Container(
-                  padding: EdgeInsets.only(
-                      top: screenHeight * 0.023,
-                      right: screenWidth * 0.045,
-                      left: screenWidth * 0.045),
-                  child: Column(
-                    children: [
-                      const Text.rich(
-                        TextSpan(
-                          style: TextStyle(
-                            fontFamily: 'Cosffira',
-                            fontSize: 17,
-                            color: Color(0xff080808),
-                          ),
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 28.0),
+                        child: Column(
                           children: [
-                            TextSpan(
-                              text: 'allow',
+                             Text.rich(
+                              TextSpan(
+                                style: TextStyle(
+                                  fontFamily: 'Cosffira',
+                                  fontSize: 39.sp,
+                                  color: const Color(0xff080808),
+                                ),
+                                children: const [
+                                  TextSpan(
+                                    text: 'allow',
+                                  style: TextStyle(fontWeight: FontWeight.w400)
+                                  ),
+                                  TextSpan(
+                                    text: ' "yuna app" ',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: 'to access\nyour camera on this device"',
+                                    style: TextStyle(fontWeight: FontWeight.w400)
+                                  ),
+                                ],
+                              ),
+                              textHeightBehavior:
+                                  const TextHeightBehavior(applyHeightToFirstAscent: false),
+                              textAlign: TextAlign.center,
+                              softWrap: false,
                             ),
-                            TextSpan(
-                              text: ' "yuna app" ',
-                              style: TextStyle(
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                 top: 5,),
+                              child: CustomGeneralButtom(
+                                customFontSize: 33.sp,
+                                height: 100.h,
+                                text: 'While Using this app',
+                                onTap: () {
+                                  //Get.to(() =>  CameraAlt(cameras),transition: Transition.native);
+                                },
+                                textColor: kMainColorPage,
+                                boxColor: kMainColor,
                                 fontWeight: FontWeight.w800,
+                                width: 550.w,
+                                borderColor: kMainColor,
                               ),
                             ),
-                            TextSpan(
-                              text: 'to access\nyour camera on this device"',
+                            Padding(
+                               padding: const EdgeInsets.only(
+                                 top: 5,),
+                              child: CustomGeneralButtom(
+                                 customFontSize: 35.sp,
+                                height: 100.h,
+                                text: 'Decline',
+                                textColor: kMainColorPage,
+                                boxColor: const Color(0xffE3B1A8),
+                                fontWeight: FontWeight.w800,
+                                width: 550.w,
+                                borderColor: kMainColorPage,
+                                onTap: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
                             ),
                           ],
                         ),
-                        textHeightBehavior:
-                            TextHeightBehavior(applyHeightToFirstAscent: false),
-                        textAlign: TextAlign.center,
-                        softWrap: false,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 5, horizontal: 20),
-                        child: CustomGeneralButtom4(
-                          height: 38,
-                          text: 'While Using this app',
-                          onTap: () {
-                            //Get.to(() =>  CameraAlt(cameras),transition: Transition.native);
-                          },
-                          textColor: kMainColorPage,
-                          boxColor: kMainColor,
-                          fontWeight: FontWeight.w900,
-                          width: SizeConfig.screenWidth,
-                          borderColor: kMainColor,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 0, horizontal: 20),
-                        child: CustomGeneralButtom4(
-                          height: 38,
-                          text: 'Decline',
-                          textColor: kMainColorPage,
-                          boxColor: const Color(0xffE3B1A8),
-                          fontWeight: FontWeight.w900,
-                          width: SizeConfig.screenWidth,
-                          borderColor: kMainColorPage,
-                          onTap: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ))
+                    ))
               ],
             ),
-          )),
-    );
+          ),
+        ));
   }
 }

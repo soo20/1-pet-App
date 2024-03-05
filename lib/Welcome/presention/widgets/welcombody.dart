@@ -49,7 +49,7 @@ class _WelcomeBodyState extends State<WelcomeBody> {
           Row(
             children: [
               Padding(
-                padding:  EdgeInsets.only(left: 30.w, bottom: 20.h),
+                padding:  EdgeInsets.only(left: 90.w, bottom: 135.h),
                 child: Dot(
                   dotIndex: pageController!.hasClients ? pageController?.page : 0,
                 ),
