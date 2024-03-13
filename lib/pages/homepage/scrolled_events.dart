@@ -12,11 +12,12 @@ late double eventHeight;
 class _ScrolledEvents extends State<ScrolledEvents> {
   @override
   Widget build(BuildContext context) {
-    eventHeight = MediaQuery.of(context).size.height * 0.22 - 50;
+    eventHeight = MediaQuery.of(context).size.height * 0.20 - 40;
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       scrollDirection: Axis.horizontal,
       child: Container(
+        height: eventHeight, // Set a fixed height for the cards
         margin: const EdgeInsets.symmetric(
           vertical: 5.0,
           horizontal: 8.0,
@@ -24,35 +25,10 @@ class _ScrolledEvents extends State<ScrolledEvents> {
         child: FittedBox(
           fit: BoxFit.fill,
           //this is might be cause of overflow
-          child: Column(
+          child: Row(
             children: [
-              Container(
-                alignment: Alignment.centerLeft,
-                padding:
-                    const EdgeInsets.only(right: 900.0, bottom: 5.0, top: 0.0),
-                child: Text(
-                  'Future Events',
-                  style: TextStyle(
-                    fontFamily: 'Cosffira',
-                    fontSize: 90.sp,
-                    fontWeight: FontWeight.w800,
-                    color: const Color(0xff2A606C),
-                    shadows: [
-                      Shadow(
-                        color: const Color(0xff000000),
-                        offset: const Offset(1.0, 1.0),
-                        blurRadius: 10.0.r,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Row(
-                children: [
-                  // this will be dynamic coloumn that depends on the length of list
-                  for (var i in Pets.petsInformationList) buildEventCard(i)
-                ],
-              ),
+              // this will be dynamic coloumn that depends on the length of list
+              for (var i in Pets.petsInformationList) buildEventCard(i)
             ],
           ),
         ),
@@ -169,12 +145,13 @@ Widget buildEventCard(Pets petInformation) {
                   SizedBox(
                     width: 90.w,
                   ),
-                  Container(
-                    margin: const EdgeInsets.all(0.0),
+                  SizedBox(
+                    height: 55.h,
+                    width: 250.w,
                     child: ElevatedButton(
                       style: ButtonStyle(
                         minimumSize:
-                            MaterialStatePropertyAll(Size(157.w, 53.h)),
+                            MaterialStatePropertyAll(Size(157.w, 55.h)),
                         textStyle: MaterialStatePropertyAll(
                           TextStyle(
                             fontFamily: 'Cosffira',
