@@ -125,9 +125,18 @@ flutter:
     - assets/image/home_page_afterAdding_pets_assets/dog_for_events.png
     - assets/image/home_page_afterAdding_pets_assets/cat_for_events.png
     - assets/icons/home_page_after_adding_reminders_icons/golden-retriever.png
-    - assets/icons/home_page_after_adding_reminders_icons/Rectangle_button.png
+    - assets/icons/home_page_after_adding_reminders_icons/unchecked_button.png
+    - assets/icons/home_page_after_adding_reminders_icons/checked_button.png
     - assets/icons/home_page_after_adding_reminders_icons/reminder_options_circles.png
+<<<<<<< HEAD
     - assets/icons/cameraa.svg
+=======
+    - assets/icons/home_page_after_adding_reminders_icons/my_pets_before_pressing.png
+    - assets/icons/home_page_after_adding_reminders_icons/home_icon_before_pressed.png
+    - assets/icons/home_page_after_adding_reminders_icons/diseases_icon_before_pressed.png
+    - assets/icons/home_page_after_adding_reminders_icons/add_pet_icon.png
+    - assets/icons/home_page_after_adding_reminders_icons/home_icon_on_pressed.png
+>>>>>>> 7e38a2e26323d9f2f69fa82c6512dee3ced01763
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

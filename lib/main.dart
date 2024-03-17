@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 //import 'package:petapplication/pages/splashscreen.dart';
-//import 'package:petapplication/pages/homepage/home_page_after_adding_reminders.dart';
-import 'package:petapplication/pages/splashscreen.dart';
+import 'package:petapplication/pages/homepage/home_page_after_adding_reminders.dart';
+// import 'package:petapplication/pages/splashscreen.dart';
 
 late List<CameraDescription> cameras;
 Future<void> main() async {
@@ -17,6 +17,9 @@ class YunaPetApp extends StatelessWidget {
   const YunaPetApp({super.key});
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    print('width :$screenWidth height $screenHeight');
     //A flutter plugin for adapting screen and font size.
     return ScreenUtilInit(
       //The size of the device screen in the design
@@ -34,8 +37,8 @@ class YunaPetApp extends StatelessWidget {
         );
       },
       //A part of builder that its dependencies/properties don't use the library
-      child: const SplashScreen()
-      //HomePageAfterAddingPets(),
+      child: //const SplashScreen()
+          const HomePageAfterAddingPets(),
     );
   }
 }

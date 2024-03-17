@@ -7,11 +7,15 @@ class Reminders {
     required this.eventTitle,
     required this.time,
     required this.petName,
+    this.checked = false,
+    required this.reminderId,
   });
   late String imageUrl;
   late String eventTitle;
   late String time;
   late String petName;
+  late int reminderId;
+  bool checked;
 
   static List<dynamic> reminderInformationList = [
     Reminders(
@@ -20,6 +24,7 @@ class Reminders {
       eventTitle: 'Walk outside',
       time: '9:00 Am',
       petName: 'Buby',
+      reminderId: 1,
     ),
     Reminders(
       imageUrl:
@@ -27,6 +32,7 @@ class Reminders {
       eventTitle: 'Walk outside',
       time: '9:00 Am',
       petName: 'Buby',
+      reminderId: 2,
     ),
     Reminders(
       imageUrl:
@@ -34,6 +40,7 @@ class Reminders {
       eventTitle: 'Walk outside',
       time: '9:00 Am',
       petName: 'Buby',
+      reminderId: 3,
     ),
     Reminders(
       imageUrl:
@@ -41,6 +48,7 @@ class Reminders {
       eventTitle: 'Walk outside',
       time: '9:00 Am',
       petName: 'Buby',
+      reminderId: 4,
     ),
     Reminders(
       imageUrl:
@@ -48,6 +56,7 @@ class Reminders {
       eventTitle: 'Walk outside',
       time: '9:00 Am',
       petName: 'Buby',
+      reminderId: 5,
     ),
     Reminders(
       imageUrl:
@@ -55,6 +64,7 @@ class Reminders {
       eventTitle: 'Walk outside',
       time: '9:00 Am',
       petName: 'Buby',
+      reminderId: 6,
     ),
     Reminders(
       imageUrl:
@@ -62,6 +72,7 @@ class Reminders {
       eventTitle: 'Walk outside',
       time: '9:00 Am',
       petName: 'Buby',
+      reminderId: 7,
     ),
     Reminders(
       imageUrl:
@@ -69,6 +80,7 @@ class Reminders {
       eventTitle: 'Walk outside',
       time: '9:00 Am',
       petName: 'Buby',
+      reminderId: 8,
     ),
     Reminders(
       imageUrl:
@@ -76,6 +88,7 @@ class Reminders {
       eventTitle: 'Walk outside',
       time: '9:00 Am',
       petName: 'Buby',
+      reminderId: 9,
     ),
     Reminders(
       imageUrl:
@@ -83,6 +96,7 @@ class Reminders {
       eventTitle: 'Walk outside',
       time: '9:00 Am',
       petName: 'Buby',
+      reminderId: 10,
     ),
     Reminders(
       imageUrl:
@@ -90,6 +104,7 @@ class Reminders {
       eventTitle: 'Walk outside',
       time: '9:00 Am',
       petName: 'Buby',
+      reminderId: 11,
     ),
     Reminders(
       imageUrl:
@@ -97,6 +112,7 @@ class Reminders {
       eventTitle: 'Walk outside',
       time: '9:00 Am',
       petName: 'Buby',
+      reminderId: 12,
     ),
     Reminders(
       imageUrl:
@@ -104,11 +120,17 @@ class Reminders {
       eventTitle: 'Walk outside',
       time: '9:00 Am',
       petName: 'Buby',
+      reminderId: 13,
     ),
   ];
 }
 
-Widget buildReminderCard(Reminders petInformation) {
+Widget buildReminderCard(
+  Reminders petInformation,
+  Function checkFunction,
+  Function uncheckFunction,
+  Function moveCardFunction,
+) {
   return SizedBox(
     child: Container(
       height: 200.h,
@@ -124,9 +146,11 @@ Widget buildReminderCard(Reminders petInformation) {
         child: Row(
           children: <Widget>[
             IconButton(
-              onPressed: () {},
+              onPressed: () => moveCardFunction(petInformation),
               icon: Image.asset(
-                'assets/icons/home_page_after_adding_reminders_icons/Rectangle_button.png',
+                petInformation.checked
+                    ? 'assets/icons/home_page_after_adding_reminders_icons/checked_button.png'
+                    : 'assets/icons/home_page_after_adding_reminders_icons/unchecked_button.png',
                 height: 63.h,
                 width: 65.w,
               ),
@@ -171,14 +195,6 @@ Widget buildReminderCard(Reminders petInformation) {
                         color: const Color.fromARGB(70, 42, 96, 108)),
                   ),
                 ],
-              ),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: Image.asset(
-                'assets/icons/home_page_after_adding_reminders_icons/reminder_options_circles.png',
-                height: 63.h,
-                width: 65.w,
               ),
             ),
           ],
