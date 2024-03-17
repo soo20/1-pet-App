@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:petapplication/Welcome/yuna,wanda,jack,gizmo_speak_image.dart';
+import 'package:petapplication/Welcome/character.dart';
 
 
 class CustomWelcomPage extends StatelessWidget {

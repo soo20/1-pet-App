@@ -29,7 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   cupertino_icons: ^1.0.2
-  camera: ^0.10.5+8
+  camera: ^0.10.5+9
   
   font_awesome_flutter: ^10.6.0
   flutter:
@@ -95,6 +95,7 @@ flutter:
     - assets/image/cloud.png
     - assets/image/MaskGroup8.png
     - assets/image/Path44.png
+    - assets/image/cameraa.png
     
     
     - assets/icons/Group312.svg
@@ -126,6 +127,7 @@ flutter:
     - assets/icons/home_page_after_adding_reminders_icons/golden-retriever.png
     - assets/icons/home_page_after_adding_reminders_icons/Rectangle_button.png
     - assets/icons/home_page_after_adding_reminders_icons/reminder_options_circles.png
+    - assets/icons/cameraa.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
+
+import 'package:petapplication/pages/page3/camera.dart';
 
 class AlartDialogPage extends StatelessWidget {
   const AlartDialogPage({super.key});
@@ -71,7 +74,7 @@ class AlartDialogPage extends StatelessWidget {
                                 height: 100.h,
                                 text: 'While Using this app',
                                 onTap: () {
-                                  //Get.to(() =>  CameraAlt(cameras),transition: Transition.native);
+                                  Get.to(() =>  const CameraAlt(),transition: Transition.native);
                                 },
                                 textColor: kMainColorPage,
                                 boxColor: kMainColor,

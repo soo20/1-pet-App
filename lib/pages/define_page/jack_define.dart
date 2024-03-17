@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -135,7 +137,7 @@ class JackDefine extends StatelessWidget {
               
             ],
           ),
-        ],
+        ], 
       ),
     );
   }
