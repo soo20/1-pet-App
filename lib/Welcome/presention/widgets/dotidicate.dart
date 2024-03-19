@@ -9,7 +9,6 @@ class Dot extends StatelessWidget {
   // ignore: invalid_required_positional_param
   const Dot({super.key, @required this.dotIndex});
   final double? dotIndex;
-
   @override
   Widget build(BuildContext context) {
     // Adjust these values based on your preference

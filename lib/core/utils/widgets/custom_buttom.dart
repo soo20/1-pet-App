@@ -20,7 +20,8 @@ class CustomGeneralButtom extends StatelessWidget {
     this.fontWeight,
     required this.height,
     this.width,
-    this.borderColor, this.customFontSize,
+    this.borderColor,
+    this.customFontSize,
   });
   final Color boxColor;
   final String? text;
@@ -30,8 +31,7 @@ class CustomGeneralButtom extends StatelessWidget {
   final double? width;
   final Color? textColor;
   final Color? borderColor;
-  final double? customFontSize;  // قيمة افتراضية
-
+  final double? customFontSize; // قيمة افتراضية
 
   final String Function(int)? buttonTextResolver;
   // void function
@@ -55,8 +55,8 @@ class CustomGeneralButtom extends StatelessWidget {
                 color: const Color.fromARGB(255, 106, 105, 105)
                     .withOpacity(0.3), // Shadow color
                 offset: const Offset(0.5, 2.0), // Shadow offset
-                blurRadius: 1, // Shadow blur radius
-                spreadRadius: 1.0, // Shadow spread radius
+                blurRadius: 1.r, // Shadow blur radius
+                spreadRadius: 1.0.r, // Shadow spread radius
               ),
             ]),
         //The Row widget contains an Expanded widget that wraps your existing
@@ -71,11 +71,10 @@ class CustomGeneralButtom extends StatelessWidget {
                 children: <Widget>[
                   Positioned(
                     child: Text(
-                      text !
-                         , // Provide a default value if text is null
+                      text!, // Provide a default value if text is null
                       style: TextStyle(
                         fontFamily: 'Cosffira',
-                       fontSize: customFontSize ?? 35.r,
+                        fontSize: customFontSize ?? 35.sp,
                         color: textColor,
                         fontWeight: fontWeight,
                       ),
@@ -100,7 +99,7 @@ class CustomGeneralButtom2 extends StatelessWidget {
   final Color? borderColor;
   final double height;
   final double? width;
-  
+
   const CustomGeneralButtom2({
     super.key,
     this.text,
@@ -117,7 +116,7 @@ class CustomGeneralButtom2 extends StatelessWidget {
   });
   final String? text;
   final String? svgPath;
-  
+
   final String Function(int)? buttonTextResolver;
   // void function
   final VoidCallback? onTap;
@@ -146,7 +145,7 @@ class CustomGeneralButtom2 extends StatelessWidget {
 
             if (icon != null)
               Padding(
-                padding: const EdgeInsets.only(left: 11.1),
+                padding: EdgeInsets.only(left: 11.1.w),
                 child: Icon(
                   icon,
                   color: iconcolor,
@@ -291,13 +290,13 @@ class CustomGeneralButtom4 extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: height,
+        height: height.h,
         // خليته ياخد العرض بتاع الاسكرين علشان اغير في الحجم براحتي
         width: width,
         decoration: BoxDecoration(
           color: boxColor,
-          borderRadius: BorderRadius.circular(35),
-          border: Border.all(color: borderColor!, width: 1.2),
+          borderRadius: BorderRadius.circular(35.r),
+          border: Border.all(color: borderColor!, width: 1.2.w),
         ),
         //The Row widget contains an Expanded widget that wraps your existing
         child: Row(
@@ -308,7 +307,7 @@ class CustomGeneralButtom4 extends StatelessWidget {
 
             if (icon != null)
               Padding(
-                padding: const EdgeInsets.only(left: 11.1),
+                padding: EdgeInsets.only(left: 11.1.w),
                 child: Icon(
                   icon,
                   color: iconcolor,
@@ -326,7 +325,7 @@ class CustomGeneralButtom4 extends StatelessWidget {
                         text!, // Provide a default value if text is null
                         style: TextStyle(
                           fontFamily: 'Cosffira',
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           color: textColor,
                           fontWeight: fontWeight,
                         ),

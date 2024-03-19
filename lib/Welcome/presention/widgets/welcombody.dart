@@ -9,7 +9,7 @@ import 'package:petapplication/Welcome/presention/widgets/dotidicate.dart';
 import 'package:petapplication/core/utils/size_config.dart';
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
-import 'package:petapplication/pages/define_page/widgets/Defind.dart';
+import 'package:petapplication/pages/define_page/widgets/choose_defintion_type.dart';
 import 'package:petapplication/pages/sign_login_acount/logintext.dart';
 //import 'package:petapplication/core/utils/widgets/constants.dart';
 //import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
@@ -49,14 +49,14 @@ class _WelcomeBodyState extends State<WelcomeBody> {
           Row(
             children: [
               Padding(
-                padding:  EdgeInsets.only(left: 90.w, bottom: 135.h),
+                padding: EdgeInsets.only(left: 90.w, bottom: 135.h),
                 child: Dot(
-                  dotIndex: pageController!.hasClients ? pageController?.page : 0,
+                  dotIndex:
+                      pageController!.hasClients ? pageController?.page : 0,
                 ),
               ),
             ],
           ),
-         
         ],
       ),
     );
