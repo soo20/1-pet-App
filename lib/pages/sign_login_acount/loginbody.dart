@@ -59,7 +59,7 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
             //SizedBox(height: 20.h,),
        
             Flexible(
-              flex: 3,
+              flex: 2,
               child: Padding(
                 padding: EdgeInsets.symmetric(
                     vertical: 8,
@@ -121,113 +121,104 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
               ),
             ),
            
-             Row(
-               mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                
-                children: [
-                  SizedBox(
-                    width: 200.w,
-                  ),
-                  Text(
-                    'Don\'t have an account? ',
-                    style: TextStyle(
-                      fontFamily: 'Cosffira',
-                      fontSize: 35.sp,
-                      color: Color(0xff090f0f),
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-               
-            
-           
-            CupertinoButton(
-              child: Text(
-                'Sign Up',
-                style: TextStyle(
-                  fontFamily: 'Cosffira',
-                  fontSize: 44.sp,
-                  color: Color(0xff090f0f),
-                  fontWeight: FontWeight.w900,
-                  height: 0.01.h,
-                 
-                ),
-              ),
-              
-              onPressed: () {
-                showCupertinoModalPopup(
-                    barrierDismissible: true,
-                    context: context,
-                    builder: (BuildContext builder) {
-                      return CupertinoPopupSurface(
-                          isSurfacePainted: false,
-                          child: Container(
-                            width: 1080.w,
-                            height: 1000.h,
-                            decoration: BoxDecoration(
-                              color: const Color(0xffEEEFEF),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(70.0),
-                                topRight: Radius.circular(70.0),
-                                bottomLeft: Radius.circular(00.0),
-                                bottomRight: Radius.circular(00.0),
-                              ),
-                              border: Border.all(
-                                  width: 0.5.w,
-                                  color: const Color(0xff707070)),
-                            ),
-                            child: Scaffold(
-                              backgroundColor:
-                                  Color.fromARGB(0, 238, 239, 239),
-                              body: SingleChildScrollView(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      height: 170.h,
-                                    ),
-                                    Text.rich(
-                                      TextSpan(
-                                        style: TextStyle(
-                                          fontFamily: 'Cosffira',
-                                          fontSize: 70.sp,
-                                          color: Color(0xfff83658),
-                                          height: 1.0434782608695652,
-                                        ),
-                                        children: const [
-                                          TextSpan(
-                                            text: 'Create ',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                          TextSpan(
-                                            text: 'an account',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 1000.h,
-                                      child: PageViewLogin(),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ));
-                    });
-              },
-            ),
-          
-
-
-           ]),
+             SizedBox(
+               width: 200.w,
+             ),
+             Text(
+               'Don\'t have an account? ',
+               style: TextStyle(
+                 fontFamily: 'Cosffira',
+                 fontSize: 45.sp,
+                 color: Color(0xff090f0f),
+                 fontWeight: FontWeight.w400,
+               ),
+             ),
+                            
+                         
+                        
+                         CupertinoButton(
+                           child: Text(
+                             'Sign Up',
+                             style: TextStyle(
+             fontFamily: 'Cosffira',
+             fontSize: 50.sp,
+             color: Color(0xff090f0f),
+             fontWeight: FontWeight.w900,
+             height: 0.01.h,
+                              
+                             ),
+                           ),
+                           
+                           onPressed: () {
+                             showCupertinoModalPopup(
+               barrierDismissible: true,
+               context: context,
+               builder: (BuildContext builder) {
+                 return CupertinoPopupSurface(
+                     isSurfacePainted: false,
+                     child: Container(
+                       width: 1080.w,
+                       height: 1000.h,
+                       decoration: BoxDecoration(
+                         color: const Color(0xffEEEFEF),
+                         borderRadius: const BorderRadius.only(
+                           topLeft: Radius.circular(70.0),
+                           topRight: Radius.circular(70.0),
+                           bottomLeft: Radius.circular(00.0),
+                           bottomRight: Radius.circular(00.0),
+                         ),
+                         border: Border.all(
+                             width: 0.5.w,
+                             color: const Color(0xff707070)),
+                       ),
+                       child: Scaffold(
+                         backgroundColor:
+                             Color.fromARGB(0, 238, 239, 239),
+                         body: SingleChildScrollView(
+                           child: Column(
+                             mainAxisSize: MainAxisSize.min,
+                             crossAxisAlignment:
+                                 CrossAxisAlignment.center,
+                             children: [
+                               SizedBox(
+                                 height: 170.h,
+                               ),
+                               Text.rich(
+                                 TextSpan(
+                                   style: TextStyle(
+                                     fontFamily: 'Cosffira',
+                                     fontSize: 70.sp,
+                                     color: Color(0xfff83658),
+                                     height: 1.0434782608695652,
+                                   ),
+                                   children: const [
+                                     TextSpan(
+                                       text: 'Create ',
+                                       style: TextStyle(
+                                         fontWeight: FontWeight.w700,
+                                       ),
+                                     ),
+                                     TextSpan(
+                                       text: 'an account',
+                                       style: TextStyle(
+                                         fontWeight: FontWeight.w700,
+                                       ),
+                                     ),
+                                   ],
+                                 ),
+                               ),
+                               SizedBox(
+                                 height: 1000.h,
+                                 child: PageViewLogin(),
+                               ),
+                             ],
+                           ),
+                         ),
+                       ),
+                     ));
+               });
+                           },
+                         ),
             // Add the rest of your widgets here, for example, text fields, buttons, etc.
           ],
         ),

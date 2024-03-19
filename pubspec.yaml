@@ -29,7 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   cupertino_icons: ^1.0.2
-  camera: ^0.10.5+8
+  camera: ^0.10.5+9
   
   font_awesome_flutter: ^10.6.0
   flutter:
@@ -97,6 +97,7 @@ flutter:
     - assets/image/cloud.png
     - assets/image/MaskGroup8.png
     - assets/image/Path44.png
+    - assets/image/cameraa.png
     
     
     - assets/icons/Group312.svg
@@ -129,11 +130,15 @@ flutter:
     - assets/icons/home_page_after_adding_reminders_icons/unchecked_button.png
     - assets/icons/home_page_after_adding_reminders_icons/checked_button.png
     - assets/icons/home_page_after_adding_reminders_icons/reminder_options_circles.png
+<<<<<<< HEAD
+    - assets/icons/cameraa.svg
+=======
     - assets/icons/home_page_after_adding_reminders_icons/my_pets_before_pressing.png
     - assets/icons/home_page_after_adding_reminders_icons/home_icon_before_pressed.png
     - assets/icons/home_page_after_adding_reminders_icons/diseases_icon_before_pressed.png
     - assets/icons/home_page_after_adding_reminders_icons/add_pet_icon.png
     - assets/icons/home_page_after_adding_reminders_icons/home_icon_on_pressed.png
+>>>>>>> 7e38a2e26323d9f2f69fa82c6512dee3ced01763
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

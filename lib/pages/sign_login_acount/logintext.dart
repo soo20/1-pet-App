@@ -22,13 +22,13 @@ class LoginText extends StatelessWidget {
             //iconTheme: IconThemeData.fallback(),
             forceMaterialTransparency: true,
             toolbarOpacity: 1,
-            toolbarHeight: 50,
+            toolbarHeight: 60,
             leading: IconButton(
               icon: Text(
                 'skip',
                 style: TextStyle(
                   fontFamily: 'Cosffira',
-                  fontSize: 45.sp,
+                  fontSize: 48.sp,
                   color: const Color(0xffEEEFEF),
                   fontWeight: FontWeight.w900,
                 ),

@@ -163,7 +163,7 @@ class CustomGeneralButtom2 extends StatelessWidget {
                         text!, // Provide a default value if text is null
                         style: TextStyle(
                           fontFamily: 'Cosffira',
-                          fontSize: 35.sp,
+                          fontSize: 40.sp,
                           color: textColor,
                           fontWeight: FontWeight.w800,
                         ),

@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:petapplication/pages/homepage/home_page_navigation.dart';
 // import 'package:petapplication/pages/splashscreen.dart';
 
-List<CameraDescription> cameras = [];
+late List<CameraDescription> cameras;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   cameras = await availableCameras();
