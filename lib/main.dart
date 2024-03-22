@@ -5,8 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 //import 'package:petapplication/pages/splashscreen.dart';
+<<<<<<< HEAD
 
 import 'package:petapplication/pages/splashscreen.dart';
+=======
+import 'package:petapplication/pages/homepage/home_page_navigation.dart';
+>>>>>>> b274872878873fe508f36cc43f77fd77bcc88a5a
 // import 'package:petapplication/pages/splashscreen.dart';
 
 late List<CameraDescription> cameras;
@@ -40,8 +44,13 @@ class YunaPetApp extends StatelessWidget {
         );
       },
       //A part of builder that its dependencies/properties don't use the library
+<<<<<<< HEAD
       child: const SplashScreen()
           //const HomePageAfterAddingPets(),
+=======
+      child: //const SplashScreen()
+          const TheMainHomePage(),
+>>>>>>> b274872878873fe508f36cc43f77fd77bcc88a5a
     );
   }
 }

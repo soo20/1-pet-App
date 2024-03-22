@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Reminders {
+class Reminders extends ChangeNotifier {
   Reminders({
     required this.imageUrl,
     required this.eventTitle,
@@ -17,7 +17,7 @@ class Reminders {
   late int reminderId;
   bool checked;
 
-  static List<dynamic> reminderInformationList = [
+  static List<Reminders> reminderInformationList = [
     Reminders(
       imageUrl:
           'assets/icons/home_page_after_adding_reminders_icons/golden-retriever.png',
@@ -125,12 +125,7 @@ class Reminders {
   ];
 }
 
-Widget buildReminderCard(
-  Reminders petInformation,
-  Function checkFunction,
-  Function uncheckFunction,
-  Function moveCardFunction,
-) {
+Widget buildReminderCard(remindersData) {
   return SizedBox(
     child: Container(
       height: 200.h,
@@ -146,9 +141,9 @@ Widget buildReminderCard(
         child: Row(
           children: <Widget>[
             IconButton(
-              onPressed: () => moveCardFunction(petInformation),
+              onPressed: () => remindersData.checked,
               icon: Image.asset(
-                petInformation.checked
+                remindersData.checked
                     ? 'assets/icons/home_page_after_adding_reminders_icons/checked_button.png'
                     : 'assets/icons/home_page_after_adding_reminders_icons/unchecked_button.png',
                 height: 63.h,
@@ -159,7 +154,7 @@ Widget buildReminderCard(
               padding: const EdgeInsets.all(1.0),
               child: Image(
                 image: AssetImage(
-                  petInformation.imageUrl,
+                  remindersData.imageUrl,
                 ),
                 width: 150.w,
                 height: 150.h,
@@ -174,10 +169,9 @@ Widget buildReminderCard(
               child: Column(
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.only(right: 95.0),
+                    padding: EdgeInsets.only(right: (95.0).w),
                     child: Text(
-                      textAlign: TextAlign.left,
-                      petInformation.petName,
+                      remindersData.petName,
                       style: TextStyle(
                         fontFamily: 'Cosffira',
                         fontSize: 70.sp,
@@ -187,7 +181,7 @@ Widget buildReminderCard(
                     ),
                   ),
                   Text(
-                    '${petInformation.eventTitle} ${petInformation.time}',
+                    '${remindersData.eventTitle} ${remindersData.time}',
                     style: TextStyle(
                         fontFamily: 'Cosffira',
                         fontSize: 46.sp,
@@ -202,4 +196,8 @@ Widget buildReminderCard(
       ),
     ),
   );
+}
+
+class ListOfData extends ChangeNotifier {
+  List<dynamic> listOfRemindersData = Reminders.reminderInformationList;
 }

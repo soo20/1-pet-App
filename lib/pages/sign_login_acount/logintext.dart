@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 
-import 'package:petapplication/pages/define_page/widgets/Defind.dart';
+import 'package:petapplication/pages/define_page/widgets/choose_defintion_type.dart';
 import 'package:petapplication/pages/sign_login_acount/loginbody.dart';
 //import 'package:petapplication/core/utils/widgets/constants.dart';
 //import 'package:petapplication/pages/page2/login_info.dart';
@@ -24,28 +24,26 @@ class LoginText extends StatelessWidget {
             toolbarOpacity: 1,
             toolbarHeight: 60,
             leading: IconButton(
-              icon:  Text(
+              icon: Text(
                 'skip',
                 style: TextStyle(
                   fontFamily: 'Cosffira',
                   fontSize: 48.sp,
                   color: const Color(0xffEEEFEF),
                   fontWeight: FontWeight.w900,
-                  
                 ),
               ),
               onPressed: () {
-                Get.to(() => const Deefine(), transition: Transition.size);
+                Get.to(() => const ChooseDefintionType(),
+                    transition: Transition.size);
                 // Add any functionality you want when the icon is pressed
               },
-               padding: const EdgeInsets.only(
-              left: 15.0),
+              padding: const EdgeInsets.only(left: 15.0),
             )),
         extendBodyBehindAppBar: true,
         backgroundColor: kMainColorSplash,
-        body: 
-          // SignUpPody()
-          const LoginBody()
-        );
+        body:
+            // SignUpPody()
+            const LoginBody());
   }
 }
