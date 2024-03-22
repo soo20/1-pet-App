@@ -55,8 +55,13 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
     List<Widget> listItems = [];
 
     // Iterate through the responseList to create reminder cards
-    for (var item in responseList) {
-      listItems.add(buildReminderCard(item));
+    for (final Reminders item in responseList) {
+      listItems.add(buildReminderCard(
+        remindersData: item,
+        onPressed: () {
+          setState(() => item.checked = !item.checked);
+        },
+      ));
     }
     setState(() {
       // to store cards in itemsData variable and make a state for this
@@ -69,7 +74,7 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
   void initState() {
     super.initState();
     // Get reminder cards
-    getCards();
+    // getCards();
     // Add a listener to the scroll controller for scrolling behavior
     controller.addListener(() {
       // Calculate the ratio of the current scroll offset to a specific value (119 in this case)
@@ -117,8 +122,10 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
                 width: size.width,
                 alignment: Alignment.centerLeft,
                 height: closeTopevents ? 0 : 95.h,
-                padding:
-                    const EdgeInsets.only(left: 7.0, bottom: 0.0, top: 0.0),
+                padding: EdgeInsets.only(
+                    left: MediaQuery.sizeOf(context).width * 0.02,
+                    bottom: 0.0,
+                    top: 0.0),
                 child: Text(
                   'Future Events',
                   style: TextStyle(
@@ -230,16 +237,33 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
                   of the available vertical or horizontal space a child widget should occupy.
                 */
 
-            Expanded(
-              child: ListView.builder(
-                controller: controller,
-                itemCount: itemsData.length,
-                physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return itemsData[index];
-                },
-              ),
-            ),
+            Builder(builder: (_) {
+              final List itemList = (onPressedText)
+                  ? Reminders.reminderInformationList
+                      .where((e) => !e.checked)
+                      .toList()
+                  : Reminders.reminderInformationList
+                      .where((e) => e.checked)
+                      .toList();
+
+              return Expanded(
+                child: ListView.builder(
+                  controller: controller,
+                  itemCount: itemList.length,
+                  physics: const BouncingScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    final Reminders remainder = itemList[index];
+                    return buildReminderCard(
+                      remindersData: remainder,
+                      onPressed: () {
+                        setState(() => remainder.checked = !remainder.checked);
+                      },
+                    );
+                    // return itemsData[index];
+                  },
+                ),
+              );
+            }),
           ],
         ),
       ),

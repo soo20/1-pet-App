@@ -125,7 +125,10 @@ class Reminders extends ChangeNotifier {
   ];
 }
 
-Widget buildReminderCard(remindersData) {
+Widget buildReminderCard({
+  required Reminders remindersData,
+  required void Function()? onPressed,
+}) {
   return SizedBox(
     child: Container(
       height: 200.h,
@@ -141,7 +144,7 @@ Widget buildReminderCard(remindersData) {
         child: Row(
           children: <Widget>[
             IconButton(
-              onPressed: () => remindersData.checked,
+              onPressed: onPressed,
               icon: Image.asset(
                 remindersData.checked
                     ? 'assets/icons/home_page_after_adding_reminders_icons/checked_button.png'

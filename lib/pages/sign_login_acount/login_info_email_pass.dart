@@ -4,10 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 7e38a2e26323d9f2f69fa82c6512dee3ced01763
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 import 'package:petapplication/pages/pageforgetpass/my_verify_pass.dart';
 //import 'package:flutter_svg/svg.dart';
@@ -194,13 +190,8 @@ class _LoginInfoState extends State<LoginInfo> {
               borderColor: const Color(0xff707070),
               fontWeight: FontWeight.w700,
               onTap: () {
-<<<<<<< HEAD
-       // Get.to(() => const HomePage(), transition: Transition.zoom);
-      },
-=======
                 // Get.to(() => const HomePage(), transition: Transition.zoom);
               },
->>>>>>> 7e38a2e26323d9f2f69fa82c6512dee3ced01763
             ),
             Center(
               child: Row(
@@ -220,25 +211,6 @@ class _LoginInfoState extends State<LoginInfo> {
                         color: const Color(0xff090f0f),
                         fontWeight: FontWeight.w400,
                       ),
-<<<<<<< HEAD
-                    
-                       children: <TextSpan>[
-                         TextSpan(
-                           text: 'click here',
-                           style: TextStyle(
-                             fontFamily: 'Cosffira',
-                             fontSize: 40.sp,
-                             color: const Color(0xffF83658),
-                             fontWeight: FontWeight.w800,
-                           ),
-                           // Add onTap callback to navigate to the next page
-                           recognizer: TapGestureRecognizer()
-                             ..onTap = () {
-                               Navigator.push(
-                                 context,
-                                 MaterialPageRoute(
-                                     builder: (context) => const MyVerify()),
-=======
                       children: <TextSpan>[
                         TextSpan(
                           text: 'click here',
@@ -255,17 +227,12 @@ class _LoginInfoState extends State<LoginInfo> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => const MyVerify()),
->>>>>>> 7e38a2e26323d9f2f69fa82c6512dee3ced01763
                               );
                             },
                         ),
                       ],
                     ),
-<<<<<<< HEAD
-                  )
-=======
                   ),
->>>>>>> 7e38a2e26323d9f2f69fa82c6512dee3ced01763
                 ],
               ),
             ),
