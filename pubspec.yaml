@@ -40,7 +40,7 @@ dependencies:
   carousel_slider: ^4.0.0
   dots_indicator: ^3.0.0
   path: ^1.8.3
-  path_provider: ^2.1.1
+  path_provider: ^2.1.2
   image_gallery_saver: ^2.0.3
   gallery_saver: ^2.3.2
   permission_handler: ^11.1.0
@@ -51,8 +51,8 @@ dependencies:
   assets_audio_player: ^3.1.1
   video_player: ^2.8.2
   image: ^4.1.3
-  image_picker: ^1.0.6
-  syncfusion_flutter_sliders: ^24.1.44
+  image_picker: ^1.0.7
+  syncfusion_flutter_sliders: ^25.1.35
   pinput: ^4.0.0
   flutter_screenutil: ^5.9.0
   flutter_custom_clippers: ^2.1.0
@@ -96,6 +96,7 @@ flutter:
     - assets/image/MaskGroup8.png
     - assets/image/Path44.png
     - assets/image/cameraa.png
+    - assets/image/detectScreen.png
     
     
     - assets/icons/Group312.svg
@@ -128,15 +129,17 @@ flutter:
     - assets/icons/home_page_after_adding_reminders_icons/unchecked_button.png
     - assets/icons/home_page_after_adding_reminders_icons/checked_button.png
     - assets/icons/home_page_after_adding_reminders_icons/reminder_options_circles.png
-<<<<<<< HEAD
     - assets/icons/cameraa.svg
-=======
+    - assets/icons/Gallarry.svg
+    - assets/icons/right.svg
+    - assets/icons/rephoto.svg
+    - assets/icons/dropDown.svg
+    - assets/icons/dropUp.svg
     - assets/icons/home_page_after_adding_reminders_icons/my_pets_before_pressing.png
     - assets/icons/home_page_after_adding_reminders_icons/home_icon_before_pressed.png
     - assets/icons/home_page_after_adding_reminders_icons/diseases_icon_before_pressed.png
     - assets/icons/home_page_after_adding_reminders_icons/add_pet_icon.png
     - assets/icons/home_page_after_adding_reminders_icons/home_icon_on_pressed.png
->>>>>>> 7e38a2e26323d9f2f69fa82c6512dee3ced01763
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
