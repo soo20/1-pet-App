@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:petapplication/pages/info_page/drop_down.dart';
 
 class InfoPage extends StatelessWidget {
@@ -10,6 +11,7 @@ class InfoPage extends StatelessWidget {
       backgroundColor: Colors.transparent,
        
       appBar: AppBar(
+        toolbarHeight: 68.h,
         scrolledUnderElevation: 0,
         automaticallyImplyLeading: true,
         backgroundColor: const Color.fromARGB(255, 212, 211, 205),

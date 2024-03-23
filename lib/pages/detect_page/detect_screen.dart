@@ -9,6 +9,7 @@ import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/pages/info_page/information.dart';
 import 'package:petapplication/pages/page3/camera.dart';
+import 'package:petapplication/pages/pet_setting_pages/add_pet.dart';
 
 class DetectScreen extends StatefulWidget {
   final String imgPath; // Image path from PreviewScreen
@@ -161,6 +162,14 @@ class _DetectScreenState extends State<DetectScreen> {
                 child: CustomGeneralButtom(
                   height: 150.h,
                   text: 'Add to your pets',
+                   onTap: () {
+                          Get.to(
+                            () =>
+                                const AddPets(), // Replace YourNextPage with the actual class for the next page
+                            transition: Transition.rightToLeft,
+                            duration: const Duration(milliseconds: 300),
+                          );
+                        },
                  customFontSize: 40.sp,
                   textColor: const Color(0xffFFFFFF),
                    boxColor:  const Color(0xffDC3356),

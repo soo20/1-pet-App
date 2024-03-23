@@ -30,22 +30,22 @@ class _DropDownState extends State<DropDown> {
         height: MediaQuery.of(context).size.height,
         width: double.infinity,
         padding: const EdgeInsets.symmetric(
-          vertical: 0,
-          horizontal: 36,
+          vertical: 20,
+          horizontal: 37,
         ),
         child: SafeArea(
           child: SingleChildScrollView(
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 4),
+                  padding: const EdgeInsets.only(bottom: 7),
                   child: Text(
                     ' Type Name:',
                     style: TextStyle(
                       fontFamily: 'Cosffira',
                       fontSize: 55.sp,
                       color: const Color(0xff2A606C),
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w400,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -56,18 +56,19 @@ class _DropDownState extends State<DropDown> {
                     fontFamily: 'Cosffira',
                     fontSize: 60.sp,
                     color: const Color(0xffDC3356),
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 40.h),
+                 SizedBox(height: 50.h),
                 const Droper(textContent: 'About',),
-                SizedBox(height: 100.h,),
+                 SizedBox(height: 60.h,),
                 const Droper(textContent: 'Health',),
-                 SizedBox(height: 100.h,),
+                 SizedBox(height: 60.h,),
                 const Droper(textContent: 'Exercise',),
-                 SizedBox(height: 100.h,),
+                 SizedBox(height: 60.h,),
                 const Droper(textContent: 'Grooming',),
+                 SizedBox(height: 60.h,),
                 
                
               ],
