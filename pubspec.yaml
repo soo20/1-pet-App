@@ -40,7 +40,7 @@ dependencies:
   carousel_slider: ^4.0.0
   dots_indicator: ^3.0.0
   path: ^1.8.3
-  path_provider: ^2.1.1
+  path_provider: ^2.1.2
   image_gallery_saver: ^2.0.3
   gallery_saver: ^2.3.2
   permission_handler: ^11.1.0
@@ -98,6 +98,7 @@ flutter:
     - assets/image/MaskGroup8.png
     - assets/image/Path44.png
     - assets/image/cameraa.png
+    - assets/image/detectScreen.png
     
     
     - assets/icons/Group312.svg
@@ -130,6 +131,12 @@ flutter:
     - assets/icons/home_page_after_adding_reminders_icons/unchecked_button.png
     - assets/icons/home_page_after_adding_reminders_icons/checked_button.png
     - assets/icons/home_page_after_adding_reminders_icons/reminder_options_circles.png
+    - assets/icons/cameraa.svg
+    - assets/icons/Gallarry.svg
+    - assets/icons/right.svg
+    - assets/icons/rephoto.svg
+    - assets/icons/dropDown.svg
+    - assets/icons/dropUp.svg
     - assets/icons/home_page_after_adding_reminders_icons/my_pets_before_pressing.png
     - assets/icons/home_page_after_adding_reminders_icons/home_icon_before_pressed.png
     - assets/icons/home_page_after_adding_reminders_icons/diseases_icon_before_pressed.png
