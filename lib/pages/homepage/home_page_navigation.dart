@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:petapplication/pages/pets_list_pages/my_pets.dart';
+import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 import 'package:petapplication/pages/diseases_detection_pages/choose_detection_type.dart';
 import 'package:petapplication/pages/define_page/widgets/choose_defintion_type.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
