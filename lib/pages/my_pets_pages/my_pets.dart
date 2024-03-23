@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+late Size size;
 
 class Reminders extends ChangeNotifier {
   Reminders({
@@ -125,82 +126,92 @@ class Reminders extends ChangeNotifier {
   ];
 }
 
-Widget buildReminderCard({
-  required Reminders remindersData,
-  required void Function()? onPressed,
-}) {
-  return SizedBox(
-    child: Container(
-      height: 200.h,
-      margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(25.0.r)),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(color: Colors.black.withAlpha(30), blurRadius: 10.0.r),
-          ]),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10),
-        child: Row(
-          children: <Widget>[
-            IconButton(
-              onPressed: onPressed,
-              icon: Image.asset(
-                remindersData.checked
-                    ? 'assets/icons/home_page_after_adding_reminders_icons/checked_button.png'
-                    : 'assets/icons/home_page_after_adding_reminders_icons/unchecked_button.png',
-                height: 63.h,
-                width: 65.w,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(1.0),
-              child: Image(
-                image: AssetImage(
-                  remindersData.imageUrl,
-                ),
-                width: 150.w,
-                height: 150.h,
-                fit: BoxFit.contain,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 10.0,
-                right: 5.0,
-              ),
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(right: (95.0).w),
-                    child: Text(
-                      remindersData.petName,
-                      style: TextStyle(
-                        fontFamily: 'Cosffira',
-                        fontSize: 70.sp,
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xff2A606C),
-                      ),
-                    ),
-                  ),
-                  Text(
-                    '${remindersData.eventTitle} ${remindersData.time}',
-                    style: TextStyle(
-                        fontFamily: 'Cosffira',
-                        fontSize: 46.sp,
-                        fontWeight: FontWeight.w100,
-                        color: const Color.fromARGB(70, 42, 96, 108)),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    ),
-  );
+class MyPetsPage extends StatelessWidget {
+  const MyPetsPage({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
 }
 
-class ListOfData extends ChangeNotifier {
-  List<dynamic> listOfRemindersData = Reminders.reminderInformationList;
+class BuildPetCard extends StatelessWidget {
+  BuildPetCard({
+    super.key,
+    required this.petInfo,
+  });
+  Reminders petInfo;
+  @override
+  Widget build(BuildContext context) {
+    size = MediaQuery.of(context).size;
+    return SizedBox(
+      child: Container(
+        height: size.height * 0.150,
+        margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+        decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(color: Colors.black.withAlpha(30), blurRadius: 10.0),
+            ]),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10),
+          child: Row(
+            children: <Widget>[
+              IconButton(
+                onPressed: () {},
+                icon: Image.asset(
+                  petInfo.checked
+                      ? 'assets/icons/home_page_after_adding_reminders_icons/checked_button.png'
+                      : 'assets/icons/home_page_after_adding_reminders_icons/unchecked_button.png',
+                  height: 63,
+                  width: 65,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(1.0),
+                child: Image(
+                  image: AssetImage(
+                    petInfo.imageUrl,
+                  ),
+                  width: 150,
+                  height: 150,
+                  fit: BoxFit.contain,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 10.0,
+                  right: 5.0,
+                ),
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(right: (95.0)),
+                      child: Text(
+                        petInfo.petName,
+                        style: const TextStyle(
+                          fontFamily: 'Cosffira',
+                          fontSize: 70,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff2A606C),
+                        ),
+                      ),
+                    ),
+                    Text(
+                      '${petInfo.eventTitle} ${petInfo.time}',
+                      style: const TextStyle(
+                          fontFamily: 'Cosffira',
+                          fontSize: 46,
+                          fontWeight: FontWeight.w100,
+                          color: Color.fromARGB(70, 42, 96, 108)),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }

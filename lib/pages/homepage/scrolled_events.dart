@@ -8,11 +8,13 @@ class ScrolledEvents extends StatefulWidget {
 }
 
 late double eventHeight;
+late Size size;
 
 class _ScrolledEvents extends State<ScrolledEvents> {
   @override
   Widget build(BuildContext context) {
     eventHeight = MediaQuery.of(context).size.height * 0.20 - 40;
+    size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       scrollDirection: Axis.horizontal,
@@ -90,7 +92,7 @@ class Pets {
 Widget buildEventCard(Pets petInformation) {
   return Container(
     height: eventHeight,
-    margin: const EdgeInsets.only(right: 4),
+    margin: EdgeInsets.only(right: size.width * 0.001),
     child: Card(
       color: petInformation.petType == 'cat'
           ? const Color(0xffE3B1A8)
@@ -112,31 +114,34 @@ Widget buildEventCard(Pets petInformation) {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.only(
-                      left: 5.0,
-                      top: 6.0,
-                      bottom: 0.0,
-                      right: 0.0,
+                    padding: EdgeInsets.only(
+                      left: size.width * 0.02,
+                      top: size.height * 0.002,
+                      bottom: size.height * 0.0,
+                      right: size.width * 0.0,
                     ),
                     child: Text(
                       petInformation.eventTitle,
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         fontFamily: 'Cosffira',
-                        fontSize: 50.sp,
+                        fontSize: size.width * 0.05,
                         fontWeight: FontWeight.bold,
                         color: const Color(0xffffffff),
                       ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 15.0, top: 0.0),
+                    padding: EdgeInsets.only(
+                      left: size.width * 0.015,
+                      top: size.height * 0.0,
+                    ),
                     child: Text(
                       textAlign: TextAlign.justify,
                       petInformation.eventDate,
                       style: TextStyle(
                         fontFamily: 'Cosffira',
-                        fontSize: 48.sp,
+                        fontSize: size.width * 0.048,
                         fontWeight: FontWeight.w100,
                         color: const Color(0xffffffff),
                       ),
@@ -146,16 +151,16 @@ Widget buildEventCard(Pets petInformation) {
                     width: 90.w,
                   ),
                   SizedBox(
-                    height: 55.h,
-                    width: 250.w,
+                    height: size.height * 0.035,
+                    width: size.width * 0.230,
                     child: ElevatedButton(
                       style: ButtonStyle(
-                        minimumSize:
-                            MaterialStatePropertyAll(Size(157.w, 55.h)),
+                        minimumSize: MaterialStatePropertyAll(
+                            Size(size.width * 0.157, size.height * 0.55)),
                         textStyle: MaterialStatePropertyAll(
                           TextStyle(
                             fontFamily: 'Cosffira',
-                            fontSize: 39.sp,
+                            fontSize: size.width * 0.039,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -175,13 +180,16 @@ Widget buildEventCard(Pets petInformation) {
                 width: 90.w,
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 0.0, right: 0.0),
+                padding: EdgeInsets.only(
+                  bottom: size.height * 0.0,
+                  right: size.width * 0.0,
+                ),
                 child: Image(
                   image: AssetImage(
                     petInformation.imageUrl,
                   ),
-                  width: 323.w,
-                  height: 256.h,
+                  width: size.width * 0.323,
+                  height: size.height * 0.135,
                   fit: BoxFit.fill,
                 ),
               )
