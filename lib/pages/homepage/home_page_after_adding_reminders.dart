@@ -121,7 +121,7 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
                 duration: const Duration(milliseconds: 600),
                 width: size.width,
                 alignment: Alignment.centerLeft,
-                height: closeTopevents ? 0 : 95.h,
+                height: closeTopevents ? 0 : size.height * 0.065,
                 padding: EdgeInsets.only(
                     left: MediaQuery.sizeOf(context).width * 0.02,
                     bottom: 0.0,
@@ -130,14 +130,14 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
                   'Future Events',
                   style: TextStyle(
                     fontFamily: 'Cosffira',
-                    fontSize: 90.sp,
+                    fontSize: size.width * 0.090,
                     fontWeight: FontWeight.w800,
                     color: const Color(0xff2A606C),
                     shadows: [
                       Shadow(
                         color: const Color(0xff000000),
-                        offset: const Offset(1.0, 1.0),
-                        blurRadius: 10.0.r,
+                        offset: Offset(size.width * 0.001, size.width * 0.001),
+                        blurRadius: size.width * 0.010,
                       ),
                     ],
                   ),
@@ -176,7 +176,7 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
                   child: Text('Today Tasks',
                       style: TextStyle(
                         fontFamily: 'Cosffira',
-                        fontSize: 60.sp,
+                        fontSize: size.width * 0.059,
                         fontWeight: FontWeight.w800,
                         color: textColor,
                         shadows: [
@@ -185,7 +185,7 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
                               ? Shadow(
                                   color: const Color(0xff000000),
                                   offset: const Offset(1.0, 1.0),
-                                  blurRadius: 10.0.r,
+                                  blurRadius: size.width * 0.01,
                                 )
                               : const Shadow(
                                   offset: Offset.zero,
@@ -208,7 +208,7 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
                   child: Text('Complete Tasks',
                       style: TextStyle(
                         fontFamily: 'Cosffira',
-                        fontSize: 60.sp,
+                        fontSize: size.width * 0.059,
                         fontWeight: FontWeight.w800,
                         color: textColor2,
                         shadows: [
@@ -217,7 +217,7 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
                               ? Shadow(
                                   color: const Color(0xff000000),
                                   offset: const Offset(1.0, 1.0),
-                                  blurRadius: 10.0.r,
+                                  blurRadius: size.width * 0.010,
                                 )
                               : const Shadow(
                                   offset: Offset.zero,
