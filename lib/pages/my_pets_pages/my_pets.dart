@@ -148,33 +148,33 @@ class BuildPetCard extends StatelessWidget {
         height: size.height * 0.150,
         margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(25.0.r)),
+            borderRadius: const BorderRadius.all(Radius.circular(25.0)),
             color: Colors.white,
             boxShadow: [
-              BoxShadow(color: Colors.black.withAlpha(30), blurRadius: 10.0.r),
+              BoxShadow(color: Colors.black.withAlpha(30), blurRadius: 10.0),
             ]),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10),
           child: Row(
             children: <Widget>[
               IconButton(
-                onPressed: onPressed,
+                onPressed: () {},
                 icon: Image.asset(
-                  remindersData.checked
+                  petInfo.checked
                       ? 'assets/icons/home_page_after_adding_reminders_icons/checked_button.png'
                       : 'assets/icons/home_page_after_adding_reminders_icons/unchecked_button.png',
-                  height: 63.h,
-                  width: 65.w,
+                  height: 63,
+                  width: 65,
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(1.0),
                 child: Image(
                   image: AssetImage(
-                    remindersData.imageUrl,
+                    petInfo.imageUrl,
                   ),
-                  width: 150.w,
-                  height: 150.h,
+                  width: 150,
+                  height: 150,
                   fit: BoxFit.contain,
                 ),
               ),
@@ -186,24 +186,24 @@ class BuildPetCard extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(right: (95.0).w),
+                      padding: const EdgeInsets.only(right: (95.0)),
                       child: Text(
-                        remindersData.petName,
-                        style: TextStyle(
+                        petInfo.petName,
+                        style: const TextStyle(
                           fontFamily: 'Cosffira',
-                          fontSize: 70.sp,
+                          fontSize: 70,
                           fontWeight: FontWeight.bold,
-                          color: const Color(0xff2A606C),
+                          color: Color(0xff2A606C),
                         ),
                       ),
                     ),
                     Text(
-                      '${remindersData.eventTitle} ${remindersData.time}',
-                      style: TextStyle(
+                      '${petInfo.eventTitle} ${petInfo.time}',
+                      style: const TextStyle(
                           fontFamily: 'Cosffira',
-                          fontSize: 46.sp,
+                          fontSize: 46,
                           fontWeight: FontWeight.w100,
-                          color: const Color.fromARGB(70, 42, 96, 108)),
+                          color: Color.fromARGB(70, 42, 96, 108)),
                     ),
                   ],
                 ),
