@@ -13,16 +13,20 @@ late Size size;
 class _ScrolledEvents extends State<ScrolledEvents> {
   @override
   Widget build(BuildContext context) {
-    eventHeight = MediaQuery.of(context).size.height * 0.20 - 40;
     size = MediaQuery.of(context).size;
+    if (size.height < 756.0) {
+      eventHeight = MediaQuery.of(context).size.height * 0.22 - 40;
+    } else {
+      eventHeight = MediaQuery.of(context).size.height * 0.20 - 40;
+    }
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       scrollDirection: Axis.horizontal,
       child: Container(
         height: eventHeight, // Set a fixed height for the cards
-        margin: const EdgeInsets.symmetric(
-          vertical: 5.0,
-          horizontal: 8.0,
+        margin: EdgeInsets.symmetric(
+          vertical: size.height * 0.01,
+          horizontal: size.height * 0.01,
         ),
         child: FittedBox(
           fit: BoxFit.fill,

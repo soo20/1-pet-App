@@ -95,14 +95,19 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
   @override
   Widget build(BuildContext context) {
     // Calculate the height of the event container based on the screen size
-    final double eventHeight = MediaQuery.of(context).size.height * 0.22 - 50;
     final Size size = MediaQuery.of(context).size;
+    final double eventHeight;
+    if (size.height <= 707.4285714285714) {
+      eventHeight = MediaQuery.of(context).size.height * 0.21 - 50;
+    } else {
+      eventHeight = MediaQuery.of(context).size.height * 0.22 - 50;
+    }
     // Scaffold widget containing the app structure
     return
         // Body of the app containing various UI elements
         Container(
       height: size.height,
-      margin: const EdgeInsets.all(8.0),
+      margin: EdgeInsets.all(size.height * 0.008),
       child: Column(
         children: <Widget>[
           // Animated container for future events text
