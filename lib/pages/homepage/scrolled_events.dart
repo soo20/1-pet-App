@@ -30,7 +30,10 @@ class _ScrolledEvents extends State<ScrolledEvents> {
           child: Row(
             children: [
               // this will be dynamic coloumn that depends on the length of list
-              for (var i in Pets.petsInformationList) buildEventCard(i)
+              for (Pets i in Pets.petsInformationList)
+                BuildEventCard(
+                  petInformation: i,
+                )
             ],
           ),
         ),
@@ -89,114 +92,119 @@ class Pets {
   ];
 }
 
-Widget buildEventCard(Pets petInformation) {
-  return Container(
-    height: eventHeight,
-    margin: EdgeInsets.only(right: size.width * 0.001),
-    child: Card(
-      color: petInformation.petType == 'cat'
-          ? const Color(0xffE3B1A8)
-          : const Color(0xffB8D8D4),
-      elevation: 0.0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(36.0.r),
-        side: BorderSide(
-          color: const Color(0xff707070), // Set the border color
-          width: 1.0.w, // Set the border width
+class BuildEventCard extends StatelessWidget {
+  const BuildEventCard({super.key, required this.petInformation});
+  final Pets petInformation;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: eventHeight,
+      margin: EdgeInsets.only(right: size.width * 0.001),
+      child: Card(
+        color: petInformation.petType == 'cat'
+            ? const Color(0xffE3B1A8)
+            : const Color(0xffB8D8D4),
+        elevation: 0.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(36.0.r),
+          side: BorderSide(
+            color: const Color(0xff707070), // Set the border color
+            width: size.width * 0.001, // Set the border width
+          ),
         ),
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: size.width * 0.02,
-                      top: size.height * 0.002,
-                      bottom: size.height * 0.0,
-                      right: size.width * 0.0,
-                    ),
-                    child: Text(
-                      petInformation.eventTitle,
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontFamily: 'Cosffira',
-                        fontSize: size.width * 0.05,
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xffffffff),
+        child: Column(
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: size.width * 0.02,
+                        top: size.height * 0.002,
+                        bottom: size.height * 0.0,
+                        right: size.width * 0.0,
+                      ),
+                      child: Text(
+                        petInformation.eventTitle,
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          fontFamily: 'Cosffira',
+                          fontSize: size.width * 0.05,
+                          fontWeight: FontWeight.bold,
+                          color: const Color(0xffffffff),
+                        ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: size.width * 0.015,
-                      top: size.height * 0.0,
-                    ),
-                    child: Text(
-                      textAlign: TextAlign.justify,
-                      petInformation.eventDate,
-                      style: TextStyle(
-                        fontFamily: 'Cosffira',
-                        fontSize: size.width * 0.048,
-                        fontWeight: FontWeight.w100,
-                        color: const Color(0xffffffff),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: size.width * 0.015,
+                        top: size.height * 0.0,
+                      ),
+                      child: Text(
+                        textAlign: TextAlign.justify,
+                        petInformation.eventDate,
+                        style: TextStyle(
+                          fontFamily: 'Cosffira',
+                          fontSize: size.width * 0.048,
+                          fontWeight: FontWeight.w100,
+                          color: const Color(0xffffffff),
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    width: 90.w,
-                  ),
-                  SizedBox(
-                    height: size.height * 0.035,
-                    width: size.width * 0.230,
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        minimumSize: MaterialStatePropertyAll(
-                            Size(size.width * 0.157, size.height * 0.55)),
-                        textStyle: MaterialStatePropertyAll(
-                          TextStyle(
-                            fontFamily: 'Cosffira',
-                            fontSize: size.width * 0.039,
-                            fontWeight: FontWeight.bold,
+                    SizedBox(
+                      width: size.width * 0.090,
+                    ),
+                    SizedBox(
+                      height: size.height * 0.035,
+                      width: size.width * 0.230,
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          minimumSize: MaterialStatePropertyAll(
+                              Size(size.width * 0.157, size.height * 0.55)),
+                          textStyle: MaterialStatePropertyAll(
+                            TextStyle(
+                              fontFamily: 'Cosffira',
+                              fontSize: size.width * 0.039,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          foregroundColor:
+                              const MaterialStatePropertyAll(Color(0xff2A606C)),
+                          backgroundColor: const MaterialStatePropertyAll(
+                            Color.fromARGB(255, 248, 241, 227),
                           ),
                         ),
-                        foregroundColor:
-                            const MaterialStatePropertyAll(Color(0xff2A606C)),
-                        backgroundColor: const MaterialStatePropertyAll(
-                          Color.fromARGB(255, 248, 241, 227),
-                        ),
+                        onPressed: () {},
+                        child: Text(petInformation.petName),
                       ),
-                      onPressed: () {},
-                      child: Text(petInformation.petName),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                width: 90.w,
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  bottom: size.height * 0.0,
-                  right: size.width * 0.0,
+                  ],
                 ),
-                child: Image(
-                  image: AssetImage(
-                    petInformation.imageUrl,
-                  ),
-                  width: size.width * 0.323,
-                  height: size.height * 0.135,
-                  fit: BoxFit.fill,
+                SizedBox(
+                  width: size.width * 0.090,
                 ),
-              )
-            ],
-          ),
-        ],
+                Padding(
+                  padding: EdgeInsets.only(
+                    bottom: size.height * 0.0,
+                    right: size.width * 0.0,
+                  ),
+                  child: Image(
+                    image: AssetImage(
+                      petInformation.imageUrl,
+                    ),
+                    width: size.width * 0.323,
+                    height: size.height * 0.135,
+                    fit: BoxFit.fill,
+                  ),
+                )
+              ],
+            ),
+          ],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }
