@@ -46,7 +46,3 @@ class YunaPetApp extends StatelessWidget {
     );
   }
 }
-
-/*class SplashScreen {
-  const SplashScreen();
-}*/

@@ -137,6 +137,7 @@ class BuildReminderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
     return SizedBox(
+      height: size.height * 0.105,
       child: Container(
         height: size.height * 0.105,
         margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
