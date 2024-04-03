@@ -306,11 +306,11 @@ class _MyPetsPage extends State<MyPetsPage> {
                 children: [
                   Column(
                     children: [
-                      for (int index = 0;
-                          index < petsOnTheLeft(petsList).length;
+                      for (int index = (petsList.length ~/ 2).toInt();
+                          index < petsList.length;
                           index++)
                         BuildPetCard(
-                          petsInfo: petsOnTheLeft(petsList)[index],
+                          petsInfo: petsList[index],
                           cardHeight: index % 2 == 0 ? 0.26841 : 0.3694,
                           imageHeight: index % 2 == 0 ? 0.14966 : 0.20000,
                         ),
@@ -319,10 +319,10 @@ class _MyPetsPage extends State<MyPetsPage> {
                   Column(
                     children: [
                       for (int index = 0;
-                          index < petsOnTheRight(petsList).length;
+                          index < (petsList.length ~/ 2).toInt();
                           index++)
                         BuildPetCard(
-                          petsInfo: petsOnTheRight(petsList)[index],
+                          petsInfo: petsList[index],
                           cardHeight: index % 2 == 0 ? 0.3694 : 0.26841,
                           imageHeight: index % 2 == 0 ? 0.2 : 0.14966,
                         ),
@@ -412,20 +412,4 @@ class BuildPetCard extends StatelessWidget {
       ),
     );
   }
-}
-
-List petsOnTheRight(List<dynamic> p) {
-  List returnedList = [];
-  for (int i = 0; i < (p.length ~/ 2).toInt(); i++) {
-    returnedList.add(p[i]);
-  }
-  return returnedList;
-}
-
-List petsOnTheLeft(List<dynamic> p) {
-  List returnedList = [];
-  for (int i = (p.length ~/ 2).toInt(); i < p.length; i++) {
-    returnedList.add(p[i]);
-  }
-  return returnedList;
 }
