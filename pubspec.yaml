@@ -99,8 +99,31 @@ flutter:
     - assets/image/Path44.png
     - assets/image/cameraa.png
     - assets/image/detectScreen.png
-    
-    
+    - assets/image/my_pets_page_images/wite cat.jpg
+    - assets/image/my_pets_page_images/cat1.jpeg
+    - assets/image/my_pets_page_images/cat2.jpeg
+    - assets/image/my_pets_page_images/cat3.jpeg
+    - assets/image/my_pets_page_images/cat4.jpeg
+    - assets/image/my_pets_page_images/cat5.jpeg
+    - assets/image/my_pets_page_images/cat6.jpeg
+    - assets/image/my_pets_page_images/cat7.jpg
+    - assets/image/my_pets_page_images/cat9.jpg
+    - assets/image/my_pets_page_images/cat8.jpeg
+    - assets/image/my_pets_page_images/dog1.jpeg
+    - assets/image/my_pets_page_images/dog2.jpeg
+    - assets/image/my_pets_page_images/dog3.jpeg 
+    - assets/image/my_pets_page_images/dog4.jpeg
+    - assets/image/my_pets_page_images/dog5.jpeg
+    - assets/image/my_pets_page_images/dog6.jpeg
+    - assets/image/my_pets_page_images/dog7.jpeg
+    - assets/image/my_pets_page_images/dog8.jpeg
+    - assets/image/my_pets_page_images/dog9.jpeg
+    - assets/image/my_pets_page_images/golden-retriever.jpeg
+
+
+
+
+
     - assets/icons/Group312.svg
     - assets/icons/Component129.svg
     - assets/icons/Group823.svg
@@ -142,6 +165,17 @@ flutter:
     - assets/icons/home_page_after_adding_reminders_icons/diseases_icon_before_pressed.png
     - assets/icons/home_page_after_adding_reminders_icons/add_pet_icon.png
     - assets/icons/home_page_after_adding_reminders_icons/home_icon_on_pressed.png
+    - assets/icons/my_pets_page_icons/all_types_button_after_pressing.png
+    - assets/icons/my_pets_page_icons/all_types_button_before_pressing.png
+    - assets/icons/my_pets_page_icons/cats_button_icon_after_pressing.png
+    - assets/icons/my_pets_page_icons/cats_button_icon_before_pressing.png
+    - assets/icons/my_pets_page_icons/dogs_button_icon_after_pressing.png
+    - assets/icons/my_pets_page_icons/dogs_button_icon_before_pressing.png
+    - assets/icons/my_pets_page_icons/diseases icon_after_nav.png
+    - assets/icons/my_pets_page_icons/my_pets_after_nav.png
+  
+
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

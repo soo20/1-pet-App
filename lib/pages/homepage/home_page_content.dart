@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:petapplication/pages/homepage/scrolled_events.dart';
 import 'package:petapplication/pages/homepage/scrolled_reminder.dart';
-import 'package:provider/provider.dart';
 
 /* We will use a stateful widget for this page since the content contains a dynamic variable. */
 class HomePageAfterAddingPets extends StatefulWidget {

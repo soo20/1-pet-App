@@ -4,7 +4,7 @@ import 'package:petapplication/pages/diseases_detection_pages/choose_detection_t
 import 'package:petapplication/pages/define_page/widgets/choose_defintion_type.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
-import 'package:petapplication/pages/homepage/home_page_after_adding_reminders.dart';
+import 'package:petapplication/pages/homepage/home_page_content.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TheMainHomePage extends StatefulWidget {
@@ -28,7 +28,9 @@ class _TheMainHomePage extends State<TheMainHomePage> {
       child: Scaffold(
         bottomNavigationBar: CurvedNavigationBar(
           backgroundColor: Colors.transparent,
-          onTap: (index) => setState(() => this.index = index),
+          onTap: (index) => setState(
+            () => this.index = index,
+          ),
           // Set no padding on the "add pet" nav bar item to be in a suitable size when tapping on it.
           iconPadding: index == 3 ? 0 : 12,
           // to change the icon color when tap on it
@@ -60,7 +62,9 @@ class _TheMainHomePage extends State<TheMainHomePage> {
             ),
             CurvedNavigationBarItem(
               child: Image.asset(
-                'assets/icons/home_page_after_adding_reminders_icons/diseases_icon_before_pressed.png',
+                index == 2
+                    ? 'assets/icons/home_page_after_adding_reminders_icons/diseases_icon_before_pressed.png'
+                    : 'assets/icons/my_pets_page_icons/diseases icon_after_nav.png',
                 width: 103.49.w,
                 height: 69.53.h,
               ),
@@ -74,7 +78,9 @@ class _TheMainHomePage extends State<TheMainHomePage> {
             ),
             CurvedNavigationBarItem(
               child: Image.asset(
-                'assets/icons/home_page_after_adding_reminders_icons/my_pets_before_pressing.png',
+                index == 2
+                    ? 'assets/icons/my_pets_page_icons/my_pets_after_nav.png'
+                    : 'assets/icons/home_page_after_adding_reminders_icons/my_pets_before_pressing.png',
                 width: 103.49.w,
                 height: 69.53.h,
               ),

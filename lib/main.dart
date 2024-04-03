@@ -5,9 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 //import 'package:petapplication/pages/splashscreen.dart';
-
-import 'package:petapplication/pages/splashscreen.dart';
-import 'package:petapplication/pages/homepage/home_page_navigation.dart';
+//import 'package:petapplication/pages/splashscreen.dart';
+import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
 // import 'package:petapplication/pages/splashscreen.dart';
 
 late List<CameraDescription> cameras;
