@@ -4,7 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
-import 'package:petapplication/pages/sign_login_acount/popup_surface.dart';
+import 'package:petapplication/pages/pet_setting_pages/add_pet.dart';
+//import 'package:petapplication/pages/sign_login_acount/popup_surface.dart';
 
 class Account extends StatelessWidget {
   const Account({super.key});
@@ -284,7 +285,7 @@ class Account extends StatelessWidget {
             borderColor: const Color.fromARGB(60, 112, 112, 112),
             text: 'Finish',
              onTap: () {
-                  Get.to(() => const Serface(),transition: Transition.zoom );
+                  Get.to(() => const AddPets(),transition: Transition.zoom );
                 },
             fontWeight: FontWeight.w800,
           ),
