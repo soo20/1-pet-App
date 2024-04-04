@@ -9,10 +9,11 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/pages/define_page/jack_define.dart';
-import 'package:petapplication/pages/sign_login_acount/acount.dart';
+import 'package:petapplication/pages/pet_setting_pages/add_pet.dart';
+//import 'package:petapplication/pages/sign_login_acount/acount.dart';
 
 
-//import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
+
 
 class Deefine extends StatelessWidget {
   const Deefine({
@@ -110,7 +111,7 @@ SizedBox(height: 850.h, ),
                                    customFontSize: 35.r,
                                    onTap: () {
                                        navigator?.pushAndRemoveUntil(
-                                        MaterialPageRoute(builder: (e) => const Account())  ,
+                                        MaterialPageRoute(builder: (e) => const AddPets())  ,
                                         (route) => true,
                                       );
                                     },
