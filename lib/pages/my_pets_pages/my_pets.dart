@@ -306,11 +306,11 @@ class _MyPetsPage extends State<MyPetsPage> {
                 children: [
                   Column(
                     children: [
-                      for (int index = (petsList.length ~/ 2).toInt();
-                          index < petsList.length;
+                      for (int index = 0;
+                          index < petsOnTheLeft(petsList).length;
                           index++)
                         BuildPetCard(
-                          petsInfo: petsList[index],
+                          petsInfo: petsOnTheLeft(petsList)[index],
                           cardHeight: index % 2 == 0 ? 0.26841 : 0.3694,
                           imageHeight: index % 2 == 0 ? 0.14966 : 0.20000,
                         ),
@@ -319,10 +319,10 @@ class _MyPetsPage extends State<MyPetsPage> {
                   Column(
                     children: [
                       for (int index = 0;
-                          index < (petsList.length ~/ 2).toInt();
+                          index < petsOnTheRight(petsList).length;
                           index++)
                         BuildPetCard(
-                          petsInfo: petsList[index],
+                          petsInfo: petsOnTheRight(petsList)[index],
                           cardHeight: index % 2 == 0 ? 0.3694 : 0.26841,
                           imageHeight: index % 2 == 0 ? 0.2 : 0.14966,
                         ),
@@ -377,15 +377,18 @@ class BuildPetCard extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(
                   size.width * 0.025), // Adjust the radius value as needed
-              child: Image.asset(
-                petsInfo.imageUrl,
-                width: size.width * 0.38472,
-                height: size.height * imageHeight,
-                fit: BoxFit.fill,
+              child: IconButton(
+                icon: Image.asset(
+                  petsInfo.imageUrl,
+                  width: size.width * 0.38472,
+                  height: size.height * imageHeight,
+                  fit: BoxFit.fill,
+                ),
+                onPressed: () {},
               ),
             ),
             SizedBox(
-              height: size.height * 0.02,
+              height: size.height * 0.01,
             ),
             Text(
               petsInfo.petName,
@@ -402,7 +405,7 @@ class BuildPetCard extends StatelessWidget {
               style: TextStyle(
                 fontFamily: 'Cosffira',
                 fontSize: size.width * 0.040,
-                fontWeight: FontWeight.w900,
+                fontWeight: FontWeight.w700,
                 color: const Color(0xff2A606C),
                 letterSpacing: 0.5,
               ),
@@ -412,4 +415,20 @@ class BuildPetCard extends StatelessWidget {
       ),
     );
   }
+}
+
+List petsOnTheRight(List<dynamic> p) {
+  List returnedList = [];
+  for (int i = 0; i < (p.length ~/ 2).toInt(); i++) {
+    returnedList.add(p[i]);
+  }
+  return returnedList;
+}
+
+List petsOnTheLeft(List<dynamic> p) {
+  List returnedList = [];
+  for (int i = (p.length ~/ 2).toInt(); i < p.length; i++) {
+    returnedList.add(p[i]);
+  }
+  return returnedList;
 }
