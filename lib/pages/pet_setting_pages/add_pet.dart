@@ -99,8 +99,7 @@ class AddPets extends StatelessWidget {
                               color: const Color.fromARGB(126, 0, 0, 0),
                               fontWeight: FontWeight.w400,
                             ),
-                            
-                           enabledBorder: const UnderlineInputBorder(
+                            enabledBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0xffD1D2D2),
                                 width: 0.8, // Set the width of the border here
@@ -124,7 +123,7 @@ class AddPets extends StatelessWidget {
                               color: const Color.fromARGB(126, 0, 0, 0),
                               fontWeight: FontWeight.w400,
                             ),
-                           enabledBorder: const UnderlineInputBorder(
+                            enabledBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0xffD1D2D2),
                                 width: 0.8, // Set the width of the border here
@@ -221,7 +220,6 @@ class AddPets extends StatelessWidget {
                               color: const Color.fromARGB(126, 0, 0, 0),
                               fontWeight: FontWeight.w400,
                             ),
-
                             enabledBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0xffD1D2D2),
@@ -230,20 +228,31 @@ class AddPets extends StatelessWidget {
                             )),
                       ),
                     ),
-                    SizedBox(height: 120.h,),
-                     CustomGeneralButtom(
-          boxColor: const Color(0xff2A606C),
-          textColor: const Color(0xffFFFFFF),
-          height: 135.h,
-          width: 385.w,
-          borderColor: const Color.fromARGB(108, 112, 112, 112),
-          text: 'Finish',
-          onTap: () {
-            Get.to(() =>  PetsInformation(imageUrl: '', petName: '', petType: '', petId: ''), transition: Transition.zoom);
-          },
-          fontWeight: FontWeight.w500,
-          customFontSize: 50.sp,
-        ),
+                    SizedBox(
+                      height: 120.h,
+                    ),
+                    CustomGeneralButtom(
+                      boxColor: const Color(0xff2A606C),
+                      textColor: const Color(0xffFFFFFF),
+                      height: 135.h,
+                      width: 385.w,
+                      borderColor: const Color.fromARGB(108, 112, 112, 112),
+                      text: 'Finish',
+                      onTap: () {
+                        Get.to(
+                            () => PetsInformation(
+                                  imageUrl: '',
+                                  petName: '',
+                                  petGender: '',
+                                  petId: '',
+                                  petType: '',
+                                  age: '',
+                                ),
+                            transition: Transition.zoom);
+                      },
+                      fontWeight: FontWeight.w500,
+                      customFontSize: 50.sp,
+                    ),
                   ],
                 ),
               ],
