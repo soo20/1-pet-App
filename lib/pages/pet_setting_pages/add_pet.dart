@@ -3,8 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
+import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 
 class AddPets extends StatefulWidget {
   const AddPets({super.key});
@@ -306,7 +308,16 @@ class _AddPetsState extends State<AddPets> {
                       borderColor: const Color.fromARGB(108, 112, 112, 112),
                       text: 'Finish',
                       onTap: () {
-                        // Get.to(() =>  PetsInformation(imageUrl: '', petName: '', petType: '', petId: ''), transition: Transition.zoom);
+                        Get.to(
+                            () => PetsInformation(
+                                  imageUrl: '',
+                                  petName: '',
+                                  petGender: '',
+                                  petId: '',
+                                  petType: '',
+                                  age: '',
+                                ),
+                            transition: Transition.zoom);
                       },
                       fontWeight: FontWeight.w500,
                       customFontSize: 50.sp,

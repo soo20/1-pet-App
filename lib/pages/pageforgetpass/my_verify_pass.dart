@@ -5,9 +5,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
-import 'package:petapplication/pages/pageforgetpass/greate_new_pass.dart';
+import 'package:petapplication/pages/pageforgetpass/create_new_pass.dart';
 import 'package:pinput/pinput.dart';
 
 class MyVerify extends StatefulWidget {
@@ -59,8 +58,10 @@ class _MyVerifyState extends State<MyVerify> {
       margin: const EdgeInsets.symmetric(horizontal: 5),
       width: 100.w,
       height: 160.h,
-      textStyle:  TextStyle(
-          fontSize: 42.sp, color: const Color(0xff020202), fontWeight: FontWeight.w500),
+      textStyle: TextStyle(
+          fontSize: 42.sp,
+          color: const Color(0xff020202),
+          fontWeight: FontWeight.w500),
       decoration: BoxDecoration(
         color: const Color.fromARGB(255, 231, 229, 229),
         border: Border.all(color: const Color.fromARGB(88, 112, 112, 112)),
@@ -86,8 +87,7 @@ class _MyVerifyState extends State<MyVerify> {
       backgroundColor: const Color(0xffF3F2F2),
       extendBodyBehindAppBar: true,
       body: Container(
-        margin:
-           const  EdgeInsets.only(left: 25, right: 25, bottom: 10),
+        margin: const EdgeInsets.only(left: 25, right: 25, bottom: 10),
         alignment: Alignment.center,
         child: SingleChildScrollView(
           child: Column(
@@ -101,7 +101,7 @@ class _MyVerifyState extends State<MyVerify> {
               SizedBox(
                 height: 100.h,
               ),
-               Text(
+              Text(
                 "Please Enter 5-Digit Code",
                 style: TextStyle(
                   fontFamily: 'Cosffira',
@@ -114,11 +114,11 @@ class _MyVerifyState extends State<MyVerify> {
                 height: 0,
               ),
               RichText(
-                text:  TextSpan(
+                text: TextSpan(
                   text: 'We\'ve Sent A Code To ',
                   style: TextStyle(
                     fontFamily: 'Cosffira',
-                    fontSize:44.sp ,
+                    fontSize: 44.sp,
                     color: const Color.fromARGB(184, 9, 15, 15),
                     fontWeight: FontWeight.w800,
                   ),
@@ -142,7 +142,7 @@ class _MyVerifyState extends State<MyVerify> {
                   ],
                 ),
               ),
-               SizedBox(
+              SizedBox(
                 height: 60.h,
               ),
               Pinput(
@@ -158,13 +158,13 @@ class _MyVerifyState extends State<MyVerify> {
                   );
                 },
               ),
-               SizedBox(
+              SizedBox(
                 height: 40.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                   SizedBox(width: 660.w),
+                  SizedBox(width: 660.w),
                   isTimerRunning
                       ? Row(
                           children: [
@@ -176,7 +176,7 @@ class _MyVerifyState extends State<MyVerify> {
                             SizedBox(width: 0.w),
                             Text(
                               ' ${getFormattedTime()} Min',
-                              style:  TextStyle(
+                              style: TextStyle(
                                 fontSize: 30.sp,
                                 fontWeight: FontWeight.w700,
                                 color: const Color.fromARGB(255, 108, 42, 50),
@@ -193,7 +193,7 @@ class _MyVerifyState extends State<MyVerify> {
                             });
                             starttimer();
                           },
-                          child:  Text(
+                          child: Text(
                             'Resend',
                             style: TextStyle(
                               fontFamily: 'Cosffira',

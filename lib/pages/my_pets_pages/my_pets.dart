@@ -1,81 +1,102 @@
 import 'dart:math';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:petapplication/pages/my_pets_pages/pet_profile_page.dart';
 
 class PetsInformation {
   PetsInformation({
     required this.imageUrl,
     required this.petName,
-    required this.petType,
+    required this.petGender,
     required this.petId,
+    required this.petType,
+    required this.age,
   });
-
   late String imageUrl;
   late String petName;
-  late String petType;
+  late String petGender;
   late String petId;
+  late String petType;
+  late String age;
 }
 
 List<PetsInformation> catsInformationList = [
   PetsInformation(
     imageUrl: 'assets/image/my_pets_page_images/cat1.jpeg',
-    petName: 'Buby1',
-    petType: 'female',
+    petName: 'Luna',
+    petGender: 'female',
     petId: '1',
+    petType: 'Domestic Shorthair',
+    age: '2 years',
   ),
   PetsInformation(
-    imageUrl: 'assets/image/my_pets_page_images/cat2.jpeg',
-    petName: 'Buby2',
-    petType: 'male',
-    petId: '2',
-  ),
+      imageUrl: 'assets/image/my_pets_page_images/cat2.jpeg',
+      petName: 'Oliver',
+      petGender: 'male',
+      petId: '2',
+      petType: 'Maine Coon',
+      age: '2 years'),
   PetsInformation(
-    imageUrl: 'assets/image/my_pets_page_images/cat3.jpeg',
-    petName: 'Buby3',
-    petType: 'male',
-    petId: '3',
-  ),
+      imageUrl: 'assets/image/my_pets_page_images/cat3.jpeg',
+      petName: 'Bella',
+      petGender: 'male',
+      petId: '3',
+      petType: "Siamese",
+      age: '2 years'),
   PetsInformation(
-    imageUrl: 'assets/image/my_pets_page_images/cat4.jpeg',
-    petName: 'Buby4',
-    petType: 'female',
-    petId: '4',
-  ),
+      imageUrl: 'assets/image/my_pets_page_images/cat4.jpeg',
+      petName: 'Simba',
+      petGender: 'female',
+      petId: '4',
+      petType: 'Persian',
+      age: '2 years'),
   PetsInformation(
     imageUrl: 'assets/image/my_pets_page_images/cat5.jpeg',
-    petName: 'Buby5',
-    petType: 'male',
+    petName: 'Lucy',
+    petGender: 'male',
     petId: '5',
+    petType: 'Ragdoll',
+    age: '2 years',
   ),
   PetsInformation(
     imageUrl: 'assets/image/my_pets_page_images/cat6.jpeg',
-    petName: 'Buby6',
-    petType: 'female',
+    petName: 'Chloe',
+    petGender: 'female',
     petId: '6',
+    petType: 'British Shorthair',
+    age: '2 years',
   ),
   PetsInformation(
     imageUrl: 'assets/image/my_pets_page_images/cat7.jpg',
-    petName: 'Buby7',
-    petType: 'male',
+    petName: 'Milo',
+    petGender: 'male',
     petId: '7',
+    petType: 'Sphynx',
+    age: '2 years',
   ),
   PetsInformation(
-    imageUrl: 'assets/image/my_pets_page_images/cat8.jpeg',
-    petName: 'Buby8',
-    petType: 'female',
-    petId: '8',
-  ),
+      imageUrl: 'assets/image/my_pets_page_images/cat8.jpeg',
+      petName: 'Daisy',
+      petGender: 'female',
+      petId: '8',
+      petType: 'Bengal',
+      age: '2 years'),
   PetsInformation(
     imageUrl: 'assets/image/my_pets_page_images/cat9.jpg',
-    petName: 'Buby9',
-    petType: 'male',
+    petName: 'lulli',
+    petGender: 'male',
     petId: '9',
+    petType: 'Abyssinian',
+    age: '2 years',
   ),
   PetsInformation(
     imageUrl: 'assets/image/my_pets_page_images/wite cat.jpg',
-    petName: 'Buby10',
-    petType: 'female',
+    petName: 'julli',
+    petGender: 'female',
     petId: '10',
+    petType: 'Scottish Fold',
+    age: '2 years',
   ),
 ];
 
@@ -83,62 +104,82 @@ List<PetsInformation> dogsInformationList = [
   PetsInformation(
     imageUrl: 'assets/image/my_pets_page_images/golden-retriever.jpeg',
     petName: 'Max',
-    petType: 'female',
+    petGender: 'female',
     petId: '11',
+    petType: 'Golden Retriever',
+    age: '2 years',
   ),
   PetsInformation(
     imageUrl: 'assets/image/my_pets_page_images/dog1.jpeg',
     petName: 'Buby',
-    petType: 'female',
+    petGender: 'female',
     petId: '12',
+    petType: 'German Shepherd',
+    age: '2 years',
   ),
   PetsInformation(
     imageUrl: 'assets/image/my_pets_page_images/dog2.jpeg',
     petName: 'Charlie',
-    petType: 'male',
+    petGender: 'male',
     petId: '13',
+    petType: 'Labrador Retriever',
+    age: '2 years',
   ),
   PetsInformation(
     imageUrl: 'assets/image/my_pets_page_images/dog3.jpeg',
     petName: 'Jack',
-    petType: 'male',
+    petGender: 'male',
     petId: '14',
+    petType: 'Bulldog',
+    age: '2 years',
   ),
   PetsInformation(
     imageUrl: 'assets/image/my_pets_page_images/dog4.jpeg',
     petName: 'Cooper',
-    petType: 'female',
+    petGender: 'female',
     petId: '15',
+    petType: 'Beagle',
+    age: '2 years',
   ),
   PetsInformation(
     imageUrl: 'assets/image/my_pets_page_images/dog5.jpeg',
     petName: 'Rocky',
-    petType: 'male',
+    petGender: 'male',
     petId: '16',
+    petType: 'Poodle',
+    age: '2 years',
   ),
   PetsInformation(
     imageUrl: 'assets/image/my_pets_page_images/dog6.jpeg',
     petName: 'Bear',
-    petType: 'female',
+    petGender: 'female',
     petId: '17',
+    petType: 'Boxer',
+    age: '2 years',
   ),
   PetsInformation(
     imageUrl: 'assets/image/my_pets_page_images/dog7.jpeg',
     petName: 'Tucker',
-    petType: 'male',
+    petGender: 'male',
     petId: '18',
+    petType: 'Siberian Husky',
+    age: '2 years',
   ),
   PetsInformation(
     imageUrl: 'assets/image/my_pets_page_images/dog8.jpeg',
     petName: 'Oliver',
-    petType: 'female',
+    petGender: 'female',
     petId: '19',
+    petType: 'Dachshund',
+    age: '2 years',
   ),
   PetsInformation(
     imageUrl: 'assets/image/my_pets_page_images/dog9.jpeg',
     petName: 'Duke',
-    petType: 'female',
+    petGender: 'female',
     petId: '20',
+    petType: 'Shih Tzu',
+    age: '2 years',
   ),
 ];
 
@@ -369,26 +410,28 @@ class BuildPetCard extends StatelessWidget {
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: size.width * 0.03,
-          vertical: size.height * 0.01,
+          vertical: size.height * 0.001,
         ),
         child: Column(
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(
-                  size.width * 0.025), // Adjust the radius value as needed
-              child: IconButton(
-                icon: Image.asset(
+            // Adjust the radius value as needed
+            IconButton(
+              iconSize: size.width * 0.037,
+              icon: ClipRRect(
+                borderRadius: BorderRadius.circular(size.width * 0.025),
+                child: Image.asset(
                   petsInfo.imageUrl,
-                  width: size.width * 0.38472,
+                  width: size.width * 0.99472,
                   height: size.height * imageHeight,
                   fit: BoxFit.fill,
                 ),
-                onPressed: () {},
               ),
-            ),
-            SizedBox(
-              height: size.height * 0.01,
+              onPressed: () {
+                Get.to(
+                  PetProfilePage(petInformation: petsInfo),
+                  transition: Transition.zoom,
+                );
+              },
             ),
             Text(
               petsInfo.petName,
@@ -401,7 +444,7 @@ class BuildPetCard extends StatelessWidget {
               ),
             ),
             Text(
-              petsInfo.petType,
+              petsInfo.petGender,
               style: TextStyle(
                 fontFamily: 'Cosffira',
                 fontSize: size.width * 0.040,
