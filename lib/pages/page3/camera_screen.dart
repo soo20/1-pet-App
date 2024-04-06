@@ -27,6 +27,7 @@ class PreviewScreen extends StatefulWidget{
 class _PreviewScreenState extends State<PreviewScreen>{
   
    late CameraController cameraController;
+   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
