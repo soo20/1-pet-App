@@ -120,8 +120,8 @@ flutter:
     - assets/image/my_pets_page_images/dog9.jpeg
     - assets/image/my_pets_page_images/golden-retriever.jpeg
     - assets/image/pet_profile_page_images/background_image.png
-
-
+    - assets/image/diseases_detection_page_images/diseases_page_background.png
+    - assets/image/diseases_detection_page_images/centered_image_for_diseases_detection.png
 
 
 
@@ -177,7 +177,8 @@ flutter:
     - assets/icons/pet_profile_page_icons/events_icon.png
     - assets/icons/pet_profile_page_icons/info icon.png
     - assets/icons/pet_profile_page_icons/Bacterial icon for skin disease.png
-  
+    - assets/icons/diseases_detection_page_icons/boob_icon.png
+    - assets/icons/diseases_detection_page_icons/skin_icon.png
 
 
 

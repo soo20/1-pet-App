@@ -30,7 +30,7 @@ class PetProfilePage extends StatelessWidget {
               ClipOval(
                 child: Image.asset(
                   petInformation.imageUrl,
-                  width: size.width > 411.42857142857144
+                  width: size.width <= 411.42857142857144
                       ? size.width * 0.79472
                       : size.width * 0.66472,
                   height: size.height > 707.4285714285714
