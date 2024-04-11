@@ -4,10 +4,13 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:petapplication/pages/page3/camera_screen.dart';
+
+import 'photo_tips.dart';
 
 class CameraAlt extends StatefulWidget {
   const CameraAlt({super.key});
@@ -164,8 +167,28 @@ class _CameraAltState extends State<CameraAlt> {
                   height: 300.h, 
                 ),
               ),
-           )
-
+           ),
+            SizedBox(width: 230.w,),
+          Transform.scale(
+            scale: 0.60,
+             child: FloatingActionButton(
+               heroTag: "btn3",
+                backgroundColor: Colors.transparent,
+                onPressed: () 
+                {
+                    Get.to(() =>  const TipsOfPhoto(),transition: Transition.native);
+                //
+                },
+                 shape: const CircleBorder(),
+                child: SvgPicture.asset(
+                 
+                   'assets/icons/tips.svg',
+                  // color: Colors.black,
+                  width: 350.w,
+                  height: 250.h, 
+                ),
+              ),
+           ),
           ],
         ),
       ),
@@ -198,7 +221,9 @@ class _CameraAltState extends State<CameraAlt> {
       ),
        extendBodyBehindAppBar: true,
       body: Stack(
+
         children: [
+         
           Container(
             height: double.infinity,
           width: double.infinity,
@@ -209,6 +234,7 @@ class _CameraAltState extends State<CameraAlt> {
             mainAxisSize: MainAxisSize.max,
 
               children: [
+                
                 Expanded(
                   child: FutureBuilder<void>(
                     future: _initializeControllerFuture,
@@ -225,6 +251,7 @@ class _CameraAltState extends State<CameraAlt> {
                     },
                   ),
                 ),
+                
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(

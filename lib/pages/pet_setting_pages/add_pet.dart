@@ -1,12 +1,25 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 
-class AddPets extends StatelessWidget {
+class AddPets extends StatefulWidget {
   const AddPets({super.key});
 
+  @override
+  State<AddPets> createState() => _AddPetsState();
+}
+
+class _AddPetsState extends State<AddPets> {
+  final _gender = ["Male", "Female"];
+  String?
+      _Selected; // Make _Selected nullable againRemove the nullable operator
+  //var _currentItemSelected =
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +27,7 @@ class AddPets extends StatelessWidget {
       extendBodyBehindAppBar: true,
       body: SafeArea(
         child: Container(
-          padding: const EdgeInsets.only(top: 20),
+          padding: const EdgeInsets.only(top: 30),
           child: GestureDetector(
             onTap: () {
               FocusScope.of(context).unfocus();
@@ -86,8 +99,15 @@ class AddPets extends StatelessWidget {
                     ),
                     //1
                     Padding(
-                      padding: const EdgeInsets.only(left: 40, right: 40),
+                      padding:
+                          const EdgeInsets.only(left: 40, right: 40, top: 10),
                       child: TextField(
+                        style: TextStyle(
+                          fontFamily: 'Cosffira',
+                          fontSize: 50.sp,
+                          color: const Color(0xff000000),
+                          fontWeight: FontWeight.w400,
+                        ),
                         decoration: InputDecoration(
                             contentPadding: const EdgeInsets.only(left: 10),
                             // labelText: 'Pet Name',
@@ -112,6 +132,12 @@ class AddPets extends StatelessWidget {
                       padding:
                           const EdgeInsets.only(left: 40, right: 40, top: 20),
                       child: TextField(
+                        style: TextStyle(
+                          fontFamily: 'Cosffira',
+                          fontSize: 50.sp,
+                          color: const Color(0xff000000),
+                          fontWeight: FontWeight.w400,
+                        ),
                         decoration: InputDecoration(
                             contentPadding: const EdgeInsets.only(left: 10),
                             // labelText: 'Pet Name',
@@ -132,33 +158,17 @@ class AddPets extends StatelessWidget {
                       ),
                     ),
                     //3
-                    /* Padding(
-                      padding: const EdgeInsets.only(left: 40,right: 40,top: 20),
-                      child: TextField(
-                        decoration: InputDecoration(
-                         
-                          contentPadding: const EdgeInsets.only(left: 5),
-                         // labelText: 'Pet Name',
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          hintText:'Pet Type',
-                          hintStyle: TextStyle(
-                          fontFamily: 'Cosffira',
-                          fontSize: 35.sp,
-                          color: const Color.fromARGB(126, 0, 0, 0),
-                          fontWeight: FontWeight.w400,
-                          ),
-                       focusedBorder: const UnderlineInputBorder(
-                            borderSide: BorderSide(width: 1)
-                          )
-                        ),
-                      ),
-                    ),*/
 
-                    //4
                     Padding(
                       padding:
                           const EdgeInsets.only(left: 40, right: 40, top: 20),
                       child: TextField(
+                        style: TextStyle(
+                          fontFamily: 'Cosffira',
+                          fontSize: 50.sp,
+                          color: const Color(0xff000000),
+                          fontWeight: FontWeight.w400,
+                        ),
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.only(left: 10),
                           // labelText: 'Pet Name',
@@ -179,14 +189,32 @@ class AddPets extends StatelessWidget {
                         ),
                       ),
                     ),
-                    //5
+                    // 4
+
+                    /* DropdownButton(
+                      value: _Selected,
+                         items: _gender.map((e) => DropdownMenuItem(child: Text(e), value: e)).toList(),
+                           onChanged: (val) {
+    // Handle the onChanged event here
+                             setState(() {
+                              _Selected = val.toString(); // Update the selected value
+                             });
+                                 },
+                            ),*/
                     Padding(
                       padding:
                           const EdgeInsets.only(left: 40, right: 40, top: 20),
-                      child: TextField(
+                      child: DropdownButtonFormField(
+                        dropdownColor: const Color(0xffB8D8D4),
+                        iconEnabledColor: const Color(0xffB8D8D4),
+                        style: TextStyle(
+                          fontFamily: 'Cosffira',
+                          fontSize: 50.sp,
+                          color: const Color(0xffF5F5F5),
+                          fontWeight: FontWeight.w400,
+                        ),
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.only(left: 10),
-                          // labelText: 'Pet Name',
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           hintText: 'Gender',
                           hintStyle: TextStyle(
@@ -202,18 +230,59 @@ class AddPets extends StatelessWidget {
                             ),
                           ),
                         ),
+                        value: _Selected,
+                        items: _gender
+                            .map((e) =>
+                                DropdownMenuItem(value: e, child: Text(e)))
+                            .toList(),
+                        onChanged: (val) {
+                          // Handle the onChanged event here
+                          setState(() {
+                            _Selected =
+                                val.toString(); // Update the selected value
+                          });
+                        },
+                        selectedItemBuilder: (BuildContext context) {
+                          return _gender.map<Widget>((String item) {
+                            return Text(
+                              item,
+                              style: const TextStyle(
+                                  color: Color.fromARGB(255, 162, 192, 189)),
+                            );
+                          }).toList();
+                        },
                       ),
                     ),
-                    //6
+
+                    // 5
                     Padding(
                       padding:
                           const EdgeInsets.only(left: 40, right: 40, top: 20),
                       child: TextField(
+                        style: TextStyle(
+                          fontFamily: 'Cosffira',
+                          fontSize: 50.sp,
+                          color: const Color(0xff000000),
+                          fontWeight: FontWeight.w400,
+                        ),
+                      //  to take only number
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly,
+                          
+                        ],
                         decoration: InputDecoration(
                             contentPadding: const EdgeInsets.only(left: 10),
                             // labelText: 'Pet Name',
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             hintText: 'Weight',
+                            suffixText: 'In Kg',
+                            suffixStyle: TextStyle(
+                              fontFamily: 'Cosffira',
+                              fontSize: 50.sp,
+                              color: const Color.fromARGB(126, 0, 0, 0),
+                              fontWeight: FontWeight.w400,
+                            ),
                             hintStyle: TextStyle(
                               fontFamily: 'Cosffira',
                               fontSize: 50.sp,

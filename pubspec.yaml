@@ -161,6 +161,7 @@ flutter:
     - assets/icons/rephoto.svg
     - assets/icons/dropDown.svg
     - assets/icons/dropUp.svg
+    - assets/icons/tips.svg
     - assets/icons/home_page_after_adding_reminders_icons/my_pets_before_pressing.png
     - assets/icons/home_page_after_adding_reminders_icons/home_icon_before_pressed.png
     - assets/icons/home_page_after_adding_reminders_icons/diseases_icon_before_pressed.png
