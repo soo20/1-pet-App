@@ -59,6 +59,8 @@ dependencies:
   curved_labeled_navigation_bar: ^2.0.2
   provider: ^6.1.2
   flutter_riverpod: ^2.5.1
+  flutter_timeline_calendar: ^1.0.9
+  syncfusion_flutter_datepicker: ^25.1.40
 dev_dependencies:
   flutter_lints: ^3.0.1
   flutter_test:
@@ -122,7 +124,9 @@ flutter:
     - assets/image/pet_profile_page_images/background_image.png
     - assets/image/diseases_detection_page_images/diseases_page_background.png
     - assets/image/diseases_detection_page_images/centered_image_for_diseases_detection.png
-
+    - assets/image/event_for_pet_page_images/reminders_page.png
+    - assets/image/add_event_page_images/add reminder_background.png
+    - assets/image/add_event_page_images/inner_shadow.png
 
 
     - assets/icons/Group312.svg
@@ -180,8 +184,14 @@ flutter:
     - assets/icons/pet_profile_page_icons/Bacterial icon for skin disease.png
     - assets/icons/diseases_detection_page_icons/boob_icon.png
     - assets/icons/diseases_detection_page_icons/skin_icon.png
-
-
+    - assets/icons/events_for_pet_page_icons/Ellipse_icon_for_feed.png
+    - assets/icons/events_for_pet_page_icons/check_yes.png
+    - assets/icons/events_for_pet_page_icons/add_feed_if_impty.png
+    - assets/icons/events_for_pet_page_icons/trash.png
+    - assets/icons/events_for_pet_page_icons/add_reminder_icon.png
+    - assets/icons/events_for_pet_page_icons/add_feed_in_list.png
+    - assets/icons/add_event_page_icons/check_custom_type.png
+    - assets/icons/add_event_page_icons/event-calender-date-note-svgrepo-com.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

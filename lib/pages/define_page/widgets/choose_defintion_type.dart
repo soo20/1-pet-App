@@ -96,7 +96,7 @@ class ChooseDefintionType extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 100),
                       child: SvgPicture.string(
-                        _svg_pp2ta,
+                        svgPp2ta,
                         allowDrawingOutsideViewBox: true,
                         fit: BoxFit.contain,
                         width: 160.w,
@@ -173,5 +173,5 @@ class ChooseDefintionType extends StatelessWidget {
 }
 
 //
-const String _svg_pp2ta =
+const String svgPp2ta =
     '<svg viewBox="299.2 364.0 181.2 160.2" ><path transform="translate(-1654.57, 4001.0)" d="M 1953.72900390625 -3637 L 2013.6484375 -3532.818359375 L 2134.880859375 -3476.79736328125 L 2134.880859375 -3476.79736328125 L 2063.813720703125 -3532.818359375 L 2077.748291015625 -3637 L 1953.72900390625 -3637 Z" fill="none" stroke="#707070" stroke-width="1" stroke-miterlimit="4" stroke-linecap="butt" /></svg>';

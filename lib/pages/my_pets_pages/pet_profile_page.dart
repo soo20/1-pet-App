@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
+import 'package:petapplication/pages/events_system/events_for_pet.dart';
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
+import 'package:petapplication/pages/events_system/add_task.dart';
 
 class PetProfilePage extends StatelessWidget {
   const PetProfilePage({super.key, required this.petInformation});
@@ -20,7 +22,6 @@ class PetProfilePage extends StatelessWidget {
         ),
         child: Center(
           child: Column(
-            // mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(
                 height: size.height > 707.4285714285714
@@ -32,7 +33,7 @@ class PetProfilePage extends StatelessWidget {
                   petInformation.imageUrl,
                   width: size.width <= 411.42857142857144
                       ? size.width * 0.79472
-                      : size.width * 0.66472,
+                      : size.width * 0.66432,
                   height: size.height > 707.4285714285714
                       ? size.height * 0.35472
                       : size.height * 0.36472,
@@ -86,7 +87,14 @@ class PetProfilePage extends StatelessWidget {
                     ),
                     elevation:
                         MaterialStateProperty.all<double>(size.width * 0.01)),
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(
+                    EventsForPetPage(
+                      petInformation: petInformation,
+                    ),
+                    transition: Transition.zoom,
+                  );
+                },
                 icon: Padding(
                   padding: EdgeInsets.only(left: size.width * 0.2),
                   child: Image.asset(
