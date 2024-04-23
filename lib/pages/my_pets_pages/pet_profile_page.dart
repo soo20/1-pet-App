@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petapplication/pages/events_system/events_for_pet.dart';
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
-import 'package:petapplication/pages/events_system/add_task.dart';
 
 class PetProfilePage extends StatelessWidget {
   const PetProfilePage({super.key, required this.petInformation});

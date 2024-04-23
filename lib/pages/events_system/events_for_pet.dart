@@ -39,7 +39,7 @@ class ReminderData {
   late String reminderType;
   late String hours;
   late String minutes;
-  late bool night;
+  late String night;
   late String weekDay;
   late String year;
 }
@@ -76,123 +76,18 @@ List<CustomTime> feedTimes = [
     checked: false,
   ),
 ];
-List<ReminderData> remindersForPet = [
-  ReminderData(
-    day: '20',
-    minutes: '55',
-    month: 'Apr',
-    hours: '4',
-    reminderType: 'Playing',
-    night: true,
-    weekDay: 'Sun',
-    year: '2024',
-  ),
-  ReminderData(
-    day: '20',
-    minutes: '55',
-    month: 'Apr',
-    hours: '4',
-    reminderType: 'Playing',
-    night: true,
-    weekDay: 'Sun',
-    year: '2024',
-  ),
-  ReminderData(
-    day: '20',
-    minutes: '55',
-    month: 'Apr',
-    hours: '4',
-    reminderType: 'Playing',
-    night: true,
-    weekDay: 'Sun',
-    year: '2024',
-  ),
-  ReminderData(
-    day: '20',
-    minutes: '55',
-    month: 'Apr',
-    hours: '4',
-    reminderType: 'Playing',
-    night: true,
-    weekDay: 'Sun',
-    year: '2024',
-  ),
-  ReminderData(
-    day: '20',
-    minutes: '55',
-    month: 'Apr',
-    hours: '4',
-    reminderType: 'Playing',
-    night: true,
-    weekDay: 'Sun',
-    year: '2024',
-  ),
-  ReminderData(
-    day: '20',
-    minutes: '55',
-    month: 'Apr',
-    hours: '4',
-    reminderType: 'Playing',
-    night: true,
-    weekDay: 'Sun',
-    year: '2024',
-  ),
-  ReminderData(
-    day: '20',
-    minutes: '55',
-    month: 'Apr',
-    hours: '4',
-    reminderType: 'Playing',
-    night: true,
-    weekDay: 'Sun',
-    year: '2024',
-  ),
-  ReminderData(
-    day: '20',
-    minutes: '55',
-    month: 'Apr',
-    hours: '4',
-    reminderType: 'Playing',
-    night: true,
-    weekDay: 'Sun',
-    year: '2024',
-  ),
-  ReminderData(
-    day: '20',
-    minutes: '55',
-    month: 'Apr',
-    hours: '4',
-    reminderType: 'Playing',
-    night: true,
-    weekDay: 'Sun',
-    year: '2024',
-  ),
-  ReminderData(
-    day: '20',
-    minutes: '55',
-    month: 'Apr',
-    hours: '4',
-    reminderType: 'Playing',
-    night: true,
-    weekDay: 'Sun',
-    year: '2024',
-  ),
-];
+
+List<ReminderData> remindersForPet = [];
 
 class _EventsForPetPage extends State<EventsForPetPage> {
   ScrollController controller = ScrollController();
+
   bool closeTopContainer = false;
   double topContainer = 0;
   String currentItemSelected = 'Playing';
-  List<String> eventTypes = [
-    'Gromming',
-    'Playing',
-    'Medical Checkup',
-    'Bathing',
-    'Walking',
-    'Custom'
-  ];
+  bool showContainer = true;
   @override
+
   // Initialize the state and add listeners
   void initState() {
     super.initState();
@@ -208,7 +103,11 @@ class _EventsForPetPage extends State<EventsForPetPage> {
         topContainer = value;
         // Update the closeTopevents variable based on the scroll offset
         closeTopContainer = controller.offset > 50;
+        showContainer =
+            controller.position.pixels <= controller.position.maxScrollExtent ||
+                remindersForPet.length < 3;
       });
+      controller.position.allowImplicitScrolling;
     });
   }
 
@@ -223,7 +122,7 @@ class _EventsForPetPage extends State<EventsForPetPage> {
       topContainerHeight = MediaQuery.of(context).size.height * 0.55;
     }
 
-    addTaskDialog(String currentValue) => showDialog(
+    addTaskDialog() => showDialog(
           context: context,
           builder: (context) => const AddTaskDialog(),
         );
@@ -235,7 +134,7 @@ class _EventsForPetPage extends State<EventsForPetPage> {
             children: [
               AnimatedOpacity(
                 duration: const Duration(milliseconds: 1000),
-                opacity: closeTopContainer ? 0 : 1,
+                opacity: showContainer ? 1 : 0,
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 500),
                   width: size.width,
@@ -401,14 +300,30 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                   ),
                 ),
               ),
-              Text(
-                'Tasks For Today',
-                style: TextStyle(
-                  fontFamily: 'Cosffira',
-                  fontSize: size.width * 0.056,
-                  fontWeight: FontWeight.w900,
-                  color: const Color(0xff4A5E7C),
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Tasks For ',
+                    style: TextStyle(
+                      height: 0.0,
+                      fontFamily: 'Cosffira',
+                      fontSize: size.width * 0.056,
+                      fontWeight: FontWeight.w700,
+                      color: const Color(0xff4A5E7C),
+                    ),
+                  ),
+                  Text(
+                    widget.petInformation.petName,
+                    style: TextStyle(
+                      height: 0.0,
+                      fontFamily: 'Cosffira',
+                      fontSize: size.width * 0.066,
+                      fontWeight: FontWeight.w900,
+                      color: const Color(0xffA26874),
+                    ),
+                  ),
+                ],
               ),
               SizedBox(
                 height: size.height * 0.02,
@@ -432,7 +347,11 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                             ),
                           ),
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              setState(() {
+                                addTaskDialog();
+                              });
+                            },
                             icon: Image.asset(
                               'assets/icons/events_for_pet_page_icons/add_reminder_icon.png',
                               height: size.width * 0.19,
@@ -443,7 +362,7 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                         ],
                       ),
                     )
-                  : Expanded(
+                  : Flexible(
                       child: ListView.builder(
                           controller: controller,
                           itemCount: remindersForPet.length + 1,
@@ -456,7 +375,9 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                             } else {
                               return IconButton(
                                 onPressed: () {
-                                  addTaskDialog(currentItemSelected);
+                                  setState(() {
+                                    addTaskDialog();
+                                  });
                                 },
                                 icon: Image.asset(
                                   'assets/icons/events_for_pet_page_icons/add_reminder_icon.png',
@@ -487,13 +408,13 @@ class BuildReminder extends StatelessWidget {
     return Container(
       height: size.height * 0.10,
       margin: EdgeInsets.symmetric(
-        horizontal: size.width * 0.05,
+        horizontal: size.width * 0.04,
         vertical: size.height * 0.01,
       ),
       decoration: BoxDecoration(
         color: const Color.fromARGB(255, 255, 255, 255),
         borderRadius: BorderRadius.all(
-          Radius.circular(size.width * 0.19),
+          Radius.circular(size.width * 0.06),
         ),
         boxShadow: [
           BoxShadow(
@@ -503,9 +424,12 @@ class BuildReminder extends StatelessWidget {
       ),
       child: Center(
         child: Row(
-          mainAxisSize: MainAxisSize.max,
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(
+              width: size.width * 0.036,
+            ),
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -534,7 +458,7 @@ class BuildReminder extends StatelessWidget {
               ],
             ),
             SizedBox(
-              width: size.width * 0.040,
+              width: size.width * 0.020,
             ),
             Text(
               reminderData.reminderType,
@@ -547,27 +471,25 @@ class BuildReminder extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: size.width * 0.10,
+              width: size.width * 0.06,
             ),
             Text(
-              '${reminderData.hours}:${reminderData.minutes} ${reminderData.night ? 'pm' : 'am'}',
+              '${reminderData.weekDay}${reminderData.year}, ${reminderData.hours}:${reminderData.minutes} ${reminderData.night}',
               style: TextStyle(
                 fontFamily: 'Cosffira',
-                fontSize: size.width * 0.056,
+                fontSize: size.width * 0.045,
+                height: 0.0,
                 fontWeight: FontWeight.bold,
-                color: const Color.fromARGB(255, 17, 17, 17),
+                color: const Color.fromARGB(109, 74, 94, 124),
                 letterSpacing: 0.5,
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(left: size.width * 0.02),
-              child: IconButton(
-                onPressed: () {},
-                icon: Image.asset(
-                  "assets/icons/events_for_pet_page_icons/trash.png",
-                  height: size.height * 0.060,
-                  width: size.width * 0.054,
-                ),
+            IconButton(
+              onPressed: () {},
+              icon: Image.asset(
+                "assets/icons/events_for_pet_page_icons/option_icon.png",
+                height: size.height * 0.061,
+                width: size.width * 0.016,
               ),
             ),
           ],

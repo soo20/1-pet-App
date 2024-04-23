@@ -61,6 +61,9 @@ dependencies:
   flutter_riverpod: ^2.5.1
   flutter_timeline_calendar: ^1.0.9
   syncfusion_flutter_datepicker: ^25.1.40
+  flutter_rounded_date_picker: ^3.0.4
+  intl: ^0.19.0
+ 
 dev_dependencies:
   flutter_lints: ^3.0.1
   flutter_test:
@@ -192,6 +195,8 @@ flutter:
     - assets/icons/events_for_pet_page_icons/add_feed_in_list.png
     - assets/icons/add_event_page_icons/check_custom_type.png
     - assets/icons/add_event_page_icons/event-calender-date-note-svgrepo-com.png
+    - assets/icons/add_event_page_icons/alarm-clock-deadline-svgrepo-com.png
+    - assets/icons/events_for_pet_page_icons/option_icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
