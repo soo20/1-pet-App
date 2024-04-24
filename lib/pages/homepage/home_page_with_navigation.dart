@@ -7,7 +7,7 @@ import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:petapplication/pages/homepage/home_page_content.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:petapplication/pages/sign_login_acount/page_view_login.dart';
+import 'package:petapplication/pages/sign_login_acount/loginbody.dart';
 
 class TheMainHomePage extends StatefulWidget {
   const TheMainHomePage({super.key});
@@ -25,6 +25,7 @@ class _TheMainHomePage extends State<TheMainHomePage> {
   ];
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: index < 3
           ? Scaffold(
@@ -140,13 +141,13 @@ class _TheMainHomePage extends State<TheMainHomePage> {
                       ),
                       onPressed: () {
                         Get.to(
-                          const PageViewLogin(),
+                          const LoginBody(),
                           transition: Transition.zoom,
                         );
                       },
                       icon: Image.asset(
                         'assets/icons/home_page_after_adding_reminders_icons/add_user.png',
-                        height: size.height * 0.8947,
+                        height: size.height * 0.7947,
                         width: size.width * 0.1,
                       )),
                 ],
