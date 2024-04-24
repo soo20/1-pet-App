@@ -197,7 +197,7 @@ bool allTypes = true;
 String pressedOnAllButton = 'after_pressing';
 String pressedOnDogsButton = 'before_pressing';
 String pressedOnCatsButton = 'before_pressing';
-late Size size;
+Size size = Size.zero;
 var cnt1 = 0;
 var cnt2 = 0;
 List<dynamic> petsList = List.from(dogsInformationList)

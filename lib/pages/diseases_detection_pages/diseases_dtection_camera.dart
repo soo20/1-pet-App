@@ -1,5 +1,4 @@
 // ignore_for_file: avoid_print, unnecessary_null_comparison, unused_local_variable, use_build_context_synchronously
-
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,23 +7,29 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:petapplication/pages/page3/camera_screen.dart';
+import 'package:petapplication/pages/diseases_detection_pages/ensure_taking_image.dart';
+import 'package:petapplication/pages/page3/photo_tips.dart';
 
-import 'photo_tips.dart';
-
-class CameraAlt extends StatefulWidget {
-  const CameraAlt({super.key});
+class DiseasesDetectionCamera extends StatefulWidget {
+  const DiseasesDetectionCamera({
+    super.key,
+    required this.detectionType,
+  });
+  final bool detectionType;
 
   @override
-  State<CameraAlt> createState() => _CameraAltState();
+  State<DiseasesDetectionCamera> createState() =>
+      _DiseasesDetectionCameraState();
 }
+//this variable that we will store the result of the AI in there.
 
-class _CameraAltState extends State<CameraAlt> {
+class _DiseasesDetectionCameraState extends State<DiseasesDetectionCamera> {
   late CameraController cameraController;
   late List cameras;
   late int selectedCameraIndex;
   late String imagePath;
   late Future<void> _initializeControllerFuture;
+  late String detectionResult = 'Bacterial Dermatosis';
 
   @override
   void initState() {
@@ -188,17 +193,6 @@ class _CameraAltState extends State<CameraAlt> {
       appBar: AppBar(
         automaticallyImplyLeading: true,
         backgroundColor: Colors.transparent,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_rounded,
-            color: Color(0xff9F9A95),
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          iconSize: 39.0,
-          padding: const EdgeInsets.only(left: 6.0),
-        ),
       ),
       extendBodyBehindAppBar: true,
       body: Stack(
@@ -264,9 +258,11 @@ class _CameraAltState extends State<CameraAlt> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => PreviewScreen(
+          builder: (context) => EnsureTakingImage(
             imgPath: picture.path,
-            onCapturePressed: (buildContext) {}, // Use the path from the XFile
+            onCapturePressed: (buildContext) {},
+            detectionType: widget.detectionType,
+            // Use the path from the XFile
           ),
         ),
       );
@@ -277,7 +273,6 @@ class _CameraAltState extends State<CameraAlt> {
 
   Future<void> _onGalleryPressed() async {
     if (!mounted) return; // Ensure the widget is still mounted
-
     BuildContext? context = this.context;
     try {
       XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -285,9 +280,10 @@ class _CameraAltState extends State<CameraAlt> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PreviewScreen(
+            builder: (context) => EnsureTakingImage(
               imgPath: image.path,
               onCapturePressed: (buildContext) {},
+              detectionType: widget.detectionType,
             ),
           ),
         );

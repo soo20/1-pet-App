@@ -197,6 +197,8 @@ flutter:
     - assets/icons/add_event_page_icons/event-calender-date-note-svgrepo-com.png
     - assets/icons/add_event_page_icons/alarm-clock-deadline-svgrepo-com.png
     - assets/icons/events_for_pet_page_icons/option_icon.png
+    - assets/icons/home_page_after_adding_reminders_icons/add_user.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

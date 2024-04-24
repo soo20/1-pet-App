@@ -85,7 +85,7 @@ class _EventsForPetPage extends State<EventsForPetPage> {
   bool closeTopContainer = false;
   double topContainer = 0;
   String currentItemSelected = 'Playing';
-  bool showContainer = true;
+
   @override
 
   // Initialize the state and add listeners
@@ -103,11 +103,7 @@ class _EventsForPetPage extends State<EventsForPetPage> {
         topContainer = value;
         // Update the closeTopevents variable based on the scroll offset
         closeTopContainer = controller.offset > 50;
-        showContainer =
-            controller.position.pixels <= controller.position.maxScrollExtent ||
-                remindersForPet.length < 3;
       });
-      controller.position.allowImplicitScrolling;
     });
   }
 
@@ -134,7 +130,7 @@ class _EventsForPetPage extends State<EventsForPetPage> {
             children: [
               AnimatedOpacity(
                 duration: const Duration(milliseconds: 1000),
-                opacity: showContainer ? 1 : 0,
+                opacity: closeTopContainer ? 0 : 1,
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 500),
                   width: size.width,
