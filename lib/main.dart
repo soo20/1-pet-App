@@ -41,7 +41,7 @@ class YunaPetApp extends StatelessWidget {
       },
       //A part of builder that its dependencies/properties don't use the library
       child: //const SplashScreen()
-          const TheMainHomePage(),
+          TheMainHomePage(),
     );
   }
 }

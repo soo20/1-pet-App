@@ -28,7 +28,7 @@ class EnsureTakingImage extends StatefulWidget {
 
 class _EnsureTakingImageState extends State<EnsureTakingImage> {
   late CameraController cameraController;
-  final String detectionResult = "healthy";
+  final String detectionResult = "Bacterial Dermatosis";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
