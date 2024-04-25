@@ -1,21 +1,24 @@
 // ignore_for_file: avoid_print
 
-import 'dart:js';
+
 
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:petapplication/pages/setting_bage/alart_page.dart';
+
 import 'package:petapplication/pages/setting_bage/help_tips.dart';
 
 import 'package:petapplication/pages/sign_login_acount/acount.dart';
 
 class Setting extends StatelessWidget {
-  const Setting({super.key});
+  final BuildContext ccontext;
+  const Setting({super.key, required this.ccontext});
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       backgroundColor: const Color(0xffEFE6E5),
       appBar: AppBar(
@@ -63,14 +66,14 @@ class Setting extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 5,left: 10,right: 10),
-            child: _buildListView(),
+            child: _buildListView(context),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildListView() {
+  Widget _buildListView(BuildContext context) {
     // Define a list of titles
     List<String> titles = [
       "Edit Profile",
@@ -105,31 +108,42 @@ class Setting extends StatelessWidget {
         duration: const Duration(milliseconds: 300),
       );
     }
-   /* void shareApp() {
-      Get.to(
-        () =>
-            showDialog(
-                                context: context,
-                                builder: (context) => const Alart1());
-      );
-    }*/
+void shareApp() {
+  showDialog(
+    context: ccontext,
+    builder: (context) => 
+    const Alart1(
+      title: 'https://translate.google.com', 
+      confirmButtonText: 'Copy Link', 
+      confirmButtonText2: 'Decline',
+      customFontSize: 19, 
+      padding: EdgeInsets.only(top: 40.0), 
+      padding2:EdgeInsets.only(top: 17.0)
+      ),
+  );
+}
+
+
+
     void logOut() {
-      Get.to(
-        () =>
-            const HelpTips2(), // Replace YourNextPage with the actual class for the next page
-        transition: Transition.rightToLeft,
-        duration: const Duration(milliseconds: 300),
-      );
+     showDialog(
+    context: ccontext,
+    builder: (context) => 
+    const Alart1(
+      title: 'Are You Sure You Want To Log Out', 
+      confirmButtonText: 'Yes', 
+      confirmButtonText2: 'Cancle',
+      customFontSize: 19, 
+      padding: EdgeInsets.only(top: 40.0), 
+      padding2:EdgeInsets.only(top: 17.0)
+      ),
+  );
     }
 
     List<VoidCallback> onTapFunctions = [
       editProfile, // Edit Profile
       helpT,
-
-      () {
-        print("Tapped on Share App");
-      },
-
+      shareApp,
       () {
         print("Tapped on Rate Us");
       },
@@ -138,9 +152,7 @@ class Setting extends StatelessWidget {
         print("Tapped on Send Feedback");
       },
 
-      () {
-        print("Tapped on Log Out");
-      },
+      logOut,
 
     ];
 return SizedBox(
@@ -154,9 +166,9 @@ return SizedBox(
         child: Card(
           color: const Color.fromARGB(105, 210, 207, 207),
           semanticContainer: true,
-          elevation: 0, // Optionally, you can remove the card elevation
-          child: SizedBox( // Wrap ListTile with SizedBox to adjust its height
-            height: 67, // Set the height of the card
+          elevation: 0, 
+          child: SizedBox( 
+            height: 67, 
             child: ListTile(
               title: Text(
                 titles[index],

@@ -21,7 +21,7 @@ class AddPets extends StatefulWidget {
 }
 
 class _AddPetsState extends State<AddPets> {
-  String? _imagePath2;
+  //String? _imagePath2;
   final _formKey = GlobalKey<FormState>();
   // TextEditingController imageUrlController = TextEditingController();
   TextEditingController petNameController = TextEditingController();
