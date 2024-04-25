@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petapplication/pages/my_pets_pages/pet_profile_page.dart';
+import 'package:petapplication/pages/events_system/events_for_pet.dart';
 
 class PetsInformation {
   PetsInformation({
@@ -19,6 +20,10 @@ class PetsInformation {
   late String petId;
   late String petType;
   late String age;
+  String skinDiseaseType = '';
+  String poopDiseaseType = '';
+  List<CustomTime> feedTimesForPet = [];
+  List<ReminderData> remindersData = [];
 }
 
 List<PetsInformation> catsInformationList = [

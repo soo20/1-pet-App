@@ -206,6 +206,9 @@ flutter:
     - assets/icons/diseases_datection_result_page_icons/prevention_icon.png
     - assets/icons/diseases_datection_result_page_icons/treatment_icon.png
     - assets/image/disease_detection_result_page_images/prevention_page_background_image.png
+    - assets/image/disease_detection_result_page_images/symptoms_skin_background_image.png
+    - assets/image/disease_detection_result_page_images/treatment_skin_background_image.png
+    - assets/image/disease_detection_result_page_images/about_skin_background_image.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

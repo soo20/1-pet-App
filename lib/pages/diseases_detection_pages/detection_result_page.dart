@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petapplication/pages/diseases_detection_pages/about_information_page.dart';
 import 'package:petapplication/pages/diseases_detection_pages/prevention_information_page.dart';
+import 'package:petapplication/pages/diseases_detection_pages/symptoms_information_page.dart';
+import 'package:petapplication/pages/events_system/events_for_pet.dart';
 import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
+import 'package:petapplication/pages/diseases_detection_pages/treatment_information_page.dart';
+import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 
 class DetectionResulrPage extends StatefulWidget {
   const DetectionResulrPage({
@@ -132,6 +136,108 @@ class _DetectionResulrPageState extends State<DetectionResulrPage> {
               ));
     }
 
+    choosePetToAddThisDetectionFor(
+        List<PetsInformation> dogsInfo, detectionResult) {
+      bool petIsSelected = false;
+      dogsInfo = dogsInformationList;
+      return AlertDialog(
+        elevation: 0.0,
+        backgroundColor: const Color(0xffDCD3D3),
+        content: Column(
+          children: [
+            SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  // this will be dynamic coloumn that depends on the length of list
+                  for (PetsInformation i in dogsInfo)
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.red, // Set the color of the border here
+                        ),
+                        color:
+                            Colors.transparent, // Set background to transparent
+                      ),
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            i.imageUrl,
+                          ),
+                          Text(
+                            'Choose Your Per To Add Detection Result For.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              height: 0.0,
+                              fontFamily: 'Cosffira',
+                              fontSize: size.width * 0.047,
+                              fontWeight: FontWeight.w800,
+                              color: const Color(0xff4A5E7C),
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                ],
+              ),
+            ),
+            Text(
+              'Choose Your Per To Add Detection Result For.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                height: 0.0,
+                fontFamily: 'Cosffira',
+                fontSize: size.width * 0.047,
+                fontWeight: FontWeight.w800,
+                color: const Color(0xff4A5E7C),
+                letterSpacing: 0.5,
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          Center(
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                backgroundColor: petIsSelected
+                    ? const Color(0xffA26874)
+                    : const Color(0xffA26874),
+                padding: EdgeInsets.symmetric(
+                  horizontal: size.width * 0.028,
+                  vertical: size.height * 0.025,
+                ), // Adjust the padding as needed
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                    size.width * 0.092,
+                  ), // Set the border radius of the button
+                ),
+              ),
+              child: Padding(
+                padding: EdgeInsets.only(
+                  left: size.width * 0.23,
+                  right: size.width * 0.23,
+                ),
+                child: Text(
+                  'Done',
+                  style: TextStyle(
+                    height: 0.0,
+                    fontFamily: 'Cosffira',
+                    fontSize: size.width * 0.045,
+                    fontWeight: FontWeight.w800,
+                    color: const Color.fromARGB(255, 255, 255, 255),
+                    letterSpacing: 0.5,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    }
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -197,7 +303,13 @@ class _DetectionResulrPageState extends State<DetectionResulrPage> {
                                 ),
                                 alignment: Alignment.centerRight,
                                 onPressed: () {
-                                  allowingCameraDialog();
+                                  Get.to(
+                                    SymptomsInformationPage(
+                                      detectionType: widget.detectionType,
+                                      detectionResult: widget.detectionResult,
+                                    ),
+                                    transition: Transition.fade,
+                                  );
                                 },
                                 icon: Image.asset(
                                   'assets/icons/diseases_datection_result_page_icons/symptoms_icon.png',
@@ -209,7 +321,13 @@ class _DetectionResulrPageState extends State<DetectionResulrPage> {
                                 padding: const EdgeInsets.all(0.0),
                                 alignment: Alignment.centerRight,
                                 onPressed: () {
-                                  allowingCameraDialog();
+                                  Get.to(
+                                    TreatmentInformationPage(
+                                      detectionType: widget.detectionType,
+                                      detectionResult: widget.detectionResult,
+                                    ),
+                                    transition: Transition.fade,
+                                  );
                                 },
                                 icon: Image.asset(
                                   'assets/icons/diseases_datection_result_page_icons/treatment_icon.png',

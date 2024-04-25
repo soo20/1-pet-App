@@ -25,7 +25,7 @@ class _TreatmentInformationPageState extends State<TreatmentInformationPage> {
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage(
-                'assets/image/disease_detection_result_page_images/prevention_page_background_image.png',
+                'assets/image/disease_detection_result_page_images/treatment_skin_background_image.png',
               ),
               fit: BoxFit.cover,
             ),
@@ -44,11 +44,11 @@ class _TreatmentInformationPageState extends State<TreatmentInformationPage> {
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       decoration: TextDecoration.underline,
-                      decorationColor: const Color(0xffA26874),
+                      decorationColor: const Color(0xff9CABC0),
                       fontFamily: 'Cosffira',
                       fontSize: size.width * 0.090,
                       fontWeight: FontWeight.w900,
-                      color: const Color(0xffA26874),
+                      color: const Color(0xff9CABC0),
                       letterSpacing: 0.5,
                     ),
                   ),
@@ -74,12 +74,12 @@ class _TreatmentInformationPageState extends State<TreatmentInformationPage> {
                     left: size.width * 0.2,
                   ),
                   child: Text(
-                    'Regular grooming and cleanliness routines.',
+                    'Topical or oral medications targeting the bacterial infection.',
                     style: TextStyle(
                       fontFamily: 'Cosffira',
                       fontSize: size.width * 0.053,
                       fontWeight: FontWeight.normal,
-                      color: Color.fromARGB(137, 74, 94, 124),
+                      color: const Color.fromARGB(137, 74, 94, 124),
                       letterSpacing: 0.5,
                     ),
                   ),
@@ -111,7 +111,7 @@ class _TreatmentInformationPageState extends State<TreatmentInformationPage> {
                       fontFamily: 'Cosffira',
                       fontSize: size.width * 0.053,
                       fontWeight: FontWeight.normal,
-                      color: Color.fromARGB(137, 74, 94, 124),
+                      color: const Color.fromARGB(137, 74, 94, 124),
                       letterSpacing: 0.5,
                     ),
                   ),
@@ -137,12 +137,12 @@ class _TreatmentInformationPageState extends State<TreatmentInformationPage> {
                     left: size.width * 0.02,
                   ),
                   child: Text(
-                    'Addressing underlying health \nissues comprehensively.',
+                    'Specialized products to alleviate symptoms and aid recovery.',
                     style: TextStyle(
                       fontFamily: 'Cosffira',
                       fontSize: size.width * 0.053,
                       fontWeight: FontWeight.normal,
-                      color: Color.fromARGB(137, 74, 94, 124),
+                      color: const Color.fromARGB(137, 74, 94, 124),
                       letterSpacing: 0.5,
                     ),
                   ),
@@ -199,7 +199,7 @@ class _TreatmentInformationPageState extends State<TreatmentInformationPage> {
                     left: size.width * 0.02,
                   ),
                   child: Text(
-                    'Addressing underlying health \nissues comprehensively.',
+                    'Specialized products to alleviate symptoms and aid recovery.',
                     style: TextStyle(
                       fontFamily: 'Cosffira',
                       fontSize: size.width * 0.053,
