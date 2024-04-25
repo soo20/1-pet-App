@@ -12,6 +12,7 @@ class PetsInformation {
     required this.petId,
     required this.petType,
     required this.age,
+     this.petWeight ,
   });
   late String imageUrl;
   late String petName;
@@ -19,6 +20,7 @@ class PetsInformation {
   late String petId;
   late String petType;
   late String age;
+   double ? petWeight;
 }
 
 List<PetsInformation> catsInformationList = [

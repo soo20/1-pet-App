@@ -418,7 +418,7 @@ class _EditPetsState extends State<EditPets> {
                           // Handle the onChanged event here
                           setState(() {
                             _Selected = val.toString();
-                            widget.petInformation.petType =
+                            widget.petInformation.petGender =
                                 val!; // Update the selected value
                           });
                         },
@@ -555,14 +555,14 @@ class _EditPetsState extends State<EditPets> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CustomGeneralButtom(
-                      boxColor: const Color(0xffE3B1A8),
+                    const CustomGeneralButtom(
+                      boxColor:  Color(0xffE3B1A8),
                       textColor: kMainColor,
                       height: 50,
                       width: 150,
-                      borderColor: const Color(0xffE3B1A8),
+                      borderColor:  Color(0xffE3B1A8),
                       customFontSize: 20,
-                      bord: 0.r,
+                      // bord: 0.r,
                       fontWeight: FontWeight.normal,
                       text: 'Camera',
                     ),
@@ -574,7 +574,7 @@ class _EditPetsState extends State<EditPets> {
                       textColor: kMainColor,
                       height: 50,
                       width: 150,
-                      bord: 0.r,
+                      // bord: 0.r,
                       borderColor: const Color(0xff80CBC4),
                       customFontSize: 20,
                       fontWeight: FontWeight.normal,
