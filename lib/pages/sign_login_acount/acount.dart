@@ -1,209 +1,207 @@
+// ignore_for_file: unused_element
+
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
-import 'package:petapplication/pages/pet_setting_pages/add_pet.dart';
+
+
+import 'package:petapplication/pages/setting_bage/setting.dart';
+
+
 //import 'package:petapplication/pages/sign_login_acount/popup_surface.dart';
 
-class Account extends StatelessWidget {
+class Account extends StatefulWidget {
   const Account({super.key});
 
   @override
+  State<Account> createState() => _AccountState();
+}
+
+class _AccountState extends State<Account> {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController();
+String? validateEmail(String? value) {
+  const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
+      r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
+      r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*'
+      r'[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4]'
+      r'[0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9]'
+      r'[0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\'
+      r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
+  final regex = RegExp(pattern);
+  bool isEmail(String input) => EmailValidator.validate(input);
+
+
+  return value!.isNotEmpty && !regex.hasMatch(value)
+      ? 'Enter a valid email address'
+      : null;
+}
+  @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
-      backgroundColor: const Color(0xffB8D8D4),
+      backgroundColor: const Color(0xffB5C0D0),
       appBar: AppBar(
-        
         elevation: 0,
-        
-         automaticallyImplyLeading: false,
-        //iconTheme: IconThemeData.fallback(),
+        automaticallyImplyLeading: false,
         forceMaterialTransparency: true,
         toolbarOpacity: 1,
         toolbarHeight: 110.h,
         actions: [
           IconButton(
-              icon: SvgPicture.asset('assets/icons/trash.svg'
-              ,width: 120.w,),
-              onPressed: () {},
-                // Add your search action here
-                ), ],
-              iconTheme:const  IconThemeData(
-
-            color: Color(0xff707070), // Set the color of the icons
-            size: 50.0, 
-           
-                  // Set the size of the icons
+            icon: SvgPicture.asset('assets/icons/trash.svg', width: 120.w),
+            onPressed: () {
+              nameController.clear();
+              emailController.clear();
+              phoneNumberController.clear();
+            },
           ),
-        
-
-        
+        ],
+        iconTheme: const IconThemeData(
+          color: Color(0xff707070),
+          size: 50.0,
+        ),
       ),
-      extendBodyBehindAppBar: false,
-      resizeToAvoidBottomInset: RenderObject.debugCheckingIntrinsics,
-      body: Stack(
-        children: [
-          
-          Positioned(
-           
-            child: 
-            Container(
-              width: 1080.w,
-              height: 1920.h,
-              padding: const EdgeInsets.only(left: 80,bottom: 0
-              ,right: 100,top: 0),
-              child: GestureDetector(
-                onTap: () {
-                  FocusScope.of(context).unfocus();
-                },
-                child: ListView(
-                  children: [
-                  Stack(
-                    children: [
-                    Container(
-                      width: 270.w,
-                      height: 250.h,
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 20.w,color:Colors.white ),
-                        boxShadow: [
-                          BoxShadow(
-                            spreadRadius: 2.r,
-                            blurRadius: 10,
-                            color: Colors.black.withOpacity(0.2)
-            
-                          )
-                        ],
-                        shape: BoxShape.circle,
-                        image: const DecorationImage
-                        (fit: BoxFit.contain,
-                          image: AssetImage('assets/image/Group998.png')
-                           )
+      extendBodyBehindAppBar: true,
+      resizeToAvoidBottomInset: false,
+      body: Container(
+        padding: const EdgeInsets.only(top: 35),
+        width: 500,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/image/background_ofedit_page.png'),
+            fit: BoxFit.fill,
+          ),
+        ),
+        child: Column(
+          children: [
+            // SizedBox(height: 0,),
+        
+            Padding(
+              padding: const EdgeInsets.only(top: 0, right: 150),
+              child: Container(
+                width: 95,
+                height: 95,
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/image/Group998.png'))),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 65, top: 70, right: 6),
+                  child: Container(
+                    height: 50.h,
+                    width: 50.h,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          spreadRadius: 5,
+                          blurRadius: 20,
+                          color: Colors.black.withOpacity(0.1),
+                        ),
+                      ],
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        width: 0.1,
+                        color: const Color(0xff707070),
                       ),
-                     
+                      color: const Color(0xffA26874),
+                    ),
+                    child: IconButton(
+                      padding: const EdgeInsets.only(right: 10),
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.add,
+                        //size: 21,
+                        color: const Color(0xffEEEEEE),
+                        shadows: [
+                          BoxShadow(
+                            spreadRadius: 15,
+                            blurRadius: 20,
+                            color: Colors.grey.withOpacity(0.1),
+                          ),
+                        ],
                       ),
-                      Positioned(
-                        bottom: 0,
-                        right: 130,
-                        child: Container(
-                          height: 70.h,
-                          width: 88.w,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                          BoxShadow(
-                            spreadRadius: 5.r,
-                            blurRadius: 20,
-                            color: Colors.black.withOpacity(0.1)
-            
-                          )
-                        ],
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              width: 0.1,
-                              color: const Color(0xff707070),
-                            ),
-                            color: const Color(0xff80CBC4),
-                           
-                          ),
-                          child: Icon(
-                            Icons.add,
-                            size: 21,
-                            color: const Color(0xff2E5950),
-                            shadows: [
-                          BoxShadow(
-                            spreadRadius: 15.r,
-                            blurRadius: 20,
-                            color: Colors.grey.withOpacity(0.1)
-            
-                          )
-                        ],
-                          ),
-                        )) 
-                       
-                    ],),
-                  ],),
+                    ),
+                  ),
                 ),
               ),
-          ),
-           Positioned.fill(
-          
-              child:  SvgPicture.string(
-              '<svg viewBox="0.0 0.0 1080.0 1776.0" ><path transform="translate(0.0, 201.96)" d="M 285.8271484375 166.3972778320312 C 85.981689453125 104.1020584106445 1.4736328125 -201.95654296875 1.4736328125 -201.95654296875 L 0 1574.04345703125 L 1080 1574.04345703125 L 1080 298.3213500976562 C 1080 243.4685974121094 999.398681640625 80.20536041259766 800.85546875 47.22433471679688 C 602.312255859375 14.24331855773926 485.672607421875 228.6924743652344 285.8271484375 166.3972778320312 Z" fill="#f3f2f2" stroke="none" stroke-width="1" stroke-miterlimit="4" stroke-linecap="round" /></svg>',
-             // allowDrawingOutsideViewBox: false,
-              fit: BoxFit.cover,
-             // excludeFromSemantics: true,
-           clipBehavior: Clip.none,
-            //  matchTextDirection: false,
-              
             ),
-            
-          ),
-           Container(
-           padding: const EdgeInsets.only(
-               top:145,
-               right:0,
-               left:0),
-               child: content(),
-           )
-        ],
+            Padding(
+              padding: const EdgeInsets.only(top: 60, right: 10, left: 10),
+              child: content(context),
+            )
+          ],
+        ),
       ),
-        
     );
   }
+bool hasOtherErrors = false; 
+  Widget content(BuildContext context) {
+   
 
- Widget content() {
     var border = OutlineInputBorder(
-        borderRadius: BorderRadius.circular(59.r),
+        borderRadius: BorderRadius.circular(40.r),
         borderSide: const BorderSide(
             width: 0.5, color: Color.fromARGB(70, 112, 112, 112)));
 
-    return 
-     
-     Column(
-        children: [
-            Text.rich(
-        TextSpan(
-          style: TextStyle(
-            fontFamily: 'Cosffira',
-            fontSize: 100.sp,
-            color:  const Color(0xff134f5c),
-            height: .970873786407767.h,
+    return Column(
+      children: [
+        Text.rich(
+          TextSpan(
+            style: TextStyle(
+              fontFamily: 'Cosffira',
+              fontSize: 115.sp,
+              color: const Color(0xff354A6B),
+              height: .970873786407767.h,
+            ),
+            children: const [
+              TextSpan(
+                text: 'My ',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              TextSpan(
+                text: 'account',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
           ),
-          children:const  [
-            TextSpan(
-              text: 'My ',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            TextSpan(
-              text: 'account',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ],
+          textHeightBehavior:
+              const TextHeightBehavior(applyHeightToFirstAscent: false),
+          softWrap: false,
         ),
-        textHeightBehavior: const TextHeightBehavior(applyHeightToFirstAscent: false),
-        softWrap: false,
-      ),
-                  SizedBox(height: 80.h,),
-          Padding(
-            padding: const EdgeInsets.only(left: 35,right:35 ),
-            child: TextField(
+        SizedBox(
+          height: 110.h,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 35, right: 35),
+          child: Form(
+
+            child: TextFormField(
+                
+              controller: nameController,
+               
+              keyboardType: TextInputType.name,
+            keyboardAppearance: Brightness.dark,
               obscureText: false,
               style: const TextStyle(color: Color(0xff090F0F)),
               decoration: InputDecoration(
                 fillColor: const Color(0xFFFFFFFF),
-                 contentPadding:
-                              const EdgeInsets.symmetric(vertical: 16),
+                contentPadding: const EdgeInsets.symmetric(vertical: 19),
                 filled: true,
                 hintText: 'Name',
-                hintStyle:  TextStyle(
+                hintStyle: TextStyle(
                   fontFamily: 'Cosffira',
-                  fontSize: 40.sp,
+                  fontSize: 48.sp,
                   color: const Color.fromARGB(116, 19, 79, 92),
                   fontWeight: FontWeight.w800,
                 ),
@@ -211,27 +209,33 @@ class Account extends StatelessWidget {
                 focusedBorder: border,
                 prefixIcon: const Icon(
                   Icons.man_sharp,
-                    
                   color: Color.fromARGB(116, 19, 79, 92),
                 ),
               ),
+              
+             
             ),
           ),
-         
-          Padding(
-            padding: const EdgeInsets.only(left:35 ,right: 35,top: 15),
-            child: TextField(
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 35, right: 35, top: 18),
+          child: Form(
+             autovalidateMode: AutovalidateMode.always,
+            child: TextFormField(
+              controller: emailController,
+              validator: validateEmail,
+              
+              keyboardType: TextInputType.emailAddress,
               obscureText: false,
               style: const TextStyle(color: Color(0xff090F0F)),
               decoration: InputDecoration(
                 fillColor: const Color(0xFFFFFFFF),
-                 contentPadding:
-                              const EdgeInsets.symmetric(vertical: 16),
+                contentPadding: const EdgeInsets.symmetric(vertical: 19),
                 filled: true,
                 hintText: 'Email',
-                hintStyle:  TextStyle(
+                hintStyle: TextStyle(
                   fontFamily: 'Cosffira',
-                  fontSize: 40.sp,
+                  fontSize: 48.sp,
                   color: const Color.fromARGB(116, 19, 79, 92),
                   fontWeight: FontWeight.w800,
                 ),
@@ -242,55 +246,62 @@ class Account extends StatelessWidget {
                   color: Color.fromARGB(116, 19, 79, 92),
                 ),
               ),
+             
+            
             ),
           ),
-      
-          
-          Padding(
-            padding: const EdgeInsets.only(top: 15,left:35 ,right: 35),
-            child: TextField(
-              obscureText: false,
-              style: const TextStyle(color: Color(0xff090F0F)),
-              decoration: InputDecoration(
-                fillColor: const Color(0xFFFFFFFF),
-                 contentPadding:
-                              const EdgeInsets.symmetric(vertical: 16),
-                filled: true,
-                hintText: 'Phone Number',
-                hintStyle:  TextStyle(
-                  fontFamily: 'Cosffira',
-                  fontSize: 40.sp,
-                  color: const Color.fromARGB(116, 19, 79, 92),
-                  fontWeight: FontWeight.w800,
-                ),
-                enabledBorder: border,
-                focusedBorder: border,
-                prefixIcon: const Icon(
-                  Icons.phone,
-                  color: Color.fromARGB(116, 19, 79, 92),
-                ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 18, left: 35, right: 35),
+          child: TextFormField(
+            controller: phoneNumberController,
+            keyboardType: TextInputType.number,
+            obscureText: false,
+            style: const TextStyle(color: Color(0xff090F0F)),
+            decoration: InputDecoration(
+              fillColor: const Color(0xFFFFFFFF),
+              contentPadding: const EdgeInsets.symmetric(vertical: 19),
+              filled: true,
+              hintText: 'Phone Number',
+              hintStyle: TextStyle(
+                fontFamily: 'Cosffira',
+                fontSize: 48.sp,
+                color: const Color.fromARGB(116, 19, 79, 92),
+                fontWeight: FontWeight.w800,
+              ),
+              enabledBorder: border,
+              focusedBorder: border,
+              prefixIcon: const Icon(
+                Icons.phone,
+                color: Color.fromARGB(116, 19, 79, 92),
               ),
             ),
           ),
-         SizedBox(
-            height: 200.h,
-            width: 0,
-          ),
-          CustomGeneralButtom(
-            boxColor: const Color(0xffB8D8D4),
-            textColor: const Color(0xff134F5C),
-            height: 120.h,
-            width: 300.w,
-            customFontSize: 45.sp,
-            borderColor: const Color.fromARGB(60, 112, 112, 112),
-            text: 'Finish',
-             onTap: () {
-                  Get.to(() => const AddPets(),transition: Transition.zoom );
-                },
-            fontWeight: FontWeight.w800,
-          ),
-        ],
-      
+        ),
+        SizedBox(
+          height: 200.h,
+          width: 0,
+        ),
+        CustomGeneralButtom(
+          boxColor: const Color(0xffA26874),
+          textColor: const Color(0xffFFFFFF),
+          height: 140.h,
+          width: 350.w,
+          customFontSize: 48.sp,
+          borderColor: const Color.fromARGB(60, 112, 112, 112),
+          text: 'Finish',
+          onTap: () {
+          Get.to(()=>
+                Setting(
+                  ccontext: context,
+                ),
+                transition: Transition.zoom,
+              );
+
+          },
+          fontWeight: FontWeight.w800,
+        ),
+      ],
     );
   }
 }

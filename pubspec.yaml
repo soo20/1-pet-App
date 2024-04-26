@@ -63,6 +63,11 @@ dependencies:
   syncfusion_flutter_datepicker: ^25.1.40
   flutter_rounded_date_picker: ^3.0.4
   intl: ^0.19.0
+  validators: ^3.0.0
+  flutter_form_builder: ^9.2.1
+  email_validator: ^2.1.17
+  intl_phone_field: ^3.2.0
+  flutter_hooks: ^0.20.5
  
 dev_dependencies:
   flutter_lints: ^3.0.1
@@ -97,11 +102,13 @@ flutter:
     - assets/image/Group998.png
     - assets/image/Round.png
     - assets/image/Group791.png
+    - assets/image/background_ofedit_page.png
     - assets/image/Group1340.png
     - assets/image/Group797.png
     - assets/image/cloud.png
     - assets/image/MaskGroup8.png
     - assets/image/Path44.png
+    - assets/image/user_profile_page.png
     - assets/image/cameraa.png
     - assets/image/detectScreen.png
     - assets/image/my_pets_page_images/wite cat.jpg

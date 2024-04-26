@@ -10,7 +10,8 @@ import 'package:petapplication/pages/setting_bage/alart_page.dart';
 
 import 'package:petapplication/pages/setting_bage/help_tips.dart';
 
-import 'package:petapplication/pages/sign_login_acount/acount.dart';
+
+import 'package:petapplication/pages/sign_login_acount/edit_acount.dart';
 
 class Setting extends StatelessWidget {
   final BuildContext ccontext;
@@ -95,7 +96,7 @@ class Setting extends StatelessWidget {
     void editProfile() {
       Get.to(
         () =>
-            const Account(), // Replace YourNextPage with the actual class for the next page
+              EditAcount(), // Replace YourNextPage with the actual class for the next page
         transition: Transition.rightToLeft,
         duration: const Duration(milliseconds: 300),
       );

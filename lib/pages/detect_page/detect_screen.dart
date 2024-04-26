@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/pages/info_page/information.dart';
-import 'package:petapplication/pages/page3/camera.dart';
+
 import 'package:petapplication/pages/pet_setting_pages/add_pet.dart';
 
 class DetectScreen extends StatefulWidget {
