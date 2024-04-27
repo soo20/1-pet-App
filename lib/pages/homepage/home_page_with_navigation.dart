@@ -3,13 +3,12 @@ import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import 'package:petapplication/pages/define_page/widgets/choose_defintion_type.dart';
 import 'package:petapplication/pages/diseases_detection_pages/choose_detection_type.dart';
 import 'package:petapplication/pages/homepage/home_page_content.dart';
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 import 'package:petapplication/pages/setting_bage/setting.dart';
-import 'package:petapplication/pages/sign_login_acount/loginbody.dart';
+
 import 'package:petapplication/profile_page/user_profile.dart';
 
 class TheMainHomePage extends StatefulWidget {
@@ -143,26 +142,27 @@ class _TheMainHomePage extends State<TheMainHomePage> {
                   actions: <Widget>[
                     // Container containing user image and button
 
-                  IconButton(
-                      padding: EdgeInsets.only(
-                        top: size.width * 0.02,
-                      ),
-                      onPressed: () {
-                        Get.to(()=>
-                           const UserAcount(),
-                          transition: Transition.zoom,
-                        );
-                      },
-                      icon: Image.asset(
-                        'assets/icons/home_page_after_adding_reminders_icons/add_user.png',
-                        height: size.height * 0.7947,
-                        width: size.width * 0.1,
-                      )),
-                ],
-              ),
-              body: screens[index],
-            )
-          : const ChooseDefintionType(),
+                    IconButton(
+                        padding: EdgeInsets.only(
+                          top: size.width * 0.02,
+                        ),
+                        onPressed: () {
+                          Get.to(
+                            () => const UserAcount(),
+                            transition: Transition.zoom,
+                          );
+                        },
+                        icon: Image.asset(
+                          'assets/icons/home_page_after_adding_reminders_icons/add_user.png',
+                          height: size.height * 0.7947,
+                          width: size.width * 0.1,
+                        )),
+                  ],
+                ),
+                body: screens[index],
+              )
+            : const ChooseDefintionType(),
+      ),
     );
   }
 }
