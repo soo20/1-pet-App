@@ -97,10 +97,11 @@ class _SplashScreenState extends State<SplashScreen>
     );
   }
 
-  void goToNextView() {
-    Future.delayed(const Duration(seconds: 3), () {
-      // function doing return to widgets
-      Get.to(() => const WelcomeBody(), transition: Transition.fade);
-    });
-  }
+ void goToNextView() {
+  Future.delayed(const Duration(seconds: 3), () {
+    // Navigate to WelcomeBody and remove SplashScreen from the stack
+    Get.off(() => const WelcomeBody(), transition: Transition.fade);
+  });
+}
+
 }

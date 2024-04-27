@@ -28,8 +28,8 @@ class LoginText extends StatelessWidget {
                 'skip',
                 style: TextStyle(
                   fontFamily: 'Cosffira',
-                  fontSize: 48.sp,
-                  color: const Color(0xffEEEFEF),
+                  fontSize: 60.sp,
+                  color: const Color(0xffA26874),
                   fontWeight: FontWeight.w900,
                 ),
               ),
@@ -38,10 +38,10 @@ class LoginText extends StatelessWidget {
                     transition: Transition.size);
                 // Add any functionality you want when the icon is pressed
               },
-              padding: const EdgeInsets.only(left: 15.0),
+              padding: const EdgeInsets.only(left: 0.0),
             )),
         extendBodyBehindAppBar: true,
-        backgroundColor: kMainColorSplash,
+        backgroundColor: const Color(0xffEFE6E5),
         body:
             // SignUpPody()
             const LoginBody());

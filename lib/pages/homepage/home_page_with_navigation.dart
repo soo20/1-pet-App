@@ -143,27 +143,26 @@ class _TheMainHomePage extends State<TheMainHomePage> {
                   actions: <Widget>[
                     // Container containing user image and button
 
-                    IconButton(
-                        padding: EdgeInsets.only(
-                          top: size.width * 0.02,
-                        ),
-                        onPressed: () {
-                          Get.to(
-                            const LoginBody(),
-                            transition: Transition.zoom,
-                          );
-                        },
-                        icon: Image.asset(
-                          'assets/icons/home_page_after_adding_reminders_icons/add_user.png',
-                          height: size.height * 0.7947,
-                          width: size.width * 0.1,
-                        )),
-                  ],
-                ),
-                body: screens[index],
-              )
-            : const ChooseDefintionType(),
-      ),
+                  IconButton(
+                      padding: EdgeInsets.only(
+                        top: size.width * 0.02,
+                      ),
+                      onPressed: () {
+                        Get.to(()=>
+                           const UserAcount(),
+                          transition: Transition.zoom,
+                        );
+                      },
+                      icon: Image.asset(
+                        'assets/icons/home_page_after_adding_reminders_icons/add_user.png',
+                        height: size.height * 0.7947,
+                        width: size.width * 0.1,
+                      )),
+                ],
+              ),
+              body: screens[index],
+            )
+          : const ChooseDefintionType(),
     );
   }
 }
