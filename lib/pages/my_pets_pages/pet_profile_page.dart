@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petapplication/pages/events_system/events_for_pet.dart';
+import 'package:petapplication/pages/my_pets_pages/diseases_information_page.dart';
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 
-class PetProfilePage extends StatelessWidget {
-  const PetProfilePage({super.key, required this.petInformation});
-  final PetsInformation petInformation;
+class PetProfilePage extends StatefulWidget {
+  const PetProfilePage({
+    super.key,
+    required this.petInformation,
+  });
 
+  final PetsInformation petInformation;
+  @override
+  State<PetProfilePage> createState() => _PetProfilePage();
+}
+
+class _PetProfilePage extends State<PetProfilePage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -15,7 +24,8 @@ class PetProfilePage extends StatelessWidget {
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
-                "assets/image/pet_profile_page_images/background_image.png"),
+              "assets/image/pet_profile_page_images/background_image.png",
+            ),
             fit: BoxFit.cover,
           ),
         ),
@@ -29,7 +39,7 @@ class PetProfilePage extends StatelessWidget {
               ),
               ClipOval(
                 child: Image.asset(
-                  petInformation.imageUrl,
+                  widget.petInformation.imageUrl,
                   width: size.width <= 411.42857142857144
                       ? size.width * 0.79472
                       : size.width * 0.66432,
@@ -40,7 +50,7 @@ class PetProfilePage extends StatelessWidget {
                 ),
               ),
               Text(
-                petInformation.petName,
+                widget.petInformation.petName,
                 style: TextStyle(
                   fontFamily: 'Cosffira',
                   fontSize: size.width * 0.168,
@@ -52,7 +62,7 @@ class PetProfilePage extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(bottom: size.height * 0.01),
                 child: Text(
-                  '${petInformation.petType} | ${petInformation.petGender} | ${petInformation.age}',
+                  '${widget.petInformation.petType} | ${widget.petInformation.petGender} | ${widget.petInformation.age}',
                   style: TextStyle(
                     fontFamily: 'Cosffira',
                     fontSize: size.width * 0.0548,
@@ -89,7 +99,7 @@ class PetProfilePage extends StatelessWidget {
                 onPressed: () {
                   Get.to(
                     EventsForPetPage(
-                      petInformation: petInformation,
+                      petInformation: widget.petInformation,
                     ),
                     transition: Transition.zoom,
                   );
@@ -180,7 +190,15 @@ class PetProfilePage extends StatelessWidget {
                     ),
                     elevation:
                         MaterialStateProperty.all<double>(size.width * 0.01)),
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(
+                    DiseasesInformationForPet(
+                        poopDetectionResult:
+                            widget.petInformation.poopDiseaseType,
+                        skinDetectionResult:
+                            widget.petInformation.skinDiseaseType),
+                  );
+                },
                 icon: Padding(
                   padding: EdgeInsets.only(left: size.width * 0.18),
                   child: Image.asset(

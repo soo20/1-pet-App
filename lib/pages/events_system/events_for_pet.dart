@@ -94,29 +94,11 @@ class _EventsForPetPage extends State<EventsForPetPage> {
     // Get reminder cards
     // getCards();
     // Add a listener to the scroll controller for scrolling behavior
-    controller.addListener(() {
-      // Calculate the ratio of the current scroll offset to a specific value (119 in this case)
-      double value = controller.offset / 119;
-      // Update the state based on the calculated values
-      setState(() {
-        // Update the topContainer value with the calculated ratio
-        topContainer = value;
-        // Update the closeTopevents variable based on the scroll offset
-        closeTopContainer = controller.offset > 50;
-      });
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final double topContainerHeight;
-
-    if (size.height <= 707.4285714285714) {
-      topContainerHeight = MediaQuery.of(context).size.height * 0.55;
-    } else {
-      topContainerHeight = MediaQuery.of(context).size.height * 0.55;
-    }
 
     addTaskDialog() => showDialog(
           context: context,
@@ -128,171 +110,163 @@ class _EventsForPetPage extends State<EventsForPetPage> {
           color: const Color(0XffEFE7E7),
           child: Column(
             children: [
-              AnimatedOpacity(
-                duration: const Duration(milliseconds: 1000),
-                opacity: closeTopContainer ? 0 : 1,
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 500),
-                  width: size.width,
-                  height: closeTopContainer ? 0 : topContainerHeight,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(
-                        "assets/image/event_for_pet_page_images/reminders_page.png",
-                      ),
-                      fit: BoxFit.fill,
+              Container(
+                width: size.width,
+                height: size.height * 0.45,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(
+                      "assets/image/event_for_pet_page_images/reminders_page.png",
                     ),
+                    fit: BoxFit.fill,
                   ),
-                  child: Center(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          widget.petInformation.petName,
-                          style: TextStyle(
-                            height: 0.0,
-                            fontFamily: 'Cosffira',
-                            fontSize: size.width * 0.150,
-                            fontWeight: FontWeight.w800,
-                            color: const Color(0xff4A5E7C),
-                            letterSpacing: 0.5,
-                          ),
+                ),
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        widget.petInformation.petName,
+                        style: TextStyle(
+                          height: 0.0,
+                          fontFamily: 'Cosffira',
+                          fontSize: size.width * 0.150,
+                          fontWeight: FontWeight.w800,
+                          color: const Color(0xff4A5E7C),
+                          letterSpacing: 0.5,
                         ),
-                        Text(
-                          '${widget.petInformation.petType} | ${widget.petInformation.petGender}',
-                          style: TextStyle(
-                            fontFamily: 'Cosffira',
-                            fontSize: size.width * 0.04,
-                            fontWeight: FontWeight.w400,
-                            color: const Color.fromARGB(255, 255, 255, 255),
-                          ),
+                      ),
+                      Text(
+                        '${widget.petInformation.petType} | ${widget.petInformation.petGender}',
+                        style: TextStyle(
+                          fontFamily: 'Cosffira',
+                          fontSize: size.width * 0.04,
+                          fontWeight: FontWeight.w400,
+                          color: const Color.fromARGB(255, 255, 255, 255),
                         ),
-                        SizedBox(
-                          height: size.height * 0.048,
+                      ),
+                      SizedBox(
+                        height: size.height * 0.028,
+                      ),
+                      Text(
+                        'Feed Time',
+                        style: TextStyle(
+                          fontFamily: 'Cosffira',
+                          fontSize: size.width * 0.056,
+                          fontWeight: FontWeight.w800,
+                          color: const Color(0xff4A5E7C),
                         ),
-                        Text(
-                          'Feed Time',
-                          style: TextStyle(
-                            fontFamily: 'Cosffira',
-                            fontSize: size.width * 0.056,
-                            fontWeight: FontWeight.w800,
-                            color: const Color(0xff4A5E7C),
-                          ),
-                        ),
-                        SizedBox(
-                          height: size.height * 0.014,
-                        ),
-                        feedTimes.isEmpty
-                            ? Flexible(
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: Image.asset(
-                                    'assets/icons/events_for_pet_page_icons/add_feed_if_impty.png',
-                                    height: size.width * 0.19,
-                                    width: size.width * 0.29,
-                                    fit: BoxFit.fill,
-                                  ),
+                      ),
+                      SizedBox(
+                        height: size.height * 0.014,
+                      ),
+                      feedTimes.isEmpty
+                          ? Flexible(
+                              child: IconButton(
+                                onPressed: () {},
+                                icon: Image.asset(
+                                  'assets/icons/events_for_pet_page_icons/add_feed_if_impty.png',
+                                  height: size.width * 0.19,
+                                  width: size.width * 0.29,
+                                  fit: BoxFit.fill,
                                 ),
-                              )
-                            : Flexible(
-                                child: SingleChildScrollView(
-                                  padding: EdgeInsets.only(
-                                    left: size.width * 0.06,
+                              ),
+                            )
+                          : Flexible(
+                              child: SingleChildScrollView(
+                                padding: EdgeInsets.only(
+                                  left: size.width * 0.06,
+                                  bottom: size.height * 0.06,
+                                ),
+                                physics: const BouncingScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                child: Container(
+                                  height: size.height *
+                                      0.143, // Set a fixed height for the cards
+                                  margin: EdgeInsets.symmetric(
+                                    horizontal: size.height * 0.02,
                                   ),
-                                  physics: const BouncingScrollPhysics(),
-                                  scrollDirection: Axis.horizontal,
-                                  child: AnimatedContainer(
-                                    duration: const Duration(milliseconds: 500),
-                                    height: size.height *
-                                        0.143, // Set a fixed height for the cards
-                                    margin: EdgeInsets.symmetric(
-                                      horizontal: size.height * 0.02,
-                                    ),
-                                    child: FittedBox(
-                                      fit: BoxFit.fill,
-                                      //this is might be cause of overflow
-                                      child: Row(
-                                        children: [
-                                          // this will be dynamic coloumn that depends on the length of list
-                                          for (CustomTime i in feedTimes)
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                right: size.width * 0.06,
-                                              ),
-                                              child: Container(
-                                                height: size.height * 0.170,
-                                                width: size.width * 0.24,
-                                                decoration: BoxDecoration(
-                                                  color: i.checked
-                                                      ? const Color(0xffA26874)
-                                                      : const Color(0xffEFE7E7),
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                    Radius.circular(
-                                                        size.width * 0.3),
-                                                  ),
-                                                ),
-                                                child: Column(
-                                                  children: [
-                                                    IconButton(
-                                                      onPressed: () {
-                                                        setState(() =>
-                                                            i.checked =
-                                                                !i.checked);
-                                                      },
-                                                      icon: Image.asset(
-                                                        i.checked
-                                                            ? "assets/icons/events_for_pet_page_icons/check_yes.png"
-                                                            : "assets/icons/events_for_pet_page_icons/Ellipse_icon_for_feed.png",
-                                                        height:
-                                                            size.height * 0.060,
-                                                        width:
-                                                            size.width * 0.054,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      '${i.hours}:${i.minutes}\n ${i.night ? 'Pm' : 'Am'}',
-                                                      style: TextStyle(
-                                                        height: 0.0,
-                                                        fontFamily: 'Cosffira',
-                                                        fontSize:
-                                                            size.width * 0.056,
-                                                        fontWeight:
-                                                            FontWeight.w800,
-                                                        color: i.checked
-                                                            ? const Color(
-                                                                0xffEFE7E7)
-                                                            : const Color(
-                                                                0xff4A5E7C),
-                                                        letterSpacing: 0.5,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
+                                  child: FittedBox(
+                                    fit: BoxFit.fill,
+                                    //this is might be cause of overflow
+                                    child: Row(
+                                      children: [
+                                        // this will be dynamic coloumn that depends on the length of list
+                                        for (CustomTime i in feedTimes)
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                              right: size.width * 0.06,
                                             ),
-                                          IconButton(
-                                            onPressed: () {
-                                              // Get.to(
-                                              //   const AddEventPage(),
-                                              //   transition: Transition.zoom,
-                                              // );
-                                            },
-                                            icon: Image.asset(
-                                              'assets/icons/events_for_pet_page_icons/add_feed_in_list.png',
+                                            child: Container(
                                               height: size.height * 0.170,
                                               width: size.width * 0.24,
-                                              fit: BoxFit.fill,
+                                              decoration: BoxDecoration(
+                                                color: i.checked
+                                                    ? const Color(0xffA26874)
+                                                    : const Color(0xffEFE7E7),
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(
+                                                      size.width * 0.3),
+                                                ),
+                                              ),
+                                              child: Column(
+                                                children: [
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      setState(() => i.checked =
+                                                          !i.checked);
+                                                    },
+                                                    icon: Image.asset(
+                                                      i.checked
+                                                          ? "assets/icons/events_for_pet_page_icons/check_yes.png"
+                                                          : "assets/icons/events_for_pet_page_icons/Ellipse_icon_for_feed.png",
+                                                      height:
+                                                          size.height * 0.060,
+                                                      width: size.width * 0.054,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    '${i.hours}:${i.minutes}\n ${i.night ? 'Pm' : 'Am'}',
+                                                    style: TextStyle(
+                                                      height: 0.0,
+                                                      fontFamily: 'Cosffira',
+                                                      fontSize:
+                                                          size.width * 0.056,
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                      color: i.checked
+                                                          ? const Color(
+                                                              0xffEFE7E7)
+                                                          : const Color(
+                                                              0xff4A5E7C),
+                                                      letterSpacing: 0.5,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ],
-                                      ),
+                                        IconButton(
+                                          onPressed: () {
+                                            // Get.to(
+                                            //   const AddEventPage(),
+                                            //   transition: Transition.zoom,
+                                            // );
+                                          },
+                                          icon: Image.asset(
+                                            'assets/icons/events_for_pet_page_icons/add_feed_in_list.png',
+                                            height: size.height * 0.170,
+                                            width: size.width * 0.24,
+                                            fit: BoxFit.fill,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
                               ),
-                      ],
-                    ),
+                            ),
+                    ],
                   ),
                 ),
               ),

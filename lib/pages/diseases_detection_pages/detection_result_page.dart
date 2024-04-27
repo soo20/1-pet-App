@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petapplication/pages/diseases_detection_pages/about_information_page.dart';
@@ -8,6 +7,7 @@ import 'package:petapplication/pages/diseases_detection_pages/symptoms_informati
 import 'package:petapplication/pages/events_system/events_for_pet.dart';
 import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
 import 'package:petapplication/pages/diseases_detection_pages/treatment_information_page.dart';
+import 'package:petapplication/pages/my_pets_pages/diseases_information_page.dart';
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 
 class DetectionResulrPage extends StatefulWidget {
@@ -18,6 +18,7 @@ class DetectionResulrPage extends StatefulWidget {
   });
   final bool detectionType;
   final String detectionResult;
+
   @override
   State<DetectionResulrPage> createState() => _DetectionResulrPageState();
 }
@@ -26,6 +27,197 @@ class _DetectionResulrPageState extends State<DetectionResulrPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    bool petIsSelected = false;
+    int selectedIndex = -1; // Keep track of the index of the selected pet
+
+    choosePetToAddThisDetectionFor(
+        List<PetsInformation> dogsInfo, detectionResult) {
+      dogsInfo = dogsInformationList;
+      bool isThere = false;
+      return showDialog(
+        context: context,
+        builder: (BuildContext context) => StatefulBuilder(
+          builder: (context, setState) => AlertDialog(
+            elevation: 0.0,
+            backgroundColor: const Color(0xffDCD3D3),
+            content: SizedBox(
+              width: size.width * 0.336,
+              height: size.height * 0.315,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    height: size.height * 0.03,
+                  ),
+                  Text(
+                    'Choose Your Pet To Add Detection Result For.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      height: 0.0,
+                      fontFamily: 'Cosffira',
+                      fontSize: size.width * 0.057,
+                      fontWeight: FontWeight.w800,
+                      color: const Color(0xff4A5E7C),
+                      letterSpacing: 0.5,
+                    ),
+                  ),
+                  SizedBox(
+                    height: size.height * 0.01,
+                  ),
+                  SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // this will be dynamic column that depends on the length of list
+                        for (int index = 0; index < dogsInfo.length; index++)
+                          Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Container(
+                              width: size.width * 0.316,
+                              height: size.height * 0.200,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(size.width * 0.069656),
+                                ),
+                                border: Border.all(
+                                  color: dogsInfo[index].selected
+                                      ? const Color(0xffA26874)
+                                      : Colors.transparent,
+                                ),
+                                color: Colors.transparent,
+                              ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        // Update the detection result for the selected pet
+
+                                        for (var pet in dogsInfo) {
+                                          pet.selected = false;
+                                        }
+                                        // Set the selected pet
+                                        dogsInfo[index].selected = true;
+                                        petIsSelected = true;
+                                        selectedIndex = index;
+                                        isThere = true;
+                                      });
+                                    },
+                                    icon: ClipRRect(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(
+                                          size.width * 0.069656,
+                                        ),
+                                      ),
+                                      child: Image.asset(
+                                        dogsInfo[index].imageUrl,
+                                        width: size.width * 0.29656,
+                                        height: size.height * 0.13656,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    dogsInfo[index].petName,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      height: 0.0,
+                                      fontFamily: 'Cosffira',
+                                      fontSize: size.width * 0.047,
+                                      fontWeight: FontWeight.w800,
+                                      color: dogsInfo[index].selected
+                                          ? const Color(0xffA26874)
+                                          : const Color.fromARGB(
+                                              99, 74, 94, 124),
+                                      letterSpacing: 0.5,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (isThere) {
+                      setState(() {
+                        if (widget.detectionType) {
+                          dogsInfo[selectedIndex].skinDiseaseType =
+                              widget.detectionResult;
+                        } else {
+                          dogsInfo[selectedIndex].poopDiseaseType =
+                              widget.detectionResult;
+                        }
+                      });
+                      Get.to(
+                        () => DiseasesInformationForPet(
+                            poopDetectionResult:
+                                dogsInfo[selectedIndex].poopDiseaseType,
+                            skinDetectionResult:
+                                dogsInfo[selectedIndex].skinDiseaseType),
+                      );
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: petIsSelected
+                        ? const Color(0xffA26874)
+                        : const Color.fromARGB(90, 181, 128, 138),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: size.width * 0.015,
+                      vertical: size.height * 0.025,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        size.width * 0.092,
+                      ),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      left: size.width * 0.12,
+                      right: size.width * 0.12,
+                    ),
+                    child: Text(
+                      'Done',
+                      style: TextStyle(
+                        height: 0.0,
+                        fontFamily: 'Cosffira',
+                        fontSize: size.width * 0.045,
+                        fontWeight: FontWeight.w800,
+                        color: isThere
+                            ? const Color.fromARGB(255, 255, 255, 255)
+                            : const Color.fromARGB(162, 215, 222, 232),
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ).then(
+        (value) => setState(
+          () {
+            for (var pet in dogsInfo) {
+              pet.selected = false;
+            }
+            petIsSelected = false;
+          },
+        ),
+      );
+    }
+
     allowingCameraDialog() {
       showDialog(
           context: context,
@@ -38,7 +230,7 @@ class _DetectionResulrPageState extends State<DetectionResulrPage> {
                   elevation: 0.0,
                   backgroundColor: const Color(0xffDCD3D3),
                   content: Text(
-                    'Would you like to save this detection for your pet?',
+                    'Would you like to "save" or "Update" this detection for your pet?',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       height: 0.0,
@@ -56,7 +248,11 @@ class _DetectionResulrPageState extends State<DetectionResulrPage> {
                         // Align buttons at the ends
                         children: [
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              await choosePetToAddThisDetectionFor(
+                                  dogsInformationList, widget.detectionResult);
+                              setState(() {});
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xffA26874),
                               padding: EdgeInsets.symmetric(
@@ -134,108 +330,6 @@ class _DetectionResulrPageState extends State<DetectionResulrPage> {
                   ],
                 ),
               ));
-    }
-
-    choosePetToAddThisDetectionFor(
-        List<PetsInformation> dogsInfo, detectionResult) {
-      bool petIsSelected = false;
-      dogsInfo = dogsInformationList;
-      return AlertDialog(
-        elevation: 0.0,
-        backgroundColor: const Color(0xffDCD3D3),
-        content: Column(
-          children: [
-            SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  // this will be dynamic coloumn that depends on the length of list
-                  for (PetsInformation i in dogsInfo)
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.red, // Set the color of the border here
-                        ),
-                        color:
-                            Colors.transparent, // Set background to transparent
-                      ),
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            i.imageUrl,
-                          ),
-                          Text(
-                            'Choose Your Per To Add Detection Result For.',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              height: 0.0,
-                              fontFamily: 'Cosffira',
-                              fontSize: size.width * 0.047,
-                              fontWeight: FontWeight.w800,
-                              color: const Color(0xff4A5E7C),
-                              letterSpacing: 0.5,
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                ],
-              ),
-            ),
-            Text(
-              'Choose Your Per To Add Detection Result For.',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                height: 0.0,
-                fontFamily: 'Cosffira',
-                fontSize: size.width * 0.047,
-                fontWeight: FontWeight.w800,
-                color: const Color(0xff4A5E7C),
-                letterSpacing: 0.5,
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          Center(
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: petIsSelected
-                    ? const Color(0xffA26874)
-                    : const Color(0xffA26874),
-                padding: EdgeInsets.symmetric(
-                  horizontal: size.width * 0.028,
-                  vertical: size.height * 0.025,
-                ), // Adjust the padding as needed
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                    size.width * 0.092,
-                  ), // Set the border radius of the button
-                ),
-              ),
-              child: Padding(
-                padding: EdgeInsets.only(
-                  left: size.width * 0.23,
-                  right: size.width * 0.23,
-                ),
-                child: Text(
-                  'Done',
-                  style: TextStyle(
-                    height: 0.0,
-                    fontFamily: 'Cosffira',
-                    fontSize: size.width * 0.045,
-                    fontWeight: FontWeight.w800,
-                    color: const Color.fromARGB(255, 255, 255, 255),
-                    letterSpacing: 0.5,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      );
     }
 
     return SafeArea(
@@ -391,7 +485,7 @@ class _DetectionResulrPageState extends State<DetectionResulrPage> {
                         height: size.height * 0.1,
                       ),
                       Image.asset(
-                        'assets/image/disease_detection_result_page_images/celebration_image.png',
+                        '',
                         width: size.width * 0.33316,
                         height: size.height * 0.19923,
                       ),

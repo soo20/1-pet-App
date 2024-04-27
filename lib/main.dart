@@ -36,12 +36,18 @@ class YunaPetApp extends StatelessWidget {
         return GetMaterialApp(
           theme: ThemeData(fontFamily: 'Poppins'),
           debugShowCheckedModeBanner: false,
-          home: child, // Display the splash screen first
+          home: child,
+          initialRoute: 'home',
+          routes: {
+            // When navigating to the "/" route, build the FirstScreen widget.
+            'home': (context) => const TheMainHomePage(),
+            // When navigating to the "/second" route, build the SecondScreen widget.
+          }, // Display the splash screen first
         );
       },
       //A part of builder that its dependencies/properties don't use the library
       child: //const SplashScreen()
-          TheMainHomePage(),
+          const TheMainHomePage(),
     );
   }
 }

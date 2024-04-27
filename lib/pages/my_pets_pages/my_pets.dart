@@ -20,6 +20,7 @@ class PetsInformation {
   late String petId;
   late String petType;
   late String age;
+  bool selected = false;
   String skinDiseaseType = '';
   String poopDiseaseType = '';
   List<CustomTime> feedTimesForPet = [];
