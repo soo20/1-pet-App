@@ -120,7 +120,7 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
               width: size.width,
               alignment: Alignment.topCenter,
               // When we scroll, the reminders feature events will appear at a height of 0.
-              height: size.height * 0.22,
+              height: size.height * 0.15,
               // We will apply this animation on the 'scrolledEvents' object.
               child: scrolledEvents),
 
