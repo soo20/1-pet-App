@@ -14,6 +14,7 @@ class PetsInformation {
     required this.age,
      this.petWeight ,
   });
+  
   late String imageUrl;
   late String petName;
   late String petGender;

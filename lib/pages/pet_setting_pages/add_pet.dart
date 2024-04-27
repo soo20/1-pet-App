@@ -470,8 +470,6 @@ if (_selectedImage != null && File(_selectedImage!.path).existsSync()) {
 
         Get.back();
       } else {
-        // Handle the case when no image is selected
-        // You can show an error message or handle it as needed
       }
     } else {
       // Handle the case when form validation fails, if needed

@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 
-import 'package:petapplication/pages/sign_login_acount/edit_acount.dart';
+import 'package:petapplication/profile_page/edit_acount.dart';
 
 class PageViewLogin extends StatefulWidget {
   const PageViewLogin({super.key});

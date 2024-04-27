@@ -12,11 +12,14 @@ import 'package:petapplication/pages/diseases_detection_pages/choose_detection_t
 import 'package:petapplication/pages/homepage/home_page_content.dart';
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 import 'package:petapplication/pages/setting_bage/setting.dart';
-import 'package:petapplication/pages/sign_login_acount/loginbody.dart';
+
+
+import 'package:petapplication/profile_page/user_profile.dart';
 
 class TheMainHomePage extends StatefulWidget {
   const TheMainHomePage({super.key});
   @override
+
   // intialize the object of HomePageAfterAddingTheReminders to set state for it
   State<TheMainHomePage> createState() => _TheMainHomePage();
 }
@@ -151,7 +154,7 @@ class _TheMainHomePage extends State<TheMainHomePage> {
                       ),
                       onPressed: () {
                         Get.to(
-                          const LoginBody(),
+                           const UserAcount(),
                           transition: Transition.zoom,
                         );
                       },
