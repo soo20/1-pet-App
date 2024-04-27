@@ -1,25 +1,69 @@
+// ignore_for_file: unused_element, must_be_immutable
+
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:petapplication/pages/events_system/events_for_pet.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:petapplication/pages/my_pets_pages/diseases_information_page.dart';
+
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
+import 'package:petapplication/pages/pet_setting_pages/edit_page.dart';
 
 class PetProfilePage extends StatefulWidget {
-  const PetProfilePage({
-    super.key,
-    required this.petInformation,
-  });
+  PetProfilePage({super.key, required this.petInformation, this.imagePath2});
+  PetsInformation petInformation;
+  final String? imagePath2;
 
-  final PetsInformation petInformation;
   @override
   State<PetProfilePage> createState() => _PetProfilePage();
 }
 
 class _PetProfilePage extends State<PetProfilePage> {
+  XFile? _selectedImage;
+  // Add a function to open the device's gallery and select an image
+  Future<void> _selectImageFromGallery() async {
+    final picker = ImagePicker();
+    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _selectedImage = pickedImage;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        //iconTheme: IconThemeData.fallback(),
+        forceMaterialTransparency: true,
+        toolbarOpacity: 1,
+        toolbarHeight: 110.h,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.edit),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        EditPets(petInformation: widget.petInformation)),
+              ).then((updatedPetInformation) {
+                if (updatedPetInformation != null) {
+                  // Update pet information on this page
+                  setState(() {
+                    widget.petInformation = updatedPetInformation;
+                  });
+                }
+              });
+            },
+            // Add your search action here
+          ),
+        ],
+      ),
+      extendBodyBehindAppBar: true,
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -31,6 +75,7 @@ class _PetProfilePage extends State<PetProfilePage> {
         ),
         child: Center(
           child: Column(
+            // mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(
                 height: size.height > 707.4285714285714
@@ -38,16 +83,29 @@ class _PetProfilePage extends State<PetProfilePage> {
                     : size.height * 0.08,
               ),
               ClipOval(
-                child: Image.asset(
-                  widget.petInformation.imageUrl,
-                  width: size.width <= 411.42857142857144
-                      ? size.width * 0.79472
-                      : size.width * 0.66432,
-                  height: size.height > 707.4285714285714
-                      ? size.height * 0.35472
-                      : size.height * 0.36472,
-                  fit: BoxFit.fill,
-                ),
+                child: _selectedImage != null // Check if imagePath is available
+                    ? Image.file(
+                        File(_selectedImage!
+                            .path), // If imagePath is available, use the selected file
+                        width: size.width <= 411.42857142857144
+                            ? size.width * 0.79472
+                            : size.width * 0.66472,
+                        height: size.height > 707.4285714285714
+                            ? size.height * 0.35472
+                            : size.height * 0.36472,
+                        fit: BoxFit.fill,
+                      )
+                    : Image.asset(
+                        widget.petInformation
+                            .imageUrl, // If imagePath is not available, use the imageUrl from petInformation
+                        width: size.width <= 411.42857142857144
+                            ? size.width * 0.79472
+                            : size.width * 0.66472,
+                        height: size.height > 707.4285714285714
+                            ? size.height * 0.35472
+                            : size.height * 0.36472,
+                        fit: BoxFit.fill,
+                      ),
               ),
               Text(
                 widget.petInformation.petName,

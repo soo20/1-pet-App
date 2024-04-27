@@ -13,18 +13,24 @@ class PetsInformation {
     required this.petId,
     required this.petType,
     required this.age,
+     this.petWeight ,
   });
+  
   late String imageUrl;
   late String petName;
   late String petGender;
   late String petId;
   late String petType;
   late String age;
+<<<<<<< HEAD
   bool selected = false;
   String skinDiseaseType = '';
   String poopDiseaseType = '';
   List<CustomTime> feedTimesForPet = [];
   List<ReminderData> remindersData = [];
+=======
+   double ? petWeight;
+>>>>>>> 7e7575d178feae34d6ad060fcc3f0ca1730b1010
 }
 
 List<PetsInformation> catsInformationList = [

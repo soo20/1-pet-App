@@ -6,22 +6,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
+
 import 'package:image_picker/image_picker.dart';
 
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 
-class AddPets extends StatefulWidget {
-  const AddPets({super.key});
+class EditPets extends StatefulWidget {
+  final PetsInformation petInformation;
+  const EditPets({super.key, required this.petInformation});
 
   @override
-  State<AddPets> createState() => _AddPetsState();
+  State<EditPets> createState() => _EditPetsState();
 }
 
-class _AddPetsState extends State<AddPets> {
-  //String? _imagePath2;
+class _EditPetsState extends State<EditPets> {
+  //String? imagePath2;
   final _formKey = GlobalKey<FormState>();
   // TextEditingController imageUrlController = TextEditingController();
   TextEditingController petNameController = TextEditingController();
@@ -29,18 +30,21 @@ class _AddPetsState extends State<AddPets> {
   TextEditingController petIdController = TextEditingController();
   TextEditingController petTypeController = TextEditingController();
   TextEditingController ageController = TextEditingController();
+  TextEditingController weightController = TextEditingController();
   String? selectedPetType; // Variable to store the selected pet type
   bool showSecondContainer = false;
   late final PetsInformation petInformation;
   final _gender = ["Male", "Female"];
-  final _petTypeGender = ['Cat', 'Dog'];
+  //final _petTypeGender = ['Cat', 'Dog'];
 
   String?
       _Selected; // Make _Selected nullable againRemove the nullable operator
   //var _currentItemSelected =
   // Function to open the gallery and select an image
-   XFile? _selectedImage;
-Future<void> _selectImageFromGallery() async {
+  XFile? _selectedImage;
+
+  // Add a function to open the device's gallery and select an image
+  Future<void> _selectImageFromGallery() async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
     setState(() {
@@ -48,23 +52,42 @@ Future<void> _selectImageFromGallery() async {
     });
   }
 
+  @override
+  void initState() {
+    super.initState();
+    // Initialize controllers with existing information
+    petNameController.text = widget.petInformation.petName;
+    petTypeController.text = widget.petInformation.petType;
+    petGenderController.text = widget.petInformation.petGender;
+    ageController.text = widget.petInformation.age;
+    petIdController.text = widget.petInformation.petId;
+    weightController.text = widget.petInformation.petWeight.toString();
+  }
 
+  @override
+  void dispose() {
+    // Dispose controllers when they are no longer needed
+    petNameController.dispose();
+    petTypeController.dispose();
+    petGenderController.dispose();
+    ageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-   DecorationImage? decorationImage;
-if (_selectedImage != null && File(_selectedImage!.path).existsSync()) {
-  decorationImage = DecorationImage(
-    image: FileImage(File(_selectedImage!.path)),
-    fit: BoxFit.fill,
-  );
-} else {
-  decorationImage = const DecorationImage(
-    image: AssetImage('assets/image/Group998.png'),
-    fit: BoxFit.fill,
-  );
-}
-
+    DecorationImage? decorationImage;
+    if (_selectedImage != null && File(_selectedImage!.path).existsSync()) {
+      decorationImage = DecorationImage(
+        image: FileImage(File(_selectedImage!.path)),
+        fit: BoxFit.fill,
+      );
+    } else {
+      decorationImage = const DecorationImage(
+        image: AssetImage('assets/image/Group998.png'),
+        fit: BoxFit.fill,
+      );
+    }
 
     return Scaffold(
       backgroundColor: const Color(0xffEEEFEF),
@@ -151,6 +174,11 @@ if (_selectedImage != null && File(_selectedImage!.path).existsSync()) {
                           const EdgeInsets.only(left: 40, right: 40, top: 10),
                       child: TextFormField(
                         controller: petNameController,
+                        onChanged: (value) {
+                          setState(() {
+                            widget.petInformation.petName = value;
+                          });
+                        },
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return '';
@@ -188,6 +216,11 @@ if (_selectedImage != null && File(_selectedImage!.path).existsSync()) {
                           const EdgeInsets.only(left: 40, right: 40, top: 5),
                       child: TextFormField(
                         controller: petTypeController,
+                        onChanged: (value) {
+                          setState(() {
+                            widget.petInformation.petType = value;
+                          });
+                        },
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return '';
@@ -226,6 +259,11 @@ if (_selectedImage != null && File(_selectedImage!.path).existsSync()) {
                           const EdgeInsets.only(left: 40, right: 40, top: 10),
                       child: TextFormField(
                         controller: ageController,
+                        onChanged: (value) {
+                          setState(() {
+                            widget.petInformation.age = value;
+                          });
+                        },
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return '';
@@ -270,7 +308,7 @@ if (_selectedImage != null && File(_selectedImage!.path).existsSync()) {
                              });
                                  },
                             ),*/
-                    Padding(
+                    /*Padding(
                       padding:
                           const EdgeInsets.only(left: 40, right: 40, top: 10),
                       child: DropdownButtonFormField(
@@ -327,13 +365,19 @@ if (_selectedImage != null && File(_selectedImage!.path).existsSync()) {
                           }).toList();
                         },
                       ),
-                    ),
+                    ),*/
 
                     //
                     Padding(
                       padding:
                           const EdgeInsets.only(left: 40, right: 40, top: 10),
                       child: DropdownButtonFormField(
+                        /* onChanged: (newValue) {
+                setState(() {
+                  _Selected = newValue!;
+                  widget.petInformation.petGender = newValue;
+                });
+              },*/
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return '';
@@ -373,8 +417,9 @@ if (_selectedImage != null && File(_selectedImage!.path).existsSync()) {
                         onChanged: (val) {
                           // Handle the onChanged event here
                           setState(() {
-                            _Selected =
-                                val.toString(); // Update the selected value
+                            _Selected = val.toString();
+                            widget.petInformation.petGender =
+                                val!; // Update the selected value
                           });
                         },
                         selectedItemBuilder: (BuildContext context) {
@@ -394,6 +439,14 @@ if (_selectedImage != null && File(_selectedImage!.path).existsSync()) {
                       padding:
                           const EdgeInsets.only(left: 40, right: 40, top: 0),
                       child: TextFormField(
+                        controller: weightController,
+                        onChanged: (value) {
+                          setState(() {
+                            widget.petInformation.petWeight =
+                                double.tryParse(value);
+                          });
+                        },
+
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return '';
@@ -441,44 +494,28 @@ if (_selectedImage != null && File(_selectedImage!.path).existsSync()) {
                       height: 80.h,
                     ),
                     CustomGeneralButtom(
-  boxColor: const Color(0xff2A606C),
-  textColor: const Color(0xffFFFFFF),
-  height: 135.h,
-  width: 385.w,
-  borderColor: const Color.fromARGB(108, 112, 112, 112),
-  text: 'Finish',
-  onTap: () {
-    if (_formKey.currentState!.validate()) {
-      // Ensure that the _selectedImage is not null before proceeding
-      if (_selectedImage != null) {
-        // Create a new PetsInformation object with the entered information
-        PetsInformation newPet = PetsInformation(
-          imageUrl: _selectedImage!.path, // Convert XFile to String path
-          petName: petNameController.text,
-          petGender: _Selected ?? '',
-          petId: petIdController.text,
-          petType: petTypeController.text,
-          age: ageController.text,
-        );
-
-        // Add the new pet to the appropriate list based on petType
-        if (selectedPetType == 'Cat') {
-          catsInformationList.add(newPet);
-        } else {
-          dogsInformationList.add(newPet);
-        }
-
-        Get.back();
-      } else {
-      }
-    } else {
-      // Handle the case when form validation fails, if needed
-    }
-  },
-  fontWeight: FontWeight.w500,
-  customFontSize: 50.sp,
-),
-
+                      boxColor: const Color(0xff2A606C),
+                      textColor: const Color(0xffFFFFFF),
+                      height: 135.h,
+                      width: 385.w,
+                      borderColor: const Color.fromARGB(108, 112, 112, 112),
+                      text: 'Save',
+                      onTap: () {
+                        // Save changes and pop the page with updated information
+                        Navigator.pop(
+                            context,
+                            PetsInformation(
+                              petName: petNameController.text,
+                              petType: petTypeController.text,
+                              petGender: _Selected ?? '',
+                              age: ageController.text,
+                              imageUrl: widget.petInformation.imageUrl,
+                              petId: petIdController.text,
+                            ));
+                      },
+                      fontWeight: FontWeight.w500,
+                      customFontSize: 50.sp,
+                    ),
 
                     // Conditional rendering of the shadowed container
                   ],
@@ -518,14 +555,14 @@ if (_selectedImage != null && File(_selectedImage!.path).existsSync()) {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                   const CustomGeneralButtom(
+                    const CustomGeneralButtom(
                       boxColor:  Color(0xffE3B1A8),
                       textColor: kMainColor,
                       height: 50,
                       width: 150,
-                      borderColor: Color(0xffE3B1A8),
+                      borderColor:  Color(0xffE3B1A8),
                       customFontSize: 20,
-                     // bord: 0.r,
+                      // bord: 0.r,
                       fontWeight: FontWeight.normal,
                       text: 'Camera',
                     ),
@@ -537,7 +574,7 @@ if (_selectedImage != null && File(_selectedImage!.path).existsSync()) {
                       textColor: kMainColor,
                       height: 50,
                       width: 150,
-                      //bord: 0.r,
+                      // bord: 0.r,
                       borderColor: const Color(0xff80CBC4),
                       customFontSize: 20,
                       fontWeight: FontWeight.normal,

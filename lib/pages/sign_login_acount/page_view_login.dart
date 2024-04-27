@@ -6,7 +6,8 @@ import 'package:get/get.dart';
 
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
-import 'package:petapplication/pages/sign_login_acount/acount.dart';
+
+import 'package:petapplication/profile_page/edit_acount.dart';
 
 class PageViewLogin extends StatefulWidget {
   const PageViewLogin({super.key});
@@ -231,7 +232,7 @@ class _PageViewLoginState extends State<PageViewLogin> {
                         height: 113.h,
                         text: 'Sign Up',
                         onTap: () {
-                          Get.to(() => const Account(),
+                          Get.to(() =>  EditAcount(),
                               transition: Transition.zoom);
                         },
                         textColor: kMainColorPage,
