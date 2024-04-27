@@ -36,24 +36,24 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
    // double aspectRatio = SizeConfig.screenWidth! / SizeConfig.screenHeight!;
     return Scaffold(
-      backgroundColor: kMainColorSplash,
+      backgroundColor: Color(0xffEFE6E5),
      body: Center(
        child: Column(
         
           children: [
-            SizedBox(height: 200.h,),
+            SizedBox(height: 180.h,),
             Text(
               'Yuna\n',
               style: TextStyle(
                 fontFamily: 'Cosffira',
-                fontSize: 115.sp,
-                color: const Color(0xff0b2f37),
+                fontSize: 130.sp,
+                color: const Color(0xff4A5E7C),
                 fontWeight: FontWeight.w600,
                 height:  1.h,
               ),
             ),
            SizedBox(height: 0,),
-         Image.asset('assets/image/Group841.png',width: 687.w,),
+         Image.asset('assets/image/yunaphoto.png',width: 700.w,),
            
             //
             //SizedBox(height: 20.h,),
@@ -61,18 +61,19 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
             Flexible(
               flex: 2,
               child: Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical: 8,
-                    horizontal:  0),
+                padding: EdgeInsets.only(
+                    top: 8,
+                    ),
                 child:  CustomGeneralButtom2(
-                  height: 114.h,
-                  text: 'Login With GmaiL',
-                  textColor: kMainColorPage,
+                  height: 115.h,
+
+                  text: 'Login With Gmail',
+                  textColor: const Color(0xffA26874),
                   icon: FontAwesomeIcons.google,
-                  iconcolor: Color.fromARGB(255, 248, 54, 90),
-                  boxColor: kMainColor,
-                  borderColor: kMainColor,
-                  width: 730.w,
+                  iconcolor: const Color(0xffA26874),
+                  boxColor: Color(0xffB5C0D0),
+                  borderColor: Color.fromARGB(105, 112, 112, 112),
+                  width: 740.w,
                 ),
               ),
             ),
@@ -80,18 +81,18 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
             Flexible(
               flex: 2,
               child: Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical:0,
-                    horizontal:  0),
+                padding: EdgeInsets.only(
+                    top:5,
+                    ),
                 child: CustomGeneralButtom2(
-                  height: 114.h,
+                  height: 120.h,
                   text: 'Login With Facebook',
                   icon: FontAwesomeIcons.facebook,
                   iconcolor: kMainColorPage,
                   textColor: kMainColorPage,
-                  boxColor: kMainColorSplash,
+                  boxColor: const Color(0xff4A5E7C),
                   borderColor: kMainColorPage,
-                  width: 730.w,
+                  width: 740.w,
                 ),
               ),
             ),
@@ -99,11 +100,11 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
             Flexible(
               flex: 2,
               child: Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical:9,
-                    horizontal:  0),
+                 padding: EdgeInsets.only(
+                    top:5,
+                    ),
                 child: CustomGeneralButtom2(
-                  height: 110.h,
+                  height: 115.h,
                   text: 'Login With Email',
                   onTap: () {
                     navigator?.pushAndRemoveUntil(
@@ -114,16 +115,14 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                   textColor: kMainColorPage,
                   icon: FontAwesomeIcons.envelope,
                   iconcolor: kMainColorPage,
-                  boxColor:  Color(0xffF83658),
-                  borderColor: const Color.fromARGB(255, 248, 54, 90),
-                  width: 730.w,
+                  boxColor:  const Color(0xffA26874),
+                  borderColor: const Color(0xffA26874),
+                  width: 740.w,
                 ),
               ),
             ),
            
-             SizedBox(
-               width: 200.w,
-             ),
+           
              Text(
                'Don\'t have an account? ',
                style: TextStyle(
@@ -141,10 +140,10 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                              'Sign Up',
                              style: TextStyle(
              fontFamily: 'Cosffira',
-             fontSize: 50.sp,
-             color: Color(0xff090f0f),
+             fontSize: 55.sp,
+             color: const Color(0xff4A5E7C),
              fontWeight: FontWeight.w900,
-             height: 0.01.h,
+             height: 0.03.h,
                               
                              ),
                            ),

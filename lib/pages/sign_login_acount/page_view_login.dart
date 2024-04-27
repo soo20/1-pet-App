@@ -101,7 +101,7 @@ class _PageViewLoginState extends State<PageViewLogin> {
                               curve: Curves.fastOutSlowIn);
                         }
                       },
-                      textColor: kMainColorPage,
+                      textColor: Color(0xffA26874),
                       icon: FontAwesomeIcons.envelope,
                       iconcolor: kMainColorPage,
                       boxColor: const Color(0xffF83658),

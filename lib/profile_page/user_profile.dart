@@ -10,12 +10,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 
+
 class UserAcount extends StatefulWidget {
    final String? name;
   final String? email;
   final String? phoneNumber;
+  final String? userId;
 
-  const UserAcount({super.key, this.name, this.email, this.phoneNumber, });
+  const UserAcount({super.key, this.name, this.email, this.phoneNumber, this.userId, });
 
   @override
   State<UserAcount> createState() => _UserAcountState();
@@ -70,7 +72,8 @@ void initState() {
                   //color: Colors.amberAccent,
                     image: DecorationImage(
                         image: AssetImage('assets/image/Group998.png'))),
-              )),
+              )
+              ),
              Column(
               children: [
               Padding(

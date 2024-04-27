@@ -350,7 +350,7 @@ class Wwanda extends StatelessWidget {
                         customFontSize: 40.sp,
                         borderColor: const Color(0xff707070),
                         onTap: () {
-                          Get.to(
+                          Get.off(
                             () =>
                                 const LoginText(), // Replace YourNextPage with the actual class for the next page
                             transition: Transition.rightToLeft,

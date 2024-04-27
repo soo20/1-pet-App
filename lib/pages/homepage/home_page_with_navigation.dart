@@ -153,7 +153,7 @@ class _TheMainHomePage extends State<TheMainHomePage> {
                         top: size.width * 0.02,
                       ),
                       onPressed: () {
-                        Get.to(
+                        Get.to(()=>
                            const UserAcount(),
                           transition: Transition.zoom,
                         );

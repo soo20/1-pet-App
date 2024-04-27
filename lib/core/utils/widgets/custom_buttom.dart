@@ -124,7 +124,7 @@ class CustomGeneralButtom2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var aalignment = const Alignment(-0.531, 0.133);
+    var aalignment = const Alignment(-0.7, 0.133);
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -133,7 +133,7 @@ class CustomGeneralButtom2 extends StatelessWidget {
         width: width,
         decoration: BoxDecoration(
           color: boxColor,
-          borderRadius: BorderRadius.circular(50.r),
+          borderRadius: BorderRadius.circular(60.r),
           border: Border.all(color: borderColor!),
         ),
         //The Row widget contains an Expanded widget that wraps your existing
@@ -145,7 +145,7 @@ class CustomGeneralButtom2 extends StatelessWidget {
 
             if (icon != null)
               Padding(
-                padding: EdgeInsets.only(left: 11.1.w),
+                padding: const EdgeInsets.only(left: 24),
                 child: Icon(
                   icon,
                   color: iconcolor,
@@ -163,11 +163,11 @@ class CustomGeneralButtom2 extends StatelessWidget {
                         text!, // Provide a default value if text is null
                         style: TextStyle(
                           fontFamily: 'Cosffira',
-                          fontSize: 40.sp,
+                          fontSize: 48.sp,
                           color: textColor,
-                          fontWeight: FontWeight.w800,
+                          fontWeight: FontWeight.w500,
                         ),
-                        textAlign: TextAlign.left,
+                        textAlign: TextAlign.center,
                         softWrap: false,
                       ),
                     ),
