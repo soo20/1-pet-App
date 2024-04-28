@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
-import 'package:petapplication/pages/my_pets_pages/pet_profile_page.dart';
-
 class DiseasesInformationForPet extends StatefulWidget {
   const DiseasesInformationForPet({
     super.key,

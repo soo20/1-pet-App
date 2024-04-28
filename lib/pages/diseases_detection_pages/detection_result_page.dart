@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:petapplication/pages/diseases_detection_pages/about_information_page.dart';
 import 'package:petapplication/pages/diseases_detection_pages/prevention_information_page.dart';
 import 'package:petapplication/pages/diseases_detection_pages/symptoms_information_page.dart';
-import 'package:petapplication/pages/events_system/events_for_pet.dart';
+
 import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
 import 'package:petapplication/pages/diseases_detection_pages/treatment_information_page.dart';
 import 'package:petapplication/pages/my_pets_pages/diseases_information_page.dart';

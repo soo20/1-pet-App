@@ -3,6 +3,7 @@ import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
 import 'package:petapplication/pages/define_page/widgets/choose_defintion_type.dart';
 import 'package:petapplication/pages/diseases_detection_pages/choose_detection_type.dart';
 import 'package:petapplication/pages/homepage/home_page_content.dart';
@@ -135,7 +136,12 @@ class _TheMainHomePage extends State<TheMainHomePage> {
                   // leading this will put the icon in thr left of app bar as we want to put
                   leading: IconButton(
                     icon: const Icon(Icons.settings, color: Color(0xff4A5E7C)),
-                    onPressed: () {},
+                    onPressed: () {
+                          Get.to(
+                            () =>  Setting( ccontext: context,),
+                            transition: Transition.zoom,
+                          );
+                        },
                     iconSize: 90.sp,
                   ),
                   // Actions on the app bar
