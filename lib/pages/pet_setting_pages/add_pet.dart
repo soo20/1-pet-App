@@ -39,8 +39,8 @@ class _AddPetsState extends State<AddPets> {
       _Selected; // Make _Selected nullable againRemove the nullable operator
   //var _currentItemSelected =
   // Function to open the gallery and select an image
-   XFile? _selectedImage;
-Future<void> _selectImageFromGallery() async {
+  XFile? _selectedImage;
+  Future<void> _selectImageFromGallery() async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
     setState(() {
@@ -48,23 +48,20 @@ Future<void> _selectImageFromGallery() async {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-   DecorationImage? decorationImage;
-if (_selectedImage != null && File(_selectedImage!.path).existsSync()) {
-  decorationImage = DecorationImage(
-    image: FileImage(File(_selectedImage!.path)),
-    fit: BoxFit.fill,
-  );
-} else {
-  decorationImage = const DecorationImage(
-    image: AssetImage('assets/image/Group998.png'),
-    fit: BoxFit.fill,
-  );
-}
-
+    DecorationImage? decorationImage;
+    if (_selectedImage != null && File(_selectedImage!.path).existsSync()) {
+      decorationImage = DecorationImage(
+        image: FileImage(File(_selectedImage!.path)),
+        fit: BoxFit.fill,
+      );
+    } else {
+      decorationImage = const DecorationImage(
+        image: AssetImage('assets/image/Group998.png'),
+        fit: BoxFit.fill,
+      );
+    }
 
     return Scaffold(
       backgroundColor: const Color(0xffEEEFEF),
@@ -441,44 +438,46 @@ if (_selectedImage != null && File(_selectedImage!.path).existsSync()) {
                       height: 80.h,
                     ),
                     CustomGeneralButtom(
-  boxColor: const Color(0xff2A606C),
-  textColor: const Color(0xffFFFFFF),
-  height: 135.h,
-  width: 385.w,
-  borderColor: const Color.fromARGB(108, 112, 112, 112),
-  text: 'Finish',
-  onTap: () {
-    if (_formKey.currentState!.validate()) {
-      // Ensure that the _selectedImage is not null before proceeding
-      if (_selectedImage != null) {
-        // Create a new PetsInformation object with the entered information
-        PetsInformation newPet = PetsInformation(
-          imageUrl: _selectedImage!.path, // Convert XFile to String path
-          petName: petNameController.text,
-          petGender: _Selected ?? '',
-          petId: petIdController.text,
-          petType: petTypeController.text,
-          age: ageController.text,
-        );
+                      boxColor: const Color(0xff2A606C),
+                      textColor: const Color(0xffFFFFFF),
+                      height: 135.h,
+                      width: 385.w,
+                      borderColor: const Color.fromARGB(108, 112, 112, 112),
+                      text: 'Finish',
+                      onTap: () {
+                        if (_formKey.currentState!.validate()) {
+                          // Ensure that the _selectedImage is not null before proceeding
+                          if (_selectedImage != null) {
+                            // Create a new PetsInformation object with the entered information
+                            PetsInformation newPet = PetsInformation(
+                              imageUrl: _selectedImage!
+                                  .path, // Convert XFile to String path
+                              petName: petNameController.text,
+                              petGender: _Selected ?? '',
+                              petId: petIdController.text,
+                              petType: petTypeController.text,
+                              age: ageController.text,
+                              petIsDogOrCat: selectedPetType!,
+                            );
 
-        // Add the new pet to the appropriate list based on petType
-        if (selectedPetType == 'Cat') {
-          catsInformationList.add(newPet);
-        } else {
-          dogsInformationList.add(newPet);
-        }
+                            // Add the new pet to the appropriate list based on petType
+                            setState(() {
+                              if (selectedPetType == 'Cat') {
+                                catsInformationList.add(newPet);
+                              } else {
+                                dogsInformationList.add(newPet);
+                              }
+                            });
 
-        Get.back();
-      } else {
-      }
-    } else {
-      // Handle the case when form validation fails, if needed
-    }
-  },
-  fontWeight: FontWeight.w500,
-  customFontSize: 50.sp,
-),
-
+                            Get.back();
+                          } else {}
+                        } else {
+                          // Handle the case when form validation fails, if needed
+                        }
+                      },
+                      fontWeight: FontWeight.w500,
+                      customFontSize: 50.sp,
+                    ),
 
                     // Conditional rendering of the shadowed container
                   ],
@@ -518,14 +517,14 @@ if (_selectedImage != null && File(_selectedImage!.path).existsSync()) {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                   const CustomGeneralButtom(
-                      boxColor:  Color(0xffE3B1A8),
+                    const CustomGeneralButtom(
+                      boxColor: Color(0xffE3B1A8),
                       textColor: kMainColor,
                       height: 50,
                       width: 150,
                       borderColor: Color(0xffE3B1A8),
                       customFontSize: 20,
-                     // bord: 0.r,
+                      // bord: 0.r,
                       fontWeight: FontWeight.normal,
                       text: 'Camera',
                     ),

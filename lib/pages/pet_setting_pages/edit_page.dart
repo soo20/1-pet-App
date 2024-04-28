@@ -511,6 +511,7 @@ class _EditPetsState extends State<EditPets> {
                               age: ageController.text,
                               imageUrl: widget.petInformation.imageUrl,
                               petId: petIdController.text,
+                              petIsDogOrCat: '',
                             ));
                       },
                       fontWeight: FontWeight.w500,
@@ -556,11 +557,11 @@ class _EditPetsState extends State<EditPets> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const CustomGeneralButtom(
-                      boxColor:  Color(0xffE3B1A8),
+                      boxColor: Color(0xffE3B1A8),
                       textColor: kMainColor,
                       height: 50,
                       width: 150,
-                      borderColor:  Color(0xffE3B1A8),
+                      borderColor: Color(0xffE3B1A8),
                       customFontSize: 20,
                       // bord: 0.r,
                       fontWeight: FontWeight.normal,

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
-
 import 'package:petapplication/pages/define_page/widgets/choose_defintion_type.dart';
 import 'package:petapplication/pages/sign_login_acount/loginbody.dart';
 //import 'package:petapplication/core/utils/widgets/constants.dart';

@@ -45,7 +45,10 @@ class _PetProfilePage extends State<PetProfilePage> {
         toolbarHeight: 110.h,
         actions: [
           IconButton(
-            icon: const Icon(Icons.edit),
+            icon: const Icon(
+              Icons.edit,
+              color: Color(0xffA26874),
+            ),
             onPressed: () {
               Navigator.push(
                 context,

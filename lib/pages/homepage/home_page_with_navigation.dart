@@ -8,7 +8,6 @@ import 'package:petapplication/pages/diseases_detection_pages/choose_detection_t
 import 'package:petapplication/pages/homepage/home_page_content.dart';
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 import 'package:petapplication/pages/setting_bage/setting.dart';
-
 import 'package:petapplication/profile_page/user_profile.dart';
 
 class TheMainHomePage extends StatefulWidget {
@@ -20,6 +19,9 @@ class TheMainHomePage extends StatefulWidget {
   // intialize the object of HomePageAfterAddingTheReminders to set state for it
   State<TheMainHomePage> createState() => _TheMainHomePage();
 }
+
+//var to check if the user is login in or not!!
+bool isLogin = false;
 
 class _TheMainHomePage extends State<TheMainHomePage> {
   var index = 0;
@@ -48,36 +50,35 @@ class _TheMainHomePage extends State<TheMainHomePage> {
                   // to change the icon color when tap on it
                   buttonBackgroundColor: const Color(0xff4A5E7C),
                   // Bottom navigation bar height
-                  height: 170.17.h,
+                  height: size.height * 0.1,
                   // Bottom navigation bar items
                   items: [
                     CurvedNavigationBarItem(
-                      child: index == 0
+                      child:
                           // to change the color of the icon to white when tapping on this item.
-                          ? Image.asset(
-                              'assets/icons/home_page_after_adding_reminders_icons/home_icon_on_pressed.png',
-                              width: 103.49.w,
-                              height: 69.53.h,
-                            )
-                          : Image.asset(
-                              'assets/icons/home_page_after_adding_reminders_icons/home_icon_before_pressed.png',
-                              width: 103.49.w,
-                              height: 69.53.h,
-                            ),
+                          Image.asset(
+                        index == 0
+                            ? 'assets/icons/home_page_after_adding_reminders_icons/home_icon_on_pressed.png'
+                            : 'assets/icons/home_page_after_adding_reminders_icons/home_icon_before_pressed.png',
+                        width: 103.49.w,
+                        height: 69.53.h,
+                      ),
                       label: 'Home',
                       labelStyle: TextStyle(
                         fontFamily: 'Cosffira',
                         fontSize: 42.sp,
                         fontWeight:
                             index == 0 ? FontWeight.w900 : FontWeight.normal,
-                        color: const Color(0xff2A606C),
+                        color: index == 0
+                            ? const Color(0xff4A5E7C)
+                            : const Color(0xff9A9EAC),
                       ),
                     ),
                     CurvedNavigationBarItem(
                       child: Image.asset(
-                        index == 2
+                        index == 1
                             ? 'assets/icons/home_page_after_adding_reminders_icons/diseases_icon_before_pressed.png'
-                            : 'assets/icons/my_pets_page_icons/diseases icon_after_nav.png',
+                            : 'assets/icons/home_page_after_adding_reminders_icons/diseases_icon.png',
                         width: 103.49.w,
                         height: 69.53.h,
                       ),
@@ -86,13 +87,15 @@ class _TheMainHomePage extends State<TheMainHomePage> {
                         fontFamily: 'Cosffira',
                         fontSize: 42.sp,
                         fontWeight: FontWeight.normal,
-                        color: const Color(0xffADBCBF),
+                        color: index == 1
+                            ? const Color(0xff4A5E7C)
+                            : const Color(0xff9A9EAC),
                       ),
                     ),
                     CurvedNavigationBarItem(
                       child: Image.asset(
                         index == 2
-                            ? 'assets/icons/my_pets_page_icons/my_pets_after_nav.png'
+                            ? 'assets/icons/home_page_after_adding_reminders_icons/my_pets_on_pressed.png'
                             : 'assets/icons/home_page_after_adding_reminders_icons/my_pets_before_pressing.png',
                         width: 103.49.w,
                         height: 69.53.h,
@@ -102,21 +105,23 @@ class _TheMainHomePage extends State<TheMainHomePage> {
                         fontFamily: 'Cosffira',
                         fontSize: 42.sp,
                         fontWeight: FontWeight.normal,
-                        color: const Color(0xffADBCBF),
+                        color: index == 2
+                            ? const Color(0xff4A5E7C)
+                            : const Color(0xff9A9EAC),
                       ),
                     ),
                     CurvedNavigationBarItem(
                       child: Image.asset(
                         'assets/icons/home_page_after_adding_reminders_icons/add_pet_icon.png',
-                        width: 149.53.w,
-                        height: 160.28.h,
+                        width: size.width * 0.06,
+                        height: size.height * 0.06,
                       ),
                       label: 'Add pet',
                       labelStyle: TextStyle(
                         fontFamily: 'Cosffira',
                         fontSize: 42.sp,
                         fontWeight: FontWeight.normal,
-                        color: const Color(0xffADBCBF),
+                        color: const Color(0xff9A9EAC),
                       ),
                     ),
                   ],
@@ -127,6 +132,7 @@ class _TheMainHomePage extends State<TheMainHomePage> {
                     : const Color(0xffEFE7E7),
                 // App bar at the top of the screen
                 appBar: AppBar(
+                  surfaceTintColor: Colors.transparent,
                   // Remove any shadow from the app bar
                   elevation: 0.0,
                   // Set the background color of the app bar
@@ -135,7 +141,12 @@ class _TheMainHomePage extends State<TheMainHomePage> {
                   // leading this will put the icon in thr left of app bar as we want to put
                   leading: IconButton(
                     icon: const Icon(Icons.settings, color: Color(0xff4A5E7C)),
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(
+                        Setting(ccontext: context),
+                        transition: Transition.zoom,
+                      );
+                    },
                     iconSize: 90.sp,
                   ),
                   // Actions on the app bar

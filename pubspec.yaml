@@ -144,6 +144,8 @@ flutter:
     - assets/image/disease_detection_result_page_images/about_skin_background_image.png
     - assets/image/diseses_information_for_pet_images/Gizmo_when_not_detection.png
     - assets/icons/diseses_information_for_pet_icons/ill_poop.png
+    - assets/icons/home_page_after_adding_reminders_icons/diseases_icon.png
+    - assets/icons/home_page_after_adding_reminders_icons/my_pets_on_pressed.png
     
 
 
@@ -170,8 +172,6 @@ flutter:
     - assets/icons/kisspng-cat-kitten-dog-veterinarian-veterinary-medicine-cat-wearing-a-stethoscope-5aa8950c1229b5.3690385715209976440744.svg
     - assets/icons/pngtree-dog-yellow-glasses-silence-calm-cartoon-png-image_6661438.svg
     - assets/image/home_page_afterAdding_pets_assets/person_image_in_app_bar.png
-    - assets/icons/home_page_after_adding_reminders_icons/Round Btn Default Dark.png
-    - assets/image/home_page_afterAdding_pets_assets/dog_for_events.png
     - assets/image/home_page_afterAdding_pets_assets/cat_for_events.png
     - assets/icons/home_page_after_adding_reminders_icons/golden-retriever.png
     - assets/icons/home_page_after_adding_reminders_icons/unchecked_button.png
@@ -195,8 +195,6 @@ flutter:
     - assets/icons/my_pets_page_icons/cats_button_icon_before_pressing.png
     - assets/icons/my_pets_page_icons/dogs_button_icon_after_pressing.png
     - assets/icons/my_pets_page_icons/dogs_button_icon_before_pressing.png
-    - assets/icons/my_pets_page_icons/diseases icon_after_nav.png
-    - assets/icons/my_pets_page_icons/my_pets_after_nav.png
     - assets/icons/pet_profile_page_icons/events_icon.png
     - assets/icons/pet_profile_page_icons/info icon.png
     - assets/icons/pet_profile_page_icons/Bacterial icon for skin disease.png
