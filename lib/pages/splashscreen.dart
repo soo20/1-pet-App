@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    int backgroundColor = 0xFFBBB2B4;
+    int backgroundColor = 0xFFB5C0D0;
     // Color code represented as an integer
     return Scaffold(
       backgroundColor: Color(backgroundColor),
@@ -48,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen>
             Image.asset(
               'assets/image/Group286.png',
               //set the width of image
-              width: 694.w,
+              width: 700.w,
             ),
 
             //you have two different text styles, so we make two text widgets.
@@ -66,14 +66,14 @@ class _SplashScreenState extends State<SplashScreen>
                   //to customize your font.
                   fontFamily: 'Cosffira',
                   //to make adaptive font size we call 'sp' function.
-                  fontSize: 140.sp,
-                  color: const Color.fromRGBO(11, 47, 55, 1),
+                  fontSize: 150.sp,
+                  color: const Color(0xff19283F),
                   //to make your font bold or normal "regular".
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-
+          const SizedBox(height: 10,),
             Text(
               // we put the text string.
               'I\'m Yuna. Ready to explore the world of pets together?',
@@ -81,8 +81,8 @@ class _SplashScreenState extends State<SplashScreen>
               style: TextStyle(
                 fontFamily: 'Cosffira',
                 //to make adaptive font size we call 'sp' function.
-                fontSize: 34.sp,
-                color: const Color.fromRGBO(0, 0, 0, 1),
+                fontSize: 42.sp,
+                color: const Color.fromARGB(255, 0, 0, 0),
                 //to make your font normal "regular" or bold.
                 fontWeight: FontWeight.normal,
               ),

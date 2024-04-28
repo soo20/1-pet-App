@@ -157,9 +157,9 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                      isSurfacePainted: false,
                      child: Container(
                        width: 1080.w,
-                       height: 1000.h,
+                       height: 1070.h,
                        decoration: BoxDecoration(
-                         color: const Color(0xffEEEFEF),
+                         color: const Color(0xffDCD3D3),
                          borderRadius: const BorderRadius.only(
                            topLeft: Radius.circular(70.0),
                            topRight: Radius.circular(70.0),
@@ -186,8 +186,8 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                                  TextSpan(
                                    style: TextStyle(
                                      fontFamily: 'Cosffira',
-                                     fontSize: 70.sp,
-                                     color: Color(0xfff83658),
+                                     fontSize: 100.sp,
+                                     color: Color(0xff354A6B),
                                      height: 1.0434782608695652,
                                    ),
                                    children: const [

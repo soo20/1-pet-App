@@ -1,11 +1,14 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
+
+import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
 import 'package:petapplication/pages/pageforgetpass/my_verify_pass.dart';
+
 //import 'package:flutter_svg/svg.dart';
 
 class LoginInfo extends StatefulWidget {
@@ -16,12 +19,37 @@ class LoginInfo extends StatefulWidget {
 }
 
 class _LoginInfoState extends State<LoginInfo> {
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _pass = TextEditingController();
+   String? validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'enter your email please';
+    } else {
+      // Regular expression to validate email format
+      const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
+          r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
+          r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*'
+          r'[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4]'
+          r'[0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9]'
+          r'[0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\'
+          r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
+      final regex = RegExp(pattern);
+
+      if (!regex.hasMatch(value)) {
+        return 'Invalid email';
+      }
+    }
+    return null; // Return null if the email is valid
+  }
+ // login function
+ 
   bool _obscureText3 = true;
   @override
   Widget build(BuildContext context) {
     // double aspectRatio = screenHeight / screenWidth;
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      
       backgroundColor: const Color.fromARGB(255, 206, 201, 201),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -30,7 +58,7 @@ class _LoginInfoState extends State<LoginInfo> {
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_rounded,
-            color: kMainColor,
+            color: Color(0xff354A6B),
           ),
           onPressed: () {
             Navigator.of(context).pop();
@@ -41,54 +69,46 @@ class _LoginInfoState extends State<LoginInfo> {
         ),
       ),
       extendBodyBehindAppBar: true,
-      body: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(60.0, 50, 80, 200),
-            child: Container(
-              width: 440.w,
-              height: 512.h,
-              decoration: BoxDecoration(
-                  border: Border.all(width: 4, color: Colors.transparent),
-                  boxShadow: [
-                    BoxShadow(
-                        spreadRadius: 2.r,
-                        blurRadius: 10,
-                        color: Colors.black.withOpacity(0.2))
-                  ],
-                  shape: BoxShape.circle,
-                  image: const DecorationImage(
-                      fit: BoxFit.contain,
-                      image: AssetImage(
-                        'assets/image/Group286.png',
-                      ))),
+      body: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.only(top: 30, right: 0),
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.fill,
+                image: AssetImage(
+                  'assets/image/login.png',
+                ))),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 15, 130, 00),
+              child: Container(
+                width: 195,
+                height: 195,
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/image/Group286.png'))),
+              ),
             ),
-          ),
-          Positioned(child: content())
-        ],
+            content()
+          ],
+        ),
       ),
     );
   }
+  final _formKey = GlobalKey<FormState>();
 
   Widget content() {
-    var emailController = TextEditingController();
-    var passController = TextEditingController();
+    
     var border = OutlineInputBorder(
         borderRadius: BorderRadius.circular(50.r),
         borderSide: const BorderSide(
             width: 0.5, color: Color.fromARGB(70, 112, 112, 112)));
 
     return Padding(
-      padding: const EdgeInsets.only(top: 135),
-      child: Container(
-        height: 1550.h,
-        width: 1080.w,
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(
-                  'assets/image/login.png',
-                ),
-                fit: BoxFit.fill)),
+      padding: const EdgeInsets.only(top: 0),
+      child: Form(
+        key: _formKey,
         child: Column(
           children: [
             Container(
@@ -100,27 +120,33 @@ class _LoginInfoState extends State<LoginInfo> {
                     color: Colors.grey.withOpacity(0.2))
               ]),
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(35, 170, 35, 20),
-                child: TextField(
-                  controller: emailController,
+                padding: const EdgeInsets.fromLTRB(35, 60, 35, 0),
+                child: TextFormField(
+                  validator: validateEmail,
+                  controller: _email,
                   obscureText: false,
-                  style: const TextStyle(color: Color(0xff090F0F)),
+                  style: TextStyle(
+                        fontFamily: 'Cosffira',
+                        fontSize: 50.sp,
+                        color: const Color(0xff354A6B),
+                        fontWeight: FontWeight.w600,
+                      ),
                   decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(vertical: 15),
+                      contentPadding: const EdgeInsets.symmetric(vertical: 20),
                       fillColor: const Color(0xFFFFFFFF),
                       filled: true,
                       hintText: 'Email',
                       hintStyle: TextStyle(
                         fontFamily: 'Cosffira',
-                        fontSize: 35.sp,
-                        color: const Color.fromARGB(116, 19, 79, 92),
+                        fontSize: 50.sp,
+                        color: const Color(0xffB5C0D0),
                         fontWeight: FontWeight.w600,
                       ),
                       enabledBorder: border,
                       focusedBorder: border,
                       prefixIcon: const Icon(
                         Icons.email,
-                        color: Color.fromARGB(116, 19, 79, 92),
+                        color:  Color(0xffB5C0D0),
                       )),
                 ),
               ),
@@ -137,20 +163,31 @@ class _LoginInfoState extends State<LoginInfo> {
                     color: Colors.grey.withOpacity(0.2))
               ]),
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(35, 0, 35, 0),
-                child: TextField(
+                padding: const EdgeInsets.fromLTRB(35, 15, 35, 0),
+                child: TextFormField(
+                  validator: (text) {
+                    if (text == null || text.isEmpty) {
+                      return 'please Enter Password';
+                    }
+                    return null;
+                  },
                   obscureText: _obscureText3,
-                  controller: passController,
+                  controller: _pass,
                   // obscureText: true,
-                  style: const TextStyle(color: Color(0xff090F0F)),
+                   style: TextStyle(
+                        fontFamily: 'Cosffira',
+                        fontSize: 50.sp,
+                        color: const Color(0xff354A6B),
+                        fontWeight: FontWeight.w600,
+                      ),
                   decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(vertical: 15),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 20),
                     suffixIcon: IconButton(
                       icon: Icon(
                         _obscureText3
                             ? Icons.visibility_off_outlined
                             : Icons.visibility_outlined,
-                        color: const Color.fromARGB(116, 19, 79, 92),
+                         color: const Color(0xffB5C0D0),
                       ),
                       onPressed: () {
                         setState(() {
@@ -163,34 +200,41 @@ class _LoginInfoState extends State<LoginInfo> {
                     hintText: 'Password',
                     hintStyle: TextStyle(
                       fontFamily: 'Cosffira',
-                      fontSize: 35.sp,
-                      color: const Color.fromARGB(116, 19, 79, 92),
+                      fontSize: 50.sp,
+                     color: const Color(0xffB5C0D0),
                       fontWeight: FontWeight.w600,
                     ),
                     enabledBorder: border,
                     focusedBorder: border,
+                 // suffixText: "soha",
                     prefixIcon: const Icon(
                       Icons.vpn_key,
-                      color: Color.fromARGB(116, 19, 79, 92),
+                      color: Color(0xffB5C0D0),
                     ),
                   ),
                 ),
               ),
             ),
             SizedBox(
-              height: 90.h,
+              height: 150.h,
               width: 0,
             ),
             CustomGeneralButtom(
-              boxColor: const Color(0xff134F5C),
+              boxColor: const Color(0xff354A6B),
               textColor: const Color(0xffFFFFFF),
-              height: 140.h,
-              width: 350.w,
+              height: 150.h,
+              width: 400.w,
+              customFontSize: 55.sp,
               text: 'Log in',
               borderColor: const Color(0xff707070),
               fontWeight: FontWeight.w700,
               onTap: () {
-                // Get.to(() => const HomePage(), transition: Transition.zoom);
+                if (_formKey.currentState!.validate() ) {
+                
+                Get.to(() => const TheMainHomePage(), transition: Transition.zoom);
+                }
+              
+                // 
               },
             ),
             Center(
@@ -199,15 +243,15 @@ class _LoginInfoState extends State<LoginInfo> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 120.h,
-                    width: 40.w,
+                    height: 130.h,
+                    width: 0.w,
                   ),
                   RichText(
                     text: TextSpan(
                       text: 'Forget Your Password? ',
                       style: TextStyle(
                         fontFamily: 'Cosffira',
-                        fontSize: 40.sp,
+                        fontSize: 45.sp,
                         color: const Color(0xff090f0f),
                         fontWeight: FontWeight.w400,
                       ),
@@ -216,8 +260,8 @@ class _LoginInfoState extends State<LoginInfo> {
                           text: 'click here',
                           style: TextStyle(
                             fontFamily: 'Cosffira',
-                            fontSize: 40.sp,
-                            color: const Color(0xffF83658),
+                            fontSize: 45.sp,
+                            color: const Color(0xffA26874),
                             fontWeight: FontWeight.w800,
                           ),
                           // Add onTap callback to navigate to the next page
