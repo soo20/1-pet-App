@@ -106,8 +106,8 @@ class BuildEventCard extends StatelessWidget {
       margin: EdgeInsets.only(right: size.width * 0.001),
       child: Card(
         color: petInformation.petType == 'cat'
-            ? const Color(0xffE3B1A8)
-            : const Color(0xffB8D8D4),
+            ? const Color(0xffA26874)
+            : const Color(0xffB5C0D0),
         elevation: 0.0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(36.0.r),
@@ -175,8 +175,9 @@ class BuildEventCard extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          foregroundColor:
-                              const MaterialStatePropertyAll(Color(0xff2A606C)),
+                          foregroundColor: const MaterialStatePropertyAll(
+                            Color(0xff4A5E7C),
+                          ),
                           backgroundColor: const MaterialStatePropertyAll(
                             Color.fromARGB(255, 248, 241, 227),
                           ),

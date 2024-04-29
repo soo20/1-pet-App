@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:petapplication/pages/homepage/scrolled_events.dart';
 import 'package:petapplication/pages/homepage/scrolled_reminder.dart';
+import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
+import 'package:petapplication/some_files_to_data/today_and_future_reminders_data.dart';
 
 /* We will use a stateful widget for this page since the content contains a dynamic variable. */
 class HomePageAfterAddingPets extends StatefulWidget {
@@ -16,7 +18,7 @@ const ScrolledEvents scrolledEvents = ScrolledEvents();
 List<Widget> itemsData = [];
 // These variables allow Textbuttons to change their style when pressed.
 // "textColor" variable refers to the color of the text button for today's tasks before it is pressed.
-Color textColor = const Color(0xff2A606C);
+Color textColor = const Color(0xff4A5E7C);
 /* 
    The boolean variable "onPressedText" is used to determine the color 
    of the text button for today's tasks after it has been pressed. 
@@ -45,15 +47,22 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
   bool closeTopevents = false;
   double topContainer = 0;
   List<Widget> checkedList = [];
+  List<Reminders> todayReminders = [];
+  List<Reminders> futureReminders = [];
 
   // Method to get reminder cards
   void getCards() {
     // List containing data for each reminder card
-    List<dynamic> responseList = Reminders.reminderInformationList;
+
     List<Widget> listItems = [];
 
+    mergeReminders(
+        petsList: petsList,
+        futureEvents: futureReminders,
+        todayReminders: todayReminders);
+
     // Iterate through the responseList to create reminder cards
-    for (final Reminders item in responseList) {
+    for (final Reminders item in todayReminders) {
       listItems.add(BuildReminderCard(
         remindersData: item,
         onPressed: () {
@@ -63,6 +72,7 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
     }
     setState(() {
       // to store cards in itemsData variable and make a state for this
+
       itemsData = listItems;
     });
   }
@@ -81,27 +91,22 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
       margin: EdgeInsets.all(size.height * 0.008),
       child: Column(
         children: <Widget>[
-          // Animated container for future events text
-
-          // This widget animates its size, position, and other properties.
           Container(
-            // The total duration of the container size and position
-            // animation is set to 600 milliseconds (0.6 seconds).
-
             width: size.width,
             alignment: Alignment.centerLeft,
             height: size.height * 0.065,
             padding: EdgeInsets.only(
-                left: MediaQuery.sizeOf(context).width * 0.02,
-                bottom: 0.0,
-                top: 0.0),
+              left: MediaQuery.sizeOf(context).width * 0.02,
+              bottom: 0.0,
+              top: 0.0,
+            ),
             child: Text(
               'Future Events',
               style: TextStyle(
                 fontFamily: 'Cosffira',
                 fontSize: size.width * 0.090,
                 fontWeight: FontWeight.w800,
-                color: const Color(0xff2A606C),
+                color: const Color(0xff4A5E7C),
                 shadows: [
                   Shadow(
                     color: const Color(0xff000000),
@@ -115,14 +120,29 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
 
           // Animated container for future events cards
           // the same explain for "Animated container for future events text"
-
-          Container(
-              width: size.width,
-              alignment: Alignment.topCenter,
-              // When we scroll, the reminders feature events will appear at a height of 0.
-              height: size.height * 0.15,
-              // We will apply this animation on the 'scrolledEvents' object.
-              child: scrolledEvents),
+          futureReminders.isNotEmpty
+              ? Container(
+                  width: size.width,
+                  alignment: Alignment.topCenter,
+                  // When we scroll, the reminders feature events will appear at a height of 0.
+                  height: size.height * 0.15,
+                  // We will apply this animation on the 'scrolledEvents' object.
+                  child: scrolledEvents)
+              : Padding(
+                  padding: EdgeInsets.only(
+                    top: size.height * 0.03,
+                    bottom: size.height * 0.03,
+                  ),
+                  child: Text(
+                    'There Are No Events Yet',
+                    style: TextStyle(
+                      fontFamily: 'Cosffira',
+                      fontSize: size.width * 0.049,
+                      fontWeight: FontWeight.normal,
+                      color: const Color.fromARGB(145, 154, 158, 172),
+                    ),
+                  ),
+                ),
 
           // Row containing TextButtons for Today Tasks and Complete Tasks
           Row(
@@ -135,8 +155,8 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
                   setState(() {
                     onPressedText = true;
                     onPressedText2 = false;
-                    textColor = const Color(0xff2A606C);
-                    textColor2 = const Color(0xffADBCBF);
+                    textColor = const Color(0xff4A5E7C);
+                    textColor2 = const Color(0xff9A9EAC);
                   });
                 },
                 child: Text('Today Tasks',
@@ -167,8 +187,8 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
                   setState(() {
                     onPressedText2 = true;
                     onPressedText = false;
-                    textColor2 = const Color(0xff2A606C);
-                    textColor = const Color(0xffADBCBF);
+                    textColor2 = const Color(0xff4A5E7C);
+                    textColor = const Color(0xff9A9EAC);
                   });
                 },
                 child: Text('Complete Tasks',
@@ -202,34 +222,47 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
                   it is used within a Column or Row to specify how much
                   of the available vertical or horizontal space a child widget should occupy.
                 */
+          todayReminders.isNotEmpty
+              ? Builder(builder: (_) {
+                  final List itemList = (onPressedText)
+                      ? todayReminders.where((e) => !e.checked).toList()
+                      : todayReminders.where((e) => e.checked).toList();
 
-          Builder(builder: (_) {
-            final List itemList = (onPressedText)
-                ? Reminders.reminderInformationList
-                    .where((e) => !e.checked)
-                    .toList()
-                : Reminders.reminderInformationList
-                    .where((e) => e.checked)
-                    .toList();
-
-            return Expanded(
-              child: ListView.builder(
-                controller: controller,
-                itemCount: itemList.length,
-                physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) {
-                  final Reminders remainder = itemList[index];
-                  return BuildReminderCard(
-                    remindersData: remainder,
-                    onPressed: () {
-                      setState(() => remainder.checked = !remainder.checked);
-                    },
+                  return Expanded(
+                    child: ListView.builder(
+                      controller: controller,
+                      itemCount: itemList.length,
+                      physics: const BouncingScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        final Reminders remainder = itemList[index];
+                        return BuildReminderCard(
+                          remindersData: remainder,
+                          onPressed: () {
+                            setState(
+                                () => remainder.checked = !remainder.checked);
+                          },
+                        );
+                        // return itemsData[index];
+                      },
+                    ),
                   );
-                  // return itemsData[index];
-                },
-              ),
-            );
-          }),
+                })
+              : Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      top: size.height * 0.08,
+                    ),
+                    child: Text(
+                      'You have no tasks for today or you\n    haven\'t created any tasks yet.',
+                      style: TextStyle(
+                        fontFamily: 'Cosffira',
+                        fontSize: size.width * 0.049,
+                        fontWeight: FontWeight.normal,
+                        color: const Color.fromARGB(145, 154, 158, 172),
+                      ),
+                    ),
+                  ),
+                ),
         ],
       ),
     );

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
+
 class DiseasesInformationForPet extends StatefulWidget {
   const DiseasesInformationForPet({
     super.key,
@@ -13,15 +16,16 @@ class DiseasesInformationForPet extends StatefulWidget {
 }
 
 class _DiseasesInformationForPetState extends State<DiseasesInformationForPet> {
-  get petInformation => null;
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return PopScope(
       canPop: false,
       //to custom the navigation distination that i want
-      onPopInvoked: (bool c) => Navigator.pushNamed(context, 'home'),
+      onPopInvoked: (bool c) => navigator!.pushAndRemoveUntil(
+        MaterialPageRoute(builder: (e) => const TheMainHomePage()),
+        (route) => true,
+      ),
       child: SafeArea(
           child: Scaffold(
         backgroundColor: const Color(0xffEFE7E7),

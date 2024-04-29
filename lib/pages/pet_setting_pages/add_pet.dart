@@ -39,8 +39,8 @@ class _AddPetsState extends State<AddPets> {
       _Selected; // Make _Selected nullable againRemove the nullable operator
   //var _currentItemSelected =
   // Function to open the gallery and select an image
-   XFile? _selectedImage;
-Future<void> _selectImageFromGallery() async {
+  XFile? _selectedImage;
+  Future<void> _selectImageFromGallery() async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
     setState(() {
@@ -48,23 +48,20 @@ Future<void> _selectImageFromGallery() async {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-   DecorationImage? decorationImage;
-if (_selectedImage != null && File(_selectedImage!.path).existsSync()) {
-  decorationImage = DecorationImage(
-    image: FileImage(File(_selectedImage!.path)),
-    fit: BoxFit.fill,
-  );
-} else {
-  decorationImage = const DecorationImage(
-    image: AssetImage('assets/image/Group998.png'),
-    fit: BoxFit.fill,
-  );
-}
-
+    DecorationImage? decorationImage;
+    if (_selectedImage != null && File(_selectedImage!.path).existsSync()) {
+      decorationImage = DecorationImage(
+        image: FileImage(File(_selectedImage!.path)),
+        fit: BoxFit.fill,
+      );
+    } else {
+      decorationImage = const DecorationImage(
+        image: AssetImage('assets/image/Group998.png'),
+        fit: BoxFit.fill,
+      );
+    }
 
     return Scaffold(
       backgroundColor: const Color(0xffEEEFEF),
@@ -460,7 +457,7 @@ if (_selectedImage != null && File(_selectedImage!.path).existsSync()) {
                               petGender: _Selected ?? '',
                               petId: petIdController.text,
                               petType: petTypeController.text,
-                              age: ageController.text,
+                              age: ageController.text, petIsDogOrCat: selectedPetType!,
                             );
                     
                             // Add the new pet to the appropriate list based on petType
@@ -524,14 +521,14 @@ if (_selectedImage != null && File(_selectedImage!.path).existsSync()) {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                   const CustomGeneralButtom(
-                      boxColor:  Color(0xffE3B1A8),
+                    const CustomGeneralButtom(
+                      boxColor: Color(0xffE3B1A8),
                       textColor: kMainColor,
                       height: 50,
                       width: 150,
                       borderColor: Color(0xffE3B1A8),
                       customFontSize: 20,
-                     // bord: 0.r,
+                      // bord: 0.r,
                       fontWeight: FontWeight.normal,
                       text: 'Camera',
                     ),
