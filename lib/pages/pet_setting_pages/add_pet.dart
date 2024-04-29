@@ -74,78 +74,80 @@ if (_selectedImage != null && File(_selectedImage!.path).existsSync()) {
           padding: const EdgeInsets.only(top: 30),
           child: ListView(
             children: [
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          showSecondContainer =
-                              !showSecondContainer; // Toggle the visibility of the second container
-                        });
-                      },
-                      child: Container(
-                        height: 280.h,
-                        width: 270.w,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          // If _imagePath is not null, display the selected image, else display a placeholder
-                          image: decorationImage,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 70, left: 70),
-                          child: Container(
-                            height: 50.h,
-                            width: 50.w,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                width: 0.5,
-                                color: Colors.white,
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  spreadRadius: 2,
-                                  blurRadius: 10,
-                                  color: Colors.black.withOpacity(0.13),
-                                  offset: const Offset(0, 10),
-                                )
-                              ],
-                              color: const Color(0xff80CBC4),
+              Column(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        showSecondContainer =
+                            !showSecondContainer; // Toggle the visibility of the second container
+                      });
+                    },
+                    child: Container(
+                      height: 280.h,
+                      width: 270.w,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        // If _imagePath is not null, display the selected image, else display a placeholder
+                        image: decorationImage,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 70, left: 70),
+                        child: Container(
+                          height: 50.h,
+                          width: 50.w,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              width: 0.5,
+                              color: Colors.white,
                             ),
-                            child: const Icon(
-                              Icons.edit,
-                              size: 20,
-                              color: Color.fromARGB(190, 0, 0, 0),
-                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                spreadRadius: 2,
+                                blurRadius: 10,
+                                color: Colors.black.withOpacity(0.13),
+                                offset: const Offset(0, 10),
+                              )
+                            ],
+                            color: const Color(0xff80CBC4),
+                          ),
+                          child: const Icon(
+                            Icons.edit,
+                            size: 20,
+                            color: Color.fromARGB(190, 0, 0, 0),
                           ),
                         ),
                       ),
                     ),
-
-                    SizedBox(
-                      height: 50.h,
+                  ),
+              
+                  SizedBox(
+                    height: 50.h,
+                  ),
+                  Text(
+                    'MAIN INFORMATION',
+                    style: TextStyle(
+                      fontFamily: 'Cosffira',
+                      fontSize: 85.sp,
+                      color: const Color(0xff80cbc4),
+                      fontWeight: FontWeight.w700,
+                      shadows: [
+                        Shadow(
+                          color: const Color(0xa1000000),
+                          offset: const Offset(0, 1.5),
+                          blurRadius: 6.r,
+                        )
+                      ],
                     ),
-                    Text(
-                      'MAIN INFORMATION',
-                      style: TextStyle(
-                        fontFamily: 'Cosffira',
-                        fontSize: 85.sp,
-                        color: const Color(0xff80cbc4),
-                        fontWeight: FontWeight.w700,
-                        shadows: [
-                          Shadow(
-                            color: const Color(0xa1000000),
-                            offset: const Offset(0, 1.5),
-                            blurRadius: 6.r,
-                          )
-                        ],
-                      ),
-                      textAlign: TextAlign.center,
-                      softWrap: false,
-                    ),
-                    //1
+                    textAlign: TextAlign.center,
+                    softWrap: false,
+                  ),
+                  //1
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
                     Padding(
                       padding:
                           const EdgeInsets.only(left: 40, right: 40, top: 10),
@@ -220,7 +222,7 @@ if (_selectedImage != null && File(_selectedImage!.path).existsSync()) {
                       ),
                     ),
                     //3
-
+                    
                     Padding(
                       padding:
                           const EdgeInsets.only(left: 40, right: 40, top: 10),
@@ -259,7 +261,7 @@ if (_selectedImage != null && File(_selectedImage!.path).existsSync()) {
                       ),
                     ),
                     // 4
-
+                    
                     /* DropdownButton(
                       value: _Selected,
                          items: _gender.map((e) => DropdownMenuItem(child: Text(e), value: e)).toList(),
@@ -328,7 +330,7 @@ if (_selectedImage != null && File(_selectedImage!.path).existsSync()) {
                         },
                       ),
                     ),
-
+                    
                     //
                     Padding(
                       padding:
@@ -388,7 +390,7 @@ if (_selectedImage != null && File(_selectedImage!.path).existsSync()) {
                         },
                       ),
                     ),
-
+                    
                     // 5
                     Padding(
                       padding:
@@ -441,48 +443,52 @@ if (_selectedImage != null && File(_selectedImage!.path).existsSync()) {
                       height: 80.h,
                     ),
                     CustomGeneralButtom(
-  boxColor: const Color(0xff2A606C),
-  textColor: const Color(0xffFFFFFF),
-  height: 135.h,
-  width: 385.w,
-  borderColor: const Color.fromARGB(108, 112, 112, 112),
-  text: 'Finish',
-  onTap: () {
-    if (_formKey.currentState!.validate()) {
-      // Ensure that the _selectedImage is not null before proceeding
-      if (_selectedImage != null) {
-        // Create a new PetsInformation object with the entered information
-        PetsInformation newPet = PetsInformation(
-          imageUrl: _selectedImage!.path, // Convert XFile to String path
-          petName: petNameController.text,
-          petGender: _Selected ?? '',
-          petId: petIdController.text,
-          petType: petTypeController.text,
-          age: ageController.text,
-        );
-
-        // Add the new pet to the appropriate list based on petType
-        if (selectedPetType == 'Cat') {
-          catsInformationList.add(newPet);
-        } else {
-          dogsInformationList.add(newPet);
-        }
-
-        Get.back();
-      } else {
-      }
-    } else {
-      // Handle the case when form validation fails, if needed
-    }
-  },
-  fontWeight: FontWeight.w500,
-  customFontSize: 50.sp,
-),
-
-
-                    // Conditional rendering of the shadowed container
-                  ],
-                ),
+                      boxColor: const Color(0xff2A606C),
+                      textColor: const Color(0xffFFFFFF),
+                      height: 135.h,
+                      width: 385.w,
+                      borderColor: const Color.fromARGB(108, 112, 112, 112),
+                      text: 'Finish',
+                      onTap: () {
+                        if (_formKey.currentState!.validate()) {
+                          // Ensure that the _selectedImage is not null before proceeding
+                          
+                            // Create a new PetsInformation object with the entered information
+                            PetsInformation newPet = PetsInformation(
+                              imageUrl: _selectedImage?.path ?? 'assets/image/Group998.png', // Convert XFile to String path
+                              petName: petNameController.text,
+                              petGender: _Selected ?? '',
+                              petId: petIdController.text,
+                              petType: petTypeController.text,
+                              age: ageController.text,
+                            );
+                    
+                            // Add the new pet to the appropriate list based on petType
+                            if (selectedPetType == 'Cat') {
+                              catsInformationList.add(newPet);
+                            } else {
+                              dogsInformationList.add(newPet);
+                            }
+                    
+                            Get.back();
+                         
+                        } else {
+                          // Handle the case when form validation fails, if needed
+                        }
+                      },
+                      fontWeight: FontWeight.w500,
+                      customFontSize: 50.sp,
+                    ),
+                    
+                    
+                    
+                    
+                                      ]
+                                    ),
+                  )
+              
+                  // Conditional rendering of the shadowed container
+                ],
               ),
             ],
           ),
