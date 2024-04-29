@@ -25,7 +25,7 @@ class TheMainHomePage extends StatefulWidget {
 bool isLogin = false;
 
 class _TheMainHomePage extends State<TheMainHomePage> {
-    int index = 0;
+    late int index;
   final screens = [
     const HomePageAfterAddingPets(),
     const ChooseDetectionType(),
