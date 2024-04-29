@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
@@ -58,13 +59,13 @@ class _AddPetsState extends State<AddPets> {
       );
     } else {
       decorationImage = const DecorationImage(
-        image: AssetImage('assets/image/Group998.png'),
+        image: AssetImage('assets/image/profileImage.png'),
         fit: BoxFit.fill,
       );
     }
 
     return Scaffold(
-      backgroundColor: const Color(0xffEEEFEF),
+      backgroundColor: const Color(0xffEFE6E5),
       extendBodyBehindAppBar: true,
       body: SafeArea(
         child: Container(
@@ -89,10 +90,10 @@ class _AddPetsState extends State<AddPets> {
                         image: decorationImage,
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 70, left: 70),
+                        padding: const EdgeInsets.only(top: 75, left: 75),
                         child: Container(
-                          height: 50.h,
-                          width: 50.w,
+                          height: 45.h,
+                          width: 45.w,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             border: Border.all(
@@ -107,12 +108,12 @@ class _AddPetsState extends State<AddPets> {
                                 offset: const Offset(0, 10),
                               )
                             ],
-                            color: const Color(0xff80CBC4),
+                            color: const Color(0xffA26874),
                           ),
                           child: const Icon(
-                            Icons.edit,
+                            Icons.add,
                             size: 20,
-                            color: Color.fromARGB(190, 0, 0, 0),
+                            color:  Color(0xffFFFFFF),
                           ),
                         ),
                       ),
@@ -127,7 +128,7 @@ class _AddPetsState extends State<AddPets> {
                     style: TextStyle(
                       fontFamily: 'Cosffira',
                       fontSize: 85.sp,
-                      color: const Color(0xff80cbc4),
+                      color: const Color(0xff354A6B),
                       fontWeight: FontWeight.w700,
                       shadows: [
                         Shadow(
@@ -279,8 +280,8 @@ class _AddPetsState extends State<AddPets> {
                           }
                           return null;
                         },
-                        dropdownColor: const Color(0xffB8D8D4),
-                        iconEnabledColor: const Color(0xffB8D8D4),
+                        dropdownColor: const Color(0xffA26874),
+                        iconEnabledColor: const Color(0xffA26874),
                         style: TextStyle(
                           fontFamily: 'Cosffira',
                           fontSize: 45.sp,
@@ -321,7 +322,7 @@ class _AddPetsState extends State<AddPets> {
                             return Text(
                               item,
                               style: const TextStyle(
-                                  color: Color.fromARGB(255, 162, 192, 189)),
+                                  color: Colors.black),
                             );
                           }).toList();
                         },
@@ -339,8 +340,8 @@ class _AddPetsState extends State<AddPets> {
                           }
                           return null;
                         },
-                        dropdownColor: const Color(0xffB8D8D4),
-                        iconEnabledColor: const Color(0xffB8D8D4),
+                        dropdownColor: const Color(0xffA26874),
+                        iconEnabledColor: const Color(0xffA26874),
                         style: TextStyle(
                           fontFamily: 'Cosffira',
                           fontSize: 45.sp,
@@ -381,7 +382,7 @@ class _AddPetsState extends State<AddPets> {
                             return Text(
                               item,
                               style: const TextStyle(
-                                  color: Color.fromARGB(255, 162, 192, 189)),
+                                  color: Colors.black),
                             );
                           }).toList();
                         },
@@ -440,11 +441,11 @@ class _AddPetsState extends State<AddPets> {
                       height: 80.h,
                     ),
                     CustomGeneralButtom(
-                      boxColor: const Color(0xff2A606C),
+                      boxColor: const Color(0xffA26874),
                       textColor: const Color(0xffFFFFFF),
                       height: 135.h,
                       width: 385.w,
-                      borderColor: const Color.fromARGB(108, 112, 112, 112),
+                      borderColor: const Color(0xffA26874),
                       text: 'Finish',
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
@@ -495,14 +496,14 @@ class _AddPetsState extends State<AddPets> {
           ? GestureDetector(
               onTap: () {
                 setState(() {
-                  showSecondContainer = false; // hide container when tapped
+                  showSecondContainer = F; // hide container when tapped
                 });
               },
               child: Container(
                 height: 165,
                 width: double.infinity,
                 decoration: const BoxDecoration(
-                  color: Color.fromARGB(208, 132, 162, 158),
+                  color:   Color(0xffDCD3D3),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(50.0),
                     topRight: Radius.circular(50.0),
@@ -522,11 +523,11 @@ class _AddPetsState extends State<AddPets> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const CustomGeneralButtom(
-                      boxColor: Color(0xffE3B1A8),
-                      textColor: kMainColor,
+                      boxColor: Color(0xff4A5E7C),
+                      textColor:  Color(0xffffffff),
                       height: 50,
                       width: 150,
-                      borderColor: Color(0xffE3B1A8),
+                      borderColor: Color(0xffB5C0D0),
                       customFontSize: 20,
                       // bord: 0.r,
                       fontWeight: FontWeight.normal,
@@ -536,12 +537,12 @@ class _AddPetsState extends State<AddPets> {
                       width: 30,
                     ),
                     CustomGeneralButtom(
-                      boxColor: const Color.fromARGB(255, 132, 193, 187),
-                      textColor: kMainColor,
+                      boxColor: const Color(0xffA26874),
+                      textColor: const Color(0xffffffff),
                       height: 50,
                       width: 150,
                       //bord: 0.r,
-                      borderColor: const Color(0xff80CBC4),
+                      borderColor: const Color(0xffEFE6E5),
                       customFontSize: 20,
                       fontWeight: FontWeight.normal,
                       text: 'Gallery',
