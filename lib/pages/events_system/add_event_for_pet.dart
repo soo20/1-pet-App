@@ -2,12 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:petapplication/pages/events_system/events_for_pet.dart';
 
 class AddTaskDialog extends StatefulWidget {
-  const AddTaskDialog({super.key});
-
+  const AddTaskDialog({super.key, required this.petInfo});
+  final PetsInformation petInfo;
   @override
   _AddTaskDialogState createState() => _AddTaskDialogState();
 }
@@ -50,7 +51,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
       final ReminderData reminderData =
           createReminderData(selectedDate, reminderTime, currentItemSelected);
       setState(() {
-        remindersForPet.add(reminderData);
+        widget.petInfo.remindersData.add(reminderData);
       });
       // Add the ReminderData object to the list
 

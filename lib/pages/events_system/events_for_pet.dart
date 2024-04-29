@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 import 'package:petapplication/pages/events_system/add_event_for_pet.dart';
-import 'package:petapplication/some_files_to_data/today_and_future_reminders_data.dart';
+// import 'package:petapplication/some_files_to_data/today_and_future_reminders_data.dart';
 
 class EventsForPetPage extends StatefulWidget {
   const EventsForPetPage({super.key, required this.petInformation});
@@ -103,8 +103,9 @@ class _EventsForPetPage extends State<EventsForPetPage> {
 
     addTaskDialog() => showDialog(
           context: context,
-          builder: (context) => const AddTaskDialog(),
+          builder: (context) => AddTaskDialog(petInfo: widget.petInformation),
         );
+
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -299,7 +300,7 @@ class _EventsForPetPage extends State<EventsForPetPage> {
               SizedBox(
                 height: size.height * 0.02,
               ),
-              remindersForPet.isEmpty
+              widget.petInformation.remindersData.isEmpty
                   ? Center(
                       child: Column(
                         children: [
@@ -336,12 +337,14 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                   : Flexible(
                       child: ListView.builder(
                           controller: controller,
-                          itemCount: remindersForPet.length + 1,
+                          itemCount:
+                              widget.petInformation.remindersData.length + 1,
                           physics: const BouncingScrollPhysics(),
                           itemBuilder: (context, index) {
-                            if (index < remindersForPet.length) {
+                            if (index <
+                                widget.petInformation.remindersData.length) {
                               final ReminderData remainder =
-                                  remindersForPet[index];
+                                  widget.petInformation.remindersData[index];
                               return BuildReminder(reminderData: remainder);
                             } else {
                               return IconButton(
@@ -399,7 +402,7 @@ class BuildReminder extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              width: size.width * 0.036,
+              width: size.width * 0.06,
             ),
             Column(
               mainAxisSize: MainAxisSize.min,
@@ -429,31 +432,37 @@ class BuildReminder extends StatelessWidget {
               ],
             ),
             SizedBox(
-              width: size.width * 0.020,
+              width: size.width * 0.03,
             ),
-            Text(
-              reminderData.reminderType,
-              style: TextStyle(
-                fontFamily: 'Cosffira',
-                fontSize: size.width * 0.063,
-                fontWeight: FontWeight.w800,
-                color: const Color.fromARGB(255, 81, 102, 133),
-                letterSpacing: 0.5,
-              ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  reminderData.reminderType,
+                  style: TextStyle(
+                    fontFamily: 'Cosffira',
+                    fontSize: size.width * 0.063,
+                    fontWeight: FontWeight.w800,
+                    color: const Color.fromARGB(255, 81, 102, 133),
+                    letterSpacing: 0.5,
+                  ),
+                ),
+                Text(
+                  '${reminderData.weekDay}${reminderData.year}, ${reminderData.hours}:${reminderData.minutes} ${reminderData.night}',
+                  style: TextStyle(
+                    fontFamily: 'Cosffira',
+                    fontSize: size.width * 0.045,
+                    height: 0.0,
+                    fontWeight: FontWeight.bold,
+                    color: const Color.fromARGB(109, 74, 94, 124),
+                    letterSpacing: 0.5,
+                  ),
+                ),
+              ],
             ),
             SizedBox(
-              width: size.width * 0.06,
-            ),
-            Text(
-              '${reminderData.weekDay}${reminderData.year}, ${reminderData.hours}:${reminderData.minutes} ${reminderData.night}',
-              style: TextStyle(
-                fontFamily: 'Cosffira',
-                fontSize: size.width * 0.045,
-                height: 0.0,
-                fontWeight: FontWeight.bold,
-                color: const Color.fromARGB(109, 74, 94, 124),
-                letterSpacing: 0.5,
-              ),
+              width: size.width * 0.1,
             ),
             IconButton(
               onPressed: () {},

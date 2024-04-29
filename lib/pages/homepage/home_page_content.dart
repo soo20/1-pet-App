@@ -35,7 +35,7 @@ bool onPressedText = true;
   change to gray while the value of the "OnPressed" variable will be false.
   The same action will occur in reverse when you press "Today's Tasks".
 */
-Color textColor2 = const Color(0xffADBCBF);
+Color textColor2 = const Color(0xff9A9EAC);
 bool onPressedText2 = false;
 
 // State class for the home page
@@ -47,30 +47,36 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
   bool closeTopevents = false;
   double topContainer = 0;
   List<Widget> checkedList = [];
-  List<Reminders> todayReminders = [];
-  List<Reminders> futureReminders = [];
 
+  dynamic remindersInHome;
   // Method to get reminder cards
+
   void getCards() {
     // List containing data for each reminder card
 
     List<Widget> listItems = [];
 
-    mergeReminders(
-        petsList: petsList,
-        futureEvents: futureReminders,
-        todayReminders: todayReminders);
-
     // Iterate through the responseList to create reminder cards
-    for (final Reminders item in todayReminders) {
-      listItems.add(BuildReminderCard(
-        remindersData: item,
-        onPressed: () {
-          setState(() => item.checked = !item.checked);
-        },
-      ));
-    }
     setState(() {
+      // Check if remindersInHome is not null and not empty
+      remindersInHome = mergeReminders(
+        dogsInformationList,
+        catsInformationList,
+      );
+      if (remindersInHome != null && remindersInHome.isNotEmpty) {
+        // Update itemsData with reminder cards
+        itemsData = remindersInHome
+            .map((item) => BuildReminderCard(
+                  remindersData: item,
+                  onPressed: () {
+                    setState(() {
+                      item.checked = !item.checked;
+                    });
+                  },
+                ))
+            .toList();
+      }
+
       // to store cards in itemsData variable and make a state for this
 
       itemsData = listItems;
@@ -120,29 +126,29 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
 
           // Animated container for future events cards
           // the same explain for "Animated container for future events text"
-          futureReminders.isNotEmpty
-              ? Container(
-                  width: size.width,
-                  alignment: Alignment.topCenter,
-                  // When we scroll, the reminders feature events will appear at a height of 0.
-                  height: size.height * 0.15,
-                  // We will apply this animation on the 'scrolledEvents' object.
-                  child: scrolledEvents)
-              : Padding(
-                  padding: EdgeInsets.only(
-                    top: size.height * 0.03,
-                    bottom: size.height * 0.03,
-                  ),
-                  child: Text(
-                    'There Are No Events Yet',
-                    style: TextStyle(
-                      fontFamily: 'Cosffira',
-                      fontSize: size.width * 0.049,
-                      fontWeight: FontWeight.normal,
-                      color: const Color.fromARGB(145, 154, 158, 172),
-                    ),
-                  ),
-                ),
+          // remindersInHome.isNotEmpty
+          //     ? Container(
+          //         width: size.width,
+          //         alignment: Alignment.topCenter,
+          //         // When we scroll, the reminders feature events will appear at a height of 0.
+          //         height: size.height * 0.15,
+          //         // We will apply this animation on the 'scrolledEvents' object.
+          //         child: scrolledEvents)
+          //     : Padding(
+          //         padding: EdgeInsets.only(
+          //           top: size.height * 0.03,
+          //           bottom: size.height * 0.03,
+          //         ),
+          //         child: Text(
+          //           'There Are No Events Yet',
+          //           style: TextStyle(
+          //             fontFamily: 'Cosffira',
+          //             fontSize: size.width * 0.049,
+          //             fontWeight: FontWeight.normal,
+          //             color: const Color.fromARGB(145, 154, 158, 172),
+          //           ),
+          //         ),
+          //       ),
 
           // Row containing TextButtons for Today Tasks and Complete Tasks
           Row(
@@ -222,11 +228,17 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
                   it is used within a Column or Row to specify how much
                   of the available vertical or horizontal space a child widget should occupy.
                 */
-          todayReminders.isNotEmpty
+          remindersInHome?.isNotEmpty ?? false
               ? Builder(builder: (_) {
-                  final List itemList = (onPressedText)
-                      ? todayReminders.where((e) => !e.checked).toList()
-                      : todayReminders.where((e) => e.checked).toList();
+                  final List<Reminders> itemList = (onPressedText)
+                      ? remindersInHome
+                              ?.where((e) => e is Reminders && !e.checked)
+                              .toList() ??
+                          []
+                      : remindersInHome
+                              ?.where((e) => e is Reminders && e.checked)
+                              .toList() ??
+                          [];
 
                   return Expanded(
                     child: ListView.builder(

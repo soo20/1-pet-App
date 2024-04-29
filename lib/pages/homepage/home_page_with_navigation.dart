@@ -9,6 +9,7 @@ import 'package:petapplication/pages/diseases_detection_pages/choose_detection_t
 import 'package:petapplication/pages/homepage/home_page_content.dart';
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 import 'package:petapplication/pages/setting_bage/setting.dart';
+import 'package:petapplication/pages/sign_login_acount/loginbody.dart';
 import 'package:petapplication/profile_page/user_profile.dart';
 
 class TheMainHomePage extends StatefulWidget {
@@ -40,7 +41,7 @@ class _TheMainHomePage extends State<TheMainHomePage> {
         child: index < 3
             ? Scaffold(
                 bottomNavigationBar: CurvedNavigationBar(
-                  color: const Color(0xffDCD3D3),
+                  color: const Color.fromARGB(255, 200, 185, 185),
                   backgroundColor: Colors.transparent,
 
                   onTap: (index) => setState(
@@ -155,22 +156,42 @@ class _TheMainHomePage extends State<TheMainHomePage> {
                   // Actions on the app bar
                   actions: <Widget>[
                     // Container containing user image and button
-
-                    IconButton(
-                        padding: EdgeInsets.only(
-                          top: size.width * 0.02,
-                        ),
-                        onPressed: () {
-                          Get.to(
-                            () => const UserAcount(),
-                            transition: Transition.zoom,
-                          );
-                        },
-                        icon: Image.asset(
-                          'assets/icons/home_page_after_adding_reminders_icons/add_user.png',
-                          height: size.height * 0.7947,
-                          width: size.width * 0.1,
-                        )),
+                    isLogin
+                        ? IconButton(
+                            padding: EdgeInsets.only(
+                              top: size.width * 0.02,
+                            ),
+                            onPressed: () {
+                              Get.to(
+                                () => const UserAcount(),
+                                transition: Transition.zoom,
+                              );
+                            },
+                            icon: ClipOval(
+                              child: Image.asset(
+                                //we will put the user profile image here....
+                                'assets/image/home_page_afterAdding_pets_assets/girl.jpeg',
+                                height: size.height * 0.7947,
+                                width: size.width * 0.1,
+                              ),
+                            ),
+                          )
+                        : IconButton(
+                            padding: EdgeInsets.only(
+                              top: size.width * 0.02,
+                            ),
+                            onPressed: () {
+                              Get.to(
+                                () => const LoginBody(),
+                                transition: Transition.zoom,
+                              );
+                            },
+                            icon: Image.asset(
+                              'assets/icons/home_page_after_adding_reminders_icons/add_user.png',
+                              height: size.height * 0.7947,
+                              width: size.width * 0.1,
+                            ),
+                          ),
                   ],
                 ),
                 body: screens[index],

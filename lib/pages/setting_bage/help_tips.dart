@@ -35,7 +35,7 @@ class HelpTips2 extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 10),
                   child: Text(
                     overflow: TextOverflow.ellipsis,
-                    ' YUNA PET APPLICATION\n HELP PAGE',
+                    'YUNA PET APPLICATION\n HELP PAGE',
                     style: TextStyle(
                       fontFamily: 'Cosffira',
                       fontSize: 100.sp,
@@ -114,17 +114,15 @@ class HelpTips2 extends StatelessWidget {
                           style: TextStyle(
                             fontFamily: 'Cosffira',
                             fontSize: 70.sp,
-                            color: const Color(0xff6E84A7),
+                            color: const Color.fromARGB(140, 53, 74, 107),
                             fontWeight: FontWeight.w600,
                             height: 1.2,
                             wordSpacing: -3,
                           )),
                       TextSpan(
-                          text: 
-                          '1.1  Installation\n'
-                          '1.2  Account Creation\n'
-                          '1.3  Permissions'
-                              ,
+                          text: '1.1  Installation\n'
+                              '1.2  Account Creation\n'
+                              '1.3  Permissions',
                           style: TextStyle(
                             fontFamily: 'Cosffira',
                             fontSize: 47.sp,
@@ -147,20 +145,18 @@ class HelpTips2 extends StatelessWidget {
                     text: 'image Classification\n',
                     style: TextStyle(
                       fontFamily: 'Cosffira',
-                       fontSize: 70.sp,
-                            color: const Color(0xff6E84A7),
+                      fontSize: 70.sp,
+                      color: const Color.fromARGB(140, 53, 74, 107),
                       fontWeight: FontWeight.w600,
                       height: 1.5,
                       wordSpacing: -1,
                     ),
                     children: <TextSpan>[
                       TextSpan(
-                          text:
-                          '2.1  Identifying Reminders\n'
-                          '2.2  Detecting Skin Diseases\n'
-                          '2.3  Detecting Fecal Diseases'
-                          ,
-                             style: TextStyle(
+                          text: '2.1  Identifying Reminders\n'
+                              '2.2  Detecting Skin Diseases\n'
+                              '2.3  Detecting Fecal Diseases',
+                          style: TextStyle(
                             fontFamily: 'Cosffira',
                             fontSize: 47.sp,
                             color: const Color(0xff080808),
@@ -181,21 +177,19 @@ class HelpTips2 extends StatelessWidget {
                   TextSpan(
                     text: 'Remider System \n',
                     style: TextStyle(
-                            fontFamily: 'Cosffira',
-                            fontSize: 70.sp,
-                            color: const Color(0xff6E84A7),
-                            fontWeight: FontWeight.w600,
-                            height: 1.2,
-                            wordSpacing: -3,
-                          ),
+                      fontFamily: 'Cosffira',
+                      fontSize: 70.sp,
+                      color: const Color.fromARGB(140, 53, 74, 107),
+                      fontWeight: FontWeight.w600,
+                      height: 1.2,
+                      wordSpacing: -3,
+                    ),
                     children: <TextSpan>[
-                     TextSpan(
-                          text:
-                          '3.1  Adding Events\n'
-                          '3.2  Setting Reminder\n'
-                          '3.3  Editing and Deleting Events'
-                          ,
-                             style: TextStyle(
+                      TextSpan(
+                          text: '3.1  Adding Events\n'
+                              '3.2  Setting Reminder\n'
+                              '3.3  Editing and Deleting Events',
+                          style: TextStyle(
                             fontFamily: 'Cosffira',
                             fontSize: 47.sp,
                             color: const Color(0xff080808),
@@ -207,30 +201,30 @@ class HelpTips2 extends StatelessWidget {
                   ),
                 ),
               ),
-               SizedBox(
+              SizedBox(
                 height: 50.h,
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 15,),
+                padding: const EdgeInsets.only(
+                  left: 15,
+                ),
                 child: Text.rich(
                   TextSpan(
                     text: 'Troubleshooting \n',
                     style: TextStyle(
-                            fontFamily: 'Cosffira',
-                            fontSize:70.sp,
-                            color: const Color(0xff6E84A7),
-                            fontWeight: FontWeight.w600,
-                            height: 1.2,
-                            wordSpacing: -3,
-                          ),
+                      fontFamily: 'Cosffira',
+                      fontSize: 70.sp,
+                      color: const Color.fromARGB(140, 53, 74, 107),
+                      fontWeight: FontWeight.w600,
+                      height: 1.2,
+                      wordSpacing: -3,
+                    ),
                     children: <TextSpan>[
-                     TextSpan(
-                          text:
-                          '4.1  App Crashes Or Freezes\n'
-                          '4.2  Image Classification Issues\n'
-                          '4.3  Reminder Notifications Not Received'
-                          ,
-                             style: TextStyle(
+                      TextSpan(
+                          text: '4.1  App Crashes Or Freezes\n'
+                              '4.2  Image Classification Issues\n'
+                              '4.3  Reminder Notifications Not Received',
+                          style: TextStyle(
                             fontFamily: 'Cosffira',
                             fontSize: 47.sp,
                             color: const Color(0xff080808),
@@ -242,7 +236,7 @@ class HelpTips2 extends StatelessWidget {
                   ),
                 ),
               ),
-               SizedBox(
+              SizedBox(
                 height: 50.h,
               ),
               Padding(
@@ -251,21 +245,19 @@ class HelpTips2 extends StatelessWidget {
                   TextSpan(
                     text: 'FAQs\n',
                     style: TextStyle(
-                            fontFamily: 'Cosffira',
-                            fontSize: 70.sp,
-                            color: const Color(0xff6E84A7),
-                            fontWeight: FontWeight.w600,
-                            height: 1.2,
-                            wordSpacing: -3,
-                          ),
+                      fontFamily: 'Cosffira',
+                      fontSize: 70.sp,
+                      color: const Color.fromARGB(140, 53, 74, 107),
+                      fontWeight: FontWeight.w600,
+                      height: 1.2,
+                      wordSpacing: -3,
+                    ),
                     children: <TextSpan>[
-                     TextSpan(
-                          text:
-                          '5.1  What Types of Pets does Yuna Support ?\n'
-                          '5.2  Is my Pet\'s Health Information Stored Securely ?\n'
-                          '5.3  How Accurate is The Image Classification for Detecting Diseases ?'
-                          ,
-                             style: TextStyle(
+                      TextSpan(
+                          text: '5.1  What Types of Pets does Yuna Support ?\n'
+                              '5.2  Is my Pet\'s Health Information Stored Securely ?\n'
+                              '5.3  How Accurate is The Image Classification for Detecting Diseases ?',
+                          style: TextStyle(
                             fontFamily: 'Cosffira',
                             fontSize: 45.sp,
                             color: const Color(0xff080808),
