@@ -12,6 +12,7 @@ import 'package:image_picker/image_picker.dart';
 
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
+import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 
 class AddPets extends StatefulWidget {
@@ -453,7 +454,7 @@ class _AddPetsState extends State<AddPets> {
                           
                             // Create a new PetsInformation object with the entered information
                             PetsInformation newPet = PetsInformation(
-                              imageUrl: _selectedImage?.path ?? 'assets/image/Group998.png', // Convert XFile to String path
+                              imageUrl: _selectedImage?.path ?? 'assets/image/profileImage.png', // Convert XFile to String path
                               petName: petNameController.text,
                               petGender: _Selected ?? '',
                               petId: petIdController.text,
@@ -468,7 +469,11 @@ class _AddPetsState extends State<AddPets> {
                               dogsInformationList.add(newPet);
                             }
                     
-                            Get.back();
+                            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => const TheMainHomePage(index1: 2,),
+              ),
+            );
                          
                         } else {
                           // Handle the case when form validation fails, if needed
