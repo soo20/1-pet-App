@@ -41,7 +41,7 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
        child: Column(
         
           children: [
-            SizedBox(height: 180.h,),
+            SizedBox(height: 220.h,),
             Text(
               'Yuna\n',
               style: TextStyle(

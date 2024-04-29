@@ -511,7 +511,7 @@ class _EditPetsState extends State<EditPets> {
                               age: ageController.text,
                               imageUrl: widget.petInformation.imageUrl,
                               petId: petIdController.text,
-                              petIsDogOrCat: '',
+                              petIsDogOrCat: selectedPetType!,
                             ));
                       },
                       fontWeight: FontWeight.w500,

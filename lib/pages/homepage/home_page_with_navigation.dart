@@ -13,8 +13,8 @@ import 'package:petapplication/pages/sign_login_acount/loginbody.dart';
 import 'package:petapplication/profile_page/user_profile.dart';
 
 class TheMainHomePage extends StatefulWidget {
-  final int receivedIndex;
-  const TheMainHomePage({super.key, this.receivedIndex = 0});
+ final int? index1; // Define index here
+  const TheMainHomePage({super.key,  this.index1, });
 
   @override
 
@@ -26,12 +26,17 @@ class TheMainHomePage extends StatefulWidget {
 bool isLogin = false;
 
 class _TheMainHomePage extends State<TheMainHomePage> {
-  var index = 0;
+    late int index;
   final screens = [
     const HomePageAfterAddingPets(),
     const ChooseDetectionType(),
     const MyPetsPage(),
   ];
+   @override
+     void initState() {
+    super.initState();
+    index = widget.index1??0; // Set _currentIndex to the value of index passed from constructor
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -43,7 +48,7 @@ class _TheMainHomePage extends State<TheMainHomePage> {
                 bottomNavigationBar: CurvedNavigationBar(
                   color: const Color.fromARGB(255, 200, 185, 185),
                   backgroundColor: Colors.transparent,
-
+                index: index,
                   onTap: (index) => setState(
                     () => this.index = index,
                   ),

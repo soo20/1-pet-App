@@ -7,10 +7,12 @@ import 'package:flutter/services.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
+import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 
 class AddPets extends StatefulWidget {
@@ -58,91 +60,93 @@ class _AddPetsState extends State<AddPets> {
       );
     } else {
       decorationImage = const DecorationImage(
-        image: AssetImage('assets/image/Group998.png'),
+        image: AssetImage('assets/image/profileImage.png'),
         fit: BoxFit.fill,
       );
     }
 
     return Scaffold(
-      backgroundColor: const Color(0xffEEEFEF),
+      backgroundColor: const Color(0xffEFE6E5),
       extendBodyBehindAppBar: true,
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.only(top: 30),
           child: ListView(
             children: [
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          showSecondContainer =
-                              !showSecondContainer; // Toggle the visibility of the second container
-                        });
-                      },
-                      child: Container(
-                        height: 280.h,
-                        width: 270.w,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          // If _imagePath is not null, display the selected image, else display a placeholder
-                          image: decorationImage,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 70, left: 70),
-                          child: Container(
-                            height: 50.h,
-                            width: 50.w,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                width: 0.5,
-                                color: Colors.white,
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  spreadRadius: 2,
-                                  blurRadius: 10,
-                                  color: Colors.black.withOpacity(0.13),
-                                  offset: const Offset(0, 10),
-                                )
-                              ],
-                              color: const Color(0xff80CBC4),
+              Column(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        showSecondContainer =
+                            !showSecondContainer; // Toggle the visibility of the second container
+                      });
+                    },
+                    child: Container(
+                      height: 280.h,
+                      width: 270.w,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        // If _imagePath is not null, display the selected image, else display a placeholder
+                        image: decorationImage,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 75, left: 75),
+                        child: Container(
+                          height: 45.h,
+                          width: 45.w,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              width: 0.5,
+                              color: Colors.white,
                             ),
-                            child: const Icon(
-                              Icons.edit,
-                              size: 20,
-                              color: Color.fromARGB(190, 0, 0, 0),
-                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                spreadRadius: 2,
+                                blurRadius: 10,
+                                color: Colors.black.withOpacity(0.13),
+                                offset: const Offset(0, 10),
+                              )
+                            ],
+                            color: const Color(0xffA26874),
+                          ),
+                          child: const Icon(
+                            Icons.add,
+                            size: 20,
+                            color:  Color(0xffFFFFFF),
                           ),
                         ),
                       ),
                     ),
-
-                    SizedBox(
-                      height: 50.h,
+                  ),
+              
+                  SizedBox(
+                    height: 50.h,
+                  ),
+                  Text(
+                    'MAIN INFORMATION',
+                    style: TextStyle(
+                      fontFamily: 'Cosffira',
+                      fontSize: 85.sp,
+                      color: const Color(0xff354A6B),
+                      fontWeight: FontWeight.w700,
+                      shadows: [
+                        Shadow(
+                          color: const Color(0xa1000000),
+                          offset: const Offset(0, 1.5),
+                          blurRadius: 6.r,
+                        )
+                      ],
                     ),
-                    Text(
-                      'MAIN INFORMATION',
-                      style: TextStyle(
-                        fontFamily: 'Cosffira',
-                        fontSize: 85.sp,
-                        color: const Color(0xff80cbc4),
-                        fontWeight: FontWeight.w700,
-                        shadows: [
-                          Shadow(
-                            color: const Color(0xa1000000),
-                            offset: const Offset(0, 1.5),
-                            blurRadius: 6.r,
-                          )
-                        ],
-                      ),
-                      textAlign: TextAlign.center,
-                      softWrap: false,
-                    ),
-                    //1
+                    textAlign: TextAlign.center,
+                    softWrap: false,
+                  ),
+                  //1
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
                     Padding(
                       padding:
                           const EdgeInsets.only(left: 40, right: 40, top: 10),
@@ -217,7 +221,7 @@ class _AddPetsState extends State<AddPets> {
                       ),
                     ),
                     //3
-
+                    
                     Padding(
                       padding:
                           const EdgeInsets.only(left: 40, right: 40, top: 10),
@@ -256,7 +260,7 @@ class _AddPetsState extends State<AddPets> {
                       ),
                     ),
                     // 4
-
+                    
                     /* DropdownButton(
                       value: _Selected,
                          items: _gender.map((e) => DropdownMenuItem(child: Text(e), value: e)).toList(),
@@ -277,8 +281,8 @@ class _AddPetsState extends State<AddPets> {
                           }
                           return null;
                         },
-                        dropdownColor: const Color(0xffB8D8D4),
-                        iconEnabledColor: const Color(0xffB8D8D4),
+                        dropdownColor: const Color(0xffA26874),
+                        iconEnabledColor: const Color(0xffA26874),
                         style: TextStyle(
                           fontFamily: 'Cosffira',
                           fontSize: 45.sp,
@@ -319,13 +323,13 @@ class _AddPetsState extends State<AddPets> {
                             return Text(
                               item,
                               style: const TextStyle(
-                                  color: Color.fromARGB(255, 162, 192, 189)),
+                                  color: Colors.black),
                             );
                           }).toList();
                         },
                       ),
                     ),
-
+                    
                     //
                     Padding(
                       padding:
@@ -337,8 +341,8 @@ class _AddPetsState extends State<AddPets> {
                           }
                           return null;
                         },
-                        dropdownColor: const Color(0xffB8D8D4),
-                        iconEnabledColor: const Color(0xffB8D8D4),
+                        dropdownColor: const Color(0xffA26874),
+                        iconEnabledColor: const Color(0xffA26874),
                         style: TextStyle(
                           fontFamily: 'Cosffira',
                           fontSize: 45.sp,
@@ -379,13 +383,13 @@ class _AddPetsState extends State<AddPets> {
                             return Text(
                               item,
                               style: const TextStyle(
-                                  color: Color.fromARGB(255, 162, 192, 189)),
+                                  color: Colors.black),
                             );
                           }).toList();
                         },
                       ),
                     ),
-
+                    
                     // 5
                     Padding(
                       padding:
@@ -438,39 +442,39 @@ class _AddPetsState extends State<AddPets> {
                       height: 80.h,
                     ),
                     CustomGeneralButtom(
-                      boxColor: const Color(0xff2A606C),
+                      boxColor: const Color(0xffA26874),
                       textColor: const Color(0xffFFFFFF),
                       height: 135.h,
                       width: 385.w,
-                      borderColor: const Color.fromARGB(108, 112, 112, 112),
+                      borderColor: const Color(0xffA26874),
                       text: 'Finish',
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
                           // Ensure that the _selectedImage is not null before proceeding
-                          if (_selectedImage != null) {
+                          
                             // Create a new PetsInformation object with the entered information
                             PetsInformation newPet = PetsInformation(
-                              imageUrl: _selectedImage!
-                                  .path, // Convert XFile to String path
+                              imageUrl: _selectedImage?.path ?? 'assets/image/profileImage.png', // Convert XFile to String path
                               petName: petNameController.text,
                               petGender: _Selected ?? '',
                               petId: petIdController.text,
                               petType: petTypeController.text,
-                              age: ageController.text,
-                              petIsDogOrCat: selectedPetType!,
+                              age: ageController.text, petIsDogOrCat: selectedPetType!,
                             );
-
+                    
                             // Add the new pet to the appropriate list based on petType
-                            setState(() {
-                              if (selectedPetType == 'Cat') {
-                                catsInformationList.add(newPet);
-                              } else {
-                                dogsInformationList.add(newPet);
-                              }
-                            });
-
-                            Get.back();
-                          } else {}
+                            if (selectedPetType == 'Cat') {
+                              catsInformationList.add(newPet);
+                            } else {
+                              dogsInformationList.add(newPet);
+                            }
+                    
+                            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => const TheMainHomePage(index1: 2,),
+              ),
+            );
+                         
                         } else {
                           // Handle the case when form validation fails, if needed
                         }
@@ -478,10 +482,16 @@ class _AddPetsState extends State<AddPets> {
                       fontWeight: FontWeight.w500,
                       customFontSize: 50.sp,
                     ),
-
-                    // Conditional rendering of the shadowed container
-                  ],
-                ),
+                    
+                    
+                    
+                    
+                                      ]
+                                    ),
+                  )
+              
+                  // Conditional rendering of the shadowed container
+                ],
               ),
             ],
           ),
@@ -491,14 +501,14 @@ class _AddPetsState extends State<AddPets> {
           ? GestureDetector(
               onTap: () {
                 setState(() {
-                  showSecondContainer = false; // hide container when tapped
+                  showSecondContainer = F; // hide container when tapped
                 });
               },
               child: Container(
                 height: 165,
                 width: double.infinity,
                 decoration: const BoxDecoration(
-                  color: Color.fromARGB(208, 132, 162, 158),
+                  color:   Color(0xffDCD3D3),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(50.0),
                     topRight: Radius.circular(50.0),
@@ -518,11 +528,11 @@ class _AddPetsState extends State<AddPets> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const CustomGeneralButtom(
-                      boxColor: Color(0xffE3B1A8),
-                      textColor: kMainColor,
+                      boxColor: Color(0xff4A5E7C),
+                      textColor:  Color(0xffffffff),
                       height: 50,
                       width: 150,
-                      borderColor: Color(0xffE3B1A8),
+                      borderColor: Color(0xffB5C0D0),
                       customFontSize: 20,
                       // bord: 0.r,
                       fontWeight: FontWeight.normal,
@@ -532,12 +542,12 @@ class _AddPetsState extends State<AddPets> {
                       width: 30,
                     ),
                     CustomGeneralButtom(
-                      boxColor: const Color.fromARGB(255, 132, 193, 187),
-                      textColor: kMainColor,
+                      boxColor: const Color(0xffA26874),
+                      textColor: const Color(0xffffffff),
                       height: 50,
                       width: 150,
                       //bord: 0.r,
-                      borderColor: const Color(0xff80CBC4),
+                      borderColor: const Color(0xffEFE6E5),
                       customFontSize: 20,
                       fontWeight: FontWeight.normal,
                       text: 'Gallery',
