@@ -20,41 +20,37 @@ class Reminders {
 // List<Reminders> futureEvents = [];
 // List<Reminders> todayReminders = [];
 
-void mergeReminders(
-    {required List<PetsInformation> petsList,
-    required List<Reminders> futureEvents,
-    required List<Reminders> todayReminders}) {
+List<Reminders> mergeReminders(
+    List<PetsInformation> dogsList, List<PetsInformation> catsList) {
   final now = DateTime.now();
   final today = DateTime(now.year, now.month, now.day);
-  final nextThreeDays = today.add(const Duration(days: 3));
-
+  //final nextThreeDays = today.add(const Duration(days: 3));
+  final List<Reminders> returnedList = [];
   // Clear the lists before merging reminders
-  todayReminders.clear();
-  futureEvents.clear();
-
+  Map<String, int> monthsMap = {
+    'Jan': 1,
+    'Feb': 2,
+    'Mar': 3,
+    'Apr': 4,
+    'May': 5,
+    'Jun': 6,
+    'Jul': 7,
+    'Aug': 8,
+    'Sep': 9,
+    'Oct': 10,
+    'Nov': 11,
+    'Dec': 12,
+  };
   // Iterate through each pet
-  for (PetsInformation pet in petsList) {
-    // Iterate through each reminder of the pet
+  for (PetsInformation pet in dogsList) {
     for (ReminderData reminder in pet.remindersData) {
-      // Parse reminder date
       final reminderDate = DateTime(
         int.parse(reminder.year),
-        int.parse(reminder.month),
+        monthsMap[reminder.month]!,
         int.parse(reminder.day),
       );
-
-      // Check if the reminder is for today or within the next 3 days
-      if (reminderDate.isAtSameMomentAs(today)) {
-        todayReminders.add(
-          Reminders(
-            imageUrl: pet.imageUrl,
-            eventTitle: reminder.reminderType,
-            time: '${reminder.hours}:${reminder.minutes} ${reminder.night}',
-            petName: pet.petName,
-          ),
-        );
-      } else if (reminderDate.isBefore(nextThreeDays)) {
-        futureEvents.add(
+      if (reminderDate.day == today.day) {
+        returnedList.add(
           Reminders(
             imageUrl: pet.imageUrl,
             eventTitle: reminder.reminderType,
@@ -65,4 +61,37 @@ void mergeReminders(
       }
     }
   }
+
+  // Merge reminders for cats
+  for (PetsInformation pet in catsList) {
+    for (ReminderData reminder in pet.remindersData) {
+      final reminderDate = DateTime(
+        int.parse(reminder.year),
+        monthsMap[reminder.month]!,
+        int.parse(reminder.day),
+      );
+      if (reminderDate.day == today.day) {
+        returnedList.add(
+          Reminders(
+            imageUrl: pet.imageUrl,
+            eventTitle: reminder.reminderType,
+            time: '${reminder.hours}:${reminder.minutes} ${reminder.night}',
+            petName: pet.petName,
+          ),
+        );
+      }
+    }
+  }
+
+  return returnedList;
+  // } else if (reminderDate.isBefore(nextThreeDays)) {
+  //   futureEvents.add(
+  //     Reminders(
+  //       imageUrl: pet.imageUrl,
+  //       eventTitle: reminder.reminderType,
+  //       time: '${reminder.hours}:${reminder.minutes} ${reminder.night}',
+  //       petName: pet.petName,
+  //     ),
+  //   );
+  // }
 }

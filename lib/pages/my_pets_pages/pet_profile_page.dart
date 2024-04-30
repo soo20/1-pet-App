@@ -112,25 +112,29 @@ class _PetProfilePage extends State<PetProfilePage> {
                         fit: BoxFit.fill,
                       ),
               ),
+              SizedBox(
+                height: size.height * 0.03,
+              ),
               Text(
                 widget.petInformation.petName,
                 style: TextStyle(
+                  height: 0.0,
                   fontFamily: 'Cosffira',
                   fontSize: size.width * 0.168,
                   fontWeight: FontWeight.w800,
-                  color: const Color(0xffE3B1A8),
+                  color: const Color(0xff4A5E7C),
                   letterSpacing: 0.5,
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(bottom: size.height * 0.01),
+                padding: EdgeInsets.only(bottom: size.height * 0.03),
                 child: Text(
                   '${widget.petInformation.petType} | ${widget.petInformation.petGender} | ${widget.petInformation.age}',
                   style: TextStyle(
                     fontFamily: 'Cosffira',
                     fontSize: size.width * 0.0548,
                     fontWeight: FontWeight.w800,
-                    color: const Color.fromARGB(132, 119, 119, 108),
+                    color: const Color.fromARGB(105, 74, 94, 124),
                     letterSpacing: 0.5,
                   ),
                 ),
@@ -138,7 +142,7 @@ class _PetProfilePage extends State<PetProfilePage> {
               ElevatedButton.icon(
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color?>(
-                      const Color(0xff80CBC4),
+                      const Color(0xffA26874),
                     ),
                     foregroundColor: MaterialStateProperty.all<Color?>(
                       const Color(0xffF3F2F2),
@@ -190,7 +194,7 @@ class _PetProfilePage extends State<PetProfilePage> {
                 child: ElevatedButton.icon(
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color?>(
-                        const Color(0xffE3B1A8),
+                        const Color(0xffB5C0D0),
                       ),
                       foregroundColor: MaterialStateProperty.all<Color?>(
                         const Color(0xffF3F2F2),
@@ -231,7 +235,7 @@ class _PetProfilePage extends State<PetProfilePage> {
               ElevatedButton.icon(
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color?>(
-                      const Color(0xffCCC0C0),
+                      const Color(0xff4A5E7C),
                     ),
                     foregroundColor: MaterialStateProperty.all<Color?>(
                       const Color(0xffF3F2F2),
