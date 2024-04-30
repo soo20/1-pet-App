@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
+
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
-import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
+
 import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 
@@ -31,6 +31,7 @@ class _AddPetsState extends State<AddPets> {
   TextEditingController petIdController = TextEditingController();
   TextEditingController petTypeController = TextEditingController();
   TextEditingController ageController = TextEditingController();
+  TextEditingController weightController = TextEditingController();
   String? selectedPetType; // Variable to store the selected pet type
   bool showSecondContainer = false;
   late final PetsInformation petInformation;
@@ -395,6 +396,7 @@ class _AddPetsState extends State<AddPets> {
                       padding:
                           const EdgeInsets.only(left: 40, right: 40, top: 0),
                       child: TextFormField(
+                        controller: weightController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return '';
@@ -456,10 +458,11 @@ class _AddPetsState extends State<AddPets> {
                             PetsInformation newPet = PetsInformation(
                               imageUrl: _selectedImage?.path ?? 'assets/image/profileImage.png', // Convert XFile to String path
                               petName: petNameController.text,
-                              petGender: _Selected ?? '',
+                              petGender: _Selected !,
                               petId: petIdController.text,
                               petType: petTypeController.text,
                               age: ageController.text, petIsDogOrCat: selectedPetType!,
+                               petWeight : double.tryParse(weightController.text)
                             );
                     
                             // Add the new pet to the appropriate list based on petType

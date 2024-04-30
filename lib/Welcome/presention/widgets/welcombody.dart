@@ -38,7 +38,7 @@ class _WelcomeBodyState extends State<WelcomeBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kMainColorPage,
+      backgroundColor: Color(0xffEFE6E5),
       body: Column(
         children: [
           Expanded(
@@ -49,7 +49,7 @@ class _WelcomeBodyState extends State<WelcomeBody> {
           Row(
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 90.w, bottom: 135.h),
+                padding: EdgeInsets.only(left: 100.w, bottom: 135.h),
                 child: Dot(
                   dotIndex:
                       pageController!.hasClients ? pageController?.page : 0,

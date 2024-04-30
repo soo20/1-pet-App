@@ -7,7 +7,7 @@ import 'package:petapplication/pages/events_system/events_for_pet.dart';
 
 class PetsInformation {
   PetsInformation({
-    required this.petIsDogOrCat,
+   this.petIsDogOrCat,
     required this.imageUrl,
     required this.petName,
     required this.petGender,
@@ -23,7 +23,7 @@ class PetsInformation {
   late String petId;
   late String petType;
   late String age;
-  late String petIsDogOrCat;
+  late String? petIsDogOrCat;
   bool selected = false;
   String skinDiseaseType = '';
   String poopDiseaseType = '';

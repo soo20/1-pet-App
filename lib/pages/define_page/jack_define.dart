@@ -8,6 +8,7 @@ import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/pages/define_page/widgets/alart_dialog.dart';
+import 'package:petapplication/pages/pet_setting_pages/alart2_page.dart';
 
 class JackDefine extends StatelessWidget {
   const JackDefine({super.key});
@@ -15,7 +16,7 @@ class JackDefine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kMainColorPage,
+      backgroundColor: const Color(0xffEFE6E5),
       appBar: AppBar(
         elevation: 1,
 
@@ -31,7 +32,7 @@ class JackDefine extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_rounded,
-            color: Color(0xff2A606C),
+            color: Color(0xff354A6B),
           ),
           onPressed: () {
             Navigator.of(context).pop();
@@ -42,107 +43,52 @@ class JackDefine extends StatelessWidget {
         ),
       ),
       extendBodyBehindAppBar: true,
-      body: Stack(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 50, top: 0),
-            child: SafeArea(
-              // Add space to the left
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                
-                  Container(
-                    width: 550.w,
-                    height: 350.h,
-                    padding: const EdgeInsets.only(
-                      top: 0,
-                      left: 0,
-                    ),
-                    decoration: BoxDecoration(
-                        // color: const Color(0xffEEEFEF), // Box color
-                        borderRadius: BorderRadius.circular(60.r),
-                        border: Border.all(
-                            color: const Color(0xff707070),
-                            width: 0.4) // Border radius if needed
-                        ),
-                    child: Center(
-                      child: Text(
-                        overflow: TextOverflow.ellipsis,
-                        'hello, my friend, please \ntake a photo of your pet \n to provide some\ninformation about it',
-                        style: TextStyle(
-                          fontFamily: 'Cosffira',
-                          fontSize: 36.sp,
-                          color: const Color(0xff000000),
-                          fontWeight: FontWeight.w600,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 125),
-                    child: SvgPicture.string(
-                      _svg_pp2ta,
-                      allowDrawingOutsideViewBox: true,
-                      fit: BoxFit.contain,
-                      width: 150.w,
-                      height: 130.h,
-                    ),
-                  ),
-
-                 
-                ],
-              ),
-            ),
+          Image.asset(
+            'assets/image/jack.png',
+            width: 800.w,
+            height: 1450.h,
+            fit: BoxFit.contain, // Adjust the fit as needed
           ),
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(
-                    100, 185, 0, 0), // Add padding of 8.0 to all sides
-                child: Image.asset(
-                  'assets/image/Group1340.png',
-                  width: 640.w,
-                  height: 1050.h,
-                  fit: BoxFit.contain, // Adjust the fit as needed
+           Padding(
+                padding: const EdgeInsets.only(bottom: 00),
+                child: Row(
+                  //mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+      
+                  children: [
+                    CustomGeneralButtom3(
+
+                      text: '',
+                      boxColor: const Color(0xffA26874),
+                      height: 140.h,
+                      width: 260.w,
+                      textColor: null,
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) => const
+                             Alart2(
+                              text1: 'allow "yuna app" to access\nyour camera on this device"', 
+                              text1buttom: 'While Using This App',
+                              text2buttom: 'Cancle',
+                              ));
+                      },
+                    ),
+                  ],
                 ),
-              ),
-               Padding(
-                    padding: const EdgeInsets.only(bottom: 00),
-                    child: Row(
-                      //mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-
-                      children: [
-                        CustomGeneralButtom3(
-                          text: '',
-                          boxColor: kMainColor,
-                          height: 140.h,
-                          width: 260.w,
-                          textColor: null,
-                          onTap: () {
-                            showDialog(
-                                context: context,
-                                builder: (context) => const AlartDialogPage());
-                          },
-                        ),
-                      ],
-                    ),
-                  )
-
-
-
-              
-            ],
-          ),
-        ], 
+              )
+      
+      
+      
+          
+        ],
       ),
     );
   }
 }
 
 //
-const String _svg_pp2ta =
-    '<svg viewBox="299.2 364.0 181.2 160.2" ><path transform="translate(-1654.57, 4001.0)" d="M 1953.72900390625 -3637 L 2013.6484375 -3532.818359375 L 2134.880859375 -3476.79736328125 L 2134.880859375 -3476.79736328125 L 2063.813720703125 -3532.818359375 L 2077.748291015625 -3637 L 1953.72900390625 -3637 Z" fill="none" stroke="#707070" stroke-width="1" stroke-miterlimit="4" stroke-linecap="butt" /></svg>';

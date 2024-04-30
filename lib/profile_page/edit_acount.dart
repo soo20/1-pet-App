@@ -65,7 +65,7 @@ class _EditAcountState extends State<EditAcount> {
             width: 0.5, color: Color.fromARGB(70, 112, 112, 112)));
 
     return Scaffold(
-      backgroundColor: const Color(0xffB5C0D0),
+      backgroundColor: const Color(0xffEEEEEE),
       appBar: AppBar(
         elevation: 0,
         automaticallyImplyLeading: false,
@@ -74,7 +74,7 @@ class _EditAcountState extends State<EditAcount> {
         toolbarHeight: 110.h,
         actions: [
           IconButton(
-            icon: SvgPicture.asset('assets/icons/trash.svg', width: 120.w),
+            icon: SvgPicture.asset('assets/icons/trash.svg', width: 120.w,color: const Color(0XFFA26874),),
             onPressed: () {
               nameController.clear();
               emailController.clear();
@@ -99,100 +99,100 @@ class _EditAcountState extends State<EditAcount> {
             fit: BoxFit.fill,
           ),
         ),
-        child: Column(
-          children: [
-            GestureDetector(
-              onTap: () {
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              GestureDetector(
+                onTap: () {
+                
+                },
               
-              },
-            
-
-            child :Padding(
-              padding: const EdgeInsets.only(top: 0, right: 150),
-              child: Container(
-                width: 95,
-                height: 95,
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/image/Group998.png'))),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 65, top: 70, right: 6),
-                  child: Container(
-                    height: 50.h,
-                    width: 50.h,
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          spreadRadius: 5,
-                          blurRadius: 20,
-                          color: Colors.black.withOpacity(0.1),
-                        ),
-                      ],
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        width: 0.1,
-                        color: const Color(0xff707070),
-                      ),
-                      color: const Color.fromARGB(255, 161, 13, 18),
-                    ),
-                    child: IconButton(
-                      padding: const EdgeInsets.only(right: 10),
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.add,
-                        //size: 21,
-                        color: const Color(0xffEEEEEE),
-                        shadows: [
+          
+              child :Padding(
+                padding: const EdgeInsets.only(top: 0, right: 150),
+                child: Container(
+                  width: 95,
+                  height: 95,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('assets/image/Group998.png'))),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 65, top: 70, right: 6),
+                    child: Container(
+                      height: 50.h,
+                      width: 50.h,
+                      decoration: BoxDecoration(
+                        boxShadow: [
                           BoxShadow(
-                            spreadRadius: 15,
+                            spreadRadius: 5,
                             blurRadius: 20,
-                            color: Colors.grey.withOpacity(0.1),
+                            color: Colors.black.withOpacity(0.1),
                           ),
                         ],
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          width: 0.1,
+                          color: const Color(0xff707070),
+                        ),
+                        color: const Color(0XFFA26874),
+                      ),
+                      child: IconButton(
+                        padding: const EdgeInsets.only(right: 10),
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.add,
+                          //size: 21,
+                          color: const Color(0xffEEEEEE),
+                          shadows: [
+                            BoxShadow(
+                              spreadRadius: 15,
+                              blurRadius: 20,
+                              color: Colors.grey.withOpacity(0.1),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-            ),
-            const SizedBox(
-              height: 45,
-            ),
-            Text.rich(
-              TextSpan(
-                style: TextStyle(
-                  fontFamily: 'Cosffira',
-                  fontSize: 115.sp,
-                  color: const Color(0xff354A6B),
-                  height: .970873786407767.h,
-                ),
-                children: const [
-                  TextSpan(
-                    text: 'My ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  TextSpan(
-                    text: 'account',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ],
               ),
-              textHeightBehavior:
-                  const TextHeightBehavior(applyHeightToFirstAscent: false),
-              softWrap: false,
-            ),
-            SizedBox(
-              height: 70.h,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 35, right: 35),
-              child: Form(
-                key: _formKey,
+              const SizedBox(
+                height: 45,
+              ),
+              Text.rich(
+                TextSpan(
+                  style: TextStyle(
+                    fontFamily: 'Cosffira',
+                    fontSize: 115.sp,
+                    color: const Color(0xff354A6B),
+                    height: .970873786407767.h,
+                  ),
+                  children: const [
+                    TextSpan(
+                      text: 'My ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    TextSpan(
+                      text: 'account',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
+                ),
+                textHeightBehavior:
+                    const TextHeightBehavior(applyHeightToFirstAscent: false),
+                softWrap: false,
+              ),
+              SizedBox(
+                height: 70.h,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 35, right: 35),
                 child: TextFormField(
                   controller: nameController,
                   validator: (text) {
@@ -204,15 +204,21 @@ class _EditAcountState extends State<EditAcount> {
                   keyboardType: TextInputType.name,
                   keyboardAppearance: Brightness.dark,
                   obscureText: false,
-                  style: const TextStyle(color: Color(0xff090F0F)),
+                  style:  TextStyle( 
+                    color: const  Color.fromARGB(255, 37, 40, 50),
+                      fontFamily: 'Cosffira',
+                      fontSize: 60.sp,
+                      fontWeight: FontWeight.w800,
+                    ),
                   decoration: InputDecoration(
                     fillColor: const Color(0xFFFFFFFF),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 18,horizontal: 19),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 17,horizontal: 18),
                     filled: true,
+                    
                     //hintText: 'Name',
-                    labelText: 'Name',
+                    hintText: 'Name',
                       
-                    labelStyle: TextStyle(
+                    hintStyle: TextStyle(
                       fontFamily: 'Cosffira',
                       fontSize: 60.sp,
                       color: const Color.fromARGB(116, 19, 79, 92),
@@ -227,63 +233,26 @@ class _EditAcountState extends State<EditAcount> {
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 35, right: 35, top: 15, bottom: 15),
-              child: Form(
-                key: _formKey2,
-                autovalidateMode: AutovalidateMode.always,
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 35, right: 35, top: 15, bottom: 15),
                 child: TextFormField(
                   controller: emailController,
                   validator: validateEmail,
                   keyboardType: TextInputType.emailAddress,
                   obscureText: false,
-                  style: const TextStyle(color: Color(0xff090F0F)),
-                  decoration: InputDecoration(
-                    fillColor: const Color(0xFFFFFFFF),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 18,horizontal: 19),
-                    filled: true,
-                    labelText: 'Email',
-                    labelStyle: TextStyle(
+                 style:  TextStyle( 
+                    color: const  Color.fromARGB(255, 37, 40, 50),
                       fontFamily: 'Cosffira',
-                      fontSize: 53.sp,
-                      color: const Color.fromARGB(116, 19, 79, 92),
+                      fontSize: 60.sp,
                       fontWeight: FontWeight.w800,
                     ),
-                    enabledBorder: border,
-                    focusedBorder: border,
-                    prefixIcon: const Icon(
-                      Icons.email,
-                      color: Color.fromARGB(116, 19, 79, 92),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 35, right: 35),
-              child: Form(
-                key: _formKey3,
-                child: TextFormField(
-                  controller: phoneNumberController,
-                  keyboardType: TextInputType.phone,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter your phone number';
-                    }
-                    if (!RegExp(r'^01[0-9]{9}$').hasMatch(value)) {
-                      return 'Please enter a valid phone number';
-                    }
-                    return null;
-                  },
-                  
                   decoration: InputDecoration(
                     fillColor: const Color(0xFFFFFFFF),
-                    contentPadding: const EdgeInsets.symmetric(vertical: 18,horizontal: 19),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 17,horizontal: 18),
                     filled: true,
-                    labelText: 'Phone Number',
-                    labelStyle: TextStyle(
+                    hintText: 'Email',
+                 hintStyle: TextStyle(
                       fontFamily: 'Cosffira',
                       fontSize: 51.sp,
                       color: const Color.fromARGB(116, 19, 79, 92),
@@ -298,38 +267,82 @@ class _EditAcountState extends State<EditAcount> {
                   ),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.only(left: 35, right: 35),
+                child: TextFormField(
+                  controller: phoneNumberController,
+                  keyboardType: TextInputType.phone,
+                   style:  TextStyle( 
+                    color: const  Color.fromARGB(255, 37, 40, 50),
+                      fontFamily: 'Cosffira',
+                      fontSize: 60.sp,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter your phone number';
+                    }
+                    if (!RegExp(r'^01[0-9]{9}$').hasMatch(value)) {
+                      return 'Please enter a valid phone number';
+                    }
+                    return null;
+                  },
+                  
+                  decoration: InputDecoration(
+                    fillColor: const Color(0xFFFFFFFF),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 17,horizontal: 18),
+                    filled: true,
+                   hintText: 'Phone Number',
+                    hintStyle: TextStyle(
+                      fontFamily: 'Cosffira',
+                      fontSize: 51.sp,
+                      color: const Color.fromARGB(116, 19, 79, 92),
+                      fontWeight: FontWeight.w800,
+                    ),
+                    enabledBorder: border,
+                    focusedBorder: border,
+                    prefixIcon: const Icon(
+                      Icons.phone,
+                      color: Color.fromARGB(116, 19, 79, 92),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 60.0),
+              ElevatedButton(
+                onPressed: () {
+                 // Get the data from the text controllers
+              String name = nameController.text;
+              String email = emailController.text;
+              String phoneNumber = phoneNumberController.text;
+                  if (_formKey.currentState!.validate() ) {
+                  Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>  UserAcount(
+               name: name,
+             email: email,
+            phoneNumber: phoneNumber,
+              ),
             ),
-            const SizedBox(height: 80.0),
-            ElevatedButton(
-              onPressed: () {
-               // Get the data from the text controllers
-    String name = nameController.text;
-    String email = emailController.text;
-    String phoneNumber = phoneNumberController.text;
-                if (_formKey.currentState!.validate() &&
-                    _formKey2.currentState!.validate() &&
-                    _formKey3.currentState!.validate()) {
-                Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) =>  UserAcount(
-             name: name,
-           email: email,
-          phoneNumber: phoneNumber,
-            ),
+          );
+                  }
+                },
+                style: ButtonStyle(
+                    padding: MaterialStateProperty.all(const EdgeInsets.only(
+                        left: 50, right: 50, top: 15, bottom: 15)),
+                    foregroundColor: MaterialStateProperty.all(Colors.white),
+                    backgroundColor: MaterialStateProperty.all(
+                        const Color(0XFFA26874),)),
+                child:  Text('Finish', style: TextStyle(
+                        fontFamily: 'Cosffira',
+                        fontSize: 51.sp,
+                        color: const Color(0XFFeeeeee),
+                        fontWeight: FontWeight.w800,
+                      ),),
+              ),
+            ],
           ),
-        );
-                }
-              },
-              style: ButtonStyle(
-                  padding: MaterialStateProperty.all(const EdgeInsets.only(
-                      left: 50, right: 50, top: 15, bottom: 15)),
-                  foregroundColor: MaterialStateProperty.all(Colors.white),
-                  backgroundColor: MaterialStateProperty.all(
-                      const Color.fromARGB(255, 161, 13, 18))),
-              child: const Text('Finish', style: TextStyle(fontSize: 20)),
-            ),
-          ],
         ),
       ),
     );

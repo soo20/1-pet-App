@@ -502,17 +502,21 @@ class _EditPetsState extends State<EditPets> {
                       text: 'Save',
                       onTap: () {
                         // Save changes and pop the page with updated information
+                         if (_formKey.currentState!.validate()) {
                         Navigator.pop(
                             context,
                             PetsInformation(
                               petName: petNameController.text,
                               petType: petTypeController.text,
-                              petGender: _Selected ?? '',
+                              petGender: _Selected !,
                               age: ageController.text,
                               imageUrl: widget.petInformation.imageUrl,
                               petId: petIdController.text,
-                              petIsDogOrCat: selectedPetType!,
+                              petWeight: double.tryParse(weightController.text),
+                             // petIsDogOrCat: selectedPetType!,
                             ));
+                         }
+                         
                       },
                       fontWeight: FontWeight.w500,
                       customFontSize: 50.sp,
