@@ -45,8 +45,7 @@ class _EditAcountState extends State<EditAcount> {
 
   final _formKey = GlobalKey<FormState>();
 
-  final _formKey2 = GlobalKey<FormState>();
-  final _formKey3 = GlobalKey<FormState>();
+
 
   @override
   void dispose() {

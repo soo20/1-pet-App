@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
+import 'package:get/get.dart';
 
 class TipsOfPhoto extends StatelessWidget {
   const TipsOfPhoto({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: kMainColorPage,
+      backgroundColor: const Color(0xffEFE6E5),
       appBar: AppBar(
         elevation: 1,
 
@@ -18,17 +19,17 @@ class TipsOfPhoto extends StatelessWidget {
         //iconTheme: IconThemeData.fallback(),
         forceMaterialTransparency: true,
         toolbarOpacity: 1,
-        toolbarHeight: 40,
+        toolbarHeight: 70.h,
 
-        leadingWidth: 50,
+        leadingWidth: 60.w,
 
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_rounded,
-            color: Color(0xff707070),
+            color: Color.fromARGB(121, 74, 94, 124),
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            Get.back();
           },
           iconSize: 33.0,
           padding: const EdgeInsets.only(
@@ -43,7 +44,9 @@ class TipsOfPhoto extends StatelessWidget {
             children: [
               Center(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 20),
+                  padding:  EdgeInsets.only(
+                    top: size.height*0.045
+                    ),
                   child: Text(
                     overflow: TextOverflow.ellipsis,
                     ' Pet Photo Tips For \n Precision',
@@ -54,7 +57,7 @@ class TipsOfPhoto extends StatelessWidget {
                         height: 1.1, // Adjust the value as needed
                         // Reduce word spacing
                         wordSpacing: -2, // Adjust the value as needed
-                        color: const Color(0xff2A606C),
+                        color: const Color(0xff4A5E7C),
                         fontWeight: FontWeight.w600,
                         decoration: TextDecoration.underline,
                         decorationThickness: 1,
@@ -74,7 +77,7 @@ class TipsOfPhoto extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: 'Cosffira',
                       fontSize: 55.sp,
-                      color: const Color(0xff000000),
+                      color: const Color(0xffA26874),
                       fontWeight: FontWeight.w600,
                       // Reduce line height (leading)
                       height: 1.2, // Adjust the value as needed
@@ -88,7 +91,7 @@ class TipsOfPhoto extends StatelessWidget {
                           style: TextStyle(
                             fontFamily: 'Cosffira',
                             fontSize: 52.sp,
-                            color: const Color(0xff9F9D9D),
+                            color: const Color(0xff7D7D7D),
                             fontWeight: FontWeight.w600,
                             // Reduce line height (leading)
                             height: 1.2, // Adjust the value as needed
@@ -110,7 +113,7 @@ class TipsOfPhoto extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: 'Cosffira',
                       fontSize: 57.sp,
-                      color: const Color(0xff000000),
+                      color: const Color(0xffA26874),
                       fontWeight: FontWeight.w600,
                       // Reduce line height (leading)
                       height: 1.8, // Adjust the value as needed
@@ -124,7 +127,7 @@ class TipsOfPhoto extends StatelessWidget {
                           style: TextStyle(
                             fontFamily: 'Cosffira',
                             fontSize: 52.sp,
-                            color: const Color(0xff9F9D9D),
+                            color: const Color(0xff7D7D7D),
                             fontWeight: FontWeight.w600,
                             // Reduce line height (leading)
                             height: 1.2, // Adjust the value as needed
@@ -146,7 +149,7 @@ class TipsOfPhoto extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: 'Cosffira',
                       fontSize: 57.sp,
-                      color: const Color(0xff000000),
+                      color: const Color(0xffA26874),
                       fontWeight: FontWeight.w600,
                       // Reduce line height (leading)
                       height: 1.5, // Adjust the value as needed
@@ -160,7 +163,7 @@ class TipsOfPhoto extends StatelessWidget {
                           style: TextStyle(
                             fontFamily: 'Cosffira',
                             fontSize: 50.sp,
-                            color: const Color(0xff9F9D9D),
+                             color: const Color(0xff7D7D7D),
                             fontWeight: FontWeight.w600,
                             // Reduce line height (leading)
                             height: 1.2, // Adjust the value as needed
@@ -182,7 +185,7 @@ class TipsOfPhoto extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: 'Cosffira',
                       fontSize: 57.sp,
-                      color: const Color(0xff000000),
+                      color: const Color(0xffA26874),
                       fontWeight: FontWeight.w600,
                       // Reduce line height (leading)
                       height: 1.5, // Adjust the value as needed
@@ -196,7 +199,7 @@ class TipsOfPhoto extends StatelessWidget {
                           style: TextStyle(
                             fontFamily: 'Cosffira',
                             fontSize: 50.sp,
-                            color: const Color(0xff9F9D9D),
+                            color: const Color(0xff7D7D7D),
                             fontWeight: FontWeight.w600,
                             // Reduce line height (leading)
                             height: 1.2, // Adjust the value as needed

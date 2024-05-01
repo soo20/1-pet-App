@@ -2,12 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+
 
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 
-import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
-import 'package:petapplication/pages/define_page/widgets/alart_dialog.dart';
+
 import 'package:petapplication/pages/pet_setting_pages/alart2_page.dart';
 
 class JackDefine extends StatelessWidget {

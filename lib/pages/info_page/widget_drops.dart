@@ -29,7 +29,9 @@ class _DroperState extends State<Droper>
 
   @override
   Widget build(BuildContext context) 
+  
   {
+    Size size = MediaQuery.of(context).size;
     return Row(
                 children: [
                   Expanded(
@@ -41,9 +43,9 @@ class _DroperState extends State<Droper>
                             decoration: BoxDecoration(
                               color: screenDropDown
                                   ? 
-                                   const Color(0xff487D78)
+                                   const Color(0xffA26874)
                                    :
-                                  const Color.fromARGB(132, 134, 146, 144),
+                                    const Color.fromARGB(118, 162, 104, 116),
                               border: Border.all(
                                 width: 0.2,
                                 color: const Color(0xff707070),
@@ -54,8 +56,8 @@ class _DroperState extends State<Droper>
                               minHeight: 200.h,
                               minWidth: double.infinity,
                             ),
-                            padding: const EdgeInsets.only(
-                              left: 35
+                            padding:  EdgeInsets.only(
+                              left: size.width * 0.08
                               ),
                             child: Row(
                               children: [
@@ -64,12 +66,12 @@ class _DroperState extends State<Droper>
                                     widget.textContent,
                                     style: TextStyle(
                                       fontFamily: 'Cosffira',
-                                      fontSize: 50.sp,
+                                      fontSize: 60.sp,
                                       color: 
                                       screenDropDown
                                           ? 
                                            const Color(0xffFFFFFF)
-                                         : const Color(0xff487D78),
+                                         : const Color(0xffFFFFFF),
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -85,8 +87,8 @@ class _DroperState extends State<Droper>
                                   },
                                   child: Padding(
                                     padding:
-                                        const EdgeInsets.only(
-                                          right: 30
+                                        EdgeInsets.only(
+                                          right: size.width * 0.07
                                           ),
                                     child: SvgPicture.asset(
                                       screenDropDown
@@ -120,8 +122,8 @@ class _DroperState extends State<Droper>
                                     ' The Golden Retriever, An Exuberant Scottish Gundog Of Great Beauty, Stands Among America\'s Most Popular Dog Breeds. They Are Serious Workers At Hunting And Field Work, As Guides For The Blind, And In Search-And-Rescue, Enjoy Obedience And Other Competitive Events, And Have An Endearing Love Of Life When Not At Work. The Golde N Retriever Is A Sturdy, Muscular Dog Of Medium Size,Famous For The Dense, Lustrous Coat Of Gold That Gives The Breed Its Name. The Broad Head, With Its Friendly And',
                                     style: TextStyle(
                                       fontFamily: 'Cosffira',
-                                      fontSize: 33.sp,
-                                      color: const Color.fromARGB(227, 121, 121, 121),
+                                      fontSize: 44.sp,
+                                      color: const Color(0xff797979),
                                       fontWeight: FontWeight.bold,
                                     ),
                                     textAlign: TextAlign.center,

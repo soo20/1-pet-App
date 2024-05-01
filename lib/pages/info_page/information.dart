@@ -8,23 +8,23 @@ class InfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: const Color(0xffEFE7E7),
        
       appBar: AppBar(
-        toolbarHeight: 68.h,
+        toolbarHeight: 72.h,
         scrolledUnderElevation: 0,
         automaticallyImplyLeading: true,
-        backgroundColor: const Color.fromARGB(255, 212, 211, 205),
+        backgroundColor: const Color(0xffEFE7E7),
          leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_rounded,
-            color: Color.fromARGB(255, 161, 158, 158),
+            color: Color(0xff4A5E7C),
           ),
           onPressed: () 
           {
             Navigator.of(context).pop();
           },
-          iconSize: 30.0,
+          iconSize: 32.0,
           padding: const EdgeInsets.only(
               left: 6.0
               ), 

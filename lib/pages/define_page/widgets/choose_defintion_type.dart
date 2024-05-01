@@ -79,7 +79,7 @@ class ChooseDefintionType extends StatelessWidget {
                 CustomGeneralButtom(
                   fontWeight: FontWeight.bold,
                   text: 'Define With Jack',
-                  borderColor: const Color(0xff707070),
+                  borderColor: const Color(0xFF4A5E7C),
                   onTap: () {
                     navigator?.pushAndRemoveUntil(
                       MaterialPageRoute(
@@ -111,7 +111,7 @@ class ChooseDefintionType extends StatelessWidget {
                       (route) => true,
                     );
                   },
-                  borderColor: const Color(0xff707070),
+                  borderColor: const Color(0xFFA26874),
                 ),
               ],
             ),

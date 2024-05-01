@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
-import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/pages/info_page/information.dart';
 
 import 'package:petapplication/pages/pet_setting_pages/add_pet.dart';
@@ -29,6 +28,7 @@ class _DetectScreenState extends State<DetectScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       backgroundColor: const Color.fromARGB(0, 0, 0, 0),
       body: Align(
@@ -48,7 +48,7 @@ class _DetectScreenState extends State<DetectScreen> {
             children: [
               Center(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 65.0),
+                  padding: const EdgeInsets.only(top: 55.0),
                   child: Column(
                     children: [
                       Container(
@@ -77,8 +77,8 @@ class _DetectScreenState extends State<DetectScreen> {
                         style: TextStyle(
                           fontFamily: 'Cosffira',
                           //to make adaptive font size we call 'sp' function.
-                          fontSize: 40.sp,
-                          color: const Color(0xff465948),
+                          fontSize: 45.sp,
+                          color: const Color(0xff4A5E7C),
                           //to make your font normal "regular" or bold.
                           fontWeight: FontWeight.normal,
                         ),
@@ -93,10 +93,10 @@ class _DetectScreenState extends State<DetectScreen> {
                         style: TextStyle(
                           fontFamily: 'Cosffira',
                           //to make adaptive font size we call 'sp' function.
-                          fontSize: 55.sp,
-                          color: const Color(0xffDC3356),
+                          fontSize: 60.sp,
+                          color: const Color(0xffA26874),
                           //to make your font normal "regular" or bold.
-                          fontWeight: FontWeight.normal,
+                          fontWeight: FontWeight.bold,
                         ),
                         /*The content of the text was large, 
                   so it was moved to the front when displaying,
@@ -110,14 +110,12 @@ class _DetectScreenState extends State<DetectScreen> {
                         style: TextStyle(
                           fontFamily: 'Cosffira',
                           //to make adaptive font size we call 'sp' function.
-                          fontSize: 41.sp,
+                          fontSize: 45.sp,
                           color: const Color(0xff080808),
                           //to make your font normal "regular" or bold.
                           fontWeight: FontWeight.bold,
                         ),
-                        /*The content of the text was large, 
-                  so it was moved to the front when displaying,
-                  and to make it in the center, I put this argument*/
+                      
                         textAlign: TextAlign.center,
 
                         softWrap: false,
@@ -128,7 +126,8 @@ class _DetectScreenState extends State<DetectScreen> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 8, horizontal: 0),
                           child: CustomGeneralButtom(
-                            height: 150.h,
+                            height: 155.h,
+                            fontWeight: FontWeight.bold,
                             text: 'Know more about this type',
                             textColor: const Color(0xffFFFFFF),
                             onTap: () {
@@ -139,10 +138,10 @@ class _DetectScreenState extends State<DetectScreen> {
                                 duration: const Duration(milliseconds: 300),
                               );
                             },
-                            boxColor: kMainColor,
-                            borderColor: kMainColor,
+                            boxColor: const Color(0xff4A5E7C),
+                            borderColor: const Color(0xff4A5E7C),
                             width: 700.w,
-                            customFontSize: 37.sp,
+                            customFontSize: 40.sp,
                           ),
                         ),
                       ),
@@ -152,7 +151,8 @@ class _DetectScreenState extends State<DetectScreen> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 0, horizontal: 0),
                           child: CustomGeneralButtom(
-                            height: 150.h,
+                            fontWeight: FontWeight.bold,
+                            height: 155.h,
                             text: 'Add to your pets',
                             onTap: () {
                               Get.to(
@@ -162,10 +162,10 @@ class _DetectScreenState extends State<DetectScreen> {
                                 duration: const Duration(milliseconds: 300),
                               );
                             },
-                            customFontSize: 40.sp,
+                            customFontSize: 44.sp,
                             textColor: const Color(0xffFFFFFF),
-                            boxColor: const Color(0xffDC3356),
-                            borderColor: const Color.fromARGB(255, 248, 54, 90),
+                            boxColor: const Color(0xffA26874),
+                            borderColor: const Color(0xffA26874),
                             width: 700.w,
                           ),
                         ),
@@ -176,9 +176,10 @@ class _DetectScreenState extends State<DetectScreen> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 9, horizontal: 0),
                           child: CustomGeneralButtom(
-                            height: 150.h,
+                            fontWeight: FontWeight.bold,
+                            height: 155.h,
                             text: 'Rephoto',
-                            customFontSize: 40.sp,
+                            customFontSize: 45.sp,
                             onTap: () {
                               Navigator.of(context).pop();
                             },

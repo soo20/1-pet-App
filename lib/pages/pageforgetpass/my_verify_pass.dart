@@ -54,6 +54,7 @@ class _MyVerifyState extends State<MyVerify> {
 
   @override
   Widget build(BuildContext context) {
+     Size size = MediaQuery.of(context).size;
     final defaultPinTheme = PinTheme(
       margin: const EdgeInsets.symmetric(horizontal: 5),
       width: 100.w,
@@ -63,7 +64,7 @@ class _MyVerifyState extends State<MyVerify> {
           color: const Color(0xff020202),
           fontWeight: FontWeight.w500),
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 231, 229, 229),
+        color:const  Color.fromARGB(20, 128, 121, 121),
         border: Border.all(color: const Color.fromARGB(88, 112, 112, 112)),
         borderRadius: BorderRadius.circular(30.r),
       ),
@@ -79,15 +80,19 @@ class _MyVerifyState extends State<MyVerify> {
 
     final submittedPinTheme = defaultPinTheme.copyWith(
       decoration: defaultPinTheme.decoration?.copyWith(
-        color: const Color.fromARGB(255, 231, 229, 229),
+        color: const Color(0xffEFE6E5),
       ),
     );
 
     return Scaffold(
-      backgroundColor: const Color(0xffF3F2F2),
+      backgroundColor: const Color(0xffEFE6E5),
       extendBodyBehindAppBar: true,
       body: Container(
-        margin: const EdgeInsets.only(left: 25, right: 25, bottom: 10),
+        margin: EdgeInsets.only(
+          left: size.width*0.07, 
+          right: size.width*0.07,
+          bottom: size.height*0.05
+           ),
         alignment: Alignment.center,
         child: SingleChildScrollView(
           child: Column(
@@ -105,9 +110,9 @@ class _MyVerifyState extends State<MyVerify> {
                 "Please Enter 5-Digit Code",
                 style: TextStyle(
                   fontFamily: 'Cosffira',
-                  fontSize: 60.sp,
+                  fontSize: 70.sp,
                   fontWeight: FontWeight.w700,
-                  color: const Color(0xff020202),
+                  color: const Color(0xff4A5E7C),
                 ),
               ),
               const SizedBox(
@@ -118,8 +123,8 @@ class _MyVerifyState extends State<MyVerify> {
                   text: 'We\'ve Sent A Code To ',
                   style: TextStyle(
                     fontFamily: 'Cosffira',
-                    fontSize: 44.sp,
-                    color: const Color.fromARGB(184, 9, 15, 15),
+                    fontSize: 45.sp,
+                    color: const Color(0xff000000),
                     fontWeight: FontWeight.w800,
                   ),
                   children: <TextSpan>[
@@ -127,15 +132,15 @@ class _MyVerifyState extends State<MyVerify> {
                       text: 'malk22@gmail.com\n',
                       style: TextStyle(
                         fontSize: 44.sp,
-                        color: const Color(0xff548987),
+                        color: const  Color(0xffA26874),
                         fontWeight: FontWeight.w900,
                       ),
                     ),
                     TextSpan(
                       text: 'Enter a Code In That Message',
                       style: TextStyle(
-                        fontSize: 42.sp,
-                        color: const Color.fromARGB(184, 9, 15, 15),
+                        fontSize: 45.sp,
+                       color: const Color(0xff000000),
                         fontWeight: FontWeight.w800,
                       ),
                     ),
@@ -170,17 +175,18 @@ class _MyVerifyState extends State<MyVerify> {
                           children: [
                             const Icon(
                               Icons.alarm_on,
-                              color: Color.fromARGB(255, 108, 42, 50),
-                              size: 18,
+                              color: Color(0xffA26874),
+                              size: 20,
                             ),
                             SizedBox(width: 0.w),
                             Text(
                               ' ${getFormattedTime()} Min',
                               style: TextStyle(
-                                fontSize: 30.sp,
+                                fontSize: 40.sp,
                                 fontWeight: FontWeight.w700,
-                                color: const Color.fromARGB(255, 108, 42, 50),
+                                color: const  Color(0xffA26874),
                               ),
+                              
                             ),
                           ],
                         )
@@ -199,7 +205,7 @@ class _MyVerifyState extends State<MyVerify> {
                               fontFamily: 'Cosffira',
                               fontSize: 45.sp,
                               fontWeight: FontWeight.w800,
-                              color: const Color(0xff2A606C),
+                              color: const Color(0xff4A5E7C),
                             ),
                           ),
                         ),
