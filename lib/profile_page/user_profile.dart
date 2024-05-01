@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 
+
 class UserAcount extends StatefulWidget {
    final String? name;
   final String? email;
@@ -42,17 +43,17 @@ void initState() {
   
   @override
   Widget build(BuildContext context) {
-     
+     final Size size = MediaQuery.of(context).size;
     var border = OutlineInputBorder(
         borderRadius: BorderRadius.circular(40.r),
         borderSide: const BorderSide(
-            width: 0.5, color: Color.fromARGB(70, 112, 112, 112)));
+            width: 0.0, color: Color.fromARGB(255, 239, 238, 238)));
 
     return Scaffold(
       backgroundColor: const Color(0xffEEEFEF),
       resizeToAvoidBottomInset: false,
       body: Container(
-        width: double.infinity,
+        width: size.width,
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/image/user_profile_page.png'),
@@ -61,12 +62,15 @@ void initState() {
         ),
         child: Column(
           children: [
-            const SizedBox(height: 120,),
+            SizedBox(height: 120.h,),
             Padding(
-              padding: const EdgeInsets.only(top: 45, left: 55),
+              padding:  EdgeInsets.only(
+                top: size.height *0.1, 
+                right: size.width *0.5
+                ),
               child: Container(
-                width: 105,
-                height: 105,
+                width: 275.w,
+                height: 305.h,
                 
                 decoration: const BoxDecoration(
                   //color: Colors.amberAccent,
@@ -77,7 +81,12 @@ void initState() {
              Column(
               children: [
               Padding(
-          padding: const EdgeInsets.only(left: 40, right: 40,top: 50),
+          padding:  EdgeInsets.only(
+                top:size.height *0.1, 
+                right: size.width *0.1,
+                left: size.width *0.1
+            
+            ),
           child: Form(
     
             child: TextFormField(
@@ -87,7 +96,12 @@ void initState() {
               keyboardType: TextInputType.name,
             keyboardAppearance: Brightness.dark,
               obscureText: false,
-              style: const TextStyle(color: Color(0xff090F0F)),
+             style:  TextStyle( 
+                    color: const  Color.fromARGB(255, 37, 40, 50),
+                      fontFamily: 'Cosffira',
+                      fontSize: 60.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
               decoration: InputDecoration(
                 fillColor: const Color(0xFFFFFFFF),
                 contentPadding: const EdgeInsets.symmetric(vertical: 19),
@@ -101,6 +115,7 @@ void initState() {
                 ),
                 enabledBorder: border,
                 focusedBorder: border,
+                border: border,
                 prefixIcon: const Icon(
                   Icons.man_sharp,
                   color: Color(0xffA26874),
@@ -112,7 +127,11 @@ void initState() {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 40, right: 40, top: 18),
+          padding: EdgeInsets.only(
+            top:size.height *0.03, 
+                right: size.width *0.1,
+                left: size.width *0.1
+            ),
           child: Form(
              autovalidateMode: AutovalidateMode.always,
             child: 
@@ -122,7 +141,12 @@ void initState() {
                
                 keyboardType: TextInputType.emailAddress,
                 obscureText: false,
-                style: const TextStyle(color: Color(0xff090F0F)),
+                style:  TextStyle( 
+                    color: const  Color.fromARGB(255, 37, 40, 50),
+                      fontFamily: 'Cosffira',
+                      fontSize: 60.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
                 decoration: InputDecoration(
                   fillColor: const Color(0xFFFFFFFF),
                   contentPadding: const EdgeInsets.symmetric(vertical: 19),
@@ -136,6 +160,7 @@ void initState() {
                   ),
                   enabledBorder: border,
                   focusedBorder: border,
+                  border: border,
                   prefixIcon: const Icon(
                     Icons.email,
                     color: Color(0xffA26874),
@@ -149,14 +174,22 @@ void initState() {
           ),
         
         Padding(
-          padding: const EdgeInsets.only(top: 18, left: 40, right: 40),
+          padding:  EdgeInsets.only(
+            top:size.height *0.03, 
+                right: size.width *0.1,
+                left: size.width *0.1),
           child:
              TextFormField(
              controller: phoneNumberController,
             
               keyboardType: TextInputType.number,
               obscureText: false,
-              style: const TextStyle(color: Color(0xff090F0F)),
+             style:  TextStyle( 
+                    color: const  Color.fromARGB(255, 37, 40, 50),
+                      fontFamily: 'Cosffira',
+                      fontSize: 60.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
               decoration: InputDecoration(
                 fillColor: const Color(0xFFFFFFFF),
                 contentPadding: const EdgeInsets.symmetric(vertical: 19),
@@ -170,6 +203,8 @@ void initState() {
                 ),
                 enabledBorder: border,
                 focusedBorder: border,
+                border: border,
+                
                 prefixIcon: const Icon(
                   Icons.phone,
                   color: Color(0xffA26874),

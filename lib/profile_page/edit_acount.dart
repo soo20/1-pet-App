@@ -58,6 +58,7 @@ class _EditAcountState extends State<EditAcount> {
 
   @override
   Widget build(BuildContext context) {
+    
     var border = OutlineInputBorder(
         borderRadius: BorderRadius.circular(40.r),
         borderSide: const BorderSide(
@@ -207,7 +208,7 @@ class _EditAcountState extends State<EditAcount> {
                     color: const  Color.fromARGB(255, 37, 40, 50),
                       fontFamily: 'Cosffira',
                       fontSize: 60.sp,
-                      fontWeight: FontWeight.w800,
+                      fontWeight: FontWeight.w500,
                     ),
                   decoration: InputDecoration(
                     fillColor: const Color(0xFFFFFFFF),
@@ -244,7 +245,7 @@ class _EditAcountState extends State<EditAcount> {
                     color: const  Color.fromARGB(255, 37, 40, 50),
                       fontFamily: 'Cosffira',
                       fontSize: 60.sp,
-                      fontWeight: FontWeight.w800,
+                      fontWeight: FontWeight.w500,
                     ),
                   decoration: InputDecoration(
                     fillColor: const Color(0xFFFFFFFF),
@@ -275,7 +276,7 @@ class _EditAcountState extends State<EditAcount> {
                     color: const  Color.fromARGB(255, 37, 40, 50),
                       fontFamily: 'Cosffira',
                       fontSize: 60.sp,
-                      fontWeight: FontWeight.w800,
+                      fontWeight: FontWeight.w500,
                     ),
                   validator: (value) {
                     if (value!.isEmpty) {

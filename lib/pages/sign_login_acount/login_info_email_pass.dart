@@ -111,106 +111,88 @@ class _LoginInfoState extends State<LoginInfo> {
         key: _formKey,
         child: Column(
           children: [
-            Container(
-              decoration: BoxDecoration(color: Colors.transparent, boxShadow: [
-                BoxShadow(
-                    blurRadius: 120.r,
-                    spreadRadius: 10.r,
-                    // offset: const Offset(0, 10),
-                    color: Colors.grey.withOpacity(0.2))
-              ]),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(35, 60, 35, 0),
-                child: TextFormField(
-                  validator: validateEmail,
-                  controller: _email,
-                  obscureText: false,
-                  style: TextStyle(
-                        fontFamily: 'Cosffira',
-                        fontSize: 50.sp,
-                        color: const Color(0xff354A6B),
-                        fontWeight: FontWeight.w600,
-                      ),
-                  decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(vertical: 20),
-                      fillColor: const Color(0xFFFFFFFF),
-                      filled: true,
-                      hintText: 'Email',
-                      hintStyle: TextStyle(
-                        fontFamily: 'Cosffira',
-                        fontSize: 50.sp,
-                        color: const Color(0xffB5C0D0),
-                        fontWeight: FontWeight.w600,
-                      ),
-                      enabledBorder: border,
-                      focusedBorder: border,
-                      prefixIcon: const Icon(
-                        Icons.email,
-                        color:  Color(0xffB5C0D0),
-                      )),
-                ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(35, 60, 35, 0),
+              child: TextFormField(
+                validator: validateEmail,
+                controller: _email,
+                obscureText: false,
+                style: TextStyle(
+                      fontFamily: 'Cosffira',
+                      fontSize: 50.sp,
+                      color: const Color(0xff354A6B),
+                      fontWeight: FontWeight.w600,
+                    ),
+                decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(vertical: 20),
+                    fillColor: const Color(0xFFFFFFFF),
+                    filled: true,
+                    hintText: 'Email',
+                    hintStyle: TextStyle(
+                      fontFamily: 'Cosffira',
+                      fontSize: 50.sp,
+                      color: const Color(0xffB5C0D0),
+                      fontWeight: FontWeight.w600,
+                    ),
+                    enabledBorder: border,
+                    focusedBorder: border,
+                    prefixIcon: const Icon(
+                      Icons.email,
+                      color:  Color(0xffB5C0D0),
+                    )),
               ),
             ),
             SizedBox(
               height: 0.h,
             ),
-            Container(
-              decoration: BoxDecoration(color: Colors.transparent, boxShadow: [
-                BoxShadow(
-                    blurRadius: 100,
-                    spreadRadius: 7.r,
-                    offset: const Offset(1, 10),
-                    color: Colors.grey.withOpacity(0.2))
-              ]),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(35, 15, 35, 0),
-                child: TextFormField(
-                  validator: (text) {
-                    if (text == null || text.isEmpty) {
-                      return 'please Enter Password';
-                    }
-                    return null;
-                  },
-                  obscureText: _obscureText3,
-                  controller: _pass,
-                  // obscureText: true,
-                   style: TextStyle(
-                        fontFamily: 'Cosffira',
-                        fontSize: 50.sp,
-                        color: const Color(0xff354A6B),
-                        fontWeight: FontWeight.w600,
-                      ),
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(vertical: 20),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        _obscureText3
-                            ? Icons.visibility_off_outlined
-                            : Icons.visibility_outlined,
-                         color: const Color(0xffB5C0D0),
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _obscureText3 = !_obscureText3;
-                        });
-                      },
-                    ),
-                    fillColor: const Color(0xFFFFFFFF),
-                    filled: true,
-                    hintText: 'Password',
-                    hintStyle: TextStyle(
+            Padding(
+              padding: const EdgeInsets.fromLTRB(35, 15, 35, 0),
+              child: TextFormField(
+                validator: (text) {
+                  if (text == null || text.isEmpty) {
+                    return 'please Enter Password';
+                  }
+                  return null;
+                },
+                obscureText: _obscureText3,
+                controller: _pass,
+                // obscureText: true,
+                 style: TextStyle(
                       fontFamily: 'Cosffira',
                       fontSize: 50.sp,
-                     color: const Color(0xffB5C0D0),
+                      color: const Color(0xff354A6B),
                       fontWeight: FontWeight.w600,
                     ),
-                    enabledBorder: border,
-                    focusedBorder: border,
-                 // suffixText: "soha",
-                    prefixIcon: const Icon(
-                      Icons.vpn_key,
-                      color: Color(0xffB5C0D0),
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(vertical: 20),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscureText3
+                          ? Icons.visibility_off_outlined
+                          : Icons.visibility_outlined,
+                       color: const Color(0xffB5C0D0),
                     ),
+                    onPressed: () {
+                      setState(() {
+                        _obscureText3 = !_obscureText3;
+                      });
+                    },
+                  ),
+                  fillColor: const Color(0xFFFFFFFF),
+                  filled: true,
+                  hintText: 'Password',
+                  hintStyle: TextStyle(
+                    fontFamily: 'Cosffira',
+                    fontSize: 50.sp,
+                   color: const Color(0xffB5C0D0),
+                    fontWeight: FontWeight.w600,
+                  ),
+                  enabledBorder: border,
+                  focusedBorder: border,
+               // suffixText: "soha",
+                  prefixIcon: const Icon(
+                    Icons.vpn_key,
+                    color: Color(0xffB5C0D0),
                   ),
                 ),
               ),

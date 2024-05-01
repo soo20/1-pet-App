@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
 import 'package:petapplication/pages/setting_bage/alart_page.dart';
 
 import 'package:petapplication/pages/setting_bage/help_tips.dart';
@@ -19,7 +20,7 @@ class Setting extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xffEFE6E5),
       appBar: AppBar(
@@ -48,33 +49,41 @@ class Setting extends StatelessWidget {
           // Set the size of the icons
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Padding(
-            padding: EdgeInsets.only(left: 20, top: 0),
-            child: Text(
-              'Setting',
-              style: TextStyle(
-                fontFamily: 'Cosffira',
-                fontSize: 50,
-                color: Color(0xff4A5E7C),
-                fontWeight: FontWeight.w700,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+             Padding(
+              padding: EdgeInsets.only(
+                left: size.width *0.08, 
+                top: size.height *0.01),
+              child: Text(
+                'Setting',
+                style: TextStyle(
+                  fontFamily: 'Cosffira',
+                  fontSize: 120.sp,
+                  color: const Color(0xff4A5E7C),
+                  fontWeight: FontWeight.w700,
+                ),
+                textAlign: TextAlign.start,
+                softWrap: false,
               ),
-              textAlign: TextAlign.start,
-              softWrap: false,
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 5,left: 10,right: 10),
-            child: _buildListView(context),
-          ),
-        ],
+            Padding(
+              padding: EdgeInsets.only(
+               left: size.width *0.035,
+               right: size.width *0.035, 
+                top: size.height *0.01),
+              child: _buildListView(context),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildListView(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     // Define a list of titles
     List<String> titles = [
       "Edit Profile",
@@ -85,7 +94,7 @@ class Setting extends StatelessWidget {
       "Log Out"
     ];
     List<IconData> icons = [
-      Icons.edit,
+      Icons.edit_outlined,
       Icons.help_outline,
       Icons.ios_share,
       Icons.star_outline_outlined,
@@ -113,13 +122,13 @@ void shareApp() {
   showDialog(
     context: ccontext,
     builder: (context) => 
-    const Alart1(
+    Alart1(
       title: 'https://translate.google.com', 
       confirmButtonText: 'Copy Link', 
       confirmButtonText2: 'Decline',
-      customFontSize: 19, 
-      padding: EdgeInsets.only(top: 40.0), 
-      padding2:EdgeInsets.only(top: 17.0)
+      customFontSize: 50.sp, 
+      padding: EdgeInsets.only(top: size.height *0.05), 
+      padding2:EdgeInsets.only(top: size.height *0.02)
       ),
   );
 }
@@ -130,13 +139,14 @@ void shareApp() {
      showDialog(
     context: ccontext,
     builder: (context) => 
-    const Alart1(
+    Alart1(
       title: 'Are You Sure You Want To Log Out', 
       confirmButtonText: 'Yes', 
       confirmButtonText2: 'Cancle',
-      customFontSize: 19, 
-      padding: EdgeInsets.only(top: 40.0), 
-      padding2:EdgeInsets.only(top: 17.0)
+      
+      customFontSize: 50.sp, 
+      padding: EdgeInsets.only(top: size.height *0.05), 
+      padding2:EdgeInsets.only(top: size.height *0.02)
       ),
   );
     }
@@ -157,13 +167,14 @@ void shareApp() {
 
     ];
 return SizedBox(
-  height: 550,
-  width: 400,
+  height: size.height,
+  width: size.width,
   child: ListView.builder(
     itemCount: 6,
     itemBuilder: (_, index) {
       return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4.0),
+        padding: EdgeInsets.symmetric(
+          vertical: size.height *0.006),
         child: Card(
           color: const Color.fromARGB(105, 210, 207, 207),
           semanticContainer: true,
@@ -173,10 +184,10 @@ return SizedBox(
             child: ListTile(
               title: Text(
                 titles[index],
-                style: const TextStyle(
+                style:  TextStyle(
                   fontFamily: 'Cosffira',
-                  fontSize: 30,
-                  color: Color(0xff5D595B),
+                  fontSize: 67.sp,
+                  color: const Color(0xff5D595B),
                   fontWeight: FontWeight.w400,
                 ),
               ),
