@@ -31,6 +31,7 @@ class _AddPetsState extends State<AddPets> {
   TextEditingController petIdController = TextEditingController();
   TextEditingController petTypeController = TextEditingController();
   TextEditingController ageController = TextEditingController();
+  TextEditingController weightController = TextEditingController();
   String? selectedPetType; // Variable to store the selected pet type
   bool showSecondContainer = false;
   late final PetsInformation petInformation;
@@ -396,6 +397,7 @@ class _AddPetsState extends State<AddPets> {
                         padding:
                             const EdgeInsets.only(left: 40, right: 40, top: 0),
                         child: TextFormField(
+                          controller: weightController,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return '';
@@ -457,15 +459,16 @@ class _AddPetsState extends State<AddPets> {
 
                             // Create a new PetsInformation object with the entered information
                             PetsInformation newPet = PetsInformation(
-                              imageUrl: _selectedImage?.path ??
-                                  'assets/image/profileImage.png', // Convert XFile to String path
-                              petName: petNameController.text,
-                              petGender: _Selected ?? '',
-                              petId: petIdController.text,
-                              petType: petTypeController.text,
-                              age: ageController.text,
-                              petIsDogOrCat: selectedPetType!,
-                            );
+                                imageUrl: _selectedImage?.path ??
+                                    'assets/image/profileImage.png', // Convert XFile to String path
+                                petName: petNameController.text,
+                                petGender: _Selected!,
+                                petId: petIdController.text,
+                                petType: petTypeController.text,
+                                age: ageController.text,
+                                petIsDogOrCat: selectedPetType!,
+                                petWeight:
+                                    double.tryParse(weightController.text));
 
                             // Add the new pet to the appropriate list based on petType
                             if (selectedPetType == 'Cat') {

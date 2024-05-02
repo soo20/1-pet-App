@@ -12,8 +12,8 @@ class Dot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Adjust these values based on your preference
-    const dotSize = 10.0;
-    const spaceBetweenDots = 2.5;
+    const dotSize = 11.0;
+    const spaceBetweenDots = 2.7;
     const totalDots = 4;
 
     return Row(
@@ -28,7 +28,7 @@ class Dot extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: index == dotIndex
-                ? const Color(0xff345346)
+                ? const Color(0xff74454E)
                 : const Color(0xffffffff),
             border: Border.all(
               width: 0.5,

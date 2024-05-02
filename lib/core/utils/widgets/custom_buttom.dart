@@ -238,7 +238,7 @@ class CustomGeneralButtom3 extends StatelessWidget {
                       Icons.camera_alt,
                       weight: 600.w,
                       size: 90.sp,
-                      color: const Color(0xffE3B1A8),
+                      color: const Color(0xffeeeeee),
                     ),
                   ),
                 ],

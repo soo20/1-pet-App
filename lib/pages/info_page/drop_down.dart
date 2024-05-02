@@ -22,16 +22,18 @@ class _DropDownState extends State<DropDown> {
     _scrollController = ScrollController();
   }
 
+
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 212, 211, 205),
+      backgroundColor: const Color(0xffEFE7E7),
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(
-          vertical: 20,
-          horizontal: 37,
+        padding:  EdgeInsets.symmetric(
+          vertical: size.height * 0.07,
+          horizontal: size.width * 0.085,
         ),
         child: SafeArea(
           child: SingleChildScrollView(
@@ -43,8 +45,8 @@ class _DropDownState extends State<DropDown> {
                     ' Type Name:',
                     style: TextStyle(
                       fontFamily: 'Cosffira',
-                      fontSize: 55.sp,
-                      color: const Color(0xff2A606C),
+                      fontSize: 65.sp,
+                      color: const Color.fromARGB(182, 74, 94, 124),
                       fontWeight: FontWeight.w400,
                     ),
                     textAlign: TextAlign.center,
@@ -54,21 +56,21 @@ class _DropDownState extends State<DropDown> {
                   ' Golden Retriever ',
                   style: TextStyle(
                     fontFamily: 'Cosffira',
-                    fontSize: 60.sp,
-                    color: const Color(0xffDC3356),
+                    fontSize: 75.sp,
+                    color: const Color(0xff4A5E7C),
                     fontWeight: FontWeight.w600,
                   ),
                   textAlign: TextAlign.center,
                 ),
-                 SizedBox(height: 50.h),
+                 SizedBox(height: 55.h),
                 const Droper(textContent: 'About',),
-                 SizedBox(height: 60.h,),
+                 SizedBox(height: 65.h,),
                 const Droper(textContent: 'Health',),
-                 SizedBox(height: 60.h,),
+                 SizedBox(height: 65.h,),
                 const Droper(textContent: 'Exercise',),
-                 SizedBox(height: 60.h,),
+                 SizedBox(height: 65.h,),
                 const Droper(textContent: 'Grooming',),
-                 SizedBox(height: 60.h,),
+                 SizedBox(height: 65.h,),
                 
                
               ],

@@ -1,6 +1,8 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class ExpandedSection extends StatefulWidget 
 {
@@ -71,26 +73,27 @@ class _ExpandedSectionState extends State<ExpandedSection>
   @override
   Widget build(BuildContext context) 
   {
+    Size size = MediaQuery.of(context).size;
     return SizeTransition(
         axisAlignment: 1.0,
         sizeFactor: animation,
         child: Container(
-          padding: const EdgeInsets.only(
+          padding: EdgeInsets.only(
             bottom: 0,
-            top: 21,
+            top: size.height*0.05,
           ),
           constraints: BoxConstraints(
               //minHeight: 100,
               minWidth: double.infinity,
               maxHeight: widget.height > 5
-                  ? 400
+                  ? 1050.h
                   : widget.height == 1
                       ? 55
                       : widget.height * 50.0
                       ),
           child: Padding(
-              padding: const EdgeInsets.only(
-                bottom: 5
+              padding:  EdgeInsets.only(
+                bottom: size.height*0.01
                 ), 
               child: widget.child
               ),

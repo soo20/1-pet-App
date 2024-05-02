@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
+
 import 'package:petapplication/pages/sign_login_acount/login_info_email_pass.dart';
 
 class GreateNewPass extends StatefulWidget {
@@ -20,6 +21,7 @@ class _GreateNewPassState extends State<GreateNewPass> {
   
   @override
   Widget build(BuildContext context) {
+     final Size size = MediaQuery.of(context).size;
     var border = OutlineInputBorder(
         borderRadius: BorderRadius.circular(55.r),
         borderSide: const BorderSide(
@@ -27,16 +29,16 @@ class _GreateNewPassState extends State<GreateNewPass> {
    // double aspectRatio = screenHeight / screenWidth;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: const Color(0xffF3F2F2),
+      backgroundColor: const Color(0xffDCD3D3),
       appBar: AppBar(
-        backgroundColor: const Color(0xffF3F2F2),
+        backgroundColor: const Color(0xffDCD3D3),
         elevation: 2,
-        toolbarHeight: 250.h,
+        toolbarHeight: 230.h,
         automaticallyImplyLeading: false,
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_rounded,
-            color: Color(0xff105952),
+            color: Color(0xff4A5E7C),
           ),
           onPressed: () {
             Navigator.of(context).pop();
@@ -47,32 +49,38 @@ class _GreateNewPassState extends State<GreateNewPass> {
         ),
         forceMaterialTransparency: true,
         toolbarOpacity: 1,
-        foregroundColor: const Color(0xff105952),
+        foregroundColor: const Color(0xff4A5E7C),
       ),
       extendBodyBehindAppBar: true,
       body: Column(
         children: [
        
   Padding(
-    padding: const EdgeInsets.fromLTRB(0,52,10,0),
+    padding:  EdgeInsets.only(
+top: size.height*0.07
+    ),
     child: Text(
                 'Create New Password',
                 style: TextStyle(
                   fontFamily: 'Cosffira',
-                  fontSize: 55.sp,
-                  color: const Color(0xff105952),
+                  fontSize: 75.sp,
+                  color: const Color(0xff4A5E7C),
                   fontWeight: FontWeight.w700,
                 ),
               ),
-  ),
+             ),
     
-Padding(padding: const EdgeInsets.fromLTRB(0,85,170,0),
-child: Text(
+         Padding(
+           padding: EdgeInsets.only(
+            top: size.height*0.12,
+            right: size.width*0.45
+           ),
+            child: Text(
               'New password',
               style: TextStyle(
                 fontFamily: 'Cosffira',
-                fontSize: 44.sp,
-                color: const Color(0xfa134f5c),
+                fontSize: 60.sp,
+                 color: const Color(0xff4A5E7C),
                 fontWeight: FontWeight.w700,
                 height: 5.h,
               ),
@@ -81,21 +89,30 @@ child: Text(
                   ),
               softWrap: false,
             ),
-),
- Container(
-          padding:const  EdgeInsets.only(
-              
-              right: 50,
-              left: 50,
+          ),
+              Container(
+          padding: EdgeInsets.only(
+             
+              right: size.width*0.1,
+              left: size.width*0.1,
             
               ),
           child: TextField(
             obscureText: _obscureText,
            
-            style: const TextStyle(color: Color(0xff090F0F)),
+            style: TextStyle(
+                fontFamily: 'Cosffira',
+                fontSize: 50.sp,
+                color: const Color(0xff000000),
+                fontWeight: FontWeight.w600,
+              ),
             decoration: InputDecoration(
                contentPadding:
-                               const EdgeInsets.fromLTRB(20, 20, 12, 8),
+              EdgeInsets.only(
+                left: size.width*0.06,
+                top: size.height*0.05
+                
+               ),
               suffixIcon: IconButton(
                 icon: Icon(
                   size: 20,
@@ -113,25 +130,25 @@ child: Text(
               ),
               fillColor: const Color(0xFFFFFFFF),
               filled: true,
-              hintStyle: TextStyle(
-                fontFamily: 'Cosffira',
-                fontSize: 24.sp,
-                color: const Color.fromARGB(116, 19, 79, 92),
-                fontWeight: FontWeight.w600,
-              ),
+              
               enabledBorder: border,
               focusedBorder: border,
             ),
           ),
         ),
 
-        Padding(padding: const EdgeInsets.fromLTRB(0,5,70,0),
+        Padding(
+          padding:EdgeInsets.only(
+          top: size.height*0.01,
+          right:size.height*0.15,
+
+          ),
        child:  Text(
-              'Must be at least 8 characters',
+              ' ! Must be at least 8 characters',
               style: TextStyle(
                 fontFamily: 'Cosffira',
-                fontSize: 28.sp,
-                color: const Color(0xff50B1AF),
+                fontSize: 38.sp,
+                color: const Color(0xffA26874),
                 fontWeight: FontWeight.w800,
                 height: 1.9411764705882353.h,
               ),
@@ -143,13 +160,18 @@ child: Text(
 
 
       
-       Padding(padding: const EdgeInsets.fromLTRB(0,40,160,0),
+       Padding(
+        padding:  EdgeInsets.only(
+        top : size.height *0.06,
+        //left: size.width *0.08,
+        right: size.width *0.35
+        ),
        child:  Text(
               'Confirm Password',
               style: TextStyle(
                 fontFamily: 'Cosffira',
-                fontSize: 41.sp,
-                color: const Color(0xfa134f5c),
+                fontSize: 60.sp,
+                color: const Color(0xff4A5E7C),
                 fontWeight: FontWeight.w700,
                 height: 1.9411764705882353.h,
               ),
@@ -162,19 +184,28 @@ child: Text(
 
 
       Container(
-          padding: const EdgeInsets.only(
-              top:10,
-              right:50 ,
-              left: 50,
+          padding:  EdgeInsets.only(
+        top : size.height *0.015,
+        left: size.width *0.1,
+        right: size.width *0.1
              
           ),
             child: TextField(
             obscureText: _obscureText2,
            
-            style: const TextStyle(color: Color(0xff090F0F)),
+            style: TextStyle(
+                fontFamily: 'Cosffira',
+                fontSize: 50.sp,
+                color: const Color(0xff000000),
+                fontWeight: FontWeight.w600,
+              ),
             decoration: InputDecoration(
                contentPadding:
-                              const EdgeInsets.fromLTRB(20, 20, 12, 8),
+                EdgeInsets.only(
+                left: size.width*0.06,
+                top: size.height*0.05
+                
+               ),
               suffixIcon: IconButton(
                 icon: Icon(
                   size: 20,
@@ -218,13 +249,14 @@ child: Text(
               fit: BoxFit.contain,
             ))),*/
             SizedBox(
-              height: 120.h,
+              height: 150.h,
             ),
         CustomGeneralButtom(
-          boxColor: const Color(0xffF83658),
+          boxColor: const Color(0xffA26874),
           textColor: const Color(0xffFFFFFF),
-          height: 110.h,
-          width: 330.w,
+          height: 130.h,
+          width: 350.w,
+          customFontSize: 45.sp,
           borderColor: const Color.fromARGB(108, 112, 112, 112),
           text: 'Submit',
           onTap: () {
