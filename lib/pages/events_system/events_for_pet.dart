@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 import 'package:petapplication/pages/events_system/add_event_for_pet.dart';
+
 // import 'package:petapplication/some_files_to_data/today_and_future_reminders_data.dart';
 
 class EventsForPetPage extends StatefulWidget {
@@ -22,6 +23,23 @@ class CustomTime {
   late String minutes;
   late bool night;
   bool checked = false;
+  Map<String, dynamic> toJson() {
+    return {
+      'hours': hours,
+      'minutes': minutes,
+      'night': night,
+      'checked': checked,
+    };
+  }
+
+  factory CustomTime.fromJson(Map<String, dynamic> json) {
+    return CustomTime(
+      hours: json['hours'],
+      minutes: json['minutes'],
+      night: json['night'],
+      checked: json['checked'],
+    );
+  }
 }
 
 class ReminderData {
@@ -100,11 +118,6 @@ class _EventsForPetPage extends State<EventsForPetPage> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-
-    addTaskDialog() => showDialog(
-          context: context,
-          builder: (context) => AddTaskDialog(petInfo: widget.petInformation),
-        );
 
     return SafeArea(
       child: Scaffold(
@@ -319,10 +332,12 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                             ),
                           ),
                           IconButton(
-                            onPressed: () {
-                              setState(() {
-                                addTaskDialog();
-                              });
+                            onPressed: () async {
+                              await showDialog(
+                                  context: context,
+                                  builder: (context) => AddTaskDialog(
+                                      petInfo: widget.petInformation));
+                              setState(() {});
                             },
                             icon: Image.asset(
                               'assets/icons/events_for_pet_page_icons/add_reminder_icon.png',
@@ -348,10 +363,12 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                               return BuildReminder(reminderData: remainder);
                             } else {
                               return IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    addTaskDialog();
-                                  });
+                                onPressed: () async {
+                                  await showDialog(
+                                      context: context,
+                                      builder: (context) => AddTaskDialog(
+                                          petInfo: widget.petInformation));
+                                  setState(() {});
                                 },
                                 icon: Image.asset(
                                   'assets/icons/events_for_pet_page_icons/add_reminder_icon.png',

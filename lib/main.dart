@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-
 import 'package:petapplication/pages/splashscreen.dart';
+
 // import 'package:petapplication/pages/splashscreen.dart';
 
 late List<CameraDescription> cameras;
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   WidgetsFlutterBinding.ensureInitialized();
   cameras = await availableCameras();
   runApp(const YunaPetApp());
@@ -47,7 +49,7 @@ class YunaPetApp extends StatelessWidget {
       },
       //A part of builder that its dependencies/properties don't use the library
       //child: const SplashScreen()
-          //const TheMainHomePage(),
+      //const TheMainHomePage(),
     );
   }
 }

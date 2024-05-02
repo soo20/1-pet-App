@@ -69,6 +69,7 @@ dependencies:
   intl_phone_field: ^3.2.0
   flutter_hooks: ^0.20.5
   libphonenumber: ^2.0.2
+  shared_preferences: ^2.2.3
  
 dev_dependencies:
   flutter_lints: ^3.0.1

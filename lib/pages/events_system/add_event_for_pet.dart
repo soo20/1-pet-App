@@ -1,6 +1,9 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
@@ -46,12 +49,85 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+
+    errorMessage() {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) => BackdropFilter(
+                filter: ImageFilter.blur(
+                  sigmaX: size.width * 0.01,
+                  sigmaY: size.width * 0.01,
+                ),
+                child: AlertDialog(
+                  elevation: 0.0,
+                  backgroundColor: const Color(0xffDCD3D3),
+                  content: Text(
+                    "I'm sorry, but you cannot add this reminder because you already have the same reminder data for another task. Please check your existing reminders or modify the current one to prevent duplicates.",
+                    style: TextStyle(
+                      height: 0.0,
+                      fontFamily: 'Cosffira',
+                      fontSize: size.width * 0.037,
+                      fontWeight: FontWeight.w800,
+                      color: const Color(0xff4A5E7C),
+                      letterSpacing: 0.5,
+                    ),
+                  ),
+                  actions: [
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xffA26874),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: size.width * 0.028,
+                            vertical: size.height * 0.025,
+                          ), // Adjust the padding as needed
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                              size.width * 0.092,
+                            ), // Set the border radius of the button
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            left: size.width * 0.06,
+                            right: size.width * 0.06,
+                          ),
+                          child: Text(
+                            'modify',
+                            style: TextStyle(
+                              height: 0.0,
+                              fontFamily: 'Cosffira',
+                              fontSize: size.width * 0.045,
+                              fontWeight: FontWeight.w800,
+                              color: const Color.fromARGB(255, 255, 255, 255),
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ));
+    }
+
     void onFinishButtonPressed() {
       // Create the ReminderData object
       final ReminderData reminderData =
           createReminderData(selectedDate, reminderTime, currentItemSelected);
       setState(() {
-        widget.petInfo.remindersData.add(reminderData);
+        for (PetsInformation pet in petsList) {
+          for (ReminderData reminder in pet.remindersData) {
+            if (reminder == reminderData) {
+              errorMessage();
+            } else {
+              widget.petInfo.remindersData.add(reminderData);
+            }
+          }
+        }
       });
       // Add the ReminderData object to the list
 

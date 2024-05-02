@@ -5,8 +5,6 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/pages/define_page/jack_define.dart';
-
-import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
 import 'package:petapplication/pages/pet_setting_pages/add_pet.dart';
 
 //import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
@@ -34,22 +32,22 @@ class ChooseDefintionType extends StatelessWidget {
 
         leadingWidth: 50,
 
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_rounded,
-            color: Color(0xff2A606C),
-          ),
-          onPressed: () {
-            navigator?.pushAndRemoveUntil(
-              MaterialPageRoute(builder: (e) => const TheMainHomePage()),
-              (route) => true,
-            );
-            //
-          },
-          iconSize: 39.0,
-          padding: const EdgeInsets.only(
-              left: 6.0), // Set the size of the arrow icon
-        ),
+        // leading: IconButton(
+        //   icon: const Icon(
+        //     Icons.arrow_back_rounded,
+        //     color: Color(0xff2A606C),
+        //   ),
+        //   onPressed: () {
+        //     navigator?.pushAndRemoveUntil(
+        //       MaterialPageRoute(builder: (e) => const TheMainHomePage()),
+        //       (route) => true,
+        //     );
+        //     //
+        //   },
+        //   iconSize: 39.0,
+        //   padding: const EdgeInsets.only(
+        //       left: 6.0), // Set the size of the arrow icon
+        // ),
       ),
       extendBodyBehindAppBar: true,
       body: SafeArea(

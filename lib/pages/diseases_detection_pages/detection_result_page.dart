@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:petapplication/pages/define_page/widgets/choose_defintion_type.dart';
 import 'package:petapplication/pages/diseases_detection_pages/about_information_page.dart';
 import 'package:petapplication/pages/diseases_detection_pages/prevention_information_page.dart';
 import 'package:petapplication/pages/diseases_detection_pages/symptoms_information_page.dart';
@@ -249,9 +250,14 @@ class _DetectionResulrPageState extends State<DetectionResulrPage> {
                         children: [
                           ElevatedButton(
                             onPressed: () async {
-                              await choosePetToAddThisDetectionFor(
-                                  dogsInformationList, widget.detectionResult);
-                              setState(() {});
+                              if (petsList.isEmpty) {
+                                Get.to(const ChooseDefintionType());
+                              } else {
+                                await choosePetToAddThisDetectionFor(
+                                    dogsInformationList,
+                                    widget.detectionResult);
+                                setState(() {});
+                              }
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xffA26874),
