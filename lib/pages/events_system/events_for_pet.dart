@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
@@ -21,7 +23,7 @@ class CustomTime {
   });
   late String hours;
   late String minutes;
-  late bool night;
+  late String night;
   bool checked = false;
   Map<String, dynamic> toJson() {
     return {
@@ -63,46 +65,9 @@ class ReminderData {
   late String year;
 }
 
-List<CustomTime> feedTimes = [
-  CustomTime(
-    hours: '4',
-    minutes: '22',
-    night: true,
-    checked: false,
-  ),
-  CustomTime(
-    hours: '4',
-    minutes: '22',
-    night: true,
-    checked: false,
-  ),
-  CustomTime(
-    hours: '4',
-    minutes: '22',
-    night: false,
-    checked: false,
-  ),
-  CustomTime(
-    hours: '4',
-    minutes: '22',
-    night: false,
-    checked: false,
-  ),
-  CustomTime(
-    hours: '4',
-    minutes: '22',
-    night: false,
-    checked: false,
-  ),
-];
-
-List<ReminderData> remindersForPet = [];
-
 class _EventsForPetPage extends State<EventsForPetPage> {
   ScrollController controller = ScrollController();
 
-  bool closeTopContainer = false;
-  double topContainer = 0;
   String currentItemSelected = 'Playing';
 
   @override
@@ -113,6 +78,89 @@ class _EventsForPetPage extends State<EventsForPetPage> {
     // Get reminder cards
     // getCards();
     // Add a listener to the scroll controller for scrolling behavior
+  }
+
+  void onFinishButtonPressed({required TimeOfDay timeOfDay}) {
+    // Create the ReminderData object
+    final CustomTime timeData =
+        createFeedTime(reminderTime: timeOfDay, context: context);
+    bool foundDuplicate = false;
+    for (CustomTime time in widget.petInformation.feedTimesForPet) {
+      if (time.hours == timeData.hours &&
+          time.minutes == timeData.minutes &&
+          time.night == timeData.night) {
+        foundDuplicate = true;
+        break;
+      }
+    }
+
+    if (foundDuplicate) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => BackdropFilter(
+          filter: ImageFilter.blur(
+            sigmaX: size.width * 0.02,
+            sigmaY: size.width * 0.02,
+          ),
+          child: AlertDialog(
+            elevation: 0.0,
+            backgroundColor: const Color(0xffDCD3D3),
+            content: Text(
+              textAlign: TextAlign.center,
+              "It is not possible to set the same feeding time for a single pet more than once, please modify this feed time",
+              style: TextStyle(
+                height: 0.0,
+                fontFamily: 'Cosffira',
+                fontSize: size.width * 0.037,
+                fontWeight: FontWeight.w800,
+                color: const Color(0xff4A5E7C),
+                letterSpacing: 0.5,
+              ),
+            ),
+            actions: [
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xffA26874),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: size.width * 0.028,
+                      vertical: size.height * 0.025,
+                    ), // Adjust the padding as needed
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        size.width * 0.092,
+                      ), // Set the border radius of the button
+                    ),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      left: size.width * 0.06,
+                      right: size.width * 0.06,
+                    ),
+                    child: Text(
+                      'modify',
+                      style: TextStyle(
+                        height: 0.0,
+                        fontFamily: 'Cosffira',
+                        fontSize: size.width * 0.045,
+                        fontWeight: FontWeight.w800,
+                        color: const Color.fromARGB(255, 255, 255, 255),
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    } else {
+      widget.petInformation.feedTimesForPet.add(timeData);
+    }
   }
 
   @override
@@ -175,15 +223,105 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                       SizedBox(
                         height: size.height * 0.014,
                       ),
-                      feedTimes.isEmpty
+                      widget.petInformation.feedTimesForPet.isEmpty
                           ? Flexible(
-                              child: IconButton(
-                                onPressed: () {},
-                                icon: Image.asset(
-                                  'assets/icons/events_for_pet_page_icons/add_feed_if_impty.png',
-                                  height: size.width * 0.19,
-                                  width: size.width * 0.29,
-                                  fit: BoxFit.fill,
+                              child: Theme(
+                                data: ThemeData(
+                                  primarySwatch: Colors.blue,
+                                  timePickerTheme: TimePickerThemeData(
+                                    helpTextStyle: TextStyle(
+                                      fontFamily: 'Cosffira',
+                                      fontSize: size.width * 0.045,
+                                      fontWeight: FontWeight.bold,
+                                      color: const Color(0xff4A5E7C),
+                                    ),
+                                    backgroundColor: const Color(0xffEFE7E7),
+                                    elevation: 0.0,
+                                    cancelButtonStyle: ButtonStyle(
+                                      foregroundColor:
+                                          const MaterialStatePropertyAll(
+                                              Color(0xff4A5E7C)),
+                                      textStyle: MaterialStatePropertyAll(
+                                        TextStyle(
+                                          fontFamily: 'Cosffira',
+                                          fontSize: size.width * 0.045,
+                                          fontWeight: FontWeight.bold,
+                                          color: const Color(0xff4A5E7C),
+                                        ),
+                                      ),
+                                    ),
+                                    confirmButtonStyle: ButtonStyle(
+                                      foregroundColor:
+                                          const MaterialStatePropertyAll(
+                                              Color(0xff4A5E7C)),
+                                      textStyle: MaterialStatePropertyAll(
+                                        TextStyle(
+                                          fontFamily: 'Cosffira',
+                                          fontSize: size.width * 0.045,
+                                          fontWeight: FontWeight.bold,
+                                          color: const Color(0xff4A5E7C),
+                                        ),
+                                      ),
+                                    ),
+                                    dialBackgroundColor:
+                                        const Color(0xffffffff),
+                                    entryModeIconColor: const Color(0xffA26874),
+                                    hourMinuteTextStyle: TextStyle(
+                                      fontFamily: 'Cosffira',
+                                      fontSize: size.width * 0.085,
+                                      fontWeight: FontWeight.bold,
+                                      color: const Color(0xff4A5E7C),
+                                    ),
+                                    dayPeriodTextStyle: TextStyle(
+                                      fontFamily: 'Cosffira',
+                                      fontSize: size.width * 0.045,
+                                      fontWeight: FontWeight.bold,
+                                      color: const Color(0xff4A5E7C),
+                                    ),
+                                    dialTextStyle: TextStyle(
+                                      fontFamily: 'Cosffira',
+                                      fontSize: size.width * 0.045,
+                                      fontWeight: FontWeight.bold,
+                                      color: const Color(0xff4A5E7C),
+                                    ),
+                                    dayPeriodTextColor: const Color(0xffffffff),
+                                    dayPeriodColor: const Color(
+                                        0xff4A5E7C), //Background of AM/PM.
+                                    dialHandColor: const Color(0xff4A5E7C),
+                                    dialTextColor: const Color(0xffA26874),
+                                    hourMinuteTextColor:
+                                        const Color(0xffffffff),
+                                    hourMinuteColor: const Color(0xffA26874),
+                                  ),
+                                ),
+                                child: Builder(
+                                  builder: (BuildContext context) {
+                                    return IconButton(
+                                      icon: Image.asset(
+                                        'assets/icons/events_for_pet_page_icons/add_feed_if_impty.png',
+                                        height: size.height * 0.11,
+                                        width: size.width * 0.29,
+                                        fit: BoxFit.fill,
+                                      ),
+                                      onPressed: () async {
+                                        TimeOfDay reminderTime =
+                                            TimeOfDay.now();
+                                        final TimeOfDay? timeOfFeed =
+                                            await showTimePicker(
+                                          context: context,
+                                          initialTime: reminderTime,
+                                          initialEntryMode:
+                                              TimePickerEntryMode.dial,
+                                        );
+                                        if (timeOfFeed != null) {
+                                          setState(() {
+                                            onFinishButtonPressed(
+                                                timeOfDay: timeOfFeed);
+                                          });
+                                        }
+                                      },
+                                    );
+                                  },
                                 ),
                               ),
                             )
@@ -207,7 +345,8 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                                     child: Row(
                                       children: [
                                         // this will be dynamic coloumn that depends on the length of list
-                                        for (CustomTime i in feedTimes)
+                                        for (CustomTime i in widget
+                                            .petInformation.feedTimesForPet)
                                           Padding(
                                             padding: EdgeInsets.only(
                                               right: size.width * 0.06,
@@ -241,7 +380,7 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                                                     ),
                                                   ),
                                                   Text(
-                                                    '${i.hours}:${i.minutes}\n ${i.night ? 'Pm' : 'Am'}',
+                                                    '${i.hours}:${i.minutes}\n ${i.night}',
                                                     style: TextStyle(
                                                       height: 0.0,
                                                       fontFamily: 'Cosffira',
@@ -261,18 +400,119 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                                               ),
                                             ),
                                           ),
-                                        IconButton(
-                                          onPressed: () {
-                                            // Get.to(
-                                            //   const AddEventPage(),
-                                            //   transition: Transition.zoom,
-                                            // );
-                                          },
-                                          icon: Image.asset(
-                                            'assets/icons/events_for_pet_page_icons/add_feed_in_list.png',
-                                            height: size.height * 0.170,
-                                            width: size.width * 0.24,
-                                            fit: BoxFit.fill,
+
+                                        Theme(
+                                          data: ThemeData(
+                                            primarySwatch: Colors.blue,
+                                            timePickerTheme:
+                                                TimePickerThemeData(
+                                              helpTextStyle: TextStyle(
+                                                fontFamily: 'Cosffira',
+                                                fontSize: size.width * 0.045,
+                                                fontWeight: FontWeight.bold,
+                                                color: const Color(0xff4A5E7C),
+                                              ),
+                                              backgroundColor:
+                                                  const Color(0xffEFE7E7),
+                                              elevation: 0.0,
+                                              cancelButtonStyle: ButtonStyle(
+                                                foregroundColor:
+                                                    const MaterialStatePropertyAll(
+                                                        Color(0xff4A5E7C)),
+                                                textStyle:
+                                                    MaterialStatePropertyAll(
+                                                  TextStyle(
+                                                    fontFamily: 'Cosffira',
+                                                    fontSize:
+                                                        size.width * 0.045,
+                                                    fontWeight: FontWeight.bold,
+                                                    color:
+                                                        const Color(0xff4A5E7C),
+                                                  ),
+                                                ),
+                                              ),
+                                              confirmButtonStyle: ButtonStyle(
+                                                foregroundColor:
+                                                    const MaterialStatePropertyAll(
+                                                        Color(0xff4A5E7C)),
+                                                textStyle:
+                                                    MaterialStatePropertyAll(
+                                                  TextStyle(
+                                                    fontFamily: 'Cosffira',
+                                                    fontSize:
+                                                        size.width * 0.045,
+                                                    fontWeight: FontWeight.bold,
+                                                    color:
+                                                        const Color(0xff4A5E7C),
+                                                  ),
+                                                ),
+                                              ),
+                                              dialBackgroundColor:
+                                                  const Color(0xffffffff),
+                                              entryModeIconColor:
+                                                  const Color(0xffA26874),
+                                              hourMinuteTextStyle: TextStyle(
+                                                fontFamily: 'Cosffira',
+                                                fontSize: size.width * 0.085,
+                                                fontWeight: FontWeight.bold,
+                                                color: const Color(0xff4A5E7C),
+                                              ),
+                                              dayPeriodTextStyle: TextStyle(
+                                                fontFamily: 'Cosffira',
+                                                fontSize: size.width * 0.045,
+                                                fontWeight: FontWeight.bold,
+                                                color: const Color(0xff4A5E7C),
+                                              ),
+                                              dialTextStyle: TextStyle(
+                                                fontFamily: 'Cosffira',
+                                                fontSize: size.width * 0.045,
+                                                fontWeight: FontWeight.bold,
+                                                color: const Color(0xff4A5E7C),
+                                              ),
+                                              dayPeriodTextColor:
+                                                  const Color(0xffffffff),
+                                              dayPeriodColor: const Color(
+                                                  0xff4A5E7C), //Background of AM/PM.
+                                              dialHandColor:
+                                                  const Color(0xff4A5E7C),
+                                              dialTextColor:
+                                                  const Color(0xffA26874),
+                                              hourMinuteTextColor:
+                                                  const Color(0xffffffff),
+                                              hourMinuteColor:
+                                                  const Color(0xffA26874),
+                                            ),
+                                          ),
+                                          child: Builder(
+                                            builder: (BuildContext context) {
+                                              return IconButton(
+                                                icon: Image.asset(
+                                                  'assets/icons/events_for_pet_page_icons/add_feed_in_list.png',
+                                                  height: size.height * 0.170,
+                                                  width: size.width * 0.24,
+                                                  fit: BoxFit.fill,
+                                                ),
+                                                onPressed: () async {
+                                                  TimeOfDay reminderTime =
+                                                      TimeOfDay.now();
+                                                  final TimeOfDay? timeOfFeed =
+                                                      await showTimePicker(
+                                                    context: context,
+                                                    initialTime: reminderTime,
+                                                    initialEntryMode:
+                                                        TimePickerEntryMode
+                                                            .dial,
+                                                  );
+                                                  if (timeOfFeed != null) {
+                                                    setState(() {
+                                                      onFinishButtonPressed(
+                                                          timeOfDay:
+                                                              timeOfFeed);
+                                                    });
+                                                  }
+                                                },
+                                              );
+                                            },
                                           ),
                                         ),
                                       ],
@@ -495,3 +735,20 @@ class BuildReminder extends StatelessWidget {
     );
   }
 }
+
+CustomTime createFeedTime(
+    {required TimeOfDay reminderTime, required BuildContext context}) {
+  // Extracting date components
+
+  // Extracting time components
+  final String hours = reminderTime.hourOfPeriod.toString().padLeft(2, '0');
+  final String period = reminderTime.hour < 12 ? 'AM' : 'PM';
+  final String minutes = reminderTime.minute.toString().padLeft(2, '0');
+
+  return CustomTime(
+      hours: hours, minutes: minutes, night: period, checked: false);
+}
+
+
+  // Creating the ReminderData object
+
