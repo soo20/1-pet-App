@@ -1,9 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
