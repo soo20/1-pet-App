@@ -23,7 +23,8 @@ class PreviewScreen extends StatefulWidget {
 
 class _PreviewScreenState extends State<PreviewScreen> {
   late CameraController cameraController;
-
+  // wxpwxting type result
+  String petType = 'Golden Retrival';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,6 +102,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
                             builder: (context) => DetectScreen(
                               imgPath: widget.imgPath,
                               onCapturePressed: widget.onCapturePressed,
+                              petType: petType,
                             ),
                           );
                         },

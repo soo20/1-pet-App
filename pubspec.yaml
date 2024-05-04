@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.2.0 <4.0.0'
+  sdk: '>=3.2.0 <=4.2.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -70,6 +70,9 @@ dependencies:
   flutter_hooks: ^0.20.5
   libphonenumber: ^2.0.2
   shared_preferences: ^2.2.3
+  fluttertoast: ^8.2.5
+  toastification: 1.0.0
+  getwidget: ^4.0.0
  
 dev_dependencies:
   flutter_lints: ^3.0.1

@@ -1,11 +1,8 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 import 'package:petapplication/pages/events_system/add_event_for_pet.dart';
-
-// import 'package:petapplication/some_files_to_data/today_and_future_reminders_data.dart';
 
 class EventsForPetPage extends StatefulWidget {
   const EventsForPetPage({super.key, required this.petInformation});
@@ -20,28 +17,13 @@ class CustomTime {
     required this.minutes,
     required this.night,
     required this.checked,
+    required this.feedId,
   });
   late String hours;
   late String minutes;
   late String night;
+  late String feedId;
   bool checked = false;
-  Map<String, dynamic> toJson() {
-    return {
-      'hours': hours,
-      'minutes': minutes,
-      'night': night,
-      'checked': checked,
-    };
-  }
-
-  factory CustomTime.fromJson(Map<String, dynamic> json) {
-    return CustomTime(
-      hours: json['hours'],
-      minutes: json['minutes'],
-      night: json['night'],
-      checked: json['checked'],
-    );
-  }
 }
 
 class ReminderData {
@@ -54,6 +36,7 @@ class ReminderData {
     required this.night,
     required this.weekDay,
     required this.year,
+    required this.reminderId,
   });
   late String day;
   late String month;
@@ -63,11 +46,13 @@ class ReminderData {
   late String night;
   late String weekDay;
   late String year;
+  late String reminderId;
 }
 
 class _EventsForPetPage extends State<EventsForPetPage> {
   ScrollController controller = ScrollController();
 
+  Color feedTimeColor = const Color.fromARGB(255, 255, 255, 255);
   String currentItemSelected = 'Playing';
 
   @override
@@ -163,12 +148,68 @@ class _EventsForPetPage extends State<EventsForPetPage> {
     }
   }
 
+  bool isInSelectionMode = false;
+  Set<String> selectedItems = <String>{};
+  int feedCountSelected = 0;
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
 
+    final AppBar defaultBar = AppBar(
+      backgroundColor: const Color(0xffB5C0D0),
+      automaticallyImplyLeading: false,
+    );
+
+    final AppBar selectBar = AppBar(
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.delete,
+              size: size.width * 0.08,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              setState(() {
+                // Remove elements from feedTimesForPet where feedId is in selectedItems
+                widget.petInformation.feedTimesForPet.removeWhere(
+                  (i) => selectedItems.contains(i.feedId),
+                );
+                selectedItems.clear();
+              });
+            },
+          ),
+        ],
+        backgroundColor: const Color.fromARGB(255, 139, 152, 170),
+        title: Text(
+          '${selectedItems.length} selected',
+          style: TextStyle(
+            height: 0.0,
+            fontFamily: 'Cosffira',
+            fontSize: size.width * 0.07,
+            fontWeight: FontWeight.normal,
+            color: const Color.fromARGB(255, 255, 255, 255),
+            letterSpacing: 0.5,
+          ),
+        ),
+        leading: IconButton(
+          icon: Icon(
+            Icons.close,
+            size: size.width * 0.08,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            setState(() {
+              isInSelectionMode = false;
+              selectedItems.clear();
+            });
+          },
+        ));
+
     return SafeArea(
       child: Scaffold(
+        appBar: isInSelectionMode && selectedItems.isNotEmpty
+            ? (selectBar)
+            : (defaultBar),
         body: Container(
           color: const Color(0XffEFE7E7),
           child: Column(
@@ -299,7 +340,7 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                                     return IconButton(
                                       icon: Image.asset(
                                         'assets/icons/events_for_pet_page_icons/add_feed_if_impty.png',
-                                        height: size.height * 0.11,
+                                        height: size.height * 0.09,
                                         width: size.width * 0.29,
                                         fit: BoxFit.fill,
                                       ),
@@ -351,52 +392,91 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                                             padding: EdgeInsets.only(
                                               right: size.width * 0.06,
                                             ),
-                                            child: Container(
-                                              height: size.height * 0.170,
-                                              width: size.width * 0.24,
-                                              decoration: BoxDecoration(
-                                                color: i.checked
-                                                    ? const Color(0xffA26874)
-                                                    : const Color(0xffEFE7E7),
-                                                borderRadius: BorderRadius.all(
-                                                  Radius.circular(
-                                                      size.width * 0.3),
-                                                ),
-                                              ),
-                                              child: Column(
-                                                children: [
-                                                  IconButton(
-                                                    onPressed: () {
-                                                      setState(() => i.checked =
-                                                          !i.checked);
-                                                    },
-                                                    icon: Image.asset(
-                                                      i.checked
-                                                          ? "assets/icons/events_for_pet_page_icons/check_yes.png"
-                                                          : "assets/icons/events_for_pet_page_icons/Ellipse_icon_for_feed.png",
-                                                      height:
-                                                          size.height * 0.060,
-                                                      width: size.width * 0.054,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    '${i.hours}:${i.minutes}\n ${i.night}',
-                                                    style: TextStyle(
-                                                      height: 0.0,
-                                                      fontFamily: 'Cosffira',
-                                                      fontSize:
-                                                          size.width * 0.056,
-                                                      fontWeight:
-                                                          FontWeight.w800,
-                                                      color: i.checked
-                                                          ? const Color(
-                                                              0xffEFE7E7)
+                                            child: GestureDetector(
+                                              onLongPress: () {
+                                                setState(() {
+                                                  isInSelectionMode = true;
+
+                                                  selectedItems.add(i.feedId);
+                                                });
+                                              },
+                                              onTap: () {
+                                                setState(() {
+                                                  if (isInSelectionMode) {
+                                                    if (selectedItems
+                                                        .contains(i.feedId)) {
+                                                      selectedItems
+                                                          .remove(i.feedId);
+                                                    } else {
+                                                      selectedItems
+                                                          .add(i.feedId);
+                                                    }
+                                                  }
+                                                });
+                                              },
+                                              child: Container(
+                                                height: size.height * 0.170,
+                                                width: size.width * 0.24,
+                                                decoration: BoxDecoration(
+                                                  color: i.checked &&
+                                                          !selectedItems
+                                                              .contains(
+                                                                  i.feedId)
+                                                      ? const Color(
+                                                          0xffA26874) // Case 1: i.checked is true
+                                                      : selectedItems.contains(
+                                                              i.feedId)
+                                                          ? const Color
+                                                              .fromARGB(
+                                                              255,
+                                                              139,
+                                                              152,
+                                                              170) // Case 2: i.checked is false but the item is selected
                                                           : const Color(
-                                                              0xff4A5E7C),
-                                                      letterSpacing: 0.5,
-                                                    ),
+                                                              0xffEFE7E7),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                    Radius.circular(
+                                                        size.width * 0.3),
                                                   ),
-                                                ],
+                                                ),
+                                                child: Column(
+                                                  children: [
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        setState(() =>
+                                                            i.checked =
+                                                                !i.checked);
+                                                      },
+                                                      icon: Image.asset(
+                                                        i.checked
+                                                            ? "assets/icons/events_for_pet_page_icons/check_yes.png"
+                                                            : "assets/icons/events_for_pet_page_icons/Ellipse_icon_for_feed.png",
+                                                        height:
+                                                            size.height * 0.060,
+                                                        width:
+                                                            size.width * 0.054,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      '${i.hours}:${i.minutes}\n ${i.night}',
+                                                      style: TextStyle(
+                                                        height: 0.0,
+                                                        fontFamily: 'Cosffira',
+                                                        fontSize:
+                                                            size.width * 0.056,
+                                                        fontWeight:
+                                                            FontWeight.w800,
+                                                        color: i.checked
+                                                            ? const Color(
+                                                                0xffEFE7E7)
+                                                            : const Color(
+                                                                0xff4A5E7C),
+                                                        letterSpacing: 0.5,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -658,9 +738,6 @@ class BuildReminder extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-              width: size.width * 0.06,
-            ),
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -719,11 +796,50 @@ class BuildReminder extends StatelessWidget {
               ],
             ),
             SizedBox(
-              width: size.width * 0.1,
+              width: size.width * 0.25,
             ),
-            IconButton(
-              onPressed: () {},
-              icon: Image.asset(
+            PopupMenuButton<String>(
+              elevation: 0.0,
+              color: const Color.fromARGB(255, 81, 102, 133),
+              itemBuilder: (context) {
+                return [
+                  PopupMenuItem(
+                    value: 'edit',
+                    child: Text(
+                      'Edit',
+                      style: TextStyle(
+                        fontFamily: 'Cosffira',
+                        fontSize: size.width * 0.045,
+                        height: 0.0,
+                        fontWeight: FontWeight.normal,
+                        color: const Color.fromARGB(255, 255, 255, 255),
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                    onTap: () {
+                      // Handle edit action
+                    },
+                  ),
+                  PopupMenuItem(
+                    value: 'Delete',
+                    child: Text(
+                      'Delete',
+                      style: TextStyle(
+                        fontFamily: 'Cosffira',
+                        fontSize: size.width * 0.045,
+                        height: 0.0,
+                        fontWeight: FontWeight.normal,
+                        color: const Color.fromARGB(255, 255, 255, 255),
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                    onTap: () {
+                      // Handle delete action
+                    },
+                  ),
+                ];
+              },
+              child: Image.asset(
                 "assets/icons/events_for_pet_page_icons/option_icon.png",
                 height: size.height * 0.061,
                 width: size.width * 0.016,
@@ -746,9 +862,10 @@ CustomTime createFeedTime(
   final String minutes = reminderTime.minute.toString().padLeft(2, '0');
 
   return CustomTime(
-      hours: hours, minutes: minutes, night: period, checked: false);
+    hours: hours,
+    minutes: minutes,
+    night: period,
+    checked: false,
+    feedId: UniqueKey().toString(),
+  );
 }
-
-
-  // Creating the ReminderData object
-

@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -718,13 +719,14 @@ ReminderData createReminderData(
 
   // Creating the ReminderData object
   return ReminderData(
-    day: day,
-    month: month,
-    year: year,
-    weekDay: weekDay,
-    hours: hours,
-    minutes: minutes,
-    reminderType: currentItemSelected,
-    night: period, // Set night value as needed
-  );
+      day: day,
+      month: month,
+      year: year,
+      weekDay: weekDay,
+      hours: hours,
+      minutes: minutes,
+      reminderType: currentItemSelected,
+      night: period,
+      reminderId: Random().toString() // Set night value as needed
+      );
 }

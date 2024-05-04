@@ -20,19 +20,20 @@ class ChooseDefintionType extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xffEFE6E5),
       appBar: AppBar(
         elevation: 1,
 
-        automaticallyImplyLeading: true,
+        automaticallyImplyLeading: false,
 
         //iconTheme: IconThemeData.fallback(),
         forceMaterialTransparency: true,
         toolbarOpacity: 1,
-        toolbarHeight: 81.h,
+        toolbarHeight: size.height * 0.039,
 
-        leadingWidth: 40,
+        leadingWidth: size.height * 0.040,
 
         leading: IconButton(
           icon: const Icon(
@@ -46,9 +47,9 @@ class ChooseDefintionType extends StatelessWidget {
             );
             //
           },
-          iconSize: 35.0,
-          padding: const EdgeInsets.only(
-              left: 6.0), // Set the size of the arrow icon
+          iconSize: size.width * 0.085,
+          padding: EdgeInsets.only(
+              left: size.height * 0.01), // Set the size of the arrow icon
         ),
       ),
       extendBodyBehindAppBar: F,
@@ -57,15 +58,15 @@ class ChooseDefintionType extends StatelessWidget {
         children: [
           // Add space to the top
           Container(
-            width: 360,
-            height: 520,
+            width: size.height * 0.400,
+            height: size.height * 0.750,
             decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage('assets/image/Group1886.png')),
             ),
           ),
           SizedBox(
-            height: 100.h,
+            height: size.height * 0.0100,
           ),
           Center(
             //padding: const EdgeInsets.only(left:0),
