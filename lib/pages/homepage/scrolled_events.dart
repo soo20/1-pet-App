@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
+import 'package:petapplication/some_files_to_data/today_and_future_reminders_data.dart';
 
 class ScrolledEvents extends StatefulWidget {
-  const ScrolledEvents({super.key, eventHeight});
+  const ScrolledEvents(
+      {super.key, eventHeight, required this.petsInformationList});
+  final List<FutureEventsInformations> petsInformationList;
   @override
   State<ScrolledEvents> createState() => _ScrolledEvents();
 }
 
 late double eventHeight;
-late Size size;
+Size size = Size.zero;
 
 class _ScrolledEvents extends State<ScrolledEvents> {
   @override
@@ -34,7 +38,7 @@ class _ScrolledEvents extends State<ScrolledEvents> {
           child: Row(
             children: [
               // this will be dynamic coloumn that depends on the length of list
-              for (Pets i in Pets.petsInformationList)
+              for (FutureEventsInformations i in widget.petsInformationList)
                 BuildEventCard(
                   petInformation: i,
                 )
@@ -98,9 +102,10 @@ class Pets {
 
 class BuildEventCard extends StatelessWidget {
   const BuildEventCard({super.key, required this.petInformation});
-  final Pets petInformation;
+  final FutureEventsInformations petInformation;
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Container(
       height: eventHeight,
       margin: EdgeInsets.only(right: size.width * 0.001),
