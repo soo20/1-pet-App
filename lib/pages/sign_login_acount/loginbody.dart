@@ -1,20 +1,19 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
+
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
+
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 import 'package:petapplication/pages/define_page/widgets/choose_defintion_type.dart';
 import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
-import 'package:petapplication/pages/homepage/scrolled_events.dart';
+
 import 'package:petapplication/pages/sign_login_acount/auth_app.dart';
 
 import 'package:petapplication/pages/sign_login_acount/page_view_login.dart';
@@ -29,6 +28,12 @@ class LoginBody extends StatefulWidget {
 class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
   PageController? pageController;
   bool showSecondContainer = false;
+  void toggleContainerVisibility() {
+  setState(() {
+    showSecondContainer = !showSecondContainer;
+  });
+}
+
 
   @override
   void initState() {
@@ -43,9 +48,6 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     // double aspectRatio = SizeConfig.screenWidth! / SizeConfig.screenHeight!;
     return Scaffold(
-      backgroundColor: Color(0xffEFE6E5),
-      body: Center(
-        child: Column(
        appBar: AppBar(
             elevation: 1,
             automaticallyImplyLeading: false,
@@ -55,6 +57,7 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
             toolbarOpacity: 1,
             toolbarHeight: 60,
             leading: IconButton(
+              
               icon: Text(
                 'skip',
                 style: TextStyle(
@@ -86,10 +89,9 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
               'Yuna\n',
               style: TextStyle(
                 fontFamily: 'Cosffira',
-                fontSize: size.width * 0.130,
+                fontSize: 130.sp,
                 color: const Color(0xff4A5E7C),
                 fontWeight: FontWeight.w600,
-                height: 1.h,
                 height: 1.h,
               ),
             ),
@@ -122,23 +124,6 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                 width: 740.w,
               ),
             ),
-
-            Flexible(
-              flex: 2,
-              child: Padding(
-                padding: EdgeInsets.only(
-                  top: 5,
-                ),
-                child: CustomGeneralButtom2(
-                  height: 120.h,
-                  text: 'Login With Facebook',
-                  icon: FontAwesomeIcons.facebook,
-                  iconcolor: kMainColorPage,
-                  textColor: kMainColorPage,
-                  boxColor: const Color(0xff4A5E7C),
-                  borderColor: kMainColorPage,
-                  width: 740.w,
-                ),
 
             Padding(
               padding: EdgeInsets.only(
@@ -187,7 +172,7 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
               ),
             ),
             SizedBox(
-              height: 10.h,
+              height: 0.h,
             ),
             Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -197,18 +182,25 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                     'Don\'t have an account? ',
                     style: TextStyle(
                       fontFamily: 'Cosffira',
-                      fontSize: 45.sp,
+                      fontSize: 47.sp,
                       color: Color(0xff090f0f),
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                  ElevatedButton(
+                  
+                ]),
+                ElevatedButton(
                     onPressed: () {
                       setState(() {
                         showSecondContainer =
                             !showSecondContainer; // Toggle the visibility of the second container
                       });
                     },
+                    style: ButtonStyle(
+                       elevation: MaterialStateProperty.all<double>(0),
+                       backgroundColor: MaterialStateProperty.all<Color>( Colors.transparent),
+                    
+                    ),
                     child: Text(
                       'Sign Up',
                       style: TextStyle(
@@ -220,7 +212,6 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                       ),
                     ),
                   ),
-                ])
             // Add the rest of your widgets here, for example, text fields, buttons, etc.
           ],
         ),
@@ -229,14 +220,14 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
           ? GestureDetector(
               onTap: () {
                 setState(() {
-                  showSecondContainer = F; // hide container when tapped
+                  showSecondContainer = true; // hide container when tapped
                 });
               },
               child: Padding(
                   padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: SingleChildScrollView(
                   child: Container(
-                    height: 1050.h,
+                    height: 1100.h,
                     width: double.infinity,
                     decoration: const BoxDecoration(
                      image: DecorationImage(image:
@@ -250,7 +241,8 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                         ),
                       ],
                     ), // Customize as needed
-                      child:PageViewLogin(),
+                      child:PageViewLogin(toggleContainerVisibility: toggleContainerVisibility,
+),
                   ),
                 ),
               ))
