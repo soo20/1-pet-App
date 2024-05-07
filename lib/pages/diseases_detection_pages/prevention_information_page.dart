@@ -1,4 +1,4 @@
-import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class PreventionInformationPage extends StatefulWidget {
@@ -80,7 +80,7 @@ class _PreventionInformationPageState extends State<PreventionInformationPage> {
                       fontFamily: 'Cosffira',
                       fontSize: size.width * 0.053,
                       fontWeight: FontWeight.normal,
-                      color: Color.fromARGB(137, 74, 94, 124),
+                      color: const Color.fromARGB(137, 74, 94, 124),
                       letterSpacing: 0.5,
                     ),
                   ),
@@ -112,7 +112,7 @@ class _PreventionInformationPageState extends State<PreventionInformationPage> {
                       fontFamily: 'Cosffira',
                       fontSize: size.width * 0.053,
                       fontWeight: FontWeight.normal,
-                      color: Color.fromARGB(137, 74, 94, 124),
+                      color: const Color.fromARGB(137, 74, 94, 124),
                       letterSpacing: 0.5,
                     ),
                   ),
@@ -143,7 +143,7 @@ class _PreventionInformationPageState extends State<PreventionInformationPage> {
                       fontFamily: 'Cosffira',
                       fontSize: size.width * 0.053,
                       fontWeight: FontWeight.normal,
-                      color: Color.fromARGB(137, 74, 94, 124),
+                      color: const Color.fromARGB(137, 74, 94, 124),
                       letterSpacing: 0.5,
                     ),
                   ),

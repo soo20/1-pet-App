@@ -73,7 +73,7 @@ class _AboutInformationPageState extends State<AboutInformationPage> {
                     left: size.width * 0.14,
                   ),
                   child: Text(
-                    'Bacterial Dermatosis is a skin\ninfection caused by bacteria,\nimpacting dogs of all breeds and \nages\. The condition arises when bacteria breach the skin\'s protective barrier, often through wounds, cuts, or underlying skin issues. Maintaining awareness of its causes, symptoms,prevention, and treatment is crucial for ensuring your dog\'s well-being.',
+                    'Bacterial Dermatosis is a skin\ninfection caused by bacteria,\nimpacting dogs of all breeds and \nages. The condition arises when bacteria breach the skin\'s protective barrier, often through wounds, cuts, or underlying skin issues. Maintaining awareness of its causes, symptoms,prevention, and treatment is crucial for ensuring your dog\'s well-being.',
                     style: TextStyle(
                       fontFamily: 'Cosffira',
                       fontSize: size.width * 0.053,

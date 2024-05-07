@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:petapplication/pages/homepage/scrolled_events.dart';
 import 'package:petapplication/pages/homepage/scrolled_reminder.dart';

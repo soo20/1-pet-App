@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/get_navigation.dart';
+
 import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
 
 class DiseasesInformationForPet extends StatefulWidget {
