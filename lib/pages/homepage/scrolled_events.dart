@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:petapplication/pages/my_pets_pages/pet_profile_page.dart';
 import 'package:petapplication/some_files_to_data/today_and_future_reminders_data.dart';
 
 class ScrolledEvents extends StatefulWidget {
@@ -16,34 +18,17 @@ Size size = Size.zero;
 class _ScrolledEvents extends State<ScrolledEvents> {
   @override
   Widget build(BuildContext context) {
-    size = MediaQuery.of(context).size;
-    if (size.height < 756.0) {
-      eventHeight = MediaQuery.of(context).size.height * 0.22 - 40;
-    } else {
-      eventHeight = MediaQuery.of(context).size.height * 0.20 - 40;
-    }
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       scrollDirection: Axis.horizontal,
-      child: Container(
-        height: eventHeight, // Set a fixed height for the cards
-        margin: EdgeInsets.symmetric(
-          vertical: size.height * 0.01,
-          horizontal: size.height * 0.01,
-        ),
-        child: FittedBox(
-          fit: BoxFit.fill,
-          //this is might be cause of overflow
-          child: Row(
-            children: [
-              // this will be dynamic coloumn that depends on the length of list
-              for (FutureEventsInformations i in widget.petsInformationList)
-                BuildEventCard(
-                  petInformation: i,
-                )
-            ],
-          ),
-        ),
+      child: Row(
+        children: [
+          // this will be dynamic coloumn that depends on the length of list
+          for (FutureEventsInformations i in widget.petsInformationList)
+            BuildEventCard(
+              petInformation: i,
+            )
+        ],
       ),
     );
   }
@@ -106,10 +91,11 @@ class BuildEventCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Container(
-      height: eventHeight,
+      height: size.width * 0.32,
+      width: size.width * 0.70,
       margin: EdgeInsets.only(right: size.width * 0.001),
       child: Card(
-        color: petInformation.petType == 'cat'
+        color: petInformation.petType == 'Cat'
             ? const Color(0xffA26874)
             : const Color(0xffB5C0D0),
         elevation: 0.0,
@@ -120,98 +106,113 @@ class BuildEventCard extends StatelessWidget {
             width: size.width * 0.001, // Set the border width
           ),
         ),
-        child: Column(
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(
-                        left: size.width * 0.02,
-                        top: size.height * 0.002,
-                        bottom: size.height * 0.0,
-                        right: size.width * 0.0,
-                      ),
-                      child: Text(
-                        petInformation.eventTitle,
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
+        child: Center(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              SizedBox(
+                width: size.width * 0.016,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text(
+                    petInformation.eventTitle,
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      fontFamily: 'Cosffira',
+                      fontSize: size.width * 0.05,
+                      fontWeight: FontWeight.bold,
+                      color: const Color(0xffffffff),
+                    ),
+                  ),
+                  Text(
+                    textAlign: TextAlign.justify,
+                    petInformation.eventDate,
+                    style: TextStyle(
+                      fontFamily: 'Cosffira',
+                      fontSize: size.width * 0.048,
+                      fontWeight: FontWeight.w100,
+                      color: const Color(0xffffffff),
+                    ),
+                  ),
+                  SizedBox(
+                    width: size.width * 0.090,
+                  ),
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      minimumSize: MaterialStatePropertyAll(
+                          Size(size.width * 0.0157, size.height * 0.045)),
+                      textStyle: MaterialStatePropertyAll(
+                        TextStyle(
                           fontFamily: 'Cosffira',
-                          fontSize: size.width * 0.05,
+                          fontSize: size.width * 0.039,
                           fontWeight: FontWeight.bold,
-                          color: const Color(0xffffffff),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        left: size.width * 0.015,
-                        top: size.height * 0.0,
+                      foregroundColor: const MaterialStatePropertyAll(
+                        Color(0xff4A5E7C),
                       ),
-                      child: Text(
-                        textAlign: TextAlign.justify,
-                        petInformation.eventDate,
-                        style: TextStyle(
-                          fontFamily: 'Cosffira',
-                          fontSize: size.width * 0.048,
-                          fontWeight: FontWeight.w100,
-                          color: const Color(0xffffffff),
-                        ),
+                      backgroundColor: const MaterialStatePropertyAll(
+                        Color.fromARGB(255, 248, 241, 227),
                       ),
                     ),
-                    SizedBox(
-                      width: size.width * 0.090,
-                    ),
-                    SizedBox(
-                      height: size.height * 0.035,
-                      width: size.width * 0.230,
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          minimumSize: MaterialStatePropertyAll(
-                              Size(size.width * 0.157, size.height * 0.55)),
-                          textStyle: MaterialStatePropertyAll(
-                            TextStyle(
-                              fontFamily: 'Cosffira',
-                              fontSize: size.width * 0.039,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          foregroundColor: const MaterialStatePropertyAll(
-                            Color(0xff4A5E7C),
-                          ),
-                          backgroundColor: const MaterialStatePropertyAll(
-                            Color.fromARGB(255, 248, 241, 227),
-                          ),
-                        ),
-                        onPressed: () {},
-                        child: Text(petInformation.petName),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  width: size.width * 0.090,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                    bottom: size.height * 0.0,
-                    right: size.width * 0.0,
+                    onPressed: () {
+                      Get.to(PetProfilePage(petInformation: petInformation.pet),
+                          transition: Transition.fadeIn);
+                    },
+                    child: Text(petInformation.petName),
                   ),
-                  child: Image(
-                    image: AssetImage(
-                      petInformation.imageUrl,
-                    ),
-                    width: size.width * 0.323,
-                    height: size.height * 0.135,
-                    fit: BoxFit.fill,
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    left: petInformation.eventTitle.length <= 13
+                        ? size.width * 0.04
+                        : 0.0),
+                child: Image(
+                  image: AssetImage(
+                    petInformation.eventTitle == 'Gromming' &&
+                            petInformation.petType == 'Cat'
+                        ? 'assets/image/home_page_afterAdding_pets_assets/cat_gromming.png'
+                        : petInformation.eventTitle == 'Gromming' &&
+                                petInformation.petType == 'Dog'
+                            ? 'assets/image/home_page_afterAdding_pets_assets/dog_gromming.png'
+                            : petInformation.eventTitle == 'Medical Checkup'
+                                ? 'assets/image/home_page_afterAdding_pets_assets/vet-appointment.png'
+                                : petInformation.eventTitle == 'Bathing'
+                                    ? 'assets/image/home_page_afterAdding_pets_assets/pets_bathing.png'
+                                    : petInformation.eventTitle == 'Playing' &&
+                                            petInformation.petType == 'Cat'
+                                        ? 'assets/image/home_page_afterAdding_pets_assets/cat_playing.PNG'
+                                        : petInformation.eventTitle ==
+                                                    'Playing' &&
+                                                petInformation.petType == 'Dog'
+                                            ? 'assets/image/home_page_afterAdding_pets_assets/dog_playing.png'
+                                            : petInformation.eventTitle ==
+                                                        'Walking' &&
+                                                    petInformation.petType ==
+                                                        'Cat'
+                                                ? 'assets/image/home_page_afterAdding_pets_assets/walking_with_cat.png'
+                                                : petInformation.eventTitle ==
+                                                            'Walking' &&
+                                                        petInformation
+                                                                .petType ==
+                                                            'Dog'
+                                                    ? 'assets/image/home_page_afterAdding_pets_assets/walking_with_dog.png'
+                                                    : 'assets/image/home_page_afterAdding_pets_assets/custom_events.png',
                   ),
-                )
-              ],
-            ),
-          ],
+                  width: petInformation.eventTitle == 'Medical Checkup'
+                      ? size.width * 0.24
+                      : size.width * 0.323,
+                  height: size.height * 0.135,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

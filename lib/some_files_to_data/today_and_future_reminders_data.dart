@@ -24,12 +24,15 @@ class FutureEventsInformations {
     required this.eventDate,
     required this.petName,
     required this.petType,
-  });
+    required PetsInformation pet,
+  }) : pet = pet;
   late String imageUrl;
   late String eventTitle;
   late String eventDate;
   late String petName;
   late String petType;
+  late PetsInformation pet;
+  PetsInformation get petInfo => pet;
 }
 
 List<Reminders> mergeReminders(
@@ -103,7 +106,8 @@ List<FutureEventsInformations> getFutureEvents(
     List<PetsInformation> dogsList, List<PetsInformation> catsList) {
   final now = DateTime.now();
   final today = DateTime(now.year, now.month, now.day);
-  final nextThreeDays = today.add(const Duration(days: 3));
+  final nextThreeDays = today.add(const Duration(days: 4));
+
   final List<FutureEventsInformations> returnedList = [];
   // Clear the lists before merging reminders
   Map<String, int> monthsMap = {
@@ -129,13 +133,15 @@ List<FutureEventsInformations> getFutureEvents(
         int.parse(reminder.day),
       );
 
-      if (reminderDate.isBefore(nextThreeDays)) {
+      if (reminderDate.isBefore(nextThreeDays) && reminderDate.isAfter(today)) {
         returnedList.add(FutureEventsInformations(
           imageUrl: pet.imageUrl,
           eventTitle: reminder.reminderType,
-          eventDate: '${reminder.hours}:${reminder.minutes} ${reminder.night}',
+          eventDate:
+              '${reminder.weekDay} ${reminder.hours}:${reminder.minutes} ${reminder.night}',
           petName: pet.petName,
           petType: pet.petType,
+          pet: pet,
         ));
       }
     }
@@ -149,13 +155,15 @@ List<FutureEventsInformations> getFutureEvents(
         monthsMap[reminder.month]!,
         int.parse(reminder.day),
       );
-      if (reminderDate.isBefore(nextThreeDays)) {
+      if (reminderDate.isBefore(nextThreeDays) && reminderDate.isAfter(today)) {
         returnedList.add(FutureEventsInformations(
           imageUrl: pet.imageUrl,
           eventTitle: reminder.reminderType,
-          eventDate: '${reminder.hours}:${reminder.minutes} ${reminder.night}',
+          eventDate:
+              '${reminder.weekDay} ${reminder.hours}:${reminder.minutes} ${reminder.night}',
           petName: pet.petName,
-          petType: pet.petType,
+          petType: pet.petIsDogOrCat!,
+          pet: pet,
         ));
       }
     }

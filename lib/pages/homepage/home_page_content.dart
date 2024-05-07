@@ -78,15 +78,13 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
     });
   }
 
+  late ScrolledEvents scrolledEvents;
   @override
   void initState() {
     super.initState();
     getCards();
-    print(petsInformationList.length);
+    scrolledEvents = ScrolledEvents(petsInformationList: petsInformationList);
   }
-
-  ScrolledEvents scrolledEvents =
-      ScrolledEvents(petsInformationList: petsInformationList);
 
   // Build the UI for the home page
   @override
@@ -99,6 +97,7 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
         // Body of the app containing various UI elements
         Container(
       height: size.height,
+      width: size.width,
       margin: EdgeInsets.all(size.height * 0.008),
       child: Column(
         children: <Widget>[
@@ -134,7 +133,7 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
           petsInformationList.isNotEmpty
               ? Container(
                   width: size.width,
-                  alignment: Alignment.topCenter,
+
                   // When we scroll, the reminders feature events will appear at a height of 0.
                   height: size.height * 0.15,
                   // We will apply this animation on the 'scrolledEvents' object.
