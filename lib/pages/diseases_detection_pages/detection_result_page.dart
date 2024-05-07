@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:petapplication/pages/define_page/widgets/choose_defintion_type.dart';
 import 'package:petapplication/pages/diseases_detection_pages/about_information_page.dart';
 import 'package:petapplication/pages/diseases_detection_pages/prevention_information_page.dart';
 import 'package:petapplication/pages/diseases_detection_pages/symptoms_information_page.dart';
@@ -249,9 +250,14 @@ class _DetectionResulrPageState extends State<DetectionResulrPage> {
                         children: [
                           ElevatedButton(
                             onPressed: () async {
-                              await choosePetToAddThisDetectionFor(
-                                  dogsInformationList, widget.detectionResult);
-                              setState(() {});
+                              if (petsList.isEmpty) {
+                                Get.to(const ChooseDefintionType());
+                              } else {
+                                await choosePetToAddThisDetectionFor(
+                                    dogsInformationList,
+                                    widget.detectionResult);
+                                setState(() {});
+                              }
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xffA26874),
@@ -332,189 +338,207 @@ class _DetectionResulrPageState extends State<DetectionResulrPage> {
               ));
     }
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: const Color(0xffEFE7E7),
-          leading: IconButton(
-            onPressed: () {
-              allowingCameraDialog();
-            },
-            icon: Image.asset(
-              'assets/icons/diseases_datection_result_page_icons/exit_icon.png',
-              width: size.width * 0.075,
-              height: size.height * 0.075,
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (bool c) {
+        navigator?.pushAndRemoveUntil(
+          MaterialPageRoute(
+              builder: (c) => const TheMainHomePage(
+                    index1: 1,
+                  )),
+          (route) => true,
+        );
+      },
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: const Color(0xffEFE7E7),
+            leading: IconButton(
+              onPressed: () {
+                petsList.isNotEmpty
+                    ? allowingCameraDialog()
+                    : Get.to(
+                        const TheMainHomePage(
+                          index1: 1,
+                        ),
+                      );
+              },
+              icon: Image.asset(
+                'assets/icons/diseases_datection_result_page_icons/exit_icon.png',
+                width: size.width * 0.075,
+                height: size.height * 0.075,
+              ),
             ),
           ),
-        ),
-        body: Container(
-          color: const Color(0xffEFE7E7),
-          child: Center(
-            child: widget.detectionResult != 'healthy'
-                ? Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Image.asset(
-                        'assets/image/disease_detection_result_page_images/ill_animals.png',
-                        width: size.width * 0.47667,
-                        height: size.height * 0.1899,
-                        fit: BoxFit.fill,
-                      ),
-                      SizedBox(
-                        height: size.height * 0.02,
-                      ),
-                      Text(
-                        'your pet is suffering from:',
-                        style: TextStyle(
-                          height: 0.0,
-                          fontFamily: 'Cosffira',
-                          fontSize: size.width * 0.045,
-                          fontWeight: FontWeight.w500,
-                          color: const Color.fromARGB(80, 74, 94, 124),
+          body: Container(
+            color: const Color(0xffEFE7E7),
+            child: Center(
+              child: widget.detectionResult != 'healthy'
+                  ? Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Image.asset(
+                          'assets/image/disease_detection_result_page_images/ill_animals.png',
+                          width: size.width * 0.47667,
+                          height: size.height * 0.1899,
+                          fit: BoxFit.fill,
                         ),
-                      ),
-                      Text(
-                        widget.detectionResult,
-                        style: TextStyle(
-                          fontFamily: 'Cosffira',
-                          fontSize: size.width * 0.075,
-                          fontWeight: FontWeight.w900,
-                          color: const Color.fromARGB(255, 74, 94, 124),
-                          letterSpacing: 0.5,
+                        SizedBox(
+                          height: size.height * 0.02,
                         ),
-                      ),
-                      SizedBox(
-                        height: size.height * 0.02,
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Column(
-                            children: [
-                              IconButton(
-                                padding: EdgeInsets.all(
-                                  size.width * 0.01,
-                                ),
-                                alignment: Alignment.centerRight,
-                                onPressed: () {
-                                  Get.to(
-                                    SymptomsInformationPage(
-                                      detectionType: widget.detectionType,
-                                      detectionResult: widget.detectionResult,
-                                    ),
-                                    transition: Transition.fade,
-                                  );
-                                },
-                                icon: Image.asset(
-                                  'assets/icons/diseases_datection_result_page_icons/symptoms_icon.png',
-                                  width: size.width * 0.374,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                              IconButton(
-                                padding: const EdgeInsets.all(0.0),
-                                alignment: Alignment.centerRight,
-                                onPressed: () {
-                                  Get.to(
-                                    TreatmentInformationPage(
-                                      detectionType: widget.detectionType,
-                                      detectionResult: widget.detectionResult,
-                                    ),
-                                    transition: Transition.fade,
-                                  );
-                                },
-                                icon: Image.asset(
-                                  'assets/icons/diseases_datection_result_page_icons/treatment_icon.png',
-                                  width: size.width * 0.384,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            ],
+                        Text(
+                          'your pet is suffering from:',
+                          style: TextStyle(
+                            height: 0.0,
+                            fontFamily: 'Cosffira',
+                            fontSize: size.width * 0.045,
+                            fontWeight: FontWeight.w500,
+                            color: const Color.fromARGB(80, 74, 94, 124),
                           ),
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                padding: EdgeInsets.all(
-                                  size.width * 0.01,
-                                ),
-                                alignment: Alignment.centerLeft,
-                                onPressed: () {
-                                  Get.to(
-                                    AboutInformationPage(
-                                      detectionType: widget.detectionType,
-                                      detectionResult: widget.detectionResult,
-                                    ),
-                                    transition: Transition.fade,
-                                  );
-                                },
-                                icon: Image.asset(
-                                  'assets/icons/diseases_datection_result_page_icons/about_icon.png',
-                                  width: size.width * 0.384,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                              IconButton(
-                                padding: const EdgeInsets.all(0.0),
-                                alignment: Alignment.centerLeft,
-                                onPressed: () {
-                                  Get.to(
-                                    PreventionInformationPage(
-                                      detectionType: widget.detectionType,
-                                      detectionResult: widget.detectionResult,
-                                    ),
-                                    transition: Transition.fade,
-                                  );
-                                },
-                                icon: Image.asset(
-                                  'assets/icons/diseases_datection_result_page_icons/prevention_icon.png',
-                                  width: size.width * 0.374,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            ],
+                        ),
+                        Text(
+                          widget.detectionResult,
+                          style: TextStyle(
+                            fontFamily: 'Cosffira',
+                            fontSize: size.width * 0.075,
+                            fontWeight: FontWeight.w900,
+                            color: const Color.fromARGB(255, 74, 94, 124),
+                            letterSpacing: 0.5,
                           ),
-                        ],
-                      ),
-                    ],
-                  )
-                : Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      SizedBox(
-                        height: size.height * 0.1,
-                      ),
-                      Image.asset(
-                        '',
-                        width: size.width * 0.33316,
-                        height: size.height * 0.19923,
-                      ),
-                      SizedBox(
-                        height: size.height * 0.02,
-                      ),
-                      Text(
-                        'Congratulations!',
-                        style: TextStyle(
-                          height: 0.0,
-                          fontFamily: 'Cosffira',
-                          fontSize: size.width * 0.112,
-                          fontWeight: FontWeight.w900,
-                          color: const Color(0xffA26874),
-                          letterSpacing: 0.5,
                         ),
-                      ),
-                      Text(
-                        'Your pet has healthy skin.',
-                        style: TextStyle(
-                          height: 0.0,
-                          fontFamily: 'Cosffira',
-                          fontSize: size.width * 0.057,
-                          fontWeight: FontWeight.w500,
-                          color: const Color(0xff4A5E7C),
+                        SizedBox(
+                          height: size.height * 0.02,
                         ),
-                      ),
-                    ],
-                  ),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Column(
+                              children: [
+                                IconButton(
+                                  padding: EdgeInsets.all(
+                                    size.width * 0.01,
+                                  ),
+                                  alignment: Alignment.centerRight,
+                                  onPressed: () {
+                                    Get.to(
+                                      SymptomsInformationPage(
+                                        detectionType: widget.detectionType,
+                                        detectionResult: widget.detectionResult,
+                                      ),
+                                      transition: Transition.fade,
+                                    );
+                                  },
+                                  icon: Image.asset(
+                                    'assets/icons/diseases_datection_result_page_icons/symptoms_icon.png',
+                                    width: size.width * 0.374,
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                                IconButton(
+                                  padding: const EdgeInsets.all(0.0),
+                                  alignment: Alignment.centerRight,
+                                  onPressed: () {
+                                    Get.to(
+                                      TreatmentInformationPage(
+                                        detectionType: widget.detectionType,
+                                        detectionResult: widget.detectionResult,
+                                      ),
+                                      transition: Transition.fade,
+                                    );
+                                  },
+                                  icon: Image.asset(
+                                    'assets/icons/diseases_datection_result_page_icons/treatment_icon.png',
+                                    width: size.width * 0.384,
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                  padding: EdgeInsets.all(
+                                    size.width * 0.01,
+                                  ),
+                                  alignment: Alignment.centerLeft,
+                                  onPressed: () {
+                                    Get.to(
+                                      AboutInformationPage(
+                                        detectionType: widget.detectionType,
+                                        detectionResult: widget.detectionResult,
+                                      ),
+                                      transition: Transition.fade,
+                                    );
+                                  },
+                                  icon: Image.asset(
+                                    'assets/icons/diseases_datection_result_page_icons/about_icon.png',
+                                    width: size.width * 0.384,
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                                IconButton(
+                                  padding: const EdgeInsets.all(0.0),
+                                  alignment: Alignment.centerLeft,
+                                  onPressed: () {
+                                    Get.to(
+                                      PreventionInformationPage(
+                                        detectionType: widget.detectionType,
+                                        detectionResult: widget.detectionResult,
+                                      ),
+                                      transition: Transition.fade,
+                                    );
+                                  },
+                                  icon: Image.asset(
+                                    'assets/icons/diseases_datection_result_page_icons/prevention_icon.png',
+                                    width: size.width * 0.374,
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    )
+                  : Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        SizedBox(
+                          height: size.height * 0.1,
+                        ),
+                        Image.asset(
+                          '',
+                          width: size.width * 0.33316,
+                          height: size.height * 0.19923,
+                        ),
+                        SizedBox(
+                          height: size.height * 0.02,
+                        ),
+                        Text(
+                          'Congratulations!',
+                          style: TextStyle(
+                            height: 0.0,
+                            fontFamily: 'Cosffira',
+                            fontSize: size.width * 0.112,
+                            fontWeight: FontWeight.w900,
+                            color: const Color(0xffA26874),
+                            letterSpacing: 0.5,
+                          ),
+                        ),
+                        Text(
+                          'Your pet has healthy skin.',
+                          style: TextStyle(
+                            height: 0.0,
+                            fontFamily: 'Cosffira',
+                            fontSize: size.width * 0.057,
+                            fontWeight: FontWeight.w500,
+                            color: const Color(0xff4A5E7C),
+                          ),
+                        ),
+                      ],
+                    ),
+            ),
           ),
         ),
       ),

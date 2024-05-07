@@ -6,7 +6,6 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 
 import 'package:petapplication/pages/define_page/jack_define.dart';
-
 import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
 import 'package:petapplication/pages/pet_setting_pages/add_pet.dart';
 
@@ -21,19 +20,20 @@ class ChooseDefintionType extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xffEFE6E5),
       appBar: AppBar(
         elevation: 1,
 
-        automaticallyImplyLeading: true,
+        automaticallyImplyLeading: false,
 
         //iconTheme: IconThemeData.fallback(),
         forceMaterialTransparency: true,
         toolbarOpacity: 1,
-        toolbarHeight: 81.h,
+        toolbarHeight: size.height * 0.039,
 
-        leadingWidth: 40,
+        leadingWidth: size.height * 0.040,
 
         leading: IconButton(
           icon: const Icon(
@@ -47,31 +47,30 @@ class ChooseDefintionType extends StatelessWidget {
             );
             //
           },
-          iconSize: 35.0,
-          padding: const EdgeInsets.only(
-              left: 6.0), // Set the size of the arrow icon
+          iconSize: size.width * 0.085,
+          padding: EdgeInsets.only(
+              left: size.height * 0.01), // Set the size of the arrow icon
         ),
       ),
       extendBodyBehindAppBar: F,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-         // Add space to the top
+          // Add space to the top
           Container(
-            width: 360,
-            height: 520,
-             decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/image/Group1886.png')),
-        ),
+            width: size.height * 0.400,
+            height: size.height * 0.750,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/image/Group1886.png')),
+            ),
           ),
-         SizedBox(
-          height: 100.h,
-         ),
+          SizedBox(
+            height: size.height * 0.0100,
+          ),
           Center(
             //padding: const EdgeInsets.only(left:0),
             child: Row(
-          
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,8 +81,7 @@ class ChooseDefintionType extends StatelessWidget {
                   borderColor: const Color(0xFF4A5E7C),
                   onTap: () {
                     navigator?.pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (e) => const JackDefine()),
+                      MaterialPageRoute(builder: (e) => const JackDefine()),
                       (route) => true,
                     );
                   },
@@ -106,8 +104,7 @@ class ChooseDefintionType extends StatelessWidget {
                   customFontSize: 35.r,
                   onTap: () {
                     navigator?.pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (e) => const AddPets()),
+                      MaterialPageRoute(builder: (e) => const AddPets()),
                       (route) => true,
                     );
                   },

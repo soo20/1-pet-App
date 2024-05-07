@@ -115,13 +115,13 @@ class _AddPetsState extends State<AddPets> {
                           child: const Icon(
                             Icons.add,
                             size: 20,
-                            color:  Color(0xffFFFFFF),
+                            color: Color(0xffFFFFFF),
                           ),
                         ),
                       ),
                     ),
                   ),
-              
+
                   SizedBox(
                     height: 50.h,
                   ),
@@ -146,123 +146,126 @@ class _AddPetsState extends State<AddPets> {
                   //1
                   Form(
                     key: _formKey,
-                    child: Column(
-                      children: [
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 40, right: 40, top: 10),
-                      child: TextFormField(
-                        controller: petNameController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return '';
-                          }
-                          return null;
-                        },
-                        style: TextStyle(
-                          fontFamily: 'Cosffira',
-                          fontSize: 45.sp,
-                          color: const Color(0xff000000),
-                          fontWeight: FontWeight.w400,
-                        ),
-                        decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.only(left: 10),
-                            // labelText: 'Pet Name',
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            hintText: 'Pet Name',
-                            hintStyle: TextStyle(
-                              fontFamily: 'Cosffira',
-                              fontSize: 45.sp,
-                              color: const Color.fromARGB(126, 0, 0, 0),
-                              fontWeight: FontWeight.w400,
-                            ),
-                            enabledBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0xffD1D2D2),
-                                width: 0.8, // Set the width of the border here
-                              ),
-                            )),
-                      ),
-                    ),
-                    //2
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 40, right: 40, top: 5),
-                      child: TextFormField(
-                        controller: petTypeController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return '';
-                          }
-                          return null;
-                        },
-                        style: TextStyle(
-                          fontFamily: 'Cosffira',
-                          fontSize: 50.sp,
-                          color: const Color(0xff000000),
-                          fontWeight: FontWeight.w400,
-                        ),
-                        decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.only(left: 10),
-                            // labelText: 'Pet Name',
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            hintText: 'Pet species',
-                            hintStyle: TextStyle(
-                              fontFamily: 'Cosffira',
-                              fontSize: 45.sp,
-                              color: const Color.fromARGB(126, 0, 0, 0),
-                              fontWeight: FontWeight.w400,
-                            ),
-                            enabledBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0xffD1D2D2),
-                                width: 0.8, // Set the width of the border here
-                              ),
-                            )),
-                      ),
-                    ),
-                    //3
-                    
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 40, right: 40, top: 10),
-                      child: TextFormField(
-                        controller: ageController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return '';
-                          }
-                          return null;
-                        },
-                        style: TextStyle(
-                          fontFamily: 'Cosffira',
-                          fontSize: 45.sp,
-                          color: const Color(0xff000000),
-                          fontWeight: FontWeight.w400,
-                        ),
-                        decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.only(left: 10),
-                          // labelText: 'Pet Name',
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          hintText: 'Age',
-                          hintStyle: TextStyle(
+                    child: Column(children: [
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(left: 40, right: 40, top: 10),
+                        child: TextFormField(
+                          controller: petNameController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return '';
+                            }
+                            return null;
+                          },
+                          style: TextStyle(
                             fontFamily: 'Cosffira',
                             fontSize: 45.sp,
-                            color: const Color.fromARGB(126, 0, 0, 0),
+                            color: const Color(0xff000000),
                             fontWeight: FontWeight.w400,
                           ),
-                          enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xffD1D2D2),
-                              width: .8, // Set the width of the border here
+                          decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.only(left: 10),
+                              // labelText: 'Pet Name',
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.always,
+                              hintText: 'Pet Name',
+                              hintStyle: TextStyle(
+                                fontFamily: 'Cosffira',
+                                fontSize: 45.sp,
+                                color: const Color.fromARGB(126, 0, 0, 0),
+                                fontWeight: FontWeight.w400,
+                              ),
+                              enabledBorder: const UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0xffD1D2D2),
+                                  width:
+                                      0.8, // Set the width of the border here
+                                ),
+                              )),
+                        ),
+                      ),
+                      //2
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(left: 40, right: 40, top: 5),
+                        child: TextFormField(
+                          controller: petTypeController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return '';
+                            }
+                            return null;
+                          },
+                          style: TextStyle(
+                            fontFamily: 'Cosffira',
+                            fontSize: 50.sp,
+                            color: const Color(0xff000000),
+                            fontWeight: FontWeight.w400,
+                          ),
+                          decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.only(left: 10),
+                              // labelText: 'Pet Name',
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.always,
+                              hintText: 'Pet species',
+                              hintStyle: TextStyle(
+                                fontFamily: 'Cosffira',
+                                fontSize: 45.sp,
+                                color: const Color.fromARGB(126, 0, 0, 0),
+                                fontWeight: FontWeight.w400,
+                              ),
+                              enabledBorder: const UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0xffD1D2D2),
+                                  width:
+                                      0.8, // Set the width of the border here
+                                ),
+                              )),
+                        ),
+                      ),
+                      //3
+
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(left: 40, right: 40, top: 10),
+                        child: TextFormField(
+                          controller: ageController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return '';
+                            }
+                            return null;
+                          },
+                          style: TextStyle(
+                            fontFamily: 'Cosffira',
+                            fontSize: 45.sp,
+                            color: const Color(0xff000000),
+                            fontWeight: FontWeight.w400,
+                          ),
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.only(left: 10),
+                            // labelText: 'Pet Name',
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            hintText: 'Age',
+                            hintStyle: TextStyle(
+                              fontFamily: 'Cosffira',
+                              fontSize: 45.sp,
+                              color: const Color.fromARGB(126, 0, 0, 0),
+                              fontWeight: FontWeight.w400,
+                            ),
+                            enabledBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xffD1D2D2),
+                                width: .8, // Set the width of the border here
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    // 4
-                    
-                    /* DropdownButton(
+                      // 4
+
+                      /* DropdownButton(
                       value: _Selected,
                          items: _gender.map((e) => DropdownMenuItem(child: Text(e), value: e)).toList(),
                            onChanged: (val) {
@@ -272,227 +275,225 @@ class _AddPetsState extends State<AddPets> {
                              });
                                  },
                             ),*/
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 40, right: 40, top: 10),
-                      child: DropdownButtonFormField(
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return '';
-                          }
-                          return null;
-                        },
-                        dropdownColor: const Color(0xffA26874),
-                        iconEnabledColor: const Color(0xffA26874),
-                        style: TextStyle(
-                          fontFamily: 'Cosffira',
-                          fontSize: 45.sp,
-                          color: const Color(0xffF5F5F5),
-                          fontWeight: FontWeight.w400,
-                        ),
-                        decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.only(left: 10),
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          hintText: 'pet type',
-                          hintStyle: TextStyle(
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(left: 40, right: 40, top: 10),
+                        child: DropdownButtonFormField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return '';
+                            }
+                            return null;
+                          },
+                          dropdownColor: const Color(0xffA26874),
+                          iconEnabledColor: const Color(0xffA26874),
+                          style: TextStyle(
                             fontFamily: 'Cosffira',
                             fontSize: 45.sp,
-                            color: const Color.fromARGB(126, 0, 0, 0),
+                            color: const Color(0xffF5F5F5),
                             fontWeight: FontWeight.w400,
                           ),
-                          enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xffD1D2D2),
-                              width: .8, // Set the width of the border here
-                            ),
-                          ),
-                        ),
-                        value: selectedPetType,
-                        items: _petTypeGender
-                            .map((e) =>
-                                DropdownMenuItem(value: e, child: Text(e)))
-                            .toList(),
-                        onChanged: (val) {
-                          // Handle the onChanged event here
-                          setState(() {
-                            selectedPetType =
-                                val.toString(); // Update the selected value
-                          });
-                        },
-                        selectedItemBuilder: (BuildContext context) {
-                          return _petTypeGender.map<Widget>((String item) {
-                            return Text(
-                              item,
-                              style: const TextStyle(
-                                  color: Colors.black),
-                            );
-                          }).toList();
-                        },
-                      ),
-                    ),
-                    
-                    //
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 40, right: 40, top: 10),
-                      child: DropdownButtonFormField(
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return '';
-                          }
-                          return null;
-                        },
-                        dropdownColor: const Color(0xffA26874),
-                        iconEnabledColor: const Color(0xffA26874),
-                        style: TextStyle(
-                          fontFamily: 'Cosffira',
-                          fontSize: 45.sp,
-                          color: const Color(0xffF5F5F5),
-                          fontWeight: FontWeight.w400,
-                        ),
-                        decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.only(left: 10),
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          hintText: 'Gender',
-                          hintStyle: TextStyle(
-                            fontFamily: 'Cosffira',
-                            fontSize: 45.sp,
-                            color: const Color.fromARGB(126, 0, 0, 0),
-                            fontWeight: FontWeight.w400,
-                          ),
-                          enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xffD1D2D2),
-                              width: .8, // Set the width of the border here
-                            ),
-                          ),
-                        ),
-                        value: _Selected,
-                        items: _gender
-                            .map((e) =>
-                                DropdownMenuItem(value: e, child: Text(e)))
-                            .toList(),
-                        onChanged: (val) {
-                          // Handle the onChanged event here
-                          setState(() {
-                            _Selected =
-                                val.toString(); // Update the selected value
-                          });
-                        },
-                        selectedItemBuilder: (BuildContext context) {
-                          return _gender.map<Widget>((String item) {
-                            return Text(
-                              item,
-                              style: const TextStyle(
-                                  color: Colors.black),
-                            );
-                          }).toList();
-                        },
-                      ),
-                    ),
-                    
-                    // 5
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 40, right: 40, top: 0),
-                      child: TextFormField(
-                        controller: weightController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return '';
-                          }
-                          return null;
-                        },
-                        style: TextStyle(
-                          fontFamily: 'Cosffira',
-                          fontSize: 45.sp,
-                          color: const Color(0xff000000),
-                          fontWeight: FontWeight.w400,
-                        ),
-                        //  to take only number
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
-                        decoration: InputDecoration(
+                          decoration: InputDecoration(
                             contentPadding: const EdgeInsets.only(left: 10),
-                            // labelText: 'Pet Name',
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            hintText: 'Weight',
-                            suffixText: 'In Kg',
-                            suffixStyle: TextStyle(
-                              fontFamily: 'Cosffira',
-                              fontSize: 45.sp,
-                              color: const Color.fromARGB(126, 0, 0, 0),
-                              fontWeight: FontWeight.w400,
-                            ),
+                            hintText: 'pet type',
                             hintStyle: TextStyle(
                               fontFamily: 'Cosffira',
                               fontSize: 45.sp,
                               color: const Color.fromARGB(126, 0, 0, 0),
                               fontWeight: FontWeight.w400,
                             ),
-                            enabledBorder: const UnderlineInputBorder(
+                            enabledBorder: const OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0xffD1D2D2),
-                                width: 0.8, // Set the width of the border here
+                                width: .8, // Set the width of the border here
                               ),
-                            )),
+                            ),
+                          ),
+                          value: selectedPetType,
+                          items: _petTypeGender
+                              .map((e) =>
+                                  DropdownMenuItem(value: e, child: Text(e)))
+                              .toList(),
+                          onChanged: (val) {
+                            // Handle the onChanged event here
+                            setState(() {
+                              selectedPetType =
+                                  val.toString(); // Update the selected value
+                            });
+                          },
+                          selectedItemBuilder: (BuildContext context) {
+                            return _petTypeGender.map<Widget>((String item) {
+                              return Text(
+                                item,
+                                style: const TextStyle(color: Colors.black),
+                              );
+                            }).toList();
+                          },
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 80.h,
-                    ),
-                    CustomGeneralButtom(
-                      boxColor: const Color(0xffA26874),
-                      textColor: const Color(0xffFFFFFF),
-                      height: 135.h,
-                      width: 385.w,
-                      borderColor: const Color(0xffA26874),
-                      text: 'Finish',
-                      onTap: () {
-                        if (_formKey.currentState!.validate()) {
-                          // Ensure that the _selectedImage is not null before proceeding
-                          
+
+                      //
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(left: 40, right: 40, top: 10),
+                        child: DropdownButtonFormField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return '';
+                            }
+                            return null;
+                          },
+                          dropdownColor: const Color(0xffA26874),
+                          iconEnabledColor: const Color(0xffA26874),
+                          style: TextStyle(
+                            fontFamily: 'Cosffira',
+                            fontSize: 45.sp,
+                            color: const Color(0xffF5F5F5),
+                            fontWeight: FontWeight.w400,
+                          ),
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.only(left: 10),
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            hintText: 'Gender',
+                            hintStyle: TextStyle(
+                              fontFamily: 'Cosffira',
+                              fontSize: 45.sp,
+                              color: const Color.fromARGB(126, 0, 0, 0),
+                              fontWeight: FontWeight.w400,
+                            ),
+                            enabledBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xffD1D2D2),
+                                width: .8, // Set the width of the border here
+                              ),
+                            ),
+                          ),
+                          value: _Selected,
+                          items: _gender
+                              .map((e) =>
+                                  DropdownMenuItem(value: e, child: Text(e)))
+                              .toList(),
+                          onChanged: (val) {
+                            // Handle the onChanged event here
+                            setState(() {
+                              _Selected =
+                                  val.toString(); // Update the selected value
+                            });
+                          },
+                          selectedItemBuilder: (BuildContext context) {
+                            return _gender.map<Widget>((String item) {
+                              return Text(
+                                item,
+                                style: const TextStyle(color: Colors.black),
+                              );
+                            }).toList();
+                          },
+                        ),
+                      ),
+
+                      // 5
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(left: 40, right: 40, top: 0),
+                        child: TextFormField(
+                          controller: weightController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return '';
+                            }
+                            return null;
+                          },
+                          style: TextStyle(
+                            fontFamily: 'Cosffira',
+                            fontSize: 45.sp,
+                            color: const Color(0xff000000),
+                            fontWeight: FontWeight.w400,
+                          ),
+                          //  to take only number
+                          keyboardType: TextInputType.number,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.only(left: 10),
+                              // labelText: 'Pet Name',
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.always,
+                              hintText: 'Weight',
+                              suffixText: 'In Kg',
+                              suffixStyle: TextStyle(
+                                fontFamily: 'Cosffira',
+                                fontSize: 45.sp,
+                                color: const Color.fromARGB(126, 0, 0, 0),
+                                fontWeight: FontWeight.w400,
+                              ),
+                              hintStyle: TextStyle(
+                                fontFamily: 'Cosffira',
+                                fontSize: 45.sp,
+                                color: const Color.fromARGB(126, 0, 0, 0),
+                                fontWeight: FontWeight.w400,
+                              ),
+                              enabledBorder: const UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0xffD1D2D2),
+                                  width:
+                                      0.8, // Set the width of the border here
+                                ),
+                              )),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 80.h,
+                      ),
+                      CustomGeneralButtom(
+                        boxColor: const Color(0xffA26874),
+                        textColor: const Color(0xffFFFFFF),
+                        height: 135.h,
+                        width: 385.w,
+                        borderColor: const Color(0xffA26874),
+                        text: 'Finish',
+                        onTap: () {
+                          if (_formKey.currentState!.validate()) {
+                            // Ensure that the _selectedImage is not null before proceeding
+
                             // Create a new PetsInformation object with the entered information
                             PetsInformation newPet = PetsInformation(
-                              imageUrl: _selectedImage?.path ?? 'assets/image/profileImage.png', // Convert XFile to String path
-                              petName: petNameController.text,
-                              petGender: _Selected !,
-                              petId: petIdController.text,
-                              petType: petTypeController.text,
-                              age: ageController.text, petIsDogOrCat: selectedPetType!,
-                               petWeight : double.tryParse(weightController.text)
-                            );
-                    
+                                imageUrl: _selectedImage?.path ??
+                                    'assets/image/profileImage.png', // Convert XFile to String path
+                                petName: petNameController.text,
+                                petGender: _Selected!,
+                                petId: petIdController.text,
+                                petType: petTypeController.text,
+                                age: ageController.text,
+                                petIsDogOrCat: selectedPetType!,
+                                petWeight:
+                                    double.tryParse(weightController.text));
+
                             // Add the new pet to the appropriate list based on petType
                             if (selectedPetType == 'Cat') {
                               catsInformationList.add(newPet);
                             } else {
                               dogsInformationList.add(newPet);
                             }
-                    
+
                             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => const TheMainHomePage(index1: 2,),
-              ),
-            );
-                         
-                        } else {
-                          // Handle the case when form validation fails, if needed
-                        }
-                      },
-                      fontWeight: FontWeight.w500,
-                      customFontSize: 50.sp,
-                    ),
-                    
-                    
-                    
-                    
-                                      ]
-                                    ),
+                              MaterialPageRoute(
+                                builder: (context) => const TheMainHomePage(
+                                  index1: 2,
+                                ),
+                              ),
+                            );
+                          } else {
+                            // Handle the case when form validation fails, if needed
+                          }
+                        },
+                        fontWeight: FontWeight.w500,
+                        customFontSize: 50.sp,
+                      ),
+                    ]),
                   )
-              
+
                   // Conditional rendering of the shadowed container
                 ],
               ),
@@ -511,7 +512,7 @@ class _AddPetsState extends State<AddPets> {
                 height: 165,
                 width: double.infinity,
                 decoration: const BoxDecoration(
-                  color:   Color(0xffDCD3D3),
+                  color: Color(0xffDCD3D3),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(50.0),
                     topRight: Radius.circular(50.0),
@@ -532,7 +533,7 @@ class _AddPetsState extends State<AddPets> {
                   children: [
                     const CustomGeneralButtom(
                       boxColor: Color(0xff4A5E7C),
-                      textColor:  Color(0xffffffff),
+                      textColor: Color(0xffffffff),
                       height: 50,
                       width: 150,
                       borderColor: Color(0xffB5C0D0),

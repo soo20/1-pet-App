@@ -1,5 +1,3 @@
-
-
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
@@ -10,7 +8,7 @@ import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/pages/sign_login_acount/loginbody.dart';
 
-import 'package:petapplication/pages/sign_login_acount/logintext.dart';
+
 
 class Yyuna extends StatelessWidget {
   const Yyuna({super.key});
@@ -61,8 +59,6 @@ class Yyuna extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-         
-          
         ],
       ),
     );
@@ -82,7 +78,7 @@ class Jjack extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 50,bottom: 15),
+                padding: const EdgeInsets.only(top: 50, bottom: 15),
                 child: Image.asset(
                   'assets/image/Group327.png',
                   width: 530.w,
@@ -90,20 +86,20 @@ class Jjack extends StatelessWidget {
                   fit: BoxFit.fill, // Adjust the fit as needed
                 ),
               ),
-               Center(
-            child: Text(
-              overflow: TextOverflow.ellipsis,
-              'Meet Jack',
-              style: TextStyle(
-                fontFamily: 'Cosffira',
-                fontSize: 100.sp,
-                color: const Color(0xff74454E),
-                fontWeight: FontWeight.bold,
+              Center(
+                child: Text(
+                  overflow: TextOverflow.ellipsis,
+                  'Meet Jack',
+                  style: TextStyle(
+                    fontFamily: 'Cosffira',
+                    fontSize: 105.sp,
+                    color: const Color(0xff74454E),
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
               ),
-              textAlign: TextAlign.center,
-            ),
-          ),
-               // Add space to the top
+              // Add space to the top
               Center(
                 child: RichText(
                   text: TextSpan(
@@ -122,22 +118,18 @@ class Jjack extends StatelessWidget {
                           fontFamily: 'Cosffira',
                           fontSize: 45.sp,
                           color: Colors.black,
-                          fontWeight: FontWeight.w800,
+                          fontWeight: FontWeight.w500,
                           height: 1.1
                         ),
                       )
                     ],
                   ),
                   textAlign: TextAlign.center,
-                  
                 ),
               ),
-              
-              
             ],
           ),
         ),
-        
       ],
     );
   }
@@ -171,7 +163,7 @@ class Ggizmo extends StatelessWidget {
               'Meet Gizmo',
               style: TextStyle(
                 fontFamily: 'Cosffira',
-                fontSize: 100.sp,
+                fontSize: 105.sp,
                 color: const Color(0xff74454E),
                 fontWeight: FontWeight.bold,
               ),
@@ -197,8 +189,8 @@ class Ggizmo extends StatelessWidget {
                           fontFamily: 'Cosffira',
                           fontSize: 45.sp,
                           color: Colors.black,
-                          fontWeight: FontWeight.w800,
-                          height: 1.1
+                          fontWeight: FontWeight.bold,
+                          height: 1.2
                         ),
                       )
                     ],
@@ -206,11 +198,9 @@ class Ggizmo extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ),
-             
             ],
           ),
         ),
-        
       ],
     );
   }
@@ -231,12 +221,12 @@ class Wwanda extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
                Padding(
-          padding:  EdgeInsets.only(
-              top: size.height *0.11), // Add padding of 8.0 to all sides
+          padding: const EdgeInsets.fromLTRB(
+              0.0, 110, 00, 0), // Add padding of 8.0 to all sides
           child: Image.asset(
             'assets/image/Group1021.png',
-            width: 410.w,
-            height: 745.h,
+            width: 430.w,
+            height: 765.h,
             fit: BoxFit.fill, // Adjust the fit as needed
           ),
         ),
@@ -246,7 +236,7 @@ class Wwanda extends StatelessWidget {
               'Meet Wanda',
               style: TextStyle(
                 fontFamily: 'Cosffira',
-                fontSize: 100.sp,
+                fontSize: 105.sp,
                 color: const Color(0xff74454E),
                 fontWeight: FontWeight.bold,
               ),
@@ -268,21 +258,20 @@ class Wwanda extends StatelessWidget {
                         text:
                             ' with exciting\nnews—our app now has a reminder system!\nEnjoy timely pet care prompts and manage\nimportant dates, Join Us on this Convenient,\njourney!',
                         style: TextStyle(
-                          fontFamily: 'Cosffira',
-                          fontSize: 45.sp,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w800,
-                          height: 1.1
-                        ),
+                            fontFamily: 'Cosffira',
+                            fontSize: 45.sp,
+                            color: Colors.black,
+                            fontWeight: FontWeight.normal,
+                            height: 1.1),
                       )
                     ],
                   ),
                   textAlign: TextAlign.center,
                 ),
               ),
-              
+
               Padding(
-                padding: const EdgeInsets.only(right: 35,top: 25),
+                padding: const EdgeInsets.only(right: 35,top: 20),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -315,10 +304,7 @@ class Wwanda extends StatelessWidget {
             ],
           ),
         ),
-       
       ],
     );
   }
 }
-
-

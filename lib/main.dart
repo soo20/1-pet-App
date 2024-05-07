@@ -6,15 +6,17 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 import 'package:petapplication/pages/splashscreen.dart';
+
 // import 'package:petapplication/pages/splashscreen.dart';
 
 late List<CameraDescription> cameras;
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   WidgetsFlutterBinding.ensureInitialized();
   cameras = await availableCameras();
   await AppTrackingTransparency.requestTrackingAuthorization();
@@ -55,7 +57,7 @@ class YunaPetApp extends StatelessWidget {
       },
       //A part of builder that its dependencies/properties don't use the library
       //child: const SplashScreen()
-          //const TheMainHomePage(),
+      //const TheMainHomePage(),
     );
   }
 }

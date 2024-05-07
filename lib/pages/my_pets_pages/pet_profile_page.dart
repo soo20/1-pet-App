@@ -7,8 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:petapplication/pages/events_system/events_for_pet.dart';
+import 'package:petapplication/pages/info_page/information.dart';
 import 'package:petapplication/pages/my_pets_pages/diseases_information_page.dart';
-
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 import 'package:petapplication/pages/pet_setting_pages/edit_page.dart';
 
@@ -165,7 +165,7 @@ class _PetProfilePage extends State<PetProfilePage> {
                         MaterialStateProperty.all<double>(size.width * 0.01)),
                 onPressed: () {
                   Get.to(
-                    EventsForPetPage(
+                    () => EventsForPetPage(
                       petInformation: widget.petInformation,
                     ),
                     transition: Transition.zoom,
@@ -215,7 +215,13 @@ class _PetProfilePage extends State<PetProfilePage> {
                       ),
                       elevation:
                           MaterialStateProperty.all<double>(size.width * 0.01)),
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(
+                        () => InfoPage(
+                              petType: widget.petInformation.petType,
+                            ),
+                        transition: Transition.upToDown);
+                  },
                   icon: Padding(
                     padding: EdgeInsets.only(left: size.width * 0.17),
                     child: Image.asset(

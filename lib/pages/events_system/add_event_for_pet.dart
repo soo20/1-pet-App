@@ -1,6 +1,10 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'dart:math';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+
 import 'package:intl/intl.dart';
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
@@ -46,17 +50,98 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    void onFinishButtonPressed() {
+
+    void onFinishButtonPressed(BuildContext context) {
       // Create the ReminderData object
       final ReminderData reminderData =
           createReminderData(selectedDate, reminderTime, currentItemSelected);
-      setState(() {
-        widget.petInfo.remindersData.add(reminderData);
-      });
-      // Add the ReminderData object to the list
 
-      // Close the dialog
-      Navigator.of(context).pop();
+      setState(() {
+        bool foundDuplicate = false;
+        for (PetsInformation pet in petsList) {
+          for (ReminderData reminder in pet.remindersData) {
+            if (reminder.day == reminderData.day &&
+                reminder.hours == reminderData.hours &&
+                reminder.minutes == reminderData.minutes) {
+              foundDuplicate = true;
+              break;
+            }
+          }
+          if (foundDuplicate) {
+            break;
+          }
+        }
+        if (foundDuplicate) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: size.width * 0.02,
+                sigmaY: size.width * 0.02,
+              ),
+              child: AlertDialog(
+                elevation: 0.0,
+                backgroundColor: const Color(0xffDCD3D3),
+                content: Text(
+                  textAlign: TextAlign.center,
+                  "It is not possible to set the same reminder more than once. Please choose a different time.",
+                  style: TextStyle(
+                    height: 0.0,
+                    fontFamily: 'Cosffira',
+                    fontSize: size.width * 0.037,
+                    fontWeight: FontWeight.w800,
+                    color: const Color(0xff4A5E7C),
+                    letterSpacing: 0.5,
+                  ),
+                ),
+                actions: [
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xffA26874),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: size.width * 0.028,
+                          vertical: size.height * 0.025,
+                        ), // Adjust the padding as needed
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                            size.width * 0.092,
+                          ), // Set the border radius of the button
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          left: size.width * 0.06,
+                          right: size.width * 0.06,
+                        ),
+                        child: Text(
+                          'modify',
+                          style: TextStyle(
+                            height: 0.0,
+                            fontFamily: 'Cosffira',
+                            fontSize: size.width * 0.045,
+                            fontWeight: FontWeight.w800,
+                            color: const Color.fromARGB(255, 255, 255, 255),
+                            letterSpacing: 0.5,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        } else {
+          // Add the ReminderData object to the list
+          widget.petInfo.remindersData.add(reminderData);
+          // Close the dialog
+          Navigator.of(context).pop();
+        }
+      });
     }
 
     return AlertDialog(
@@ -579,7 +664,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  onFinishButtonPressed();
+                  onFinishButtonPressed(context);
                 });
               },
               style: ElevatedButton.styleFrom(
@@ -628,19 +713,20 @@ ReminderData createReminderData(
   final String weekDay = DateFormat('E').format(selectedDate);
 
   // Extracting time components
-  final String hours = reminderTime.hour.toString().padLeft(2, '0');
+  final String hours = reminderTime.hourOfPeriod.toString().padLeft(2, '0');
   final String period = reminderTime.hour < 12 ? 'AM' : 'PM';
   final String minutes = reminderTime.minute.toString().padLeft(2, '0');
 
   // Creating the ReminderData object
   return ReminderData(
-    day: day,
-    month: month,
-    year: year,
-    weekDay: weekDay,
-    hours: hours,
-    minutes: minutes,
-    reminderType: currentItemSelected,
-    night: period, // Set night value as needed
-  );
+      day: day,
+      month: month,
+      year: year,
+      weekDay: weekDay,
+      hours: hours,
+      minutes: minutes,
+      reminderType: currentItemSelected,
+      night: period,
+      reminderId: Random().toString() // Set night value as needed
+      );
 }
