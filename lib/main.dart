@@ -15,7 +15,6 @@ import 'package:petapplication/pages/splashscreen.dart';
 
 late List<CameraDescription> cameras;
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
 
   WidgetsFlutterBinding.ensureInitialized();
   cameras = await availableCameras();
