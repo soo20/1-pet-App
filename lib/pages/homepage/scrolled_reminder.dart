@@ -50,33 +50,34 @@ class _BuildReminderCard extends State<BuildReminderCard> {
             ),
             Padding(
               padding: EdgeInsets.all(size.width * 0.001),
-              child: Image(
-                image: AssetImage(
-                  widget.remindersData.imageUrl,
+              child: ClipOval(
+                child: Image(
+                  image: AssetImage(
+                    widget.remindersData.imageUrl,
+                  ),
+                  width: size.width * 0.150,
+                  height: size.height * 0.150,
+                  fit: BoxFit.fill,
                 ),
-                width: size.width * 0.150,
-                height: size.height * 0.150,
-                fit: BoxFit.contain,
               ),
             ),
             Padding(
               padding: EdgeInsets.only(
                 left: size.width * 0.03,
-                right: size.width * 0.05,
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(right: size.width * 0.3),
-                    child: Text(
-                      widget.remindersData.petName,
-                      style: TextStyle(
-                        fontFamily: 'Cosffira',
-                        fontSize: size.width * 0.070,
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xff4A5E7C),
-                      ),
+                  Text(
+                    widget.remindersData.petName,
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontFamily: 'Cosffira',
+                      fontSize: size.width * 0.070,
+                      fontWeight: FontWeight.bold,
+                      color: const Color(0xff4A5E7C),
+                      height: 0.0,
                     ),
                   ),
                   Text(

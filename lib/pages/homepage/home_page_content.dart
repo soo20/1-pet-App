@@ -13,7 +13,7 @@ class HomePageAfterAddingPets extends StatefulWidget {
 }
 
 // Create an instance of ScrolledEvents
-const ScrolledEvents scrolledEvents = ScrolledEvents();
+
 // List to store card widgets for reminders
 List<Widget> itemsData = [];
 // These variables allow Textbuttons to change their style when pressed.
@@ -37,6 +37,7 @@ bool onPressedText = true;
 */
 Color textColor2 = const Color(0xff9A9EAC);
 bool onPressedText2 = false;
+List<FutureEventsInformations> petsInformationList = [];
 
 // State class for the home page
 class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
@@ -46,24 +47,22 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
   // Boolean variable to manage the visibility of events as scrolling occurs
   bool closeTopevents = false;
   double topContainer = 0;
-  List<Widget> checkedList = [];
+  List<Reminders> remindersInHome = [];
 
-  dynamic remindersInHome;
   // Method to get reminder cards
 
   void getCards() {
-    // List containing data for each reminder card
-
-    List<Widget> listItems = [];
-
-    // Iterate through the responseList to create reminder cards
     setState(() {
-      // Check if remindersInHome is not null and not empty
       remindersInHome = mergeReminders(
         dogsInformationList,
         catsInformationList,
       );
-      if (remindersInHome != null && remindersInHome.isNotEmpty) {
+
+      petsInformationList = getFutureEvents(
+        dogsInformationList,
+        catsInformationList,
+      );
+      if (remindersInHome.isNotEmpty) {
         // Update itemsData with reminder cards
         itemsData = remindersInHome
             .map((item) => BuildReminderCard(
@@ -76,12 +75,18 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
                 ))
             .toList();
       }
-
-      // to store cards in itemsData variable and make a state for this
-
-      itemsData = listItems;
     });
   }
+
+  @override
+  void initState() {
+    super.initState();
+    getCards();
+    print(petsInformationList.length);
+  }
+
+  ScrolledEvents scrolledEvents =
+      ScrolledEvents(petsInformationList: petsInformationList);
 
   // Build the UI for the home page
   @override
@@ -126,29 +131,29 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
 
           // Animated container for future events cards
           // the same explain for "Animated container for future events text"
-          // remindersInHome.isNotEmpty
-          //     ? Container(
-          //         width: size.width,
-          //         alignment: Alignment.topCenter,
-          //         // When we scroll, the reminders feature events will appear at a height of 0.
-          //         height: size.height * 0.15,
-          //         // We will apply this animation on the 'scrolledEvents' object.
-          //         child: scrolledEvents)
-          //     : Padding(
-          //         padding: EdgeInsets.only(
-          //           top: size.height * 0.03,
-          //           bottom: size.height * 0.03,
-          //         ),
-          //         child: Text(
-          //           'There Are No Events Yet',
-          //           style: TextStyle(
-          //             fontFamily: 'Cosffira',
-          //             fontSize: size.width * 0.049,
-          //             fontWeight: FontWeight.normal,
-          //             color: const Color.fromARGB(145, 154, 158, 172),
-          //           ),
-          //         ),
-          //       ),
+          petsInformationList.isNotEmpty
+              ? Container(
+                  width: size.width,
+                  alignment: Alignment.topCenter,
+                  // When we scroll, the reminders feature events will appear at a height of 0.
+                  height: size.height * 0.15,
+                  // We will apply this animation on the 'scrolledEvents' object.
+                  child: scrolledEvents)
+              : Padding(
+                  padding: EdgeInsets.only(
+                    top: size.height * 0.03,
+                    bottom: size.height * 0.03,
+                  ),
+                  child: Text(
+                    "There are no upcoming events yet.",
+                    style: TextStyle(
+                      fontFamily: 'Cosffira',
+                      fontSize: size.width * 0.049,
+                      fontWeight: FontWeight.normal,
+                      color: const Color.fromARGB(145, 154, 158, 172),
+                    ),
+                  ),
+                ),
 
           // Row containing TextButtons for Today Tasks and Complete Tasks
           Row(
@@ -228,17 +233,11 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
                   it is used within a Column or Row to specify how much
                   of the available vertical or horizontal space a child widget should occupy.
                 */
-          remindersInHome?.isNotEmpty ?? false
+          remindersInHome.isNotEmpty
               ? Builder(builder: (_) {
                   final List<Reminders> itemList = (onPressedText)
-                      ? remindersInHome
-                              ?.where((e) => e is Reminders && !e.checked)
-                              .toList() ??
-                          []
-                      : remindersInHome
-                              ?.where((e) => e is Reminders && e.checked)
-                              .toList() ??
-                          [];
+                      ? remindersInHome.where((e) => !e.checked).toList()
+                      : remindersInHome.where((e) => e.checked).toList();
 
                   return Expanded(
                     child: ListView.builder(
@@ -246,12 +245,12 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
                       itemCount: itemList.length,
                       physics: const BouncingScrollPhysics(),
                       itemBuilder: (context, index) {
-                        final Reminders remainder = itemList[index];
+                        final Reminders passedReminder = itemList[index];
                         return BuildReminderCard(
-                          remindersData: remainder,
+                          remindersData: passedReminder,
                           onPressed: () {
-                            setState(
-                                () => remainder.checked = !remainder.checked);
+                            setState(() => passedReminder.checked =
+                                !passedReminder.checked);
                           },
                         );
                         // return itemsData[index];

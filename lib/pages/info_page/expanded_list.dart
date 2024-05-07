@@ -64,26 +64,25 @@ class _ExpandedSectionState extends State<ExpandedSection>
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SizeTransition(
-        axisAlignment: 1.0,
-        sizeFactor: animation,
-        child: Flexible(
-          child: Container(
-            padding: EdgeInsets.only(
-              bottom: 0,
-              top: size.height * 0.05,
-            ),
-            constraints: BoxConstraints(
-                //minHeight: 100,
-                minWidth: double.infinity,
-                maxHeight: widget.height > 5
-                    ? 1050.h
-                    : widget.height == 1
-                        ? 55
-                        : widget.height * 50.0),
-            child: Padding(
-                padding: EdgeInsets.only(bottom: size.height * 0.01),
-                child: widget.child),
-          ),
-        ));
+      axisAlignment: 1.0,
+      sizeFactor: animation,
+      child: Container(
+        padding: EdgeInsets.only(
+          bottom: 0,
+          top: size.height * 0.01,
+        ),
+        constraints: BoxConstraints(
+            //minHeight: 100,
+            minWidth: double.infinity,
+            maxHeight: widget.height > 5
+                ? 1050.h
+                : widget.height == 1
+                    ? 55
+                    : widget.height * 50.0),
+        child: Padding(
+            padding: EdgeInsets.only(bottom: size.height * 0.01),
+            child: widget.child),
+      ),
+    );
   }
 }

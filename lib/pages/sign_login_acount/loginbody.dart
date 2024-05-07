@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -42,6 +43,9 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     // double aspectRatio = SizeConfig.screenWidth! / SizeConfig.screenHeight!;
     return Scaffold(
+      backgroundColor: Color(0xffEFE6E5),
+      body: Center(
+        child: Column(
        appBar: AppBar(
             elevation: 1,
             automaticallyImplyLeading: false,
@@ -82,9 +86,10 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
               'Yuna\n',
               style: TextStyle(
                 fontFamily: 'Cosffira',
-                fontSize: 130.sp,
+                fontSize: size.width * 0.130,
                 color: const Color(0xff4A5E7C),
                 fontWeight: FontWeight.w600,
+                height: 1.h,
                 height: 1.h,
               ),
             ),
@@ -117,6 +122,23 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                 width: 740.w,
               ),
             ),
+
+            Flexible(
+              flex: 2,
+              child: Padding(
+                padding: EdgeInsets.only(
+                  top: 5,
+                ),
+                child: CustomGeneralButtom2(
+                  height: 120.h,
+                  text: 'Login With Facebook',
+                  icon: FontAwesomeIcons.facebook,
+                  iconcolor: kMainColorPage,
+                  textColor: kMainColorPage,
+                  boxColor: const Color(0xff4A5E7C),
+                  borderColor: kMainColorPage,
+                  width: 740.w,
+                ),
 
             Padding(
               padding: EdgeInsets.only(
