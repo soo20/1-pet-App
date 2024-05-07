@@ -1,9 +1,13 @@
 // ignore_for_file: avoid_print
 
+
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 import 'package:petapplication/pages/splashscreen.dart';
 
@@ -11,10 +15,13 @@ import 'package:petapplication/pages/splashscreen.dart';
 
 late List<CameraDescription> cameras;
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
 
   WidgetsFlutterBinding.ensureInitialized();
   cameras = await availableCameras();
+  await AppTrackingTransparency.requestTrackingAuthorization();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+);
   runApp(const YunaPetApp());
 }
 

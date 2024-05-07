@@ -6,37 +6,39 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
+import 'package:petapplication/pages/sign_login_acount/loginbody.dart';
 
-import 'package:petapplication/pages/sign_login_acount/logintext.dart';
+
 
 class Yyuna extends StatelessWidget {
   const Yyuna({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return SafeArea(
       // Add space to the left
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(
-                0.0, 50, 0, 20), // Add padding of 8.0 to all sides
-            child: Image.asset(
-              'assets/image/Group315.png',
-              width: 610.w,
-              height: 970.h,
-              fit: BoxFit.contain, // Adjust the fit as needed
-            ),
-          ), // Add space to the top
-
+    padding:  EdgeInsets.only(
+       top: size.height *0.07), // Add padding of 8.0 to all sides
+    child: Image.asset(
+      'assets/image/Group315.png',
+      width: 610.w,
+      height: 970.h,
+      fit: BoxFit.contain, // Adjust the fit as needed
+    ),
+        ),// Add space to the top
+    
           Center(
             child: Text(
               overflow: TextOverflow.ellipsis,
               'Meet Yuna',
               style: TextStyle(
                 fontFamily: 'Cosffira',
-                fontSize: 105.sp,
+                fontSize: 100.sp,
                 color: const Color(0xff74454E),
                 fontWeight: FontWeight.bold,
               ),
@@ -48,11 +50,12 @@ class Yyuna extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               'Unlock a world of pet love with\nMe and my Friends:Connect,share, and\n Enhance your furry friend  life,are you\'s\nReady to meet my Friends? \n',
               style: TextStyle(
-                  fontFamily: 'Cosffira',
-                  fontSize: 45.sp,
-                  color: const Color(0xff000000),
-                  fontWeight: FontWeight.bold,
-                  height: 1.1),
+                          fontFamily: 'Cosffira',
+                          fontSize: 38.sp,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w800,
+                          height: 1.1
+                        ),
               textAlign: TextAlign.center,
             ),
           ),
@@ -112,11 +115,12 @@ class Jjack extends StatelessWidget {
                         text:
                             ' in our app recognizes your pet \nfrom their photo and provides key\ninformation. Welcome to a world where\nyour pet shines!',
                         style: TextStyle(
-                            fontFamily: 'Cosffira',
-                            fontSize: 45.sp,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                            height: 1.1),
+                          fontFamily: 'Cosffira',
+                          fontSize: 45.sp,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                          height: 1.1
+                        ),
                       )
                     ],
                   ),
@@ -144,48 +148,50 @@ class Ggizmo extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(
-                    0.0, 110, 0, 20), // Add padding of 8.0 to all sides
-                child: Image.asset(
-                  'assets/image/Group737.png',
-                  width: 615.w,
-                  height: 720.h,
-                  fit: BoxFit.contain, // Adjust the fit as needed
+        padding: const EdgeInsets.fromLTRB(
+            0.0, 110, 0, 20), // Add padding of 8.0 to all sides
+        child: Image.asset(
+          'assets/image/Group737.png',
+          width: 615.w,
+          height: 720.h,
+          fit: BoxFit.contain, // Adjust the fit as needed
+        ),
                 ),
+                    Center(
+            child: Text(
+              overflow: TextOverflow.ellipsis,
+              'Meet Gizmo',
+              style: TextStyle(
+                fontFamily: 'Cosffira',
+                fontSize: 105.sp,
+                color: const Color(0xff74454E),
+                fontWeight: FontWeight.bold,
               ),
-              Center(
-                child: Text(
-                  overflow: TextOverflow.ellipsis,
-                  'Meet Gizmo',
-                  style: TextStyle(
-                    fontFamily: 'Cosffira',
-                    fontSize: 105.sp,
-                    color: const Color(0xff74454E),
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
               Center(
                 child: RichText(
                   text: TextSpan(
                     text: 'Hey pet pals! Gizmo here',
                     style: TextStyle(
-                      fontFamily: 'Cosffira',
-                      fontSize: 45.sp,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
+                          fontFamily: 'Cosffira',
+                          fontSize: 45.sp,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w800,
+                          height: 1.1
+                        ),
                     children: <TextSpan>[
                       TextSpan(
                         text:
                             ' Our app now\ndetects skin and fecal issues for your\nfurry buddies. It\'s like a health \nsuperhero in your pocket! ',
                         style: TextStyle(
-                            fontFamily: 'Cosffira',
-                            fontSize: 45.sp,
-                            color: Colors.black,
-                            fontWeight: FontWeight.normal,
-                            height: 1.2),
+                          fontFamily: 'Cosffira',
+                          fontSize: 45.sp,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          height: 1.2
+                        ),
                       )
                     ],
                   ),
@@ -201,10 +207,12 @@ class Ggizmo extends StatelessWidget {
 }
 
 class Wwanda extends StatelessWidget {
+  
   const Wwanda({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Stack(
       children: [
         SafeArea(
@@ -212,29 +220,29 @@ class Wwanda extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(
-                    0.0, 110, 00, 0), // Add padding of 8.0 to all sides
-                child: Image.asset(
-                  'assets/image/Group1021.png',
-                  width: 430.w,
-                  height: 765.h,
-                  fit: BoxFit.fill, // Adjust the fit as needed
-                ),
+               Padding(
+          padding: const EdgeInsets.fromLTRB(
+              0.0, 110, 00, 0), // Add padding of 8.0 to all sides
+          child: Image.asset(
+            'assets/image/Group1021.png',
+            width: 430.w,
+            height: 765.h,
+            fit: BoxFit.fill, // Adjust the fit as needed
+          ),
+        ),
+                            Center(
+            child: Text(
+              overflow: TextOverflow.ellipsis,
+              'Meet Wanda',
+              style: TextStyle(
+                fontFamily: 'Cosffira',
+                fontSize: 105.sp,
+                color: const Color(0xff74454E),
+                fontWeight: FontWeight.bold,
               ),
-              Center(
-                child: Text(
-                  overflow: TextOverflow.ellipsis,
-                  'Meet Wanda',
-                  style: TextStyle(
-                    fontFamily: 'Cosffira',
-                    fontSize: 105.sp,
-                    color: const Color(0xff74454E),
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ), // Add space to the top
+              textAlign: TextAlign.center,
+            ),
+          ), // Add space to the top
               Center(
                 child: RichText(
                   text: TextSpan(
@@ -263,7 +271,7 @@ class Wwanda extends StatelessWidget {
               ),
 
               Padding(
-                padding: const EdgeInsets.only(right: 35, top: 20),
+                padding: const EdgeInsets.only(right: 35,top: 20),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -281,7 +289,7 @@ class Wwanda extends StatelessWidget {
                       onTap: () {
                         Get.off(
                           () =>
-                              const LoginText(), // Replace YourNextPage with the actual class for the next page
+                              const LoginBody(), // Replace YourNextPage with the actual class for the next page
                           transition: Transition.rightToLeft,
                           duration: const Duration(milliseconds: 300),
                         );

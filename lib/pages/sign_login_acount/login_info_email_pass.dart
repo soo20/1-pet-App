@@ -1,3 +1,6 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +22,7 @@ class LoginInfo extends StatefulWidget {
 }
 
 class _LoginInfoState extends State<LoginInfo> {
+  bool isloading  = false ;
   final TextEditingController _email = TextEditingController();
   final TextEditingController _pass = TextEditingController();
    String? validateEmail(String? value) {
@@ -39,11 +43,104 @@ class _LoginInfoState extends State<LoginInfo> {
         return 'Invalid email';
       }
     }
+    //Ssoo@121
     return null; // Return null if the email is valid
   }
  // login function
- 
+ signInWithEmailAndPassword() async {
+  showDialog(context: context, 
+  builder: (context){
+    return const Center(
+      child: CircularProgressIndicator(
+        color:Color(0xff4A5E7C),
+      ),
+    );
+  }
+  );
+  try {
+    setState(() {
+      isloading = true;
+    });
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: _email.text,
+      password: _pass.text,
+    );
+    setState(() {
+      isloading = false;
+    });
+    
+    // Navigate to the main homepage upon successful login
+    Get.offAll(() => const TheMainHomePage());
+     String errorMessage = 'Login Successed';
+     ScaffoldMessenger.of(context).showSnackBar(
+  SnackBar(
+    backgroundColor: const Color.fromARGB(80, 0, 0, 0),
+    elevation: 0,
+    content: Text(
+      errorMessage,
+      style: TextStyle(
+        fontFamily: 'Cosffira',
+        fontSize: 50.sp,
+        color: const Color(0xffEFE6E5),
+        fontWeight: FontWeight.w600,
+      ),
+    ),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10.0), // Adjust the radius as needed
+    ),
+    action: SnackBarAction(
+    
+      label: 'Close',
+      textColor: const Color(0xff4A5E7C),// Set the color of the close icon
+      onPressed: () {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      },
+    ),
+    behavior: SnackBarBehavior.floating, // Set the behavior to floating
+  ),
+);
+  } on FirebaseAuthException catch (e) {
+    setState(() {
+      isloading = false;
+    });
+    String errorMessage = 'An error occurred';
+    if (e.code == 'user-not-found') {
+      errorMessage = 'Wrong email';
+    } else if (e.code == 'wrong-password') {
+      errorMessage = 'Wrong password';
+    }
+   ScaffoldMessenger.of(context).showSnackBar(
+  SnackBar(
+   elevation: 1,
+   backgroundColor: Colors.transparent,
+   shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10.0), // Adjust the radius as needed
+    ),
+     hitTestBehavior: HitTestBehavior.translucent,
+    content: Text(
+      errorMessage,
+      style: TextStyle(
+        fontFamily: 'Cosffira',
+        fontSize: 50.sp,
+        color: const Color(0xffEFE6E5),
+        fontWeight: FontWeight.w600,
+      ),
+    ),
+    action: SnackBarAction(
+      label: 'Close',
+      textColor: const Color(0xff4A5E7C),
+      onPressed: () {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      }
+    
+    ),
+  ),
+);
+  }
+}
+
   bool _obscureText3 = true;
+  
   @override
   Widget build(BuildContext context) {
     // double aspectRatio = screenHeight / screenWidth;
@@ -212,8 +309,9 @@ class _LoginInfoState extends State<LoginInfo> {
               fontWeight: FontWeight.w700,
               onTap: () {
                 if (_formKey.currentState!.validate() ) {
-                
-                Get.to(() => const TheMainHomePage(), transition: Transition.zoom);
+                  
+                signInWithEmailAndPassword();
+              // Get.to(() => const TheMainHomePage(), transition: Transition.zoom);
                 }
               
                 // 
