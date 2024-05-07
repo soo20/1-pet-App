@@ -10,7 +10,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
-import 'package:petapplication/pages/homepage/scrolled_events.dart';
 
 import 'package:petapplication/pages/sign_login_acount/login_info_email_pass.dart';
 import 'package:petapplication/pages/sign_login_acount/page_view_login.dart';

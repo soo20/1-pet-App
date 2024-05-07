@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 import 'package:petapplication/some_files_to_data/today_and_future_reminders_data.dart';
 
 class ScrolledEvents extends StatefulWidget {
