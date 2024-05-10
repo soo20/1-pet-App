@@ -210,8 +210,8 @@ class _EventsForPetPage extends State<EventsForPetPage> {
         appBar: isInSelectionMode && selectedItems.isNotEmpty
             ? (selectBar)
             : (defaultBar),
-        body: Container(
-          color: const Color(0XffEFE7E7),
+        backgroundColor: const Color(0XffEFE7E7),
+        body: SingleChildScrollView(
           child: Column(
             children: [
               Container(

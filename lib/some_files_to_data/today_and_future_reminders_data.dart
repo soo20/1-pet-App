@@ -140,7 +140,7 @@ List<FutureEventsInformations> getFutureEvents(
           eventDate:
               '${reminder.weekDay} ${reminder.hours}:${reminder.minutes} ${reminder.night}',
           petName: pet.petName,
-          petType: pet.petType,
+          petType: pet.petIsDogOrCat!,
           pet: pet,
         ));
       }

@@ -189,7 +189,7 @@ class BuildEventCard extends StatelessWidget {
                                         ? 'assets/image/home_page_afterAdding_pets_assets/cat_playing.PNG'
                                         : petInformation.eventTitle ==
                                                     'Playing' &&
-                                                petInformation.petType == 'Dog'
+                                                petInformation.petType == 'dog'
                                             ? 'assets/image/home_page_afterAdding_pets_assets/dog_playing.png'
                                             : petInformation.eventTitle ==
                                                         'Walking' &&
