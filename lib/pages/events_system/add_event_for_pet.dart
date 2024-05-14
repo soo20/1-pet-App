@@ -1,16 +1,19 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import 'dart:math';
 import 'dart:ui';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
 
-import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:intl/intl.dart';
+import 'package:petapplication/pages/events_system/add_reminder_to_firestore.dart';
 import 'package:petapplication/pages/events_system/events_for_pet.dart';
+// import 'package:petapplication/pages/events_system/events_for_pet.dart';
+import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
+import 'package:petapplication/some_files_to_data/adding_pet_to_firestore.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+
+// import 'package:petapplication/pages/sign_login_acount/loginbody.dart';
+// import 'package:petapplication/pages/events_system/events_for_pet.dart';
 
 class AddTaskDialog extends StatefulWidget {
   const AddTaskDialog({super.key, required this.petInfo});
@@ -28,6 +31,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
   DateTime selectedDate = DateTime.now();
   DateTime previousDate = DateTime.now();
   late TextEditingController customTypeController;
+  bool isSending = false;
   List<String> eventTypes = [
     'Gromming',
     'Playing',
@@ -53,97 +57,108 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
 
-    void onFinishButtonPressed(BuildContext context) {
+    void onFinishButtonPressed() async {
       // Create the ReminderData object
-
-      createReminderData(selectedDate, reminderTime, currentItemSelected);
-
-      // setState(() {
-      //   bool foundDuplicate = false;
-      //   for (PetsInformation pet in petsList) {
-      //     for (ReminderData reminder in pet.remindersData) {
-      //       if (reminder.day == reminderData.day &&
-      //           reminder.hours == reminderData.hours &&
-      //           reminder.minutes == reminderData.minutes) {
-      //         foundDuplicate = true;
-      //         break;
-      //       }
-      //     }
-      //     if (foundDuplicate) {
-      //       break;
-      //     }
-      //   }
-      //   if (foundDuplicate) {
-      //     showDialog(
-      //       context: context,
-      //       builder: (BuildContext context) => BackdropFilter(
-      //         filter: ImageFilter.blur(
-      //           sigmaX: size.width * 0.02,
-      //           sigmaY: size.width * 0.02,
-      //         ),
-      //         child: AlertDialog(
-      //           elevation: 0.0,
-      //           backgroundColor: const Color(0xffDCD3D3),
-      //           content: Text(
-      //             textAlign: TextAlign.center,
-      //             "It is not possible to set the same reminder more than once. Please choose a different time.",
-      //             style: TextStyle(
-      //               height: 0.0,
-      //               fontFamily: 'Cosffira',
-      //               fontSize: size.width * 0.037,
-      //               fontWeight: FontWeight.w800,
-      //               color: const Color(0xff4A5E7C),
-      //               letterSpacing: 0.5,
-      //             ),
-      //           ),
-      //           actions: [
-      //             Center(
-      //               child: ElevatedButton(
-      //                 onPressed: () {
-      //                   Navigator.of(context).pop();
-      //                 },
-      //                 style: ElevatedButton.styleFrom(
-      //                   backgroundColor: const Color(0xffA26874),
-      //                   padding: EdgeInsets.symmetric(
-      //                     horizontal: size.width * 0.028,
-      //                     vertical: size.height * 0.025,
-      //                   ), // Adjust the padding as needed
-      //                   shape: RoundedRectangleBorder(
-      //                     borderRadius: BorderRadius.circular(
-      //                       size.width * 0.092,
-      //                     ), // Set the border radius of the button
-      //                   ),
-      //                 ),
-      //                 child: Padding(
-      //                   padding: EdgeInsets.only(
-      //                     left: size.width * 0.06,
-      //                     right: size.width * 0.06,
-      //                   ),
-      //                   child: Text(
-      //                     'modify',
-      //                     style: TextStyle(
-      //                       height: 0.0,
-      //                       fontFamily: 'Cosffira',
-      //                       fontSize: size.width * 0.045,
-      //                       fontWeight: FontWeight.w800,
-      //                       color: const Color.fromARGB(255, 255, 255, 255),
-      //                       letterSpacing: 0.5,
-      //                     ),
-      //                   ),
-      //                 ),
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //       ),
-      //     );
-      //   } else {
-      //     // Add the ReminderData object to the list
-      //     widget.petInfo.remindersData.add(reminderData);
-      //     // Close the dialog
-      //     Navigator.of(context).pop();
-      //   }
-      // });
+      var reminderData = await createReminderData(
+          selectedDate, reminderTime, currentItemSelected, widget.petInfo);
+      setState(() {
+        isSending = true;
+      });
+      if (reminderData is ReminderData) {
+        setState(() {
+          bool foundDuplicate = false;
+          for (PetsInformation pet in petsList) {
+            for (ReminderData reminder in pet.remindersData) {
+              if (reminder.day == reminderData.day &&
+                  reminder.hours == reminderData.hours &&
+                  reminder.minutes == reminderData.minutes) {
+                foundDuplicate = true;
+                break;
+              }
+            }
+            if (foundDuplicate) {
+              break;
+            }
+          }
+          if (foundDuplicate) {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) => BackdropFilter(
+                filter: ImageFilter.blur(
+                  sigmaX: size.width * 0.02,
+                  sigmaY: size.width * 0.02,
+                ),
+                child: AlertDialog(
+                  elevation: 0.0,
+                  backgroundColor: const Color(0xffDCD3D3),
+                  content: Text(
+                    textAlign: TextAlign.center,
+                    "It is not possible to set the same reminder more than once. Please choose a different time.",
+                    style: TextStyle(
+                      height: 0.0,
+                      fontFamily: 'Cosffira',
+                      fontSize: size.width * 0.037,
+                      fontWeight: FontWeight.w800,
+                      color: const Color(0xff4A5E7C),
+                      letterSpacing: 0.5,
+                    ),
+                  ),
+                  actions: [
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xffA26874),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: size.width * 0.028,
+                            vertical: size.height * 0.025,
+                          ), // Adjust the padding as needed
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                              size.width * 0.092,
+                            ), // Set the border radius of the button
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            left: size.width * 0.06,
+                            right: size.width * 0.06,
+                          ),
+                          child: Text(
+                            'modify',
+                            style: TextStyle(
+                              height: 0.0,
+                              fontFamily: 'Cosffira',
+                              fontSize: size.width * 0.045,
+                              fontWeight: FontWeight.w800,
+                              color: const Color.fromARGB(255, 255, 255, 255),
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          } else {
+            // Add the ReminderData object to the list
+            widget.petInfo.remindersData.add(reminderData);
+            // Close the dialog
+            Navigator.of(context).pop();
+          }
+        });
+      } else if (reminderData is String) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(reminderData.toString()),
+            duration: const Duration(seconds: 3),
+          ),
+        );
+      }
     }
 
     return AlertDialog(
@@ -666,7 +681,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  onFinishButtonPressed(context);
+                  onFinishButtonPressed();
                 });
               },
               style: ElevatedButton.styleFrom(
@@ -704,51 +719,4 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
       ],
     );
   }
-}
-
-void createReminderData(
-    DateTime selectedDate, TimeOfDay reminderTime, String currentItemSelected) {
-  // Extracting date components
-  final String day = selectedDate.day.toString();
-  final String month = DateFormat('MMM').format(selectedDate);
-  final String year = selectedDate.year.toString();
-  final String weekDay = DateFormat('E').format(selectedDate);
-
-  // Extracting time components
-  final String hours = reminderTime.hourOfPeriod.toString().padLeft(2, '0');
-  final String period = reminderTime.hour < 12 ? 'AM' : 'PM';
-  final String minutes = reminderTime.minute.toString().padLeft(2, '0');
-
-  final url = Uri.https('petapplication-e28d2-default-rtdb.firebaseio.com',
-      'reminders-list.json');
-  http.post(
-    url,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: json.encode(
-      {
-        'day': day,
-        'month': month,
-        'year': year,
-        'weekDay': weekDay,
-        'hours': hours,
-        'minutes': minutes,
-        'reminderType': currentItemSelected,
-        'night': period,
-      },
-    ),
-  );
-  // Creating the ReminderData object
-  // return ReminderData(
-  //     day: day,
-  //     month: month,
-  //     year: year,
-  //     weekDay: weekDay,
-  //     hours: hours,
-  //     minutes: minutes,
-  //     reminderType: currentItemSelected,
-  //     night: period,
-  //     reminderId: Random().toString() // Set night value as needed
-  //     );
 }

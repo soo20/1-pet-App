@@ -10,6 +10,7 @@ import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
 import 'package:petapplication/pages/diseases_detection_pages/treatment_information_page.dart';
 import 'package:petapplication/pages/my_pets_pages/diseases_information_page.dart';
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
+import 'package:petapplication/some_files_to_data/adding_pet_to_firestore.dart';
 
 class DetectionResulrPage extends StatefulWidget {
   const DetectionResulrPage({

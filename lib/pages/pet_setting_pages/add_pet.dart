@@ -14,6 +14,7 @@ import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 
 import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
+import 'package:petapplication/some_files_to_data/adding_pet_to_firestore.dart';
 
 class AddPets extends StatefulWidget {
   const AddPets({super.key});
@@ -469,6 +470,7 @@ class _AddPetsState extends State<AddPets> {
                                 petIsDogOrCat: selectedPetType!,
                                 petWeight:
                                     double.tryParse(weightController.text));
+                            addPetInFireStore(pet: newPet);
 
                             // Add the new pet to the appropriate list based on petType
                             if (selectedPetType == 'Cat') {
@@ -484,8 +486,6 @@ class _AddPetsState extends State<AddPets> {
                                 ),
                               ),
                             );
-                          } else {
-                            // Handle the case when form validation fails, if needed
                           }
                         },
                         fontWeight: FontWeight.w500,

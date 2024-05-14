@@ -1,9 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-
-
 import 'package:flutter/material.dart';
-
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -15,7 +12,6 @@ import 'package:petapplication/pages/define_page/widgets/choose_defintion_type.d
 import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
 
 import 'package:petapplication/pages/sign_login_acount/auth_app.dart';
-
 import 'package:petapplication/pages/sign_login_acount/page_view_login.dart';
 
 class LoginBody extends StatefulWidget {
@@ -25,15 +21,16 @@ class LoginBody extends StatefulWidget {
   State<LoginBody> createState() => _LoginBodyState();
 }
 
+String userId = 'null';
+
 class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
   PageController? pageController;
   bool showSecondContainer = false;
   void toggleContainerVisibility() {
-  setState(() {
-    showSecondContainer = !showSecondContainer;
-  });
-}
-
+    setState(() {
+      showSecondContainer = !showSecondContainer;
+    });
+  }
 
   @override
   void initState() {
@@ -48,38 +45,36 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     // double aspectRatio = SizeConfig.screenWidth! / SizeConfig.screenHeight!;
     return Scaffold(
-       appBar: AppBar(
-            elevation: 1,
-            automaticallyImplyLeading: false,
+      appBar: AppBar(
+          elevation: 1,
+          automaticallyImplyLeading: false,
 
-            //iconTheme: IconThemeData.fallback(),
-            forceMaterialTransparency: true,
-            toolbarOpacity: 1,
-            toolbarHeight: 60,
-            leading: IconButton(
-              
-              icon: Text(
-                'skip',
-                style: TextStyle(
-                  fontFamily: 'Cosffira',
-                  fontSize: 60.sp,
-                  color: const Color(0xffA26874),
-                  fontWeight: FontWeight.w900,
-                ),
+          //iconTheme: IconThemeData.fallback(),
+          forceMaterialTransparency: true,
+          toolbarOpacity: 1,
+          toolbarHeight: 60,
+          leading: IconButton(
+            icon: Text(
+              'skip',
+              style: TextStyle(
+                fontFamily: 'Cosffira',
+                fontSize: 60.sp,
+                color: const Color(0xffA26874),
+                fontWeight: FontWeight.w900,
               ),
-              onPressed: () {
-                Get.to(() => const ChooseDefintionType(),
-                    transition: Transition.size);
-                // Add any functionality you want when the icon is pressed
-              },
-              padding: const EdgeInsets.only(left: 0.0),
-            )),
-        extendBodyBehindAppBar: true,
-        backgroundColor: Color(0xffEFE6E5),
+            ),
+            onPressed: () {
+              Get.to(() => const ChooseDefintionType(),
+                  transition: Transition.size);
+              // Add any functionality you want when the icon is pressed
+            },
+            padding: const EdgeInsets.only(left: 0.0),
+          )),
+      extendBodyBehindAppBar: true,
+      backgroundColor: Color(0xffEFE6E5),
       // resizeToAvoidBottomInset: true,
-     
+
       body: SingleChildScrollView(
-        
         child: Column(
           children: [
             SizedBox(
@@ -132,9 +127,9 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
               child: CustomGeneralButtom2(
                 onTap: () {
                   signInWithFacebook();
+
                   navigator?.pushAndRemoveUntil(
-                    MaterialPageRoute(
-                        builder: (e) => const TheMainHomePage()),
+                    MaterialPageRoute(builder: (e) => const TheMainHomePage()),
                     (route) => true,
                   );
                 },
@@ -158,8 +153,7 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                 text: 'Login With Email',
                 onTap: () {
                   navigator?.pushAndRemoveUntil(
-                    MaterialPageRoute(
-                        builder: (e) => const TheMainHomePage()),
+                    MaterialPageRoute(builder: (e) => const TheMainHomePage()),
                     (route) => true,
                   );
                 },
@@ -187,31 +181,30 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                  
                 ]),
-                ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        showSecondContainer =
-                            !showSecondContainer; // Toggle the visibility of the second container
-                      });
-                    },
-                    style: ButtonStyle(
-                       elevation: MaterialStateProperty.all<double>(0),
-                       backgroundColor: MaterialStateProperty.all<Color>( Colors.transparent),
-                    
-                    ),
-                    child: Text(
-                      'Sign Up',
-                      style: TextStyle(
-                        fontFamily: 'Cosffira',
-                        fontSize: 55.sp,
-                        color: const Color(0xff4A5E7C),
-                        fontWeight: FontWeight.w900,
-                        height: 0.03.h,
-                      ),
-                    ),
-                  ),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  showSecondContainer =
+                      !showSecondContainer; // Toggle the visibility of the second container
+                });
+              },
+              style: ButtonStyle(
+                elevation: MaterialStateProperty.all<double>(0),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.transparent),
+              ),
+              child: Text(
+                'Sign Up',
+                style: TextStyle(
+                  fontFamily: 'Cosffira',
+                  fontSize: 55.sp,
+                  color: const Color(0xff4A5E7C),
+                  fontWeight: FontWeight.w900,
+                  height: 0.03.h,
+                ),
+              ),
+            ),
             // Add the rest of your widgets here, for example, text fields, buttons, etc.
           ],
         ),
@@ -224,14 +217,17 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                 });
               },
               child: Padding(
-                  padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: SingleChildScrollView(
                   child: Container(
                     height: 1100.h,
                     width: double.infinity,
                     decoration: const BoxDecoration(
-                     image: DecorationImage(image:
-                     AssetImage('assets/image/Rectangle.png'),fit: BoxFit.fill,),
+                      image: DecorationImage(
+                        image: AssetImage('assets/image/Rectangle.png'),
+                        fit: BoxFit.fill,
+                      ),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey,
@@ -241,8 +237,9 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                         ),
                       ],
                     ), // Customize as needed
-                      child:PageViewLogin(toggleContainerVisibility: toggleContainerVisibility,
-),
+                    child: PageViewLogin(
+                      toggleContainerVisibility: toggleContainerVisibility,
+                    ),
                   ),
                 ),
               ))

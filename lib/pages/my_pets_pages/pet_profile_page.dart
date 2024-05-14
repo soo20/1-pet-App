@@ -11,6 +11,7 @@ import 'package:petapplication/pages/info_page/information.dart';
 import 'package:petapplication/pages/my_pets_pages/diseases_information_page.dart';
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 import 'package:petapplication/pages/pet_setting_pages/edit_page.dart';
+import 'package:petapplication/some_files_to_data/adding_pet_to_firestore.dart';
 
 class PetProfilePage extends StatefulWidget {
   PetProfilePage({super.key, required this.petInformation, this.imagePath2});

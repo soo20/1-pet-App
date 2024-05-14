@@ -12,6 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
+import 'package:petapplication/some_files_to_data/adding_pet_to_firestore.dart';
 
 class EditPets extends StatefulWidget {
   final PetsInformation petInformation;
@@ -59,7 +60,7 @@ class _EditPetsState extends State<EditPets> {
     petNameController.text = widget.petInformation.petName;
     petTypeController.text = widget.petInformation.petType;
     petGenderController.text = widget.petInformation.petGender;
-    ageController.text = widget.petInformation.age;
+    ageController.text = widget.petInformation.age!;
     petIdController.text = widget.petInformation.petId;
     weightController.text = widget.petInformation.petWeight.toString();
   }
@@ -502,21 +503,21 @@ class _EditPetsState extends State<EditPets> {
                       text: 'Save',
                       onTap: () {
                         // Save changes and pop the page with updated information
-                         if (_formKey.currentState!.validate()) {
-                        Navigator.pop(
-                            context,
-                            PetsInformation(
-                              petName: petNameController.text,
-                              petType: petTypeController.text,
-                              petGender: _Selected !,
-                              age: ageController.text,
-                              imageUrl: widget.petInformation.imageUrl,
-                              petId: petIdController.text,
-                              petWeight: double.tryParse(weightController.text),
-                             // petIsDogOrCat: selectedPetType!,
-                            ));
-                         }
-                         
+                        if (_formKey.currentState!.validate()) {
+                          Navigator.pop(
+                              context,
+                              PetsInformation(
+                                petName: petNameController.text,
+                                petType: petTypeController.text,
+                                petGender: _Selected!,
+                                age: ageController.text,
+                                imageUrl: widget.petInformation.imageUrl,
+                                petId: petIdController.text,
+                                petWeight:
+                                    double.tryParse(weightController.text),
+                                // petIsDogOrCat: selectedPetType!,
+                              ));
+                        }
                       },
                       fontWeight: FontWeight.w500,
                       customFontSize: 50.sp,

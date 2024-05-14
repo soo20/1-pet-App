@@ -11,6 +11,7 @@ import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 
 import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
 import 'package:petapplication/pages/pageforgetpass/my_verify_pass.dart';
+import 'package:petapplication/pages/sign_login_acount/loginbody.dart';
 
 //import 'package:flutter_svg/svg.dart';
 
@@ -22,10 +23,10 @@ class LoginInfo extends StatefulWidget {
 }
 
 class _LoginInfoState extends State<LoginInfo> {
-  bool isloading  = false ;
+  bool isloading = false;
   final TextEditingController _email = TextEditingController();
   final TextEditingController _pass = TextEditingController();
-   String? validateEmail(String? value) {
+  String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return 'enter your email please';
     } else {
@@ -46,107 +47,109 @@ class _LoginInfoState extends State<LoginInfo> {
     //Ssoo@121
     return null; // Return null if the email is valid
   }
- // login function
- signInWithEmailAndPassword() async {
-  showDialog(context: context, 
-  builder: (context){
-    return const Center(
-      child: CircularProgressIndicator(
-        color:Color(0xff4A5E7C),
-      ),
-    );
-  }
-  );
-  try {
-    setState(() {
-      isloading = true;
-    });
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: _email.text,
-      password: _pass.text,
-    );
-    setState(() {
-      isloading = false;
-    });
-    
-    // Navigate to the main homepage upon successful login
-    Get.offAll(() => const TheMainHomePage());
-     String errorMessage = 'Login Successed';
-     ScaffoldMessenger.of(context).showSnackBar(
-  SnackBar(
-    backgroundColor: const Color.fromARGB(80, 0, 0, 0),
-    elevation: 0,
-    content: Text(
-      errorMessage,
-      style: TextStyle(
-        fontFamily: 'Cosffira',
-        fontSize: 50.sp,
-        color: const Color(0xffEFE6E5),
-        fontWeight: FontWeight.w600,
-      ),
-    ),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(10.0), // Adjust the radius as needed
-    ),
-    action: SnackBarAction(
-    
-      label: 'Close',
-      textColor: const Color(0xff4A5E7C),// Set the color of the close icon
-      onPressed: () {
-        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      },
-    ),
-    behavior: SnackBarBehavior.floating, // Set the behavior to floating
-  ),
-);
-  } on FirebaseAuthException catch (e) {
-    setState(() {
-      isloading = false;
-    });
-    String errorMessage = 'An error occurred';
-    if (e.code == 'user-not-found') {
-      errorMessage = 'Wrong email';
-    } else if (e.code == 'wrong-password') {
-      errorMessage = 'Wrong password';
-    }
-   ScaffoldMessenger.of(context).showSnackBar(
-  SnackBar(
-   elevation: 1,
-   backgroundColor: Colors.transparent,
-   shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(10.0), // Adjust the radius as needed
-    ),
-     hitTestBehavior: HitTestBehavior.translucent,
-    content: Text(
-      errorMessage,
-      style: TextStyle(
-        fontFamily: 'Cosffira',
-        fontSize: 50.sp,
-        color: const Color(0xffEFE6E5),
-        fontWeight: FontWeight.w600,
-      ),
-    ),
-    action: SnackBarAction(
-      label: 'Close',
-      textColor: const Color(0xff4A5E7C),
-      onPressed: () {
-        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
+  // login function
+  signInWithEmailAndPassword() async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Color(0xff4A5E7C),
+            ),
+          );
+        });
+    try {
+      setState(() {
+        isloading = true;
+      });
+      final response = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _email.text,
+        password: _pass.text,
+      );
+
+      setState(() {
+        isloading = false;
+      });
+
+      // Navigate to the main homepage upon successful login
+      Get.offAll(() => const TheMainHomePage());
+      String errorMessage = 'Login Successed';
+      userId = response.credential!.token.toString();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: const Color.fromARGB(80, 0, 0, 0),
+          elevation: 0,
+          content: Text(
+            errorMessage,
+            style: TextStyle(
+              fontFamily: 'Cosffira',
+              fontSize: 50.sp,
+              color: const Color(0xffEFE6E5),
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius:
+                BorderRadius.circular(10.0), // Adjust the radius as needed
+          ),
+          action: SnackBarAction(
+            label: 'Close',
+            textColor:
+                const Color(0xff4A5E7C), // Set the color of the close icon
+            onPressed: () {
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            },
+          ),
+          behavior: SnackBarBehavior.floating, // Set the behavior to floating
+        ),
+      );
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        isloading = false;
+      });
+      String errorMessage = 'An error occurred';
+      if (e.code == 'user-not-found') {
+        errorMessage = 'Wrong email';
+      } else if (e.code == 'wrong-password') {
+        errorMessage = 'Wrong password';
       }
-    
-    ),
-  ),
-);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          elevation: 1,
+          backgroundColor: Colors.transparent,
+          shape: RoundedRectangleBorder(
+            borderRadius:
+                BorderRadius.circular(10.0), // Adjust the radius as needed
+          ),
+          hitTestBehavior: HitTestBehavior.translucent,
+          content: Text(
+            errorMessage,
+            style: TextStyle(
+              fontFamily: 'Cosffira',
+              fontSize: 50.sp,
+              color: const Color(0xffEFE6E5),
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          action: SnackBarAction(
+              label: 'Close',
+              textColor: const Color(0xff4A5E7C),
+              onPressed: () {
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              }),
+        ),
+      );
+    }
   }
-}
 
   bool _obscureText3 = true;
-  
+
   @override
   Widget build(BuildContext context) {
     // double aspectRatio = screenHeight / screenWidth;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      
       backgroundColor: const Color.fromARGB(255, 206, 201, 201),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -193,10 +196,10 @@ class _LoginInfoState extends State<LoginInfo> {
       ),
     );
   }
+
   final _formKey = GlobalKey<FormState>();
 
   Widget content() {
-    
     var border = OutlineInputBorder(
         borderRadius: BorderRadius.circular(50.r),
         borderSide: const BorderSide(
@@ -215,11 +218,11 @@ class _LoginInfoState extends State<LoginInfo> {
                 controller: _email,
                 obscureText: false,
                 style: TextStyle(
-                      fontFamily: 'Cosffira',
-                      fontSize: 50.sp,
-                      color: const Color(0xff354A6B),
-                      fontWeight: FontWeight.w600,
-                    ),
+                  fontFamily: 'Cosffira',
+                  fontSize: 50.sp,
+                  color: const Color(0xff354A6B),
+                  fontWeight: FontWeight.w600,
+                ),
                 decoration: InputDecoration(
                     contentPadding: const EdgeInsets.symmetric(vertical: 20),
                     fillColor: const Color(0xFFFFFFFF),
@@ -235,7 +238,7 @@ class _LoginInfoState extends State<LoginInfo> {
                     focusedBorder: border,
                     prefixIcon: const Icon(
                       Icons.email,
-                      color:  Color(0xffB5C0D0),
+                      color: Color(0xffB5C0D0),
                     )),
               ),
             ),
@@ -254,12 +257,12 @@ class _LoginInfoState extends State<LoginInfo> {
                 obscureText: _obscureText3,
                 controller: _pass,
                 // obscureText: true,
-                 style: TextStyle(
-                      fontFamily: 'Cosffira',
-                      fontSize: 50.sp,
-                      color: const Color(0xff354A6B),
-                      fontWeight: FontWeight.w600,
-                    ),
+                style: TextStyle(
+                  fontFamily: 'Cosffira',
+                  fontSize: 50.sp,
+                  color: const Color(0xff354A6B),
+                  fontWeight: FontWeight.w600,
+                ),
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(vertical: 20),
                   suffixIcon: IconButton(
@@ -267,7 +270,7 @@ class _LoginInfoState extends State<LoginInfo> {
                       _obscureText3
                           ? Icons.visibility_off_outlined
                           : Icons.visibility_outlined,
-                       color: const Color(0xffB5C0D0),
+                      color: const Color(0xffB5C0D0),
                     ),
                     onPressed: () {
                       setState(() {
@@ -281,12 +284,12 @@ class _LoginInfoState extends State<LoginInfo> {
                   hintStyle: TextStyle(
                     fontFamily: 'Cosffira',
                     fontSize: 50.sp,
-                   color: const Color(0xffB5C0D0),
+                    color: const Color(0xffB5C0D0),
                     fontWeight: FontWeight.w600,
                   ),
                   enabledBorder: border,
                   focusedBorder: border,
-               // suffixText: "soha",
+                  // suffixText: "soha",
                   prefixIcon: const Icon(
                     Icons.vpn_key,
                     color: Color(0xffB5C0D0),
@@ -308,13 +311,12 @@ class _LoginInfoState extends State<LoginInfo> {
               borderColor: const Color(0xff707070),
               fontWeight: FontWeight.w700,
               onTap: () {
-                if (_formKey.currentState!.validate() ) {
-                  
-                signInWithEmailAndPassword();
-              // Get.to(() => const TheMainHomePage(), transition: Transition.zoom);
+                if (_formKey.currentState!.validate()) {
+                  signInWithEmailAndPassword();
+                  // Get.to(() => const TheMainHomePage(), transition: Transition.zoom);
                 }
-              
-                // 
+
+                //
               },
             ),
             Center(

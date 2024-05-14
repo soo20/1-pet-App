@@ -4,33 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petapplication/pages/my_pets_pages/pet_profile_page.dart';
 import 'package:petapplication/pages/events_system/events_for_pet.dart';
-
-class PetsInformation {
-  PetsInformation({
-   this.petIsDogOrCat,
-    required this.imageUrl,
-    required this.petName,
-    required this.petGender,
-    required this.petId,
-    required this.petType,
-    required this.age,
-    this.petWeight,
-  });
-
-  late String imageUrl;
-  late String petName;
-  late String petGender;
-  late String petId;
-  late String petType;
-  late String age;
-  late String? petIsDogOrCat;
-  bool selected = false;
-  String skinDiseaseType = '';
-  String poopDiseaseType = '';
-  List<CustomTime> feedTimesForPet = [];
-  List<ReminderData> remindersData = [];
-  double? petWeight;
-}
+import 'package:petapplication/some_files_to_data/adding_pet_to_firestore.dart';
 
 List<PetsInformation> catsInformationList = [
   PetsInformation(
