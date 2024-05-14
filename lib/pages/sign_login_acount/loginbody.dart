@@ -12,6 +12,8 @@ import 'package:petapplication/pages/define_page/widgets/choose_defintion_type.d
 import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
 
 import 'package:petapplication/pages/sign_login_acount/auth_app.dart';
+import 'package:petapplication/pages/sign_login_acount/login_info_email_pass.dart';
+
 import 'package:petapplication/pages/sign_login_acount/page_view_login.dart';
 
 class LoginBody extends StatefulWidget {

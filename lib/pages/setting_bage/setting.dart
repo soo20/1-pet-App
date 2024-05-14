@@ -2,6 +2,7 @@
 
 
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -143,7 +144,9 @@ void shareApp() {
       title: 'Are You Sure You Want To Log Out', 
       confirmButtonText: 'Yes', 
       confirmButtonText2: 'Cancle',
-      
+      confirmButtonOnTap:() {
+        FirebaseAuth.instance.signOut();
+      }, 
       customFontSize: 50.sp, 
       padding: EdgeInsets.only(top: size.height *0.05), 
       padding2:EdgeInsets.only(top: size.height *0.02)

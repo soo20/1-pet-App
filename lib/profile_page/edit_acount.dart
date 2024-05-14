@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable
+// ignore_for_file: unused_local_variable, deprecated_member_use
 
 import 'package:flutter/material.dart';
 
@@ -68,8 +68,8 @@ class _EditAcountState extends State<EditAcount> {
         actions: [
           IconButton(
             icon: SvgPicture.asset(
-              'assets/icons/trash.svg', width: 120.w,
-              // ignore: deprecated_member_use
+              'assets/icons/trash.svg',
+              width: 120.w,
               color: const Color(0XFFA26874),
             ),
             onPressed: () {

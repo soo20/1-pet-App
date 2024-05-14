@@ -59,23 +59,22 @@ class _LoginInfoState extends State<LoginInfo> {
             ),
           );
         });
+
     try {
       setState(() {
         isloading = true;
       });
-      final response = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _email.text,
         password: _pass.text,
       );
 
-      setState(() {
-        isloading = false;
-      });
-
       // Navigate to the main homepage upon successful login
+
       Get.offAll(() => const TheMainHomePage());
       String errorMessage = 'Login Successed';
-      userId = response.credential!.token.toString();
+      ScaffoldMessenger.of(context).clearSnackBars();
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: const Color.fromARGB(80, 0, 0, 0),
@@ -105,15 +104,13 @@ class _LoginInfoState extends State<LoginInfo> {
         ),
       );
     } on FirebaseAuthException catch (e) {
-      setState(() {
-        isloading = false;
-      });
       String errorMessage = 'An error occurred';
       if (e.code == 'user-not-found') {
         errorMessage = 'Wrong email';
       } else if (e.code == 'wrong-password') {
         errorMessage = 'Wrong password';
       }
+      ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           elevation: 1,
