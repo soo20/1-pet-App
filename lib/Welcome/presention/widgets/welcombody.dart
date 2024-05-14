@@ -35,10 +35,12 @@ class _WelcomeBodyState extends State<WelcomeBody> {
     super.initState();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xffEFE6E5),
+      
       body: Column(
         children: [
           Expanded(

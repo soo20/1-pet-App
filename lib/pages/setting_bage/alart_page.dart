@@ -13,14 +13,15 @@ class Alart1 extends StatelessWidget {
   final double? customFontSize; 
     final EdgeInsetsGeometry padding;
     final EdgeInsetsGeometry padding2;
-
+final VoidCallback? confirmButton2OnTap;
+final VoidCallback? confirmButtonOnTap;
 
   const Alart1({
     super.key,
     required this.title,
    
     required this.confirmButtonText,
-    required this. confirmButtonText2, this.message, this.message2, this.customFontSize, required this.padding, required this.padding2,
+    required this. confirmButtonText2, this.message, this.message2, this.customFontSize, required this.padding, required this.padding2, this.confirmButton2OnTap, this.confirmButtonOnTap,
   });
 
   @override
@@ -81,7 +82,7 @@ class Alart1 extends StatelessWidget {
                             customFontSize: 47.sp,
                             height: 125.h,
                             text: confirmButtonText,
-                            onTap: () {
+                            onTap: confirmButtonOnTap ??() {
                              // Get.to(() =>  const CameraAlt(),transition: Transition.native);
                             },
                             textColor: kMainColorPage,
@@ -103,7 +104,7 @@ class Alart1 extends StatelessWidget {
                             fontWeight: FontWeight.w800,
                             width: 600.w,
                             borderColor: kMainColorPage,
-                            onTap: () {
+                            onTap: confirmButton2OnTap ??() {
                               Navigator.of(context).pop();
                             },
                           ),

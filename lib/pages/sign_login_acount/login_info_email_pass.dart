@@ -48,7 +48,7 @@ class _LoginInfoState extends State<LoginInfo> {
   }
  // login function
  signInWithEmailAndPassword() async {
-  showDialog(context: context, 
+   showDialog(context: context, 
   builder: (context){
     return const Center(
       child: CircularProgressIndicator(
@@ -57,6 +57,7 @@ class _LoginInfoState extends State<LoginInfo> {
     );
   }
   );
+  
   try {
     setState(() {
       isloading = true;
@@ -64,14 +65,15 @@ class _LoginInfoState extends State<LoginInfo> {
     await FirebaseAuth.instance.signInWithEmailAndPassword(
       email: _email.text,
       password: _pass.text,
+      
     );
-    setState(() {
-      isloading = false;
-    });
-    
+   
     // Navigate to the main homepage upon successful login
+   
     Get.offAll(() => const TheMainHomePage());
      String errorMessage = 'Login Successed';
+     ScaffoldMessenger.of(context).clearSnackBars();
+     
      ScaffoldMessenger.of(context).showSnackBar(
   SnackBar(
     backgroundColor: const Color.fromARGB(80, 0, 0, 0),
@@ -100,15 +102,14 @@ class _LoginInfoState extends State<LoginInfo> {
   ),
 );
   } on FirebaseAuthException catch (e) {
-    setState(() {
-      isloading = false;
-    });
+   
     String errorMessage = 'An error occurred';
     if (e.code == 'user-not-found') {
       errorMessage = 'Wrong email';
     } else if (e.code == 'wrong-password') {
       errorMessage = 'Wrong password';
     }
+    ScaffoldMessenger.of(context).clearSnackBars();
    ScaffoldMessenger.of(context).showSnackBar(
   SnackBar(
    elevation: 1,
@@ -118,7 +119,7 @@ class _LoginInfoState extends State<LoginInfo> {
     ),
      hitTestBehavior: HitTestBehavior.translucent,
     content: Text(
-      errorMessage,
+     errorMessage ,
       style: TextStyle(
         fontFamily: 'Cosffira',
         fontSize: 50.sp,
