@@ -11,21 +11,34 @@ import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 
 import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
 import 'package:petapplication/pages/pageforgetpass/my_verify_pass.dart';
-import 'package:petapplication/pages/sign_login_acount/loginbody.dart';
 
 //import 'package:flutter_svg/svg.dart';
 
-class LoginInfo extends StatefulWidget {
-  const LoginInfo({super.key});
+class TheMainLoginPage extends StatefulWidget {
+  const TheMainLoginPage({super.key});
 
   @override
-  State<LoginInfo> createState() => _LoginInfoState();
+  State<TheMainLoginPage> createState() => _TheMainLoginPageState();
 }
 
-class _LoginInfoState extends State<LoginInfo> {
-  bool isloading = false;
+bool isloading = false;
+
+class _TheMainLoginPageState extends State<TheMainLoginPage> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _pass = TextEditingController();
+  @override
+  void dispose() {
+    _email.dispose;
+    _pass.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    isloading = false;
+    super.initState();
+  }
+
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return 'enter your email please';
@@ -50,16 +63,7 @@ class _LoginInfoState extends State<LoginInfo> {
 
   // login function
   signInWithEmailAndPassword() async {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return const Center(
-            child: CircularProgressIndicator(
-              color: Color(0xff4A5E7C),
-            ),
-          );
-        });
-
+    String errorMessage = 'Login Successed';
     try {
       setState(() {
         isloading = true;
@@ -72,7 +76,7 @@ class _LoginInfoState extends State<LoginInfo> {
       // Navigate to the main homepage upon successful login
 
       Get.offAll(() => const TheMainHomePage());
-      String errorMessage = 'Login Successed';
+
       ScaffoldMessenger.of(context).clearSnackBars();
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -93,7 +97,7 @@ class _LoginInfoState extends State<LoginInfo> {
                 BorderRadius.circular(10.0), // Adjust the radius as needed
           ),
           action: SnackBarAction(
-            label: 'Close',
+            label: 'Wellcome',
             textColor:
                 const Color(0xff4A5E7C), // Set the color of the close icon
             onPressed: () {
@@ -104,11 +108,18 @@ class _LoginInfoState extends State<LoginInfo> {
         ),
       );
     } on FirebaseAuthException catch (e) {
-      String errorMessage = 'An error occurred';
+      setState(() {
+        isloading = false;
+      });
+
       if (e.code == 'user-not-found') {
         errorMessage = 'Wrong email';
       } else if (e.code == 'wrong-password') {
         errorMessage = 'Wrong password';
+      } else if (e.code == 'network-request-failed') {
+        errorMessage = 'You are offline check your connectoin';
+      } else {
+        errorMessage = e.code;
       }
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
@@ -130,7 +141,7 @@ class _LoginInfoState extends State<LoginInfo> {
             ),
           ),
           action: SnackBarAction(
-              label: 'Close',
+              label: 'close',
               textColor: const Color(0xff4A5E7C),
               onPressed: () {
                 ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -144,7 +155,10 @@ class _LoginInfoState extends State<LoginInfo> {
 
   @override
   Widget build(BuildContext context) {
-    // double aspectRatio = screenHeight / screenWidth;
+    var size = MediaQuery.of(context).size;
+    double height = size.height;
+    double width = size.width;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color.fromARGB(255, 206, 201, 201),
@@ -168,23 +182,27 @@ class _LoginInfoState extends State<LoginInfo> {
       extendBodyBehindAppBar: true,
       body: Container(
         width: double.infinity,
-        padding: const EdgeInsets.only(top: 30, right: 0),
+        padding: EdgeInsets.only(top: height * 0.040, right: 0),
         decoration: const BoxDecoration(
-            image: DecorationImage(
-                fit: BoxFit.fill,
-                image: AssetImage(
-                  'assets/image/login.png',
-                ))),
+          image: DecorationImage(
+            fit: BoxFit.fill,
+            image: AssetImage(
+              'assets/image/login.png',
+            ),
+          ),
+        ),
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 15, 130, 00),
+              padding: EdgeInsets.fromLTRB(0, height * 0.05, width * 0.33, 00),
               child: Container(
-                width: 195,
-                height: 195,
+                width: width * 0.52,
+                height: width * 0.53,
                 decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/image/Group286.png'))),
+                  image: DecorationImage(
+                    image: AssetImage('assets/image/Group286.png'),
+                  ),
+                ),
               ),
             ),
             content()
@@ -298,67 +316,76 @@ class _LoginInfoState extends State<LoginInfo> {
               height: 150.h,
               width: 0,
             ),
-            CustomGeneralButtom(
-              boxColor: const Color(0xff354A6B),
-              textColor: const Color(0xffFFFFFF),
-              height: 150.h,
-              width: 400.w,
-              customFontSize: 55.sp,
-              text: 'Log in',
-              borderColor: const Color(0xff707070),
-              fontWeight: FontWeight.w700,
-              onTap: () {
-                if (_formKey.currentState!.validate()) {
-                  signInWithEmailAndPassword();
-                  // Get.to(() => const TheMainHomePage(), transition: Transition.zoom);
-                }
+            isloading
+                ? const CircularProgressIndicator()
+                : Column(
+                    children: [
+                      CustomGeneralButtom(
+                        boxColor: const Color(0xff354A6B),
+                        textColor: const Color(0xffFFFFFF),
+                        height: 150.h,
+                        width: 400.w,
+                        customFontSize: 55.sp,
+                        text: 'Log in',
+                        borderColor: const Color(0xff707070),
+                        fontWeight: FontWeight.w700,
+                        onTap: () {
+                          if (_formKey.currentState!.validate()) {
+                            signInWithEmailAndPassword();
+                            _email.clear();
+                            _pass.clear();
+                            // Get.to(() => const TheMainHomePage(), transition: Transition.zoom);
+                          }
 
-                //
-              },
-            ),
-            Center(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 130.h,
-                    width: 0.w,
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      text: 'Forget Your Password? ',
-                      style: TextStyle(
-                        fontFamily: 'Cosffira',
-                        fontSize: 45.sp,
-                        color: const Color(0xff090f0f),
-                        fontWeight: FontWeight.w400,
+                          //
+                        },
                       ),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: 'click here',
-                          style: TextStyle(
-                            fontFamily: 'Cosffira',
-                            fontSize: 45.sp,
-                            color: const Color(0xffA26874),
-                            fontWeight: FontWeight.w800,
-                          ),
-                          // Add onTap callback to navigate to the next page
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const MyVerify()),
-                              );
-                            },
+                      Center(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 130.h,
+                              width: 0.w,
+                            ),
+                            RichText(
+                              text: TextSpan(
+                                text: 'Forget Your Password? ',
+                                style: TextStyle(
+                                  fontFamily: 'Cosffira',
+                                  fontSize: 45.sp,
+                                  color: const Color(0xff090f0f),
+                                  fontWeight: FontWeight.w400,
+                                ),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: 'click here',
+                                    style: TextStyle(
+                                      fontFamily: 'Cosffira',
+                                      fontSize: 45.sp,
+                                      color: const Color(0xffA26874),
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                    // Add onTap callback to navigate to the next page
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const MyVerify()),
+                                        );
+                                      },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
           ],
         ),
       ),

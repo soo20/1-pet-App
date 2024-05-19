@@ -142,13 +142,13 @@ class _PetProfilePage extends State<PetProfilePage> {
               ),
               ElevatedButton.icon(
                 style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color?>(
+                    backgroundColor: WidgetStateProperty.all<Color?>(
                       const Color(0xffA26874),
                     ),
-                    foregroundColor: MaterialStateProperty.all<Color?>(
+                    foregroundColor: WidgetStateProperty.all<Color?>(
                       const Color(0xffF3F2F2),
                     ),
-                    textStyle: MaterialStateProperty.all<TextStyle?>(
+                    textStyle: WidgetStateProperty.all<TextStyle?>(
                       TextStyle(
                         fontFamily: 'Cosffira',
                         fontSize: size.width * 0.059,

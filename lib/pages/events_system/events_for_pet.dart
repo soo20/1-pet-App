@@ -58,7 +58,7 @@ class _EventsForPetPage extends State<EventsForPetPage> {
 
   Color feedTimeColor = const Color.fromARGB(255, 255, 255, 255);
   String currentItemSelected = 'Playing';
-  bool _isLoading = false;
+  //bool _isLoading = false;
   @override
 
   // Initialize the state and add listeners

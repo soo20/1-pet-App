@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "799923700168",
+    "firebase_url": "https://petapplication-e28d2-default-rtdb.firebaseio.com",
     "project_id": "petapplication-e28d2",
     "storage_bucket": "petapplication-e28d2.appspot.com"
   },
@@ -13,6 +14,22 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "799923700168-ehklohtg6r3eui46knqqg3gq0uc39i1i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.petapplication",
+            "certificate_hash": "65c096d5737200468de9c54edbc047f337559734"
+          }
+        },
+        {
+          "client_id": "799923700168-os48qcoecv5jq7ori4sna0t2k2k2cfg3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.petapplication",
+            "certificate_hash": "df14170ee8d2be4238701355c6e38e3a88c93c33"
+          }
+        },
         {
           "client_id": "799923700168-o30cblpa2tsgpubsu7mhbg5u22hqee3j.apps.googleusercontent.com",
           "client_type": 3
