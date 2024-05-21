@@ -143,19 +143,19 @@ class BuildEventCard extends StatelessWidget {
                   ),
                   ElevatedButton(
                     style: ButtonStyle(
-                      minimumSize: MaterialStatePropertyAll(
+                      minimumSize: WidgetStatePropertyAll(
                           Size(size.width * 0.0157, size.height * 0.045)),
-                      textStyle: MaterialStatePropertyAll(
+                      textStyle: WidgetStatePropertyAll(
                         TextStyle(
                           fontFamily: 'Cosffira',
                           fontSize: size.width * 0.039,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      foregroundColor: const MaterialStatePropertyAll(
+                      foregroundColor: const WidgetStatePropertyAll(
                         Color(0xff4A5E7C),
                       ),
-                      backgroundColor: const MaterialStatePropertyAll(
+                      backgroundColor: const WidgetStatePropertyAll(
                         Color.fromARGB(255, 248, 241, 227),
                       ),
                     ),

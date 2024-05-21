@@ -9,7 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:petapplication/pages/events_system/events_for_pet.dart';
 import 'package:petapplication/pages/info_page/information.dart';
 import 'package:petapplication/pages/my_pets_pages/diseases_information_page.dart';
-import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
+
 import 'package:petapplication/pages/pet_setting_pages/edit_page.dart';
 import 'package:petapplication/some_files_to_data/adding_pet_to_firestore.dart';
 
@@ -142,13 +142,13 @@ class _PetProfilePage extends State<PetProfilePage> {
               ),
               ElevatedButton.icon(
                 style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color?>(
+                    backgroundColor: WidgetStateProperty.all<Color?>(
                       const Color(0xffA26874),
                     ),
-                    foregroundColor: MaterialStateProperty.all<Color?>(
+                    foregroundColor: WidgetStateProperty.all<Color?>(
                       const Color(0xffF3F2F2),
                     ),
-                    textStyle: MaterialStateProperty.all<TextStyle?>(
+                    textStyle: WidgetStateProperty.all<TextStyle?>(
                       TextStyle(
                         fontFamily: 'Cosffira',
                         fontSize: size.width * 0.059,
@@ -156,14 +156,14 @@ class _PetProfilePage extends State<PetProfilePage> {
                         letterSpacing: 0.5,
                       ),
                     ),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(
                             8.0), // Adjust the border radius here
                       ),
                     ),
                     elevation:
-                        MaterialStateProperty.all<double>(size.width * 0.01)),
+                        WidgetStateProperty.all<double>(size.width * 0.01)),
                 onPressed: () {
                   Get.to(
                     () => EventsForPetPage(
@@ -194,13 +194,13 @@ class _PetProfilePage extends State<PetProfilePage> {
                 ),
                 child: ElevatedButton.icon(
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color?>(
+                      backgroundColor: WidgetStateProperty.all<Color?>(
                         const Color(0xffB5C0D0),
                       ),
-                      foregroundColor: MaterialStateProperty.all<Color?>(
+                      foregroundColor: WidgetStateProperty.all<Color?>(
                         const Color(0xffF3F2F2),
                       ),
-                      textStyle: MaterialStateProperty.all<TextStyle?>(
+                      textStyle: WidgetStateProperty.all<TextStyle?>(
                         TextStyle(
                           fontFamily: 'Cosffira',
                           fontSize: size.width * 0.059,
@@ -208,14 +208,14 @@ class _PetProfilePage extends State<PetProfilePage> {
                           letterSpacing: 0.5,
                         ),
                       ),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
                               8.0), // Adjust the border radius here
                         ),
                       ),
                       elevation:
-                          MaterialStateProperty.all<double>(size.width * 0.01)),
+                          WidgetStateProperty.all<double>(size.width * 0.01)),
                   onPressed: () {
                     Get.to(
                         () => InfoPage(
@@ -241,13 +241,13 @@ class _PetProfilePage extends State<PetProfilePage> {
               ),
               ElevatedButton.icon(
                 style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color?>(
+                    backgroundColor: WidgetStateProperty.all<Color?>(
                       const Color(0xff4A5E7C),
                     ),
-                    foregroundColor: MaterialStateProperty.all<Color?>(
+                    foregroundColor: WidgetStateProperty.all<Color?>(
                       const Color(0xffF3F2F2),
                     ),
-                    textStyle: MaterialStateProperty.all<TextStyle?>(
+                    textStyle: WidgetStateProperty.all<TextStyle?>(
                       TextStyle(
                         fontFamily: 'Cosffira',
                         fontSize: size.width * 0.059,
@@ -255,7 +255,7 @@ class _PetProfilePage extends State<PetProfilePage> {
                         letterSpacing: 0.5,
                       ),
                     ),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(
                           8.0,
@@ -263,7 +263,7 @@ class _PetProfilePage extends State<PetProfilePage> {
                       ),
                     ),
                     elevation:
-                        MaterialStateProperty.all<double>(size.width * 0.01)),
+                        WidgetStateProperty.all<double>(size.width * 0.01)),
                 onPressed: () {
                   Get.to(
                     DiseasesInformationForPet(

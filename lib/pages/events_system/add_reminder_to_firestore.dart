@@ -33,7 +33,7 @@ Future<ReminderData?> createReminderData(
       'minutes': minutes,
       'reminderType': currentItemSelected,
       'night': period,
-      'user-id': userId == 'null' ? 'not-signed' : userId,
+      //'user-id': userId == 'null' ? 'not-signed' : userId,
       'pet-id': pet.petId,
     },
   );

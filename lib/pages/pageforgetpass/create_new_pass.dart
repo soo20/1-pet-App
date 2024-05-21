@@ -18,15 +18,15 @@ class GreateNewPass extends StatefulWidget {
 class _GreateNewPassState extends State<GreateNewPass> {
   bool _obscureText = true;
   bool _obscureText2 = true;
-  
+
   @override
   Widget build(BuildContext context) {
-     final Size size = MediaQuery.of(context).size;
+    final Size size = MediaQuery.of(context).size;
     var border = OutlineInputBorder(
         borderRadius: BorderRadius.circular(55.r),
         borderSide: const BorderSide(
             width: 0.4, color: Color.fromARGB(70, 112, 112, 112)));
-   // double aspectRatio = screenHeight / screenWidth;
+    // double aspectRatio = screenHeight / screenWidth;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xffDCD3D3),
@@ -52,67 +52,52 @@ class _GreateNewPassState extends State<GreateNewPass> {
         foregroundColor: const Color(0xff4A5E7C),
       ),
       extendBodyBehindAppBar: true,
-      body: Column(
-        children: [
-       
-  Padding(
-    padding:  EdgeInsets.only(
-top: size.height*0.07
-    ),
-    child: Text(
-                'Create New Password',
-                style: TextStyle(
-                  fontFamily: 'Cosffira',
-                  fontSize: 75.sp,
-                  color: const Color(0xff4A5E7C),
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-             ),
-    
-         Padding(
-           padding: EdgeInsets.only(
-            top: size.height*0.12,
-            right: size.width*0.45
-           ),
-            child: Text(
-              'New password',
-              style: TextStyle(
-                fontFamily: 'Cosffira',
-                fontSize: 60.sp,
-                 color: const Color(0xff4A5E7C),
-                fontWeight: FontWeight.w700,
-                height: 5.h,
-              ),
-              textHeightBehavior:
-                 const TextHeightBehavior(applyHeightToFirstAscent: false
-                  ),
-              softWrap: false,
+      body: Column(children: [
+        Padding(
+          padding: EdgeInsets.only(top: size.height * 0.07),
+          child: Text(
+            'Create New Password',
+            style: TextStyle(
+              fontFamily: 'Cosffira',
+              fontSize: 75.sp,
+              color: const Color(0xff4A5E7C),
+              fontWeight: FontWeight.w700,
             ),
           ),
-              Container(
+        ),
+        Padding(
           padding: EdgeInsets.only(
-             
-              right: size.width*0.1,
-              left: size.width*0.1,
-            
-              ),
+              top: size.height * 0.12, right: size.width * 0.45),
+          child: Text(
+            'New password',
+            style: TextStyle(
+              fontFamily: 'Cosffira',
+              fontSize: 60.sp,
+              color: const Color(0xff4A5E7C),
+              fontWeight: FontWeight.w700,
+              height: 5.h,
+            ),
+            textHeightBehavior:
+                const TextHeightBehavior(applyHeightToFirstAscent: false),
+            softWrap: false,
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.only(
+            right: size.width * 0.1,
+            left: size.width * 0.1,
+          ),
           child: TextField(
             obscureText: _obscureText,
-           
             style: TextStyle(
-                fontFamily: 'Cosffira',
-                fontSize: 50.sp,
-                color: const Color(0xff000000),
-                fontWeight: FontWeight.w600,
-              ),
+              fontFamily: 'Cosffira',
+              fontSize: 50.sp,
+              color: const Color(0xff000000),
+              fontWeight: FontWeight.w600,
+            ),
             decoration: InputDecoration(
-               contentPadding:
-              EdgeInsets.only(
-                left: size.width*0.06,
-                top: size.height*0.05
-                
-               ),
+              contentPadding: EdgeInsets.only(
+                  left: size.width * 0.06, top: size.height * 0.05),
               suffixIcon: IconButton(
                 icon: Icon(
                   size: 20,
@@ -130,20 +115,17 @@ top: size.height*0.07
               ),
               fillColor: const Color(0xFFFFFFFF),
               filled: true,
-              
               enabledBorder: border,
               focusedBorder: border,
             ),
           ),
         ),
-
         Padding(
-          padding:EdgeInsets.only(
-          top: size.height*0.01,
-          right:size.height*0.15,
-
-          ),
-       child:  Text(
+            padding: EdgeInsets.only(
+              top: size.height * 0.01,
+              right: size.height * 0.15,
+            ),
+            child: Text(
               ' ! Must be at least 8 characters',
               style: TextStyle(
                 fontFamily: 'Cosffira',
@@ -155,18 +137,13 @@ top: size.height*0.07
               textHeightBehavior:
                   const TextHeightBehavior(applyHeightToFirstAscent: false),
               softWrap: false,
-            )
-        ),
-
-
-      
-       Padding(
-        padding:  EdgeInsets.only(
-        top : size.height *0.06,
-        //left: size.width *0.08,
-        right: size.width *0.35
-        ),
-       child:  Text(
+            )),
+        Padding(
+            padding: EdgeInsets.only(
+                top: size.height * 0.06,
+                //left: size.width *0.08,
+                right: size.width * 0.35),
+            child: Text(
               'Confirm Password',
               style: TextStyle(
                 fontFamily: 'Cosffira',
@@ -178,34 +155,23 @@ top: size.height*0.07
               textHeightBehavior:
                   const TextHeightBehavior(applyHeightToFirstAscent: false),
               softWrap: false,
-            )
-        ),
-
-
-
-      Container(
-          padding:  EdgeInsets.only(
-        top : size.height *0.015,
-        left: size.width *0.1,
-        right: size.width *0.1
-             
-          ),
-            child: TextField(
+            )),
+        Container(
+          padding: EdgeInsets.only(
+              top: size.height * 0.015,
+              left: size.width * 0.1,
+              right: size.width * 0.1),
+          child: TextField(
             obscureText: _obscureText2,
-           
             style: TextStyle(
-                fontFamily: 'Cosffira',
-                fontSize: 50.sp,
-                color: const Color(0xff000000),
-                fontWeight: FontWeight.w600,
-              ),
+              fontFamily: 'Cosffira',
+              fontSize: 50.sp,
+              color: const Color(0xff000000),
+              fontWeight: FontWeight.w600,
+            ),
             decoration: InputDecoration(
-               contentPadding:
-                EdgeInsets.only(
-                left: size.width*0.06,
-                top: size.height*0.05
-                
-               ),
+              contentPadding: EdgeInsets.only(
+                  left: size.width * 0.06, top: size.height * 0.05),
               suffixIcon: IconButton(
                 icon: Icon(
                   size: 20,
@@ -234,12 +200,7 @@ top: size.height*0.07
             ),
           ),
         ),
-        
-        
-       
-        
-      
-        
+
         /*Padding(
             padding: const EdgeInsets.fromLTRB(40.5, 75, 0, 0),
             child: SizedBox.expand(
@@ -248,9 +209,9 @@ top: size.height*0.07
               allowDrawingOutsideViewBox: true,
               fit: BoxFit.contain,
             ))),*/
-            SizedBox(
-              height: 150.h,
-            ),
+        SizedBox(
+          height: 150.h,
+        ),
         CustomGeneralButtom(
           boxColor: const Color(0xffA26874),
           textColor: const Color(0xffFFFFFF),
@@ -260,7 +221,7 @@ top: size.height*0.07
           borderColor: const Color.fromARGB(108, 112, 112, 112),
           text: 'Submit',
           onTap: () {
-            Get.to(() => const LoginInfo(), transition: Transition.zoom);
+            Get.to(() => const TheMainLoginPage(), transition: Transition.zoom);
           },
           fontWeight: FontWeight.w800,
         ),

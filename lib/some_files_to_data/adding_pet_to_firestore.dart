@@ -42,7 +42,7 @@ Future addPetInFireStore({required PetsInformation pet}) async {
       'pet-poop-disease-type': pet.poopDiseaseType,
       'age': pet.age,
       'pet-weight': pet.petWeight,
-      'user-id': userId,
+      // 'user-id': userId,
     },
   );
   String petId = docRef.id;

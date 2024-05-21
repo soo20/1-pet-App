@@ -2,17 +2,21 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 
-
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
+import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
+import 'package:petapplication/pages/sign_login_acount/auth_app.dart';
 import 'package:petapplication/pages/sign_login_acount/login_info_email_pass.dart';
+import 'package:petapplication/profile_page/updating_user_information.dart';
+import 'package:petapplication/profile_page/uploading_image_for_user.dart';
+import 'package:petapplication/profile_page/uploading_user_information_to_firestore.dart';
+import 'package:pinput/pinput.dart';
 
 class PageViewLogin extends StatefulWidget {
   final VoidCallback? toggleContainerVisibility;
@@ -98,8 +102,8 @@ class _PageViewLoginState extends State<PageViewLogin> {
       );
 
       // ignore: use_build_context_synchronously
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const LoginInfo()));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const TheMainLoginPage()));
     } on FirebaseAuthException {
       return null;
     }
@@ -114,7 +118,9 @@ class _PageViewLoginState extends State<PageViewLogin> {
     //double aspectRatio = screenHeight / screenWidth;
     return Column(
       children: [
-        SizedBox(height: 20.h,),
+        SizedBox(
+          height: 20.h,
+        ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -180,12 +186,10 @@ class _PageViewLoginState extends State<PageViewLogin> {
                       height: 10.h,
                     ),
 
-                   
-
                     Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 11, horizontal: 0),
-                        child: CustomGeneralButtom2(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 11, horizontal: 0),
+                      child: CustomGeneralButtom2(
                           height: 140.h,
                           text: 'Continue With Google',
                           textColor: kMainColorPage,
@@ -194,21 +198,136 @@ class _PageViewLoginState extends State<PageViewLogin> {
                           boxColor: const Color(0xff4A5E7C),
                           borderColor: const Color(0xff4A5E7C),
                           width: 740.w,
-                        )),
+                          onTap: () {
+                            signInWithGoogle().then((credential) {
+                              if (credential == null) {
+                                ScaffoldMessenger.of(context).clearSnackBars();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    elevation: 1,
+                                    backgroundColor: Colors.transparent,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                          10.0), // Adjust the radius as needed
+                                    ),
+                                    hitTestBehavior:
+                                        HitTestBehavior.translucent,
+                                    content: Text(
+                                      "You don't have an account yet",
+                                      style: TextStyle(
+                                        fontFamily: 'Cosffira',
+                                        fontSize: 50.sp,
+                                        color: const Color(0xffEFE6E5),
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    action: SnackBarAction(
+                                        label: 'Sign up',
+                                        textColor: const Color(0xff4A5E7C),
+                                        onPressed: () {
+                                          ScaffoldMessenger.of(context)
+                                              .hideCurrentSnackBar();
+                                          registration();
+                                        }),
+                                  ),
+                                );
+                              }
+                              uploadingUserInformationTofireStore(
+                                  context: context);
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const TheMainHomePage()),
+                              );
+                            }).catchError((onError) {
+                              ScaffoldMessenger.of(context).clearSnackBars();
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  elevation: 1,
+                                  backgroundColor: Colors.transparent,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        10.0), // Adjust the radius as needed
+                                  ),
+                                  hitTestBehavior: HitTestBehavior.translucent,
+                                  content: Text(
+                                    onError,
+                                    style: TextStyle(
+                                      fontFamily: 'Cosffira',
+                                      fontSize: 50.sp,
+                                      color: const Color(0xffEFE6E5),
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  action: SnackBarAction(
+                                      label: 'Try again',
+                                      textColor: const Color(0xff4A5E7C),
+                                      onPressed: () {
+                                        ScaffoldMessenger.of(context)
+                                            .hideCurrentSnackBar();
+                                      }),
+                                ),
+                              );
+                            });
+                          }),
+                    ),
 
                     Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 6, horizontal: 0),
-                        child: CustomGeneralButtom2(
-                          height: 140.h,
-                          text: 'Continue With Facebook',
-                          icon: FontAwesomeIcons.facebookF,
-                          iconcolor: kMainColorPage,
-                          textColor: kMainColorPage,
-                          boxColor: const Color(0xffB5C0D0),
-                          borderColor: const Color(0xffB5C0D0),
-                          width: 740.w,
-                        )),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 6, horizontal: 0),
+                      child: CustomGeneralButtom2(
+                        height: 140.h,
+                        text: 'Continue With Facebook',
+                        icon: FontAwesomeIcons.facebookF,
+                        iconcolor: kMainColorPage,
+                        textColor: kMainColorPage,
+                        boxColor: const Color(0xffB5C0D0),
+                        borderColor: const Color(0xffB5C0D0),
+                        width: 740.w,
+                        onTap: () {
+                          signInWithFacebook().then((_) {
+                            uploadingUserInformationTofireStore(
+                                context: context);
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const TheMainHomePage()),
+                            );
+                          }).catchError((onError) {
+                            ScaffoldMessenger.of(context).clearSnackBars();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                elevation: 1,
+                                backgroundColor: Colors.transparent,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      10.0), // Adjust the radius as needed
+                                ),
+                                hitTestBehavior: HitTestBehavior.translucent,
+                                content: Text(
+                                  onError,
+                                  style: TextStyle(
+                                    fontFamily: 'Cosffira',
+                                    fontSize: 50.sp,
+                                    color: const Color(0xffEFE6E5),
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                action: SnackBarAction(
+                                    label: 'Try again',
+                                    textColor: const Color(0xff4A5E7C),
+                                    onPressed: () {
+                                      ScaffoldMessenger.of(context)
+                                          .hideCurrentSnackBar();
+                                    }),
+                              ),
+                            );
+                          });
+                        },
+                      ),
+                    ),
                     Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 6, horizontal: 0),

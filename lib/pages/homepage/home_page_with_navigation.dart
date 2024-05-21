@@ -1,5 +1,6 @@
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -13,8 +14,11 @@ import 'package:petapplication/pages/sign_login_acount/loginbody.dart';
 import 'package:petapplication/profile_page/user_profile.dart';
 
 class TheMainHomePage extends StatefulWidget {
- final int? index1; // Define index here
-  const TheMainHomePage({super.key,  this.index1, });
+  final int? index1; // Define index here
+  const TheMainHomePage({
+    super.key,
+    this.index1,
+  });
 
   @override
 
@@ -26,20 +30,23 @@ class TheMainHomePage extends StatefulWidget {
 bool isLogin = false;
 
 class _TheMainHomePage extends State<TheMainHomePage> {
-    late int index;
+  late int index;
   final screens = [
     const HomePageAfterAddingPets(),
     const ChooseDetectionType(),
     const MyPetsPage(),
   ];
-   @override
-     void initState() {
+  @override
+  void initState() {
     super.initState();
-    index = widget.index1??0; // Set _currentIndex to the value of index passed from constructor
+    index = widget.index1 ??
+        0; // Set _currentIndex to the value of index passed from constructor
   }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return PopScope(
       canPop: false,
       child: SafeArea(
@@ -48,7 +55,7 @@ class _TheMainHomePage extends State<TheMainHomePage> {
                 bottomNavigationBar: CurvedNavigationBar(
                   color: const Color.fromARGB(255, 200, 185, 185),
                   backgroundColor: Colors.transparent,
-                index: index,
+                  index: index,
                   onTap: (index) => setState(
                     () => this.index = index,
                   ),
