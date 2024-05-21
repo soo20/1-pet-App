@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:petapplication/profile_page/updating_user_information.dart';
 import 'package:petapplication/profile_page/user_profile.dart';
 import 'package:petapplication/profile_page/uploading_image_for_user.dart';
 
@@ -61,6 +62,14 @@ class _EditAcountState extends State<EditAcount> {
     }
   }
 
+  Future<void> _loadProfileImage() async {
+    final api = FirebaseApiForUserImage();
+    final imageUrl = await api.getProfileImage(context);
+    setState(() {
+      _pickedImageFile = imageUrl != null ? File(imageUrl) : null;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -68,6 +77,7 @@ class _EditAcountState extends State<EditAcount> {
       nameController.text = userInfo!.displayName ?? '';
       emailController.text = userInfo!.email ?? '';
       phoneNumberController.text = userInfo!.phoneNumber ?? '';
+      _loadProfileImage();
     }
   }
 
@@ -279,31 +289,33 @@ class _EditAcountState extends State<EditAcount> {
                 ElevatedButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      String? imageUrl = await uploadingImageOnFirebase(
-                          _pickedImageFile, context);
-
                       try {
-                        String name = nameController.text;
-                        String email = emailController.text;
-
-                        await userInfo!.verifyBeforeUpdateEmail(email);
-                        await userInfo!.updateDisplayName(name);
-
+                        final imageApi = FirebaseApiForUserImage();
+                        String? imageUrl;
+                        if (_pickedImageFile != null) {
+                          imageUrl = await imageApi.uploadingImageOnFirebase(
+                              _pickedImageFile, context);
+                        }
+                        updateUserInformation(
+                          imageUrl: imageUrl,
+                          cxt: context,
+                          phoneNumber: phoneNumberController.text,
+                          name: nameController.text,
+                          email: emailController.text,
+                        );
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => UserAcount(
-                              name: name,
-                              email: email,
-                              phoneNumber: phoneNumberController.text,
-                            ),
+                            builder: (context) => const UserAcount(),
                           ),
                         );
-                      } on FirebaseAuthException catch (e) {
+                      } on FirebaseException catch (error) {
+                        setState(() {
+                          editPageLoading = false;
+                        });
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content:
-                                Text('Failed to update email: ${e.message}'),
+                            content: Text(error as String),
                           ),
                         );
                       }
@@ -316,15 +328,18 @@ class _EditAcountState extends State<EditAcount> {
                       backgroundColor: WidgetStateProperty.all(
                         const Color(0XFFA26874),
                       )),
-                  child: Text(
-                    'Finish',
-                    style: TextStyle(
-                      fontFamily: 'Cosffira',
-                      fontSize: 51.sp,
-                      color: const Color(0XFFeeeeee),
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
+                  child: editPageLoading
+                      ? const CircularProgressIndicator(
+                          color: Colors.white,
+                        )
+                      : Text(
+                          'Save',
+                          style: TextStyle(
+                              fontFamily: 'Cosffira',
+                              fontSize: 62.sp,
+                              color: const Color(0xFFFFFFFF),
+                              fontWeight: FontWeight.w700),
+                        ),
                 ),
               ],
             ),

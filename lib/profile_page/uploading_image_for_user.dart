@@ -7,83 +7,84 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-Future<String?> uploadingImageOnFirebase(
-    File? uploadedImage, BuildContext context) async {
+class FirebaseApiForUserImage {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   User? user = FirebaseAuth.instance.currentUser;
-  if (user == null || uploadedImage == null) {
-    return null;
-  }
-
-  try {
-    final storageRef = FirebaseStorage.instance
-        .ref()
-        .child('users')
-        .child(user.uid)
-        .child('profile_photos')
-        .child('${user.uid}.png');
+  Future<String?> uploadingImageOnFirebase(
+      File? uploadedImage, BuildContext context) async {
+    if (user == null || uploadedImage == null) {
+      return null;
+    }
 
     try {
-      // Delete the previous image if it exists
-      await storageRef.delete();
-    } catch (e) {
-      // If the image doesn't exist, continue without throwing an error
+      final storageRef = _storage
+          .ref()
+          .child('users')
+          .child(user!.uid)
+          .child('profile_photos')
+          .child('${user!.uid}.png');
+
+      try {
+        // Delete the previous image if it exists
+        await storageRef.delete();
+      } catch (e) {
+        // If the image doesn't exist, continue without throwing an error
+      }
+
+      // Upload the new image
+      await storageRef.putFile(uploadedImage);
+      final imageUrl = await storageRef.getDownloadURL();
+
+      await _firestore.collection('users').doc(user!.uid).update(
+        {
+          'profile_image': imageUrl,
+        },
+      );
+
+      return imageUrl;
+    } on FirebaseException catch (e) {
+      print(user!.uid);
+      // Failed to update your profile photo, please tryagain later....
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+          action: SnackBarAction(
+              label: 'Close',
+              onPressed: () {
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              }),
+        ),
+      );
+      return null;
     }
-
-    // Upload the new image
-    await storageRef.putFile(uploadedImage);
-    final imageUrl = await storageRef.getDownloadURL();
-
-    await FirebaseFirestore.instance.collection('users').doc(user.uid).update(
-      {
-        'profile_image': imageUrl,
-      },
-    );
-
-    return imageUrl;
-  } on FirebaseException {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: const Text(
-            'Failed to update your profile photo, please tryagain later....'),
-        action: SnackBarAction(
-            label: 'Close',
-            onPressed: () {
-              ScaffoldMessenger.of(context).hideCurrentSnackBar();
-            }),
-      ),
-    );
-    return null;
-  }
-}
-
-Future<Image?> getProfileImage(BuildContext context, String? imageUrl) async {
-  User? user = FirebaseAuth.instance.currentUser;
-  if (user == null || imageUrl == null) {
-    return null;
   }
 
-  try {
-    final http.Response response = await http.get(Uri.parse(imageUrl));
-    if (response.statusCode == 200) {
-      final Uint8List imageData = response.bodyBytes;
-      return Image.memory(imageData);
-    } else {
-      throw Exception('Failed to load image');
+  Future<String?> getProfileImage(BuildContext context) async {
+    try {
+      final user = _auth.currentUser;
+      if (user == null) {
+        return null;
+      }
+      final doc = await _firestore.collection('users').doc(user.uid).get();
+
+      return doc.data()?['profile_image'];
+    } on FirebaseException {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text(
+              'Failed to load your profile photo, please try again later.'),
+          action: SnackBarAction(
+              label: 'Close',
+              onPressed: () {
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              }),
+        ),
+      );
+      return null;
     }
-  } on FirebaseException {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: const Text(
-            'Failed to load your profile photo, please try again later.'),
-        action: SnackBarAction(
-            label: 'Close',
-            onPressed: () {
-              ScaffoldMessenger.of(context).hideCurrentSnackBar();
-            }),
-      ),
-    );
-    return null;
   }
 }

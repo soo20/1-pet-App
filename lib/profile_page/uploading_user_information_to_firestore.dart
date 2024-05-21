@@ -4,9 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 void uploadingUserInformationTofireStore(
-    String? uploadedImage, BuildContext context) async {
+    {String? uploadedImage, required BuildContext context}) async {
   User? user = FirebaseAuth.instance.currentUser;
-  if (user == null || uploadedImage == null) {
+  if (user == null) {
     return null;
   }
 
@@ -16,6 +16,7 @@ void uploadingUserInformationTofireStore(
       'phone_number': user.phoneNumber,
       'email': user.email,
       'user_id': user.uid,
+      'user_name': user.displayName,
     });
   } on FirebaseException {
     ScaffoldMessenger.of(context).clearSnackBars();

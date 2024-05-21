@@ -13,6 +13,10 @@ import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
 import 'package:petapplication/pages/sign_login_acount/auth_app.dart';
 import 'package:petapplication/pages/sign_login_acount/login_info_email_pass.dart';
+import 'package:petapplication/profile_page/updating_user_information.dart';
+import 'package:petapplication/profile_page/uploading_image_for_user.dart';
+import 'package:petapplication/profile_page/uploading_user_information_to_firestore.dart';
+import 'package:pinput/pinput.dart';
 
 class PageViewLogin extends StatefulWidget {
   final VoidCallback? toggleContainerVisibility;
@@ -195,7 +199,41 @@ class _PageViewLoginState extends State<PageViewLogin> {
                           borderColor: const Color(0xff4A5E7C),
                           width: 740.w,
                           onTap: () {
-                            signInWithGoogle().then((_) {
+                            signInWithGoogle().then((credential) {
+                              if (credential == null) {
+                                ScaffoldMessenger.of(context).clearSnackBars();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    elevation: 1,
+                                    backgroundColor: Colors.transparent,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                          10.0), // Adjust the radius as needed
+                                    ),
+                                    hitTestBehavior:
+                                        HitTestBehavior.translucent,
+                                    content: Text(
+                                      "You don't have an account yet",
+                                      style: TextStyle(
+                                        fontFamily: 'Cosffira',
+                                        fontSize: 50.sp,
+                                        color: const Color(0xffEFE6E5),
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    action: SnackBarAction(
+                                        label: 'Sign up',
+                                        textColor: const Color(0xff4A5E7C),
+                                        onPressed: () {
+                                          ScaffoldMessenger.of(context)
+                                              .hideCurrentSnackBar();
+                                          registration();
+                                        }),
+                                  ),
+                                );
+                              }
+                              uploadingUserInformationTofireStore(
+                                  context: context);
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
@@ -249,10 +287,13 @@ class _PageViewLoginState extends State<PageViewLogin> {
                         width: 740.w,
                         onTap: () {
                           signInWithFacebook().then((_) {
+                            uploadingUserInformationTofireStore(
+                                context: context);
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => TheMainHomePage()),
+                                  builder: (context) =>
+                                      const TheMainHomePage()),
                             );
                           }).catchError((onError) {
                             ScaffoldMessenger.of(context).clearSnackBars();

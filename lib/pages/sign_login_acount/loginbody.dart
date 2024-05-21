@@ -79,6 +79,7 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                   height: height * 0.068,
                   onTap: () {
                     signInWithGoogle().then((userCredential) {
+                      print(userCredential!.user!.email);
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -95,7 +96,7 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                                 10.0), // Adjust the radius as needed
                           ),
                           content: Text(
-                            "Failed to login with Gmail.",
+                            "Failed to login with Gmail, try again later",
                             style: TextStyle(
                               fontFamily: 'Cosffira',
                               fontSize: 16, // Adjust the font size as needed

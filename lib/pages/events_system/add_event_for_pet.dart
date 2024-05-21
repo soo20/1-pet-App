@@ -556,8 +556,8 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                         elevation: 0.0,
                         cancelButtonStyle: ButtonStyle(
                           foregroundColor:
-                              const MaterialStatePropertyAll(Color(0xff4A5E7C)),
-                          textStyle: MaterialStatePropertyAll(
+                              const WidgetStatePropertyAll(Color(0xff4A5E7C)),
+                          textStyle: WidgetStatePropertyAll(
                             TextStyle(
                               fontFamily: 'Cosffira',
                               fontSize: size.width * 0.045,
@@ -568,8 +568,8 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                         ),
                         confirmButtonStyle: ButtonStyle(
                           foregroundColor:
-                              const MaterialStatePropertyAll(Color(0xff4A5E7C)),
-                          textStyle: MaterialStatePropertyAll(
+                              const WidgetStatePropertyAll(Color(0xff4A5E7C)),
+                          textStyle: WidgetStatePropertyAll(
                             TextStyle(
                               fontFamily: 'Cosffira',
                               fontSize: size.width * 0.045,

@@ -17,10 +17,17 @@ Future<UserCredential?> signInWithGoogle() async {
     accessToken: googleAuth?.accessToken,
     idToken: googleAuth?.idToken,
   );
+  User? user = FirebaseAuth.instance.currentUser;
+  if (user == null) {
+    return null;
+  }
+  final isNewUser = user.metadata.creationTime == user.metadata.lastSignInTime;
+  if (isNewUser == true) {
+    return null;
+  }
 
   // Once signed in, return the UserCredential
   return await FirebaseAuth.instance.signInWithCredential(credential);
-  // Once signed in, return the UserCredential
 }
 
 Future<UserCredential> signInWithFacebook() async {

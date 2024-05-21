@@ -1,8 +1,6 @@
 import 'dart:ui';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 import 'package:petapplication/pages/events_system/add_event_for_pet.dart';
@@ -58,40 +56,6 @@ class _EventsForPetPage extends State<EventsForPetPage> {
 
   Color feedTimeColor = const Color.fromARGB(255, 255, 255, 255);
   String currentItemSelected = 'Playing';
-  //bool _isLoading = false;
-  @override
-
-  // Initialize the state and add listeners
-  void initState() {
-    super.initState();
-    final url = Uri.https(
-      'petapplication-e28d2-default-rtdb.firebaseio.com',
-      'reminders-list.json',
-    );
-    //try to reload the data from firebase realtime database
-    void loadReminders() async {
-      final response = await http.get(url);
-      final Map<String, dynamic> listDataFromFirebase =
-          json.decode(response.body);
-      final List<ReminderData> loadedItems = [];
-      for (final item in listDataFromFirebase.entries) {
-        loadedItems.add(ReminderData(
-          day: item.value['day']!,
-          month: item.value['month']!,
-          reminderType: item.value['reminderType']!,
-          hours: item.value['hours']!,
-          minutes: item.value['minutes']!,
-          night: item.value['night']!,
-          weekDay: item.value['weekDay']!,
-          year: item.value['year']!,
-          reminderId: item.key,
-        ));
-      }
-      setState(() {
-        widget.petInformation.remindersData = loadedItems;
-      });
-    }
-  }
 
   void onFinishButtonPressed({required TimeOfDay timeOfDay}) {
     // Create the ReminderData object
@@ -307,9 +271,9 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                                   elevation: 0.0,
                                   cancelButtonStyle: ButtonStyle(
                                     foregroundColor:
-                                        const MaterialStatePropertyAll(
+                                        const WidgetStatePropertyAll(
                                             Color(0xff4A5E7C)),
-                                    textStyle: MaterialStatePropertyAll(
+                                    textStyle: WidgetStatePropertyAll(
                                       TextStyle(
                                         fontFamily: 'Cosffira',
                                         fontSize: size.width * 0.045,
@@ -320,9 +284,9 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                                   ),
                                   confirmButtonStyle: ButtonStyle(
                                     foregroundColor:
-                                        const MaterialStatePropertyAll(
+                                        const WidgetStatePropertyAll(
                                             Color(0xff4A5E7C)),
-                                    textStyle: MaterialStatePropertyAll(
+                                    textStyle: WidgetStatePropertyAll(
                                       TextStyle(
                                         fontFamily: 'Cosffira',
                                         fontSize: size.width * 0.045,
@@ -514,10 +478,9 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                                             elevation: 0.0,
                                             cancelButtonStyle: ButtonStyle(
                                               foregroundColor:
-                                                  const MaterialStatePropertyAll(
+                                                  const WidgetStatePropertyAll(
                                                       Color(0xff4A5E7C)),
-                                              textStyle:
-                                                  MaterialStatePropertyAll(
+                                              textStyle: WidgetStatePropertyAll(
                                                 TextStyle(
                                                   fontFamily: 'Cosffira',
                                                   fontSize: size.width * 0.045,
@@ -529,10 +492,9 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                                             ),
                                             confirmButtonStyle: ButtonStyle(
                                               foregroundColor:
-                                                  const MaterialStatePropertyAll(
+                                                  const WidgetStatePropertyAll(
                                                       Color(0xff4A5E7C)),
-                                              textStyle:
-                                                  MaterialStatePropertyAll(
+                                              textStyle: WidgetStatePropertyAll(
                                                 TextStyle(
                                                   fontFamily: 'Cosffira',
                                                   fontSize: size.width * 0.045,

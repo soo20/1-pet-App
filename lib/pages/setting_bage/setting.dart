@@ -1,19 +1,16 @@
 // ignore_for_file: avoid_print
 
-
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:petapplication/pages/setting_bage/alart_page.dart';
 
 import 'package:petapplication/pages/setting_bage/help_tips.dart';
 import 'package:petapplication/profile_page/edit_acount.dart';
-
-
 
 class Setting extends StatelessWidget {
   final BuildContext ccontext;
@@ -54,10 +51,9 @@ class Setting extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-             Padding(
+            Padding(
               padding: EdgeInsets.only(
-                left: size.width *0.08, 
-                top: size.height *0.01),
+                  left: size.width * 0.08, top: size.height * 0.01),
               child: Text(
                 'Setting',
                 style: TextStyle(
@@ -72,9 +68,9 @@ class Setting extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(
-               left: size.width *0.035,
-               right: size.width *0.035, 
-                top: size.height *0.01),
+                  left: size.width * 0.035,
+                  right: size.width * 0.035,
+                  top: size.height * 0.01),
               child: _buildListView(context),
             ),
           ],
@@ -106,12 +102,13 @@ class Setting extends StatelessWidget {
     void editProfile() {
       Get.to(
         () =>
-              const EditAcount(), // Replace YourNextPage with the actual class for the next page
+            const EditAcount(), // Replace YourNextPage with the actual class for the next page
         transition: Transition.rightToLeft,
         duration: const Duration(milliseconds: 300),
       );
     }
- void helpT() {
+
+    void helpT() {
       Get.to(
         () =>
             const HelpTips2(), // Replace YourNextPage with the actual class for the next page
@@ -119,39 +116,34 @@ class Setting extends StatelessWidget {
         duration: const Duration(milliseconds: 300),
       );
     }
-void shareApp() {
-  showDialog(
-    context: ccontext,
-    builder: (context) => 
-    Alart1(
-      title: 'https://translate.google.com', 
-      confirmButtonText: 'Copy Link', 
-      confirmButtonText2: 'Decline',
-      customFontSize: 50.sp, 
-      padding: EdgeInsets.only(top: size.height *0.05), 
-      padding2:EdgeInsets.only(top: size.height *0.02)
-      ),
-  );
-}
 
+    void shareApp() {
+      showDialog(
+        context: ccontext,
+        builder: (context) => Alart1(
+            title: 'https://translate.google.com',
+            confirmButtonText: 'Copy Link',
+            confirmButtonText2: 'Decline',
+            customFontSize: 50.sp,
+            padding: EdgeInsets.only(top: size.height * 0.05),
+            padding2: EdgeInsets.only(top: size.height * 0.02)),
+      );
+    }
 
-
-    void logOut() {
-     showDialog(
-    context: ccontext,
-    builder: (context) => 
-    Alart1(
-      title: 'Are You Sure You Want To Log Out', 
-      confirmButtonText: 'Yes', 
-      confirmButtonText2: 'Cancle',
-      confirmButtonOnTap:() {
-        FirebaseAuth.instance.signOut();
-      }, 
-      customFontSize: 50.sp, 
-      padding: EdgeInsets.only(top: size.height *0.05), 
-      padding2:EdgeInsets.only(top: size.height *0.02)
-      ),
-  );
+    void logOut() async {
+      showDialog(
+        context: ccontext,
+        builder: (context) => Alart1(
+            title: 'Are You Sure You Want To Log Out',
+            confirmButtonText: 'Yes',
+            confirmButtonText2: 'Cancle',
+            confirmButtonOnTap: () async {
+              FirebaseAuth.instance.signOut();
+            },
+            customFontSize: 50.sp,
+            padding: EdgeInsets.only(top: size.height * 0.05),
+            padding2: EdgeInsets.only(top: size.height * 0.02)),
+      );
     }
 
     List<VoidCallback> onTapFunctions = [
@@ -167,48 +159,59 @@ void shareApp() {
       },
 
       logOut,
-
     ];
-return SizedBox(
-  height: size.height,
-  width: size.width,
-  child: ListView.builder(
-    itemCount: 6,
-    itemBuilder: (_, index) {
-      return Padding(
-        padding: EdgeInsets.symmetric(
-          vertical: size.height *0.006),
-        child: Card(
-          color: const Color.fromARGB(105, 210, 207, 207),
-          semanticContainer: true,
-          elevation: 0, 
-          child: SizedBox( 
-            height: 67, 
-            child: ListTile(
-              title: Text(
-                titles[index],
-                style:  TextStyle(
-                  fontFamily: 'Cosffira',
-                  fontSize: 67.sp,
-                  color: const Color(0xff5D595B),
-                  fontWeight: FontWeight.w400,
+    return SizedBox(
+      height: size.height,
+      width: size.width,
+      child: ListView.builder(
+        itemCount: 6,
+        itemBuilder: (_, index) {
+          return Padding(
+            padding: EdgeInsets.symmetric(vertical: size.height * 0.006),
+            child: Card(
+              color: const Color.fromARGB(105, 210, 207, 207),
+              semanticContainer: true,
+              elevation: 0,
+              child: SizedBox(
+                height: 67,
+                child: ListTile(
+                  title: Text(
+                    titles[index],
+                    style: TextStyle(
+                      fontFamily: 'Cosffira',
+                      fontSize: 67.sp,
+                      color: const Color(0xff5D595B),
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  leading: Icon(
+                    icons[index],
+                    size: 35,
+                    color: const Color(0xffA26874),
+                  ),
+                  trailing: const Icon(Icons.arrow_forward_ios),
+                  onTap: index == 5
+                      ? () async {
+                          try {
+                            // Sign out from Firebase
+                            await FirebaseAuth.instance.signOut();
+
+                            // Sign out from Google
+                            await GoogleSignIn.standard().signOut();
+
+                            // Disconnect Google to clear the previous session
+                            await GoogleSignIn.standard().disconnect();
+                          } catch (error) {
+                            print('Error during sign-out: $error');
+                          }
+                        } // Close the dialog
+                      : onTapFunctions[index],
                 ),
               ),
-              leading: Icon(
-                icons[index],
-                size: 35,
-                color: const Color(0xffA26874),
-              ),
-              trailing: const Icon(Icons.arrow_forward_ios),
-              onTap: onTapFunctions[index],
             ),
-          ),
-        ),
-      );
-    },
-  ),
-);
-
-
+          );
+        },
+      ),
+    );
   }
 }

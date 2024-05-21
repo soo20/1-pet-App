@@ -11,6 +11,7 @@ import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 
 import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
 import 'package:petapplication/pages/pageforgetpass/my_verify_pass.dart';
+import 'package:petapplication/profile_page/uploading_user_information_to_firestore.dart';
 
 //import 'package:flutter_svg/svg.dart';
 
@@ -119,7 +120,7 @@ class _TheMainLoginPageState extends State<TheMainLoginPage> {
       } else if (e.code == 'network-request-failed') {
         errorMessage = 'You are offline check your connectoin';
       } else {
-        errorMessage = e.code;
+        errorMessage = 'incorrect email or password, please try again';
       }
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(

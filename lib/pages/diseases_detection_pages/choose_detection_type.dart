@@ -185,13 +185,13 @@ class ChooseDetectionType extends StatelessWidget {
               children: [
                 ElevatedButton.icon(
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color?>(
+                    backgroundColor: WidgetStateProperty.all<Color?>(
                       const Color.fromARGB(255, 249, 249, 249),
                     ),
-                    foregroundColor: MaterialStateProperty.all<Color?>(
+                    foregroundColor: WidgetStateProperty.all<Color?>(
                       const Color(0xffEBBBBB),
                     ),
-                    textStyle: MaterialStateProperty.all<TextStyle?>(
+                    textStyle: WidgetStateProperty.all<TextStyle?>(
                       TextStyle(
                         fontFamily: 'Cosffira',
                         fontSize: size.width * 0.059,
@@ -199,13 +199,13 @@ class ChooseDetectionType extends StatelessWidget {
                         letterSpacing: 0.5,
                       ),
                     ),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(
                             8.0), // Adjust the border radius here
                       ),
                     ),
-                    elevation: MaterialStateProperty.all<double>(
+                    elevation: WidgetStateProperty.all<double>(
                       size.width * 0.01,
                     ),
                   ),
@@ -225,13 +225,13 @@ class ChooseDetectionType extends StatelessWidget {
                 ),
                 ElevatedButton.icon(
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color?>(
+                      backgroundColor: WidgetStateProperty.all<Color?>(
                         const Color(0xffEBBBBB),
                       ),
-                      foregroundColor: MaterialStateProperty.all<Color?>(
+                      foregroundColor: WidgetStateProperty.all<Color?>(
                         const Color(0xffF3F2F2),
                       ),
-                      textStyle: MaterialStateProperty.all<TextStyle?>(
+                      textStyle: WidgetStateProperty.all<TextStyle?>(
                         TextStyle(
                           fontFamily: 'Cosffira',
                           fontSize: size.width * 0.059,
@@ -239,14 +239,14 @@ class ChooseDetectionType extends StatelessWidget {
                           letterSpacing: 0.5,
                         ),
                       ),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
                               8.0), // Adjust the border radius here
                         ),
                       ),
                       elevation:
-                          MaterialStateProperty.all<double>(size.width * 0.01)),
+                          WidgetStateProperty.all<double>(size.width * 0.01)),
                   onPressed: () {
                     allowingCameraDialog(detectionType: true);
                   },
