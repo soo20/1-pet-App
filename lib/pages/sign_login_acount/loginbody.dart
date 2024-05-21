@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print
 
 import 'package:flutter/material.dart';
 
@@ -110,7 +110,35 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
               child: CustomGeneralButtom2(
                 height: 115.h,
                 onTap: () {
-                  signInWithGoogle();
+                  signInWithGoogle().then((userCredential) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TheMainHomePage()),
+                    );
+                  }).catchError((error) {
+                    print(error);
+                    ScaffoldMessenger.of(context).clearSnackBars();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        elevation: 1,
+                        backgroundColor: Colors.transparent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              10.0), // Adjust the radius as needed
+                        ),
+                        content: Text(
+                          error.toString(),
+                          style: TextStyle(
+                            fontFamily: 'Cosffira',
+                            fontSize: 16, // Adjust the font size as needed
+                            color: const Color(0xffEFE6E5),
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    );
+                  });
                 },
                 text: 'Login With Gmail',
                 textColor: const Color(0xffA26874),
@@ -128,12 +156,35 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
               ),
               child: CustomGeneralButtom2(
                 onTap: () {
-                  signInWithFacebook();
-
-                  navigator?.pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (e) => const TheMainHomePage()),
-                    (route) => true,
-                  );
+                  signInWithFacebook1().then((userCredential) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TheMainHomePage()),
+                    );
+                  }).catchError((error) {
+                    print(error);
+                    ScaffoldMessenger.of(context).clearSnackBars();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        elevation: 1,
+                        backgroundColor: Colors.transparent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              10.0), // Adjust the radius as needed
+                        ),
+                        content: Text(
+                          error.toString(),
+                          style: TextStyle(
+                            fontFamily: 'Cosffira',
+                            fontSize: 16, // Adjust the font size as needed
+                            color: const Color(0xffEFE6E5),
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    );
+                  });
                 },
                 height: 120.h,
                 text: 'Login With Facebook',
@@ -155,7 +206,7 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                 text: 'Login With Email',
                 onTap: () {
                   navigator?.pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (e) => const TheMainHomePage()),
+                    MaterialPageRoute(builder: (e) => const LoginInfo()),
                     (route) => true,
                   );
                 },
