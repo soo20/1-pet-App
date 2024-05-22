@@ -4,30 +4,93 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
-Future<UserCredential?> signInWithGoogle() async {
-  // Trigger the authentication flow
-  final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+class NewUserException implements Exception {
+  final String message;
+  NewUserException(this.message);
+
+  @override
+  String toString() => message;
+}
+
+final GoogleSignIn googleSignIn = GoogleSignIn();
+Future<UserCredential?> signUpWithGoogle() async {
+  // Check if the user is already signed in
+  GoogleSignInAccount? googleUser = GoogleSignIn.standard().currentUser;
+
+  // If not, trigger the authentication flow
+  googleUser ??= await googleSignIn.signIn();
+
+  // If the user cancelled the sign-in flow, return null
+  if (googleUser == null) {
+    return null;
+  }
 
   // Obtain the auth details from the request
-  final GoogleSignInAuthentication? googleAuth =
-      await googleUser?.authentication;
+  final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
   // Create a new credential
   final credential = GoogleAuthProvider.credential(
-    accessToken: googleAuth?.accessToken,
-    idToken: googleAuth?.idToken,
+    accessToken: googleAuth.accessToken,
+    idToken: googleAuth.idToken,
   );
-  User? user = FirebaseAuth.instance.currentUser;
-  if (user == null) {
-    return null;
+
+  // Try signing in with the selected account
+  try {
+    final UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+
+    // Existing user can proceed
+    return userCredential;
+  } catch (e) {
+    print("Error signing in: $e");
+    // Re-throw the exception to be caught in the onTap error handler
+    rethrow;
   }
-  final isNewUser = user.metadata.creationTime == user.metadata.lastSignInTime;
-  if (isNewUser == true) {
+}
+
+Future<UserCredential?> signInWithGoogle() async {
+  // Check if the user is already signed in
+  GoogleSignInAccount? googleUser = googleSignIn.currentUser;
+
+  // If not, trigger the authentication flow
+  googleUser ??= await googleSignIn.signIn();
+
+  // If the user cancelled the sign-in flow, return null
+  if (googleUser == null) {
     return null;
   }
 
-  // Once signed in, return the UserCredential
-  return await FirebaseAuth.instance.signInWithCredential(credential);
+  // Obtain the auth details from the request
+  final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+  // Create a new credential
+  final credential = GoogleAuthProvider.credential(
+    accessToken: googleAuth.accessToken,
+    idToken: googleAuth.idToken,
+  );
+
+  // Try signing in with the selected account
+  try {
+    final UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+
+    // Check if the user is new
+    final isNewUser = userCredential.additionalUserInfo?.isNewUser ?? false;
+
+    // If the user is new, delete their account and throw an exception
+    if (isNewUser) {
+      await userCredential.user?.delete();
+      throw NewUserException(
+          "You don't have an account yet. Please sign up first and try again.");
+    }
+
+    // Existing user can proceed
+    return userCredential;
+  } catch (e) {
+    print("Error signing in: $e");
+    // Re-throw the exception to be caught in the onTap error handler
+    rethrow;
+  }
 }
 
 Future<UserCredential> signInWithFacebook() async {
@@ -37,13 +100,31 @@ Future<UserCredential> signInWithFacebook() async {
   // Create a credential from the access token
   final OAuthCredential facebookAuthCredential =
       FacebookAuthProvider.credential(loginResult.accessToken!.token);
+  try {
+    final UserCredential userCredential = await FirebaseAuth.instance
+        .signInWithCredential(facebookAuthCredential);
 
+    // Check if the user is new
+    final isNewUser = userCredential.additionalUserInfo?.isNewUser ?? false;
+
+    // If the user is new, delete their account and throw an exception
+    if (isNewUser) {
+      await userCredential.user?.delete();
+      throw NewUserException(
+          "You don't have an account yet. Please sign up first and try again.");
+    }
+
+    // Existing user can proceed
+    return userCredential;
+  } catch (e) {
+    print("Error signing in: $e");
+    // Re-throw the exception to be caught in the onTap error handler
+    rethrow;
+  }
   // Once signed in, return the UserCredential
-  return await FirebaseAuth.instance
-      .signInWithCredential(facebookAuthCredential);
 }
 
-Future<void> signInWithFacebook1() async {
+Future<void> signUpWithFacebook() async {
   try {
     // Trigger the Facebook sign-in flow
     final LoginResult loginResult = await FacebookAuth.instance.login();
@@ -79,5 +160,3 @@ Future<void> signInWithFacebook1() async {
     print('Error signing in with Facebook: $e');
   }
 }
-
-// Define an async function to handle the Facebook login process

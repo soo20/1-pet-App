@@ -22,6 +22,30 @@ class _UserAcountState extends State<UserAcount> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
+  User? userInfo = FirebaseAuth.instance.currentUser;
+  Future<void> _initializeUserData() async {
+    try {
+      final doc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userInfo!.uid)
+          .get();
+      if (userInfo != null) {
+        nameController.text =
+            userInfo!.displayName ?? doc.data()?['user_name'] ?? '';
+        emailController.text = userInfo!.email ?? '';
+        phoneNumberController.text =
+            userInfo!.phoneNumber ?? doc.data()?['phone_number'] ?? '';
+      }
+    } on FirebaseException {
+      print("error in there......................");
+    }
+  }
+
+  @override
+  void initState() {
+    _initializeUserData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +53,6 @@ class _UserAcountState extends State<UserAcount> {
     final double height = size.height;
     final double width = size.width;
     User? userInfo = FirebaseAuth.instance.currentUser;
-    Image? profileImage;
 
     var border = OutlineInputBorder(
         borderRadius: BorderRadius.circular(40.r),
@@ -63,16 +86,8 @@ class _UserAcountState extends State<UserAcount> {
                 ),
               );
             }
-            var userData = userInfoSnap.data!.data()!;
-            nameController.text = userData['name'] ?? '';
-            emailController.text = userData['email'] ?? '';
-            phoneNumberController.text = userData['phoneNumber'] ?? '';
-            String? profileImageUrl = userData['profileImageUrl'];
 
             // Fetch and set the profile image
-
-            final imageApi = FirebaseApiForUserImage();
-            Future<String?> userImage = imageApi.getProfileImage(context);
 
             return Container(
               width: size.width,
@@ -89,13 +104,47 @@ class _UserAcountState extends State<UserAcount> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(
-                        top: size.height * 0.1, right: size.width * 0.5),
-                    child: CircleAvatar(
-                      //color: Colors.amberAccent,
-
-                      foregroundImage: profileImageUrl != null
-                          ? Image.network(profileImageUrl) as ImageProvider
-                          : const AssetImage('assets/image/Group 998.png'),
+                        top: size.height * 0.02, right: size.width * 0.52),
+                    child: StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('users')
+                          .doc(userInfo!.uid)
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const CircularProgressIndicator();
+                        } else if (snapshot.hasError) {
+                          ScaffoldMessenger.of(context).clearSnackBars();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: const Text(
+                                  'Failed to load your profile photo, please try again later.'),
+                              action: SnackBarAction(
+                                  label: 'Close',
+                                  onPressed: () {
+                                    ScaffoldMessenger.of(context)
+                                        .hideCurrentSnackBar();
+                                  }),
+                            ),
+                          );
+                          return CircleAvatar(
+                            radius: height * 0.091,
+                            backgroundImage:
+                                const AssetImage('assets/image/Group 998.png'),
+                          );
+                        } else {
+                          return CircleAvatar(
+                            radius: height * 0.091,
+                            foregroundImage: snapshot.data?['profile_image'] !=
+                                    null
+                                ? NetworkImage(snapshot.data!['profile_image'])
+                                : null,
+                            backgroundImage:
+                                const AssetImage('assets/image/Group 998.png'),
+                          );
+                        }
+                      },
                     ),
                   ),
                   Column(children: [

@@ -37,16 +37,8 @@ class FirebaseApiForUserImage {
       await storageRef.putFile(uploadedImage);
       final imageUrl = await storageRef.getDownloadURL();
 
-      await _firestore.collection('users').doc(user!.uid).update(
-        {
-          'profile_image': imageUrl,
-        },
-      );
-
       return imageUrl;
     } on FirebaseException catch (e) {
-      print(user!.uid);
-      // Failed to update your profile photo, please tryagain later....
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

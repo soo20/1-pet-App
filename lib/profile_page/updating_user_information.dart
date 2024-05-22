@@ -15,7 +15,6 @@ Future<void> updateUserInformation({
   }
 
   try {
-    await user.verifyBeforeUpdateEmail(email);
     await user.updateDisplayName(name);
     await FirebaseFirestore.instance.collection('users').doc(user.uid).update({
       'profile_image': imageUrl,
@@ -23,12 +22,14 @@ Future<void> updateUserInformation({
       'email': user.email,
       'user_name': user.displayName,
     });
-  } on FirebaseException {
+  } on FirebaseException catch (error) {
+    print(error);
     ScaffoldMessenger.of(cxt).clearSnackBars();
     ScaffoldMessenger.of(cxt).showSnackBar(
       SnackBar(
-        content: const Text(
-            'Failed to update your profile information, please try again later.'),
+        content: Text(
+          error.toString(),
+        ),
         action: SnackBarAction(
             label: 'Close',
             onPressed: () {

@@ -1,5 +1,8 @@
 // ignore_for_file: use_build_context_synchronously, duplicate_ignore, unused_local_variable
 
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
@@ -7,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
@@ -54,6 +58,7 @@ class _PageViewLoginState extends State<PageViewLogin> {
   final TextEditingController name = TextEditingController();
   final TextEditingController _email = TextEditingController();
   final TextEditingController _passward = TextEditingController();
+  final TextEditingController _phoneNumber = TextEditingController();
   final _fformKey = GlobalKey<FormState>();
   @override
   void initState() {
@@ -67,11 +72,19 @@ class _PageViewLoginState extends State<PageViewLogin> {
     super.dispose();
   }
 
-  registration() async {
+  bool _obscureText = true;
+  registration(BuildContext context, String? image) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
               email: _email.text, password: _passward.text);
+
+      uploadingUserInformationTofireStoreWithManualUploading(
+          displayName: name.text,
+          phoneNumber: _phoneNumber.text,
+          context: context,
+          uploadedImage: image);
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: const Color.fromARGB(80, 0, 0, 0),
@@ -105,7 +118,49 @@ class _PageViewLoginState extends State<PageViewLogin> {
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => const TheMainLoginPage()));
     } on FirebaseAuthException {
-      return null;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: const Color.fromARGB(80, 0, 0, 0),
+          elevation: 0,
+          content: Text(
+            "The registration failed. Please try again later.",
+            style: TextStyle(
+              fontFamily: 'Cosffira',
+              fontSize: 50.sp,
+              color: const Color(0xffEFE6E5),
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius:
+                BorderRadius.circular(10.0), // Adjust the radius as needed
+          ),
+          action: SnackBarAction(
+            label: 'Ok',
+            textColor:
+                const Color(0xff4A5E7C), // Set the color of the close icon
+            onPressed: () {
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            },
+          ),
+          behavior: SnackBarBehavior.floating, // Set the behavior to floating
+        ),
+      );
+    }
+  }
+
+  File? _tackedImageFile;
+  Future<void> _pickedImage(BuildContext context) async {
+    final pickedImage = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 100,
+      maxWidth: MediaQuery.of(context).size.width,
+      maxHeight: MediaQuery.of(context).size.height,
+    );
+    if (pickedImage != null) {
+      setState(() {
+        _tackedImageFile = File(pickedImage.path);
+      });
     }
   }
 
@@ -116,8 +171,13 @@ class _PageViewLoginState extends State<PageViewLogin> {
         borderSide: const BorderSide(
             width: 1.0, color: Color.fromARGB(70, 112, 112, 112)));
     //double aspectRatio = screenHeight / screenWidth;
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return Column(
       children: [
+        SizedBox(
+          height: height * 0.018,
+        ),
         SizedBox(
           height: 20.h,
         ),
@@ -183,7 +243,7 @@ class _PageViewLoginState extends State<PageViewLogin> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: 10.h,
+                      height: 20.h,
                     ),
 
                     Padding(
@@ -199,46 +259,14 @@ class _PageViewLoginState extends State<PageViewLogin> {
                           borderColor: const Color(0xff4A5E7C),
                           width: 740.w,
                           onTap: () {
-                            signInWithGoogle().then((credential) {
-                              if (credential == null) {
-                                ScaffoldMessenger.of(context).clearSnackBars();
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    elevation: 1,
-                                    backgroundColor: Colors.transparent,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          10.0), // Adjust the radius as needed
-                                    ),
-                                    hitTestBehavior:
-                                        HitTestBehavior.translucent,
-                                    content: Text(
-                                      "You don't have an account yet",
-                                      style: TextStyle(
-                                        fontFamily: 'Cosffira',
-                                        fontSize: 50.sp,
-                                        color: const Color(0xffEFE6E5),
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    action: SnackBarAction(
-                                        label: 'Sign up',
-                                        textColor: const Color(0xff4A5E7C),
-                                        onPressed: () {
-                                          ScaffoldMessenger.of(context)
-                                              .hideCurrentSnackBar();
-                                          registration();
-                                        }),
-                                  ),
-                                );
-                              }
+                            signUpWithGoogle().then((credential) {
                               uploadingUserInformationTofireStore(
                                   context: context);
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        const TheMainHomePage()),
+                                  builder: (context) => const TheMainHomePage(),
+                                ),
                               );
                             }).catchError((onError) {
                               ScaffoldMessenger.of(context).clearSnackBars();
@@ -252,7 +280,7 @@ class _PageViewLoginState extends State<PageViewLogin> {
                                   ),
                                   hitTestBehavior: HitTestBehavior.translucent,
                                   content: Text(
-                                    onError,
+                                    "can't create an account now,please try again later",
                                     style: TextStyle(
                                       fontFamily: 'Cosffira',
                                       fontSize: 50.sp,
@@ -260,13 +288,6 @@ class _PageViewLoginState extends State<PageViewLogin> {
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
-                                  action: SnackBarAction(
-                                      label: 'Try again',
-                                      textColor: const Color(0xff4A5E7C),
-                                      onPressed: () {
-                                        ScaffoldMessenger.of(context)
-                                            .hideCurrentSnackBar();
-                                      }),
                                 ),
                               );
                             });
@@ -286,7 +307,7 @@ class _PageViewLoginState extends State<PageViewLogin> {
                         borderColor: const Color(0xffB5C0D0),
                         width: 740.w,
                         onTap: () {
-                          signInWithFacebook().then((_) {
+                          signUpWithFacebook().then((_) {
                             uploadingUserInformationTofireStore(
                                 context: context);
                             Navigator.pushReplacement(
@@ -307,7 +328,7 @@ class _PageViewLoginState extends State<PageViewLogin> {
                                 ),
                                 hitTestBehavior: HitTestBehavior.translucent,
                                 content: Text(
-                                  onError,
+                                  "The registration failed. Please try again.",
                                   style: TextStyle(
                                     fontFamily: 'Cosffira',
                                     fontSize: 50.sp,
@@ -315,13 +336,6 @@ class _PageViewLoginState extends State<PageViewLogin> {
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
-                                action: SnackBarAction(
-                                    label: 'Try again',
-                                    textColor: const Color(0xff4A5E7C),
-                                    onPressed: () {
-                                      ScaffoldMessenger.of(context)
-                                          .hideCurrentSnackBar();
-                                    }),
                               ),
                             );
                           });
@@ -370,7 +384,37 @@ class _PageViewLoginState extends State<PageViewLogin> {
                         SizedBox(
                           height: 20.h,
                         ),
-
+                        CircleAvatar(
+                          radius: height * 0.09,
+                          backgroundImage:
+                              const AssetImage('assets/image/Group 998.png'),
+                          foregroundImage: _tackedImageFile != null
+                              ? FileImage(_tackedImageFile!)
+                              : null,
+                        ),
+                        TextButton.icon(
+                          icon: Icon(
+                            Icons.account_box_rounded,
+                            size: width * 0.07,
+                            color: const Color(0xffA26874),
+                          ),
+                          onPressed: () {
+                            _pickedImage(context);
+                          },
+                          label: Text(
+                            'Add image',
+                            style: TextStyle(
+                              fontFamily: 'Cosffira',
+                              fontSize: width * 0.05,
+                              color: const Color(0xffA26874),
+                              fontWeight: FontWeight.w800,
+                              height: 0.0,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
                         TextFormField(
                           expands: false,
                           controller: myController,
@@ -382,11 +426,13 @@ class _PageViewLoginState extends State<PageViewLogin> {
                           },
                           obscureText: false,
                           onSaved: (newValue) => 2,
-                          style: const TextStyle(color: Color(0xff090F0F)),
+                          style: const TextStyle(
+                            color: Color(0xff354A6B),
+                          ),
                           keyboardAppearance: Brightness.light,
                           decoration: InputDecoration(
                               contentPadding: const EdgeInsets.symmetric(
-                                vertical: 15,
+                                vertical: 20,
                               ),
                               fillColor: const Color(0xFFFFFFFF),
                               filled: true,
@@ -394,14 +440,14 @@ class _PageViewLoginState extends State<PageViewLogin> {
                               hintStyle: TextStyle(
                                 fontFamily: 'Cosffira',
                                 fontSize: 50.sp,
-                                color: const Color.fromARGB(73, 19, 79, 92),
-                                fontWeight: FontWeight.bold,
+                                color: const Color(0xffB5C0D0),
+                                fontWeight: FontWeight.w600,
                               ),
                               enabledBorder: border,
                               focusedBorder: border,
                               prefixIcon: const Icon(
                                 Icons.person_2_rounded,
-                                color: Color.fromARGB(73, 19, 79, 92),
+                                color: Color(0xffB5C0D0),
                               )),
                         ),
                         SizedBox(
@@ -413,24 +459,26 @@ class _PageViewLoginState extends State<PageViewLogin> {
                           validator: validateEmail,
                           obscureText: false,
                           keyboardType: TextInputType.emailAddress,
-                          style: const TextStyle(color: Color(0xff090F0F)),
+                          style: const TextStyle(
+                            color: Color(0xff354A6B),
+                          ),
                           decoration: InputDecoration(
                             contentPadding:
-                                const EdgeInsets.symmetric(vertical: 15),
+                                const EdgeInsets.symmetric(vertical: 20),
                             fillColor: const Color(0xFFFFFFFF),
                             filled: true,
                             hintText: 'Email',
                             hintStyle: TextStyle(
                               fontFamily: 'Cosffira',
-                              fontSize: 37.sp,
-                              color: const Color.fromARGB(73, 19, 79, 92),
-                              fontWeight: FontWeight.w800,
+                              fontSize: 50.sp,
+                              color: const Color(0xffB5C0D0),
+                              fontWeight: FontWeight.w600,
                             ),
                             enabledBorder: border,
                             focusedBorder: border,
                             prefixIcon: const Icon(
                               Icons.email_outlined,
-                              color: Color.fromARGB(73, 19, 79, 92),
+                              color: Color(0xffB5C0D0),
                             ),
                           ),
                         ),
@@ -440,34 +488,93 @@ class _PageViewLoginState extends State<PageViewLogin> {
                         ),
 
                         TextFormField(
+                          validator: (text) {
+                            if (text == null || text.isEmpty) {
+                              return 'please Enter Password';
+                            }
+                            return null;
+                          },
+                          obscureText: _obscureText,
                           controller: _passward,
-                          validator: PasswordValidator.validate,
-                          obscureText: true,
-                          style: const TextStyle(color: Color(0xff090F0F)),
+                          // obscureText: true,
+                          style: TextStyle(
+                            fontFamily: 'Cosffira',
+                            fontSize: 50.sp,
+                            color: const Color(0xff354A6B),
+                            fontWeight: FontWeight.w600,
+                          ),
                           decoration: InputDecoration(
                             contentPadding:
-                                const EdgeInsets.symmetric(vertical: 16),
+                                const EdgeInsets.symmetric(vertical: 20),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _obscureText
+                                    ? Icons.visibility_off_outlined
+                                    : Icons.visibility_outlined,
+                                color: const Color(0xffB5C0D0),
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _obscureText = !_obscureText;
+                                });
+                              },
+                            ),
                             fillColor: const Color(0xFFFFFFFF),
                             filled: true,
                             hintText: 'Password',
                             hintStyle: TextStyle(
                               fontFamily: 'Cosffira',
-                              fontSize: 37.sp,
-                              color: const Color.fromARGB(73, 19, 79, 92),
-                              fontWeight: FontWeight.w800,
+                              fontSize: 50.sp,
+                              color: const Color(0xffB5C0D0),
+                              fontWeight: FontWeight.w600,
+                            ),
+                            enabledBorder: border,
+                            focusedBorder: border,
+                            // suffixText: "soha",
+                            prefixIcon: const Icon(
+                              Icons.vpn_key,
+                              color: Color(0xffB5C0D0),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        TextFormField(
+                          controller: _phoneNumber,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Enter your phone number';
+                            }
+                            if (!RegExp(r'^01[0-9]{9}$').hasMatch(value)) {
+                              return 'Please enter a valid phone number';
+                            }
+                            return null;
+                          },
+                          style: const TextStyle(
+                            color: Color(0xff354A6B),
+                          ),
+                          decoration: InputDecoration(
+                            contentPadding:
+                                const EdgeInsets.symmetric(vertical: 20),
+                            fillColor: const Color(0xFFFFFFFF),
+                            filled: true,
+                            hintText: 'Phone number',
+                            hintStyle: TextStyle(
+                              fontFamily: 'Cosffira',
+                              fontSize: 50.sp,
+                              color: const Color(0xffB5C0D0),
+                              fontWeight: FontWeight.w600,
                             ),
                             enabledBorder: border,
                             focusedBorder: border,
                             prefixIcon: const Icon(
-                              Icons.vpn_key,
-                              color: Color.fromARGB(73, 19, 79, 92),
+                              Icons.phone,
+                              color: Color(0xffB5C0D0),
                             ),
                           ),
                         ),
 
-                        SizedBox(
-                          height: 0.h,
-                        ),
                         Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 15, horizontal: 10),
@@ -475,9 +582,14 @@ class _PageViewLoginState extends State<PageViewLogin> {
                               height: 130.h,
                               text: 'Sign Up',
                               customFontSize: 50.sp,
-                              onTap: () {
+                              onTap: () async {
                                 if (_fformKey.currentState!.validate()) {
-                                  registration();
+                                  final api = FirebaseApiForUserImage();
+                                  String? imageUrl =
+                                      await api.uploadingImageOnFirebase(
+                                          _tackedImageFile, context);
+
+                                  registration(context, imageUrl);
                                 }
                               },
                               textColor: kMainColorPage,
