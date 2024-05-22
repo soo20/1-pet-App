@@ -1,5 +1,6 @@
 // ignore_for_file: unused_import, prefer_const_constructors
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -10,6 +11,7 @@ import 'package:petapplication/core/utils/size_config.dart';
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 import 'package:petapplication/pages/define_page/widgets/choose_defintion_type.dart';
+import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
 import 'package:petapplication/pages/sign_login_acount/logintext.dart';
 //import 'package:petapplication/core/utils/widgets/constants.dart';
 //import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
@@ -35,31 +37,38 @@ class _WelcomeBodyState extends State<WelcomeBody> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xffEFE6E5),
-      
-      body: Column(
-        children: [
-          Expanded(
-            child: WelcomPageView(
-              pageController: pageController,
-            ),
-          ),
-          Row(
+      body: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: ((context, snapshot) {
+          if (snapshot.hasData) {
+            return TheMainHomePage();
+          }
+
+          return Column(
             children: [
-              Padding(
-                padding: EdgeInsets.only(left: 100.w, bottom: 135.h),
-                child: Dot(
-                  dotIndex:
-                      pageController!.hasClients ? pageController?.page : 0,
+              Expanded(
+                child: WelcomPageView(
+                  pageController: pageController,
                 ),
               ),
+              Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 100.w, bottom: 135.h),
+                    child: Dot(
+                      dotIndex:
+                          pageController!.hasClients ? pageController?.page : 0,
+                    ),
+                  ),
+                ],
+              ),
             ],
-          ),
-        ],
+          );
+        }),
       ),
     );
   }
