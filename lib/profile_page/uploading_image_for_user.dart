@@ -1,11 +1,9 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class FirebaseApiForUserImage {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -37,16 +35,8 @@ class FirebaseApiForUserImage {
       await storageRef.putFile(uploadedImage);
       final imageUrl = await storageRef.getDownloadURL();
 
-      await _firestore.collection('users').doc(user!.uid).update(
-        {
-          'profile_image': imageUrl,
-        },
-      );
-
       return imageUrl;
     } on FirebaseException catch (e) {
-      print(user!.uid);
-      // Failed to update your profile photo, please tryagain later....
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

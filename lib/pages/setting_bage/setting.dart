@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_print
 
+import 'dart:ui';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +12,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:petapplication/pages/setting_bage/alart_page.dart';
 
 import 'package:petapplication/pages/setting_bage/help_tips.dart';
+import 'package:petapplication/pages/sign_login_acount/loginbody.dart';
 import 'package:petapplication/profile_page/edit_acount.dart';
 
 class Setting extends StatelessWidget {
@@ -130,22 +133,6 @@ class Setting extends StatelessWidget {
       );
     }
 
-    void logOut() async {
-      showDialog(
-        context: ccontext,
-        builder: (context) => Alart1(
-            title: 'Are You Sure You Want To Log Out',
-            confirmButtonText: 'Yes',
-            confirmButtonText2: 'Cancle',
-            confirmButtonOnTap: () async {
-              FirebaseAuth.instance.signOut();
-            },
-            customFontSize: 50.sp,
-            padding: EdgeInsets.only(top: size.height * 0.05),
-            padding2: EdgeInsets.only(top: size.height * 0.02)),
-      );
-    }
-
     List<VoidCallback> onTapFunctions = [
       editProfile, // Edit Profile
       helpT,
@@ -157,8 +144,6 @@ class Setting extends StatelessWidget {
       () {
         print("Tapped on Send Feedback");
       },
-
-      logOut,
     ];
     return SizedBox(
       height: size.height,
@@ -191,20 +176,167 @@ class Setting extends StatelessWidget {
                   ),
                   trailing: const Icon(Icons.arrow_forward_ios),
                   onTap: index == 5
-                      ? () async {
-                          try {
-                            // Sign out from Firebase
-                            await FirebaseAuth.instance.signOut();
+                      ? () {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) => BackdropFilter(
+                                    filter: ImageFilter.blur(
+                                      sigmaX: size.width * 0.01,
+                                      sigmaY: size.width * 0.01,
+                                    ),
+                                    child: AlertDialog(
+                                      elevation: 0.0,
+                                      backgroundColor: const Color(0xffDCD3D3),
+                                      content: Text.rich(
+                                        textAlign: TextAlign.center,
+                                        TextSpan(
+                                          style: TextStyle(
+                                            height: 0.0,
+                                            fontFamily: 'Cosffira',
+                                            fontSize: size.width * 0.047,
+                                            fontWeight: FontWeight.w800,
+                                            color: const Color(0xff4A5E7C),
+                                            letterSpacing: 0.5,
+                                          ),
+                                          children: const [
+                                            TextSpan(
+                                              text: "are you sure you want to ",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: 'Log out?',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w800,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      actions: [
+                                        Center(
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            // Align buttons at the ends
+                                            children: [
+                                              ElevatedButton(
+                                                onPressed: () async {
+                                                  try {
+                                                    // Sign out from Firebase
+                                                    await FirebaseAuth.instance
+                                                        .signOut();
 
-                            // Sign out from Google
-                            await GoogleSignIn.standard().signOut();
-
-                            // Disconnect Google to clear the previous session
-                            await GoogleSignIn.standard().disconnect();
-                          } catch (error) {
-                            print('Error during sign-out: $error');
-                          }
-                        } // Close the dialog
+                                                    // Sign out from Google
+                                                    await GoogleSignIn
+                                                            .standard()
+                                                        .signOut();
+                                                    Get.to(
+                                                        () => const LoginBody(),
+                                                        transition:
+                                                            Transition.zoom);
+                                                  } catch (error) {
+                                                    print(
+                                                        'Error during sign-out: $error');
+                                                  }
+                                                  //
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor:
+                                                      const Color(0xffA26874),
+                                                  padding: EdgeInsets.symmetric(
+                                                    horizontal:
+                                                        size.width * 0.028,
+                                                    vertical:
+                                                        size.height * 0.025,
+                                                  ), // Adjust the padding as needed
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                      size.width * 0.092,
+                                                    ), // Set the border radius of the button
+                                                  ),
+                                                ),
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(
+                                                    left: size.width * 0.23,
+                                                    right: size.width * 0.23,
+                                                  ),
+                                                  child: Text(
+                                                    'yes',
+                                                    style: TextStyle(
+                                                      height: 0.0,
+                                                      fontFamily: 'Cosffira',
+                                                      fontSize:
+                                                          size.width * 0.045,
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              255,
+                                                              255,
+                                                              255),
+                                                      letterSpacing: 0.5,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: size.height * 0.015,
+                                              ),
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor:
+                                                      const Color(0xffB5C0D0),
+                                                  padding: EdgeInsets.symmetric(
+                                                    horizontal:
+                                                        size.width * 0.028,
+                                                    vertical:
+                                                        size.height * 0.025,
+                                                  ), // Adjust the padding as needed
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                      size.width * 0.092,
+                                                    ), // Set the border radius of the button
+                                                  ),
+                                                ),
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(
+                                                    left: size.width * 0.2,
+                                                    right: size.width * 0.2,
+                                                  ),
+                                                  child: Text(
+                                                    'Cancel',
+                                                    style: TextStyle(
+                                                      height: 0.0,
+                                                      fontFamily: 'Cosffira',
+                                                      fontSize:
+                                                          size.width * 0.045,
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              255,
+                                                              255,
+                                                              255),
+                                                      letterSpacing: 0.5,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ));
+                        }
                       : onTapFunctions[index],
                 ),
               ),

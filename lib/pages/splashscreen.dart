@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:petapplication/Welcome/presention/widgets/welcombody.dart';
+import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -73,7 +76,9 @@ class _SplashScreenState extends State<SplashScreen>
                 ),
               ),
             ),
-          const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             Text(
               // we put the text string.
               'I\'m Yuna. Ready to explore the world of pets together?',
@@ -97,11 +102,15 @@ class _SplashScreenState extends State<SplashScreen>
     );
   }
 
- void goToNextView() {
-  Future.delayed(const Duration(seconds: 3), () {
-    // Navigate to WelcomeBody and remove SplashScreen from the stack
-    Get.off(() => const WelcomeBody(), transition: Transition.fade);
-  });
-}
-
+  void goToNextView() {
+    Future.delayed(const Duration(seconds: 3), () {
+      // Navigate to WelcomeBody and remove SplashScreen from the stack
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user == null) {
+        Get.off(() => const WelcomeBody(), transition: Transition.fade);
+      } else {
+        Get.off(() => const TheMainHomePage(), transition: Transition.fade);
+      }
+    });
+  }
 }

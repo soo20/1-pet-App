@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -62,23 +62,28 @@ class _EditAcountState extends State<EditAcount> {
     }
   }
 
-  Future<void> _loadProfileImage() async {
-    final api = FirebaseApiForUserImage();
-    final imageUrl = await api.getProfileImage(context);
-    setState(() {
-      _pickedImageFile = imageUrl != null ? File(imageUrl) : null;
-    });
+  Future<void> _initializeUserData() async {
+    try {
+      final doc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userInfo!.uid)
+          .get();
+      if (userInfo != null) {
+        nameController.text =
+            userInfo!.displayName ?? doc.data()?['user_name'] ?? '';
+        emailController.text = userInfo!.email ?? '';
+        phoneNumberController.text =
+            userInfo!.phoneNumber ?? doc.data()?['phone_number'] ?? '';
+      }
+    } on FirebaseException {
+      print("error in there......................");
+    }
   }
 
   @override
   void initState() {
     super.initState();
-    if (userInfo != null) {
-      nameController.text = userInfo!.displayName ?? '';
-      emailController.text = userInfo!.email ?? '';
-      phoneNumberController.text = userInfo!.phoneNumber ?? '';
-      _loadProfileImage();
-    }
+    _initializeUserData();
   }
 
   @override
@@ -94,6 +99,7 @@ class _EditAcountState extends State<EditAcount> {
     var size = MediaQuery.of(context).size;
     double height = size.height;
     double width = size.width;
+    final imageApi = FirebaseApiForUserImage();
     var border = OutlineInputBorder(
         borderRadius: BorderRadius.circular(40.r),
         borderSide: const BorderSide(
@@ -138,13 +144,46 @@ class _EditAcountState extends State<EditAcount> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                CircleAvatar(
-                  radius: height * 0.11,
-                  backgroundImage:
-                      const AssetImage('assets/image/Group 998.png'),
-                  foregroundImage: _pickedImageFile != null
-                      ? FileImage(_pickedImageFile!)
-                      : null,
+                StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('users')
+                      .doc(userInfo!.uid)
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const CircularProgressIndicator();
+                    } else if (snapshot.hasError) {
+                      ScaffoldMessenger.of(context).clearSnackBars();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: const Text(
+                              'Failed to load your profile photo, please try again later.'),
+                          action: SnackBarAction(
+                              label: 'Close',
+                              onPressed: () {
+                                ScaffoldMessenger.of(context)
+                                    .hideCurrentSnackBar();
+                              }),
+                        ),
+                      );
+                      return CircleAvatar(
+                        radius: height * 0.11,
+                        backgroundImage:
+                            const AssetImage('assets/image/Group 998.png'),
+                      );
+                    } else {
+                      return CircleAvatar(
+                        radius: height * 0.11,
+                        foregroundImage: _pickedImageFile != null
+                            ? FileImage(_pickedImageFile!) as ImageProvider
+                            : snapshot.data?['profile_image'] != null
+                                ? NetworkImage(snapshot.data!['profile_image'])
+                                : null,
+                        backgroundImage:
+                            const AssetImage('assets/image/Group 998.png'),
+                      );
+                    }
+                  },
                 ),
                 TextButton.icon(
                   icon: Icon(
@@ -216,6 +255,7 @@ class _EditAcountState extends State<EditAcount> {
                     controller: emailController,
                     validator: validateEmail,
                     keyboardType: TextInputType.emailAddress,
+                    keyboardAppearance: Brightness.dark,
                     obscureText: false,
                     style: TextStyle(
                       color: const Color.fromARGB(255, 37, 40, 50),
@@ -231,7 +271,7 @@ class _EditAcountState extends State<EditAcount> {
                       hintText: 'Email',
                       hintStyle: TextStyle(
                         fontFamily: 'Cosffira',
-                        fontSize: 51.sp,
+                        fontSize: 60.sp,
                         color: const Color.fromARGB(120, 53, 74, 107),
                         fontWeight: FontWeight.w800,
                       ),
@@ -289,19 +329,30 @@ class _EditAcountState extends State<EditAcount> {
                 ElevatedButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
+                      setState(() {
+                        editPageLoading = true;
+                      });
                       try {
-                        final imageApi = FirebaseApiForUserImage();
                         String? imageUrl;
                         if (_pickedImageFile != null) {
                           imageUrl = await imageApi.uploadingImageOnFirebase(
                               _pickedImageFile, context);
                         }
+                        final doc = await FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(userInfo!.uid)
+                            .get();
                         updateUserInformation(
                           imageUrl: imageUrl,
                           cxt: context,
-                          phoneNumber: phoneNumberController.text,
-                          name: nameController.text,
-                          email: emailController.text,
+                          phoneNumber: phoneNumberController.text ==
+                                  doc.data()?['phone_number']
+                              ? doc.data()!['phone_number']
+                              : phoneNumberController.text,
+                          name: nameController.text == doc.data()?['user_name']
+                              ? doc.data()!['user_name']
+                              : nameController.text,
+                          email: userInfo!.email as String,
                         );
                         Navigator.push(
                           context,
@@ -310,14 +361,15 @@ class _EditAcountState extends State<EditAcount> {
                           ),
                         );
                       } on FirebaseException catch (error) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(error.message ?? 'An error occurred'),
+                          ),
+                        );
+                      } finally {
                         setState(() {
                           editPageLoading = false;
                         });
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(error as String),
-                          ),
-                        );
                       }
                     }
                   },

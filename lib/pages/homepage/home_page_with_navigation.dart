@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 
@@ -46,7 +47,9 @@ class _TheMainHomePage extends State<TheMainHomePage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
+    User? userInfo = FirebaseAuth.instance.currentUser;
+    final double height = size.height;
+    // final double width = size.width;
     return PopScope(
       canPop: false,
       child: SafeArea(
@@ -168,7 +171,7 @@ class _TheMainHomePage extends State<TheMainHomePage> {
                   // Actions on the app bar
                   actions: <Widget>[
                     // Container containing user image and button
-                    isLogin
+                    userInfo?.email != null
                         ? IconButton(
                             padding: EdgeInsets.only(
                               top: size.width * 0.02,
@@ -179,15 +182,35 @@ class _TheMainHomePage extends State<TheMainHomePage> {
                                 transition: Transition.zoom,
                               );
                             },
-                            icon: ClipOval(
-                              child: Image.asset(
-                                //we will put the user profile image here....
-                                'assets/image/home_page_afterAdding_pets_assets/girl.jpeg',
-                                height: size.height * 0.7947,
-                                width: size.width * 0.1,
-                              ),
-                            ),
-                          )
+                            icon: StreamBuilder(
+                              stream: FirebaseFirestore.instance
+                                  .collection('users')
+                                  .doc(userInfo!.uid)
+                                  .snapshots(),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return const CircularProgressIndicator();
+                                } else if (snapshot.hasError) {
+                                  return CircleAvatar(
+                                    radius: height * 0.023,
+                                    backgroundImage: const AssetImage(
+                                        'assets/image/Group 998.png'),
+                                  );
+                                } else {
+                                  return CircleAvatar(
+                                    radius: height * 0.023,
+                                    foregroundImage:
+                                        snapshot.data?['profile_image'] != null
+                                            ? NetworkImage(
+                                                snapshot.data!['profile_image'])
+                                            : null,
+                                    backgroundImage: const AssetImage(
+                                        'assets/image/Group 998.png'),
+                                  );
+                                }
+                              },
+                            ))
                         : IconButton(
                             padding: EdgeInsets.only(
                               top: size.width * 0.02,
