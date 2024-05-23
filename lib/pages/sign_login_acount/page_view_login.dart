@@ -2,7 +2,6 @@
 
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
@@ -17,10 +16,10 @@ import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
 import 'package:petapplication/pages/sign_login_acount/auth_app.dart';
 import 'package:petapplication/pages/sign_login_acount/login_info_email_pass.dart';
-import 'package:petapplication/profile_page/updating_user_information.dart';
+import 'package:petapplication/pages/sign_login_acount/loginbody.dart';
+
 import 'package:petapplication/profile_page/uploading_image_for_user.dart';
 import 'package:petapplication/profile_page/uploading_user_information_to_firestore.dart';
-import 'package:pinput/pinput.dart';
 
 class PageViewLogin extends StatefulWidget {
   final VoidCallback? toggleContainerVisibility;
@@ -174,6 +173,7 @@ class _PageViewLoginState extends State<PageViewLogin> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         SizedBox(
           height: height * 0.018,
@@ -194,8 +194,10 @@ class _PageViewLoginState extends State<PageViewLogin> {
                 size: 35,
               ),
               onPressed: () {
-                widget
-                    .toggleContainerVisibility!(); // Call the callback function
+                widget.toggleContainerVisibility!();
+                setState(() {
+                  ratio = false;
+                }); // Call the callback function
               },
               // Add your search action here
             ),
@@ -241,6 +243,7 @@ class _PageViewLoginState extends State<PageViewLogin> {
                 padding: const EdgeInsets.only(top: 20),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     SizedBox(
                       height: 20.h,
@@ -261,7 +264,9 @@ class _PageViewLoginState extends State<PageViewLogin> {
                           onTap: () {
                             signUpWithGoogle().then((credential) {
                               uploadingUserInformationTofireStore(
-                                  context: context);
+                                context: context,
+                                uploadedImage: credential!.user!.photoURL,
+                              );
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
@@ -307,9 +312,11 @@ class _PageViewLoginState extends State<PageViewLogin> {
                         borderColor: const Color(0xffB5C0D0),
                         width: 740.w,
                         onTap: () {
-                          signUpWithFacebook().then((_) {
+                          signUpWithFacebook().then((credential) {
                             uploadingUserInformationTofireStore(
-                                context: context);
+                              context: context,
+                              uploadedImage: credential!.user!.photoURL,
+                            );
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
@@ -353,6 +360,10 @@ class _PageViewLoginState extends State<PageViewLogin> {
                               _pageController.nextPage(
                                   duration: const Duration(milliseconds: 300),
                                   curve: Curves.fastOutSlowIn);
+
+                              setState(() {
+                                ratio = true;
+                              });
                             }
                           },
                           textColor: kMainColorPage,

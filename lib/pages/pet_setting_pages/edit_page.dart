@@ -11,7 +11,7 @@ import 'package:image_picker/image_picker.dart';
 
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
-import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
+
 import 'package:petapplication/some_files_to_data/adding_pet_to_firestore.dart';
 
 class EditPets extends StatefulWidget {
@@ -23,9 +23,8 @@ class EditPets extends StatefulWidget {
 }
 
 class _EditPetsState extends State<EditPets> {
-  //String? imagePath2;
   final _formKey = GlobalKey<FormState>();
-  // TextEditingController imageUrlController = TextEditingController();
+
   TextEditingController petNameController = TextEditingController();
   TextEditingController petGenderController = TextEditingController();
   TextEditingController petIdController = TextEditingController();

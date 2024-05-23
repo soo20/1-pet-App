@@ -124,7 +124,7 @@ Future<UserCredential> signInWithFacebook() async {
   // Once signed in, return the UserCredential
 }
 
-Future<void> signUpWithFacebook() async {
+Future<UserCredential?> signUpWithFacebook() async {
   try {
     // Trigger the Facebook sign-in flow
     final LoginResult loginResult = await FacebookAuth.instance.login();
@@ -142,21 +142,11 @@ Future<void> signUpWithFacebook() async {
       final UserCredential userCredential = await FirebaseAuth.instance
           .signInWithCredential(facebookAuthCredential);
 
-      // Access the user's profile data
-      final user = userCredential.user;
-      final String? email = user?.email;
-      final String? photoUrl = user?.photoURL;
-      final String? name = user?.displayName;
-
-      // Handle the user's profile data as needed
-      // For example, print it to the console
-
-      print('Name: $name, Email: $email, Photo URL: $photoUrl');
+      return userCredential;
     } else {
-      // Handle Facebook login failure
-      print('Facebook login failed');
+      return null;
     }
   } catch (e) {
-    print('Error signing in with Facebook: $e');
+    return null;
   }
 }

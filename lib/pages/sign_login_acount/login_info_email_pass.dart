@@ -11,7 +11,6 @@ import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 
 import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
 import 'package:petapplication/pages/pageforgetpass/my_verify_pass.dart';
-import 'package:petapplication/profile_page/uploading_user_information_to_firestore.dart';
 
 //import 'package:flutter_svg/svg.dart';
 

@@ -49,7 +49,7 @@ class _TheMainHomePage extends State<TheMainHomePage> {
     Size size = MediaQuery.of(context).size;
     User? userInfo = FirebaseAuth.instance.currentUser;
     final double height = size.height;
-    final double width = size.width;
+    // final double width = size.width;
     return PopScope(
       canPop: false,
       child: SafeArea(
@@ -192,20 +192,6 @@ class _TheMainHomePage extends State<TheMainHomePage> {
                                     ConnectionState.waiting) {
                                   return const CircularProgressIndicator();
                                 } else if (snapshot.hasError) {
-                                  ScaffoldMessenger.of(context)
-                                      .clearSnackBars();
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: const Text(
-                                          'Failed to load your profile photo, please try again later.'),
-                                      action: SnackBarAction(
-                                          label: 'Close',
-                                          onPressed: () {
-                                            ScaffoldMessenger.of(context)
-                                                .hideCurrentSnackBar();
-                                          }),
-                                    ),
-                                  );
                                   return CircleAvatar(
                                     radius: height * 0.023,
                                     backgroundImage: const AssetImage(

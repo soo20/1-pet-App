@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:petapplication/pages/my_pets_pages/pet_profile_page.dart';
-import 'package:petapplication/pages/events_system/events_for_pet.dart';
+
 import 'package:petapplication/some_files_to_data/adding_pet_to_firestore.dart';
 
 List<PetsInformation> catsInformationList = [
