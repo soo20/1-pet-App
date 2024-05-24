@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -6,191 +8,9 @@ import 'package:petapplication/pages/my_pets_pages/pet_profile_page.dart';
 
 import 'package:petapplication/some_files_to_data/adding_pet_to_firestore.dart';
 
-List<PetsInformation> catsInformationList = [
-  PetsInformation(
-    imageUrl: 'assets/image/my_pets_page_images/cat1.jpeg',
-    petName: 'Luna',
-    petGender: 'female',
-    petId: '1',
-    petType: 'Domestic Shorthair',
-    age: '2 years',
-    petIsDogOrCat: 'Cat',
-  ),
-  PetsInformation(
-    imageUrl: 'assets/image/my_pets_page_images/cat2.jpeg',
-    petName: 'Oliver',
-    petGender: 'male',
-    petId: '2',
-    petType: 'Maine Coon',
-    age: '2 years',
-    petIsDogOrCat: 'Cat',
-  ),
-  PetsInformation(
-    imageUrl: 'assets/image/my_pets_page_images/cat3.jpeg',
-    petName: 'Bella',
-    petGender: 'male',
-    petId: '3',
-    petType: "Siamese",
-    age: '2 years',
-    petIsDogOrCat: 'Cat',
-  ),
-  PetsInformation(
-    imageUrl: 'assets/image/my_pets_page_images/cat4.jpeg',
-    petName: 'Simba',
-    petGender: 'female',
-    petId: '4',
-    petType: 'Persian',
-    age: '2 years',
-    petIsDogOrCat: 'Cat',
-  ),
-  PetsInformation(
-    imageUrl: 'assets/image/my_pets_page_images/cat5.jpeg',
-    petName: 'Lucy',
-    petGender: 'male',
-    petId: '5',
-    petType: 'Ragdoll',
-    age: '2 years',
-    petIsDogOrCat: 'Cat',
-  ),
-  PetsInformation(
-    imageUrl: 'assets/image/my_pets_page_images/cat6.jpeg',
-    petName: 'Chloe',
-    petGender: 'female',
-    petId: '6',
-    petType: 'British Shorthair',
-    age: '2 years',
-    petIsDogOrCat: 'Cat',
-  ),
-  PetsInformation(
-    imageUrl: 'assets/image/my_pets_page_images/cat7.jpg',
-    petName: 'Milo',
-    petGender: 'male',
-    petId: '7',
-    petType: 'Sphynx',
-    age: '2 years',
-    petIsDogOrCat: 'Cat',
-  ),
-  PetsInformation(
-    imageUrl: 'assets/image/my_pets_page_images/cat8.jpeg',
-    petName: 'Daisy',
-    petGender: 'female',
-    petId: '8',
-    petType: 'Bengal',
-    age: '2 years',
-    petIsDogOrCat: 'Cat',
-  ),
-  PetsInformation(
-    imageUrl: 'assets/image/my_pets_page_images/cat9.jpg',
-    petName: 'lulli',
-    petGender: 'male',
-    petId: '9',
-    petType: 'Abyssinian',
-    age: '2 years',
-    petIsDogOrCat: 'Cat',
-  ),
-  PetsInformation(
-    imageUrl: 'assets/image/my_pets_page_images/wite cat.jpg',
-    petName: 'julli',
-    petGender: 'female',
-    petId: '10',
-    petType: 'Scottish Fold',
-    age: '2 years',
-    petIsDogOrCat: 'Cat',
-  ),
-];
+List<PetsInformation> catsInformationList = [];
 
-List<PetsInformation> dogsInformationList = [
-  PetsInformation(
-    imageUrl: 'assets/image/my_pets_page_images/golden-retriever.jpeg',
-    petName: 'Max',
-    petGender: 'female',
-    petId: '11',
-    petType: 'Golden Retriever',
-    age: '2 years',
-    petIsDogOrCat: 'Dog',
-  ),
-  PetsInformation(
-    imageUrl: 'assets/image/my_pets_page_images/dog1.jpeg',
-    petName: 'Buby',
-    petGender: 'female',
-    petId: '12',
-    petType: 'German Shepherd',
-    age: '2 years',
-    petIsDogOrCat: 'Dog',
-  ),
-  PetsInformation(
-    imageUrl: 'assets/image/my_pets_page_images/dog2.jpeg',
-    petName: 'Charlie',
-    petGender: 'male',
-    petId: '13',
-    petType: 'Labrador Retriever',
-    age: '2 years',
-    petIsDogOrCat: 'Dog',
-  ),
-  PetsInformation(
-    imageUrl: 'assets/image/my_pets_page_images/dog3.jpeg',
-    petName: 'Jack',
-    petGender: 'male',
-    petId: '14',
-    petType: 'Bulldog',
-    age: '2 years',
-    petIsDogOrCat: 'Dog',
-  ),
-  PetsInformation(
-    imageUrl: 'assets/image/my_pets_page_images/dog4.jpeg',
-    petName: 'Cooper',
-    petGender: 'female',
-    petId: '15',
-    petType: 'Beagle',
-    age: '2 years',
-    petIsDogOrCat: 'Dog',
-  ),
-  PetsInformation(
-    imageUrl: 'assets/image/my_pets_page_images/dog5.jpeg',
-    petName: 'Rocky',
-    petGender: 'male',
-    petId: '16',
-    petType: 'Poodle',
-    age: '2 years',
-    petIsDogOrCat: 'Dog',
-  ),
-  PetsInformation(
-    imageUrl: 'assets/image/my_pets_page_images/dog6.jpeg',
-    petName: 'Bear',
-    petGender: 'female',
-    petId: '17',
-    petType: 'Boxer',
-    age: '2 years',
-    petIsDogOrCat: 'Dog',
-  ),
-  PetsInformation(
-    imageUrl: 'assets/image/my_pets_page_images/dog7.jpeg',
-    petName: 'Tucker',
-    petGender: 'male',
-    petId: '18',
-    petType: 'Siberian Husky',
-    age: '2 years',
-    petIsDogOrCat: 'Dog',
-  ),
-  PetsInformation(
-    imageUrl: 'assets/image/my_pets_page_images/dog8.jpeg',
-    petName: 'Oliver',
-    petGender: 'female',
-    petId: '19',
-    petType: 'Dachshund',
-    age: '2 years',
-    petIsDogOrCat: 'Dog',
-  ),
-  PetsInformation(
-    imageUrl: 'assets/image/my_pets_page_images/dog9.jpeg',
-    petName: 'Duke',
-    petGender: 'female',
-    petId: '20',
-    petType: 'Shih Tzu',
-    age: '2 years',
-    petIsDogOrCat: 'Dog',
-  ),
-];
+List<PetsInformation> dogsInformationList = [];
 
 class MyPetsPage extends StatefulWidget {
   const MyPetsPage({super.key});
@@ -209,8 +29,9 @@ String pressedOnCatsButton = 'before_pressing';
 Size size = Size.zero;
 var cnt1 = 0;
 var cnt2 = 0;
-List<PetsInformation> petsList = List.from(dogsInformationList)
-  ..addAll(catsInformationList);
+/*List<PetsInformation> petsList = List.from(dogsInformationList)
+  ..addAll(catsInformationList);*/
+List<PetsInformation> petsList = [];
 
 // State class for the home page
 class _MyPetsPage extends State<MyPetsPage> {
@@ -235,6 +56,37 @@ class _MyPetsPage extends State<MyPetsPage> {
     });
   }
 
+  Future<void> fetchPets() async {
+    List<PetsInformation> fetchedPets = await fetchUserPets();
+    setState(() {
+      petsList = fetchedPets;
+    });
+  }
+
+  Future<void> fetchPetsByType(String type) async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user == null) {
+        throw Exception('No user is signed in');
+      }
+
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('pets')
+          .where('userId', isEqualTo: user.uid) // Filter by userId
+          .where('petIsDogOrCat', isEqualTo: type)
+          .get();
+
+      List<PetsInformation> fetchedPets = snapshot.docs
+          .map((doc) => PetsInformation.fromFirestore(doc))
+          .toList();
+
+      setState(() {
+        petsList = fetchedPets;
+      });
+    } catch (e) {
+      print('Error fetching pets: $e');
+    }
+  }
   // Index variable for the bottom navigation bar
 
   // Build the UI for the home page
@@ -277,9 +129,7 @@ class _MyPetsPage extends State<MyPetsPage> {
                         pressedOnAllButton = 'after_pressing';
                         pressedOnDogsButton = 'before_pressing';
                         pressedOnCatsButton = 'before_pressing';
-                        petsList = List.from(dogsInformationList)
-                          ..addAll(catsInformationList);
-
+                        fetchPets();
                         catsOnly = false;
                         dogsOnly = false;
                         allTypes = true;
@@ -299,7 +149,7 @@ class _MyPetsPage extends State<MyPetsPage> {
                         pressedOnAllButton = 'before_pressing';
                         pressedOnDogsButton = 'after_pressing';
                         pressedOnCatsButton = 'before_pressing';
-                        petsList = dogsInformationList;
+                        fetchPetsByType('Dog');
                         catsOnly = false;
                         dogsOnly = true;
                         allTypes = false;
@@ -321,7 +171,7 @@ class _MyPetsPage extends State<MyPetsPage> {
                         pressedOnAllButton = 'before_pressing';
                         pressedOnDogsButton = 'before_pressing';
                         pressedOnCatsButton = 'after_pressing';
-                        petsList = catsInformationList;
+                        fetchPetsByType('Cat');
                         catsOnly = true;
                         dogsOnly = false;
                         allTypes = false;
@@ -336,39 +186,38 @@ class _MyPetsPage extends State<MyPetsPage> {
           //to build the card of pets
           Flexible(
             child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              dragStartBehavior: DragStartBehavior.start,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Column(
-                    children: [
-                      for (int index = 0;
-                          index < petsOnTheLeft(petsList).length;
-                          index++)
-                        BuildPetCard(
-                          petsInfo: petsOnTheLeft(petsList)[index],
-                          cardHeight: index % 2 == 0 ? 0.26841 : 0.3694,
-                          imageHeight: index % 2 == 0 ? 0.14966 : 0.20000,
-                        ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      for (int index = 0;
-                          index < petsOnTheRight(petsList).length;
-                          index++)
-                        BuildPetCard(
-                          petsInfo: petsOnTheRight(petsList)[index],
-                          cardHeight: index % 2 == 0 ? 0.3694 : 0.26841,
-                          imageHeight: index % 2 == 0 ? 0.2 : 0.14966,
-                        ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+                scrollDirection: Axis.vertical,
+                dragStartBehavior: DragStartBehavior.start,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Column(
+                      children: [
+                        for (int index = 0;
+                            index < petsOnTheLeft(petsList).length;
+                            index++)
+                          BuildPetCard(
+                            petsInfo: petsOnTheLeft(petsList)[index],
+                            cardHeight: index % 2 == 0 ? 0.26841 : 0.3694,
+                            imageHeight: index % 2 == 0 ? 0.14966 : 0.20000,
+                          ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        for (int index = 0;
+                            index < petsOnTheRight(petsList).length;
+                            index++)
+                          BuildPetCard(
+                            petsInfo: petsOnTheRight(petsList)[index],
+                            cardHeight: index % 2 == 0 ? 0.3694 : 0.26841,
+                            imageHeight: index % 2 == 0 ? 0.2 : 0.14966,
+                          ),
+                      ],
+                    ),
+                  ],
+                )),
           ),
         ],
       ),
@@ -389,6 +238,9 @@ class BuildPetCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Check if the image URL is a local asset path
+
+    //String? profileImageUrl = userData['profileImageUrl'];
     return Container(
       height: size.height <= 707.4285714285714
           ? size.height * cardHeight
@@ -416,12 +268,19 @@ class BuildPetCard extends StatelessWidget {
               iconSize: size.width * 0.037,
               icon: ClipRRect(
                 borderRadius: BorderRadius.circular(size.width * 0.025),
-                child: Image.asset(
-                  petsInfo.imageUrl,
-                  width: size.width * 0.99472,
-                  height: size.height * imageHeight,
-                  fit: BoxFit.fill,
-                ),
+                child: petsInfo.imageUrl.startsWith('profile_image')
+                    ? Image.network(
+                        petsInfo.imageUrl,
+                        width: double.infinity,
+                        height: imageHeight,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.asset(
+                        petsInfo.imageUrl,
+                        width: double.infinity,
+                        height: imageHeight,
+                        fit: BoxFit.cover,
+                      ),
               ),
               onPressed: () {
                 Get.to(
@@ -458,18 +317,12 @@ class BuildPetCard extends StatelessWidget {
   }
 }
 
-List petsOnTheRight(List<dynamic> p) {
-  List returnedList = [];
-  for (int i = 0; i < (p.length ~/ 2).toInt(); i++) {
-    returnedList.add(p[i]);
-  }
-  return returnedList;
+List<PetsInformation> petsOnTheLeft(List<PetsInformation> pets) {
+  return List<PetsInformation>.from(
+      pets.where((pet) => pets.indexOf(pet) % 2 == 0));
 }
 
-List petsOnTheLeft(List<dynamic> p) {
-  List returnedList = [];
-  for (int i = (p.length ~/ 2).toInt(); i < p.length; i++) {
-    returnedList.add(p[i]);
-  }
-  return returnedList;
+List<PetsInformation> petsOnTheRight(List<PetsInformation> pets) {
+  return List<PetsInformation>.from(
+      pets.where((pet) => pets.indexOf(pet) % 2 != 0));
 }

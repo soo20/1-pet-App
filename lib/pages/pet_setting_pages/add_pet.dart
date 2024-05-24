@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -41,29 +42,49 @@ class _AddPetsState extends State<AddPets> {
 
   String?
       _Selected; // Make _Selected nullable againRemove the nullable operator
-  //var _currentItemSelected =
-  // Function to open the gallery and select an image
+
   XFile? _selectedImage;
+  String? _uploadedImageUrl;
   Future<void> _selectImageFromGallery() async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      _selectedImage = pickedImage;
-    });
+    if (pickedImage != null) {
+      setState(() {
+        _selectedImage = pickedImage;
+      });
+      await _uploadImageToFirebase(pickedImage);
+    }
+  }
+
+  Future<String> _uploadImageToFirebase(XFile image) async {
+    try {
+      String fileName =
+          '${DateTime.now().millisecondsSinceEpoch}_${image.name}';
+      Reference storageRef =
+          FirebaseStorage.instance.ref().child('pet_images/$fileName');
+      await storageRef.putFile(File(image.path));
+      String downloadURL = await storageRef.getDownloadURL();
+      print('Image uploaded: $downloadURL');
+      return downloadURL; // Return the download URL
+    } catch (e) {
+      print('Error uploading image: $e');
+      return ''; // Return an empty string if there's an error
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     DecorationImage? decorationImage;
-    if (_selectedImage != null && File(_selectedImage!.path).existsSync()) {
+    if (_selectedImage != null) {
       decorationImage = DecorationImage(
         image: FileImage(File(_selectedImage!.path)),
-        fit: BoxFit.fill,
+        fit: BoxFit.cover,
       );
     } else {
       decorationImage = const DecorationImage(
-        image: AssetImage('assets/image/profileImage.png'),
-        fit: BoxFit.fill,
+        image: AssetImage(
+            'assets/image/profileImage.png'), // Use AssetImage for local asset
+        fit: BoxFit.cover,
       );
     }
 
@@ -266,16 +287,6 @@ class _AddPetsState extends State<AddPets> {
                       ),
                       // 4
 
-                      /* DropdownButton(
-                      value: _Selected,
-                         items: _gender.map((e) => DropdownMenuItem(child: Text(e), value: e)).toList(),
-                           onChanged: (val) {
-                    // Handle the onChanged event here
-                             setState(() {
-                              _Selected = val.toString(); // Update the selected value
-                             });
-                                 },
-                            ),*/
                       Padding(
                         padding:
                             const EdgeInsets.only(left: 40, right: 40, top: 10),
@@ -454,38 +465,46 @@ class _AddPetsState extends State<AddPets> {
                         width: 385.w,
                         borderColor: const Color(0xffA26874),
                         text: 'Finish',
-                        onTap: () {
+                        onTap: () async {
                           if (_formKey.currentState!.validate()) {
-                            // Ensure that the _selectedImage is not null before proceeding
-
-                            // Create a new PetsInformation object with the entered information
-                            PetsInformation newPet = PetsInformation(
-                                imageUrl: _selectedImage?.path ??
-                                    'assets/image/profileImage.png', // Convert XFile to String path
+                            String imageUrl =
+                                await _uploadImageToFirebase(_selectedImage!);
+                            if (imageUrl.isNotEmpty) {
+                              // Image uploaded successfully
+                              // Create a new PetsInformation object with the entered information and image URL
+                              PetsInformation newPet = PetsInformation(
+                                imageUrl: imageUrl,
                                 petName: petNameController.text,
                                 petGender: _Selected!,
-                                petId: petIdController.text,
+                                petId:
+                                    '', // Initialize petId as an empty string
                                 petType: petTypeController.text,
                                 age: ageController.text,
                                 petIsDogOrCat: selectedPetType!,
                                 petWeight:
-                                    double.tryParse(weightController.text));
-                            addPetInFireStore(pet: newPet);
+                                    double.tryParse(weightController.text),
+                              );
 
-                            // Add the new pet to the appropriate list based on petType
-                            if (selectedPetType == 'Cat') {
-                              catsInformationList.add(newPet);
-                            } else {
-                              dogsInformationList.add(newPet);
-                            }
+                              // Add the new pet to Firestore
+                              await addPetInFireStore(pet: newPet);
 
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) => const TheMainHomePage(
-                                  index1: 2,
+                              // Add the new pet to the appropriate list based on petType
+                              if (selectedPetType == 'Cat') {
+                                catsInformationList.add(newPet);
+                              } else {
+                                dogsInformationList.add(newPet);
+                              }
+
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const TheMainHomePage(index1: 2),
                                 ),
-                              ),
-                            );
+                              );
+                            } else {
+                              // Show error message if image upload fails
+                              // You can implement this part based on your UI/UX requirements
+                            }
                           }
                         },
                         fontWeight: FontWeight.w500,
@@ -540,6 +559,7 @@ class _AddPetsState extends State<AddPets> {
                       customFontSize: 20,
                       // bord: 0.r,
                       fontWeight: FontWeight.normal,
+
                       text: 'Camera',
                     ),
                     const SizedBox(
@@ -555,7 +575,9 @@ class _AddPetsState extends State<AddPets> {
                       customFontSize: 20,
                       fontWeight: FontWeight.normal,
                       text: 'Gallery',
-                      onTap: _selectImageFromGallery,
+                      onTap: () async {
+                        await _selectImageFromGallery();
+                      },
                     )
                   ],
                 )),
