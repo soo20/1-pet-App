@@ -44,7 +44,7 @@ class _AddPetsState extends State<AddPets> {
       _Selected; // Make _Selected nullable againRemove the nullable operator
 
   XFile? _selectedImage;
-  String? _uploadedImageUrl;
+
   Future<void> _selectImageFromGallery() async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);

@@ -53,7 +53,7 @@ class _PageViewLoginState extends State<PageViewLogin> {
   }
 
   late PageController _pageController;
-  TextEditingController _name = TextEditingController();
+  final TextEditingController _name = TextEditingController();
 
   final TextEditingController _email = TextEditingController();
   final TextEditingController _passward = TextEditingController();
@@ -72,12 +72,14 @@ class _PageViewLoginState extends State<PageViewLogin> {
   }
 
   bool _obscureText = true;
-  registration(BuildContext context, String? image) async {
+  registration({required BuildContext context, File? tImage}) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
               email: _email.text, password: _passward.text);
+      final api = FirebaseApiForUserImage();
 
+      final image = await api.uploadingImageOnFirebase(tImage, context);
       uploadingUserInformationTofireStoreWithManualUploading(
           displayName: _name.text,
           phoneNumber: _phoneNumber.text,
@@ -427,6 +429,7 @@ class _PageViewLoginState extends State<PageViewLogin> {
                           height: 10.h,
                         ),
                         TextFormField(
+                          textCapitalization: TextCapitalization.words,
                           expands: false,
                           controller: _name,
                           validator: (text) {
@@ -595,12 +598,14 @@ class _PageViewLoginState extends State<PageViewLogin> {
                               customFontSize: 50.sp,
                               onTap: () async {
                                 if (_fformKey.currentState!.validate()) {
-                                  final api = FirebaseApiForUserImage();
-                                  String? imageUrl =
-                                      await api.uploadingImageOnFirebase(
-                                          _tackedImageFile, context);
-
-                                  registration(context, imageUrl);
+                                  try {
+                                    registration(
+                                      context: context,
+                                      tImage: _tackedImageFile,
+                                    );
+                                  } catch (error) {
+                                    print(error);
+                                  }
                                 }
                               },
                               textColor: kMainColorPage,

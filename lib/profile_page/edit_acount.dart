@@ -335,7 +335,7 @@ class _EditAcountState extends State<EditAcount> {
                       try {
                         String? imageUrl;
                         if (_pickedImageFile != null) {
-                          imageUrl = await imageApi.uploadingImageOnFirebase(
+                          await imageApi.uploadingImageOnFirebase(
                               _pickedImageFile, context);
                         }
                         final doc = await FirebaseFirestore.instance

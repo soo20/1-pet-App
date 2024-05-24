@@ -179,6 +179,7 @@ flutter:
     - assets/image/home_page_afterAdding_pets_assets/walking_with_cat.png
     - assets/image/home_page_afterAdding_pets_assets/walking_with_dog.png
     - assets/image/home_page_afterAdding_pets_assets/custom_events.png
+    - assets/image/my_pets_page_images/emptyPetList.png
 
 
     - assets/icons/Group312.svg

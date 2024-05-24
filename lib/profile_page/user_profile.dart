@@ -167,7 +167,7 @@ class _UserAcountState extends State<UserAcount> {
                         keyboardAppearance: Brightness.dark,
                         obscureText: false,
                         style: TextStyle(
-                          color: const Color.fromARGB(255, 37, 40, 50),
+                          color: const Color(0xff4A5E7C),
                           fontFamily: 'Cosffira',
                           fontSize: 60.sp,
                           fontWeight: FontWeight.w400,
@@ -181,7 +181,7 @@ class _UserAcountState extends State<UserAcount> {
                           hintStyle: TextStyle(
                             fontFamily: 'Cosffira',
                             fontSize: 48.sp,
-                            color: const Color.fromARGB(116, 19, 79, 92),
+                            color: const Color.fromARGB(108, 74, 94, 124),
                             fontWeight: FontWeight.w800,
                           ),
                           enabledBorder: border,
@@ -210,7 +210,7 @@ class _UserAcountState extends State<UserAcount> {
                           keyboardType: TextInputType.emailAddress,
                           obscureText: false,
                           style: TextStyle(
-                            color: const Color.fromARGB(255, 37, 40, 50),
+                            color: const Color(0xff4A5E7C),
                             fontFamily: 'Cosffira',
                             fontSize: 60.sp,
                             fontWeight: FontWeight.w400,
@@ -224,7 +224,7 @@ class _UserAcountState extends State<UserAcount> {
                             hintStyle: TextStyle(
                               fontFamily: 'Cosffira',
                               fontSize: 48.sp,
-                              color: const Color.fromARGB(116, 19, 79, 92),
+                              color: const Color.fromARGB(108, 74, 94, 124),
                               fontWeight: FontWeight.w800,
                             ),
                             enabledBorder: border,
@@ -248,7 +248,7 @@ class _UserAcountState extends State<UserAcount> {
                         keyboardType: TextInputType.number,
                         obscureText: false,
                         style: TextStyle(
-                          color: const Color.fromARGB(255, 37, 40, 50),
+                          color: const Color(0xff4A5E7C),
                           fontFamily: 'Cosffira',
                           fontSize: 60.sp,
                           fontWeight: FontWeight.w400,
@@ -262,7 +262,7 @@ class _UserAcountState extends State<UserAcount> {
                           hintStyle: TextStyle(
                             fontFamily: 'Cosffira',
                             fontSize: 48.sp,
-                            color: const Color.fromARGB(116, 19, 79, 92),
+                            color: const Color.fromARGB(108, 74, 94, 124),
                             fontWeight: FontWeight.w800,
                           ),
                           enabledBorder: border,
