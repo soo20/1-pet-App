@@ -53,8 +53,8 @@ class _PageViewLoginState extends State<PageViewLogin> {
   }
 
   late PageController _pageController;
-  TextEditingController myController = TextEditingController();
-  final TextEditingController name = TextEditingController();
+  TextEditingController _name = TextEditingController();
+
   final TextEditingController _email = TextEditingController();
   final TextEditingController _passward = TextEditingController();
   final TextEditingController _phoneNumber = TextEditingController();
@@ -67,7 +67,7 @@ class _PageViewLoginState extends State<PageViewLogin> {
 
   @override
   void dispose() {
-    myController.dispose();
+    _name.dispose();
     super.dispose();
   }
 
@@ -79,7 +79,7 @@ class _PageViewLoginState extends State<PageViewLogin> {
               email: _email.text, password: _passward.text);
 
       uploadingUserInformationTofireStoreWithManualUploading(
-          displayName: name.text,
+          displayName: _name.text,
           phoneNumber: _phoneNumber.text,
           context: context,
           uploadedImage: image);
@@ -428,7 +428,7 @@ class _PageViewLoginState extends State<PageViewLogin> {
                         ),
                         TextFormField(
                           expands: false,
-                          controller: myController,
+                          controller: _name,
                           validator: (text) {
                             if (text == null || text.isEmpty) {
                               return 'please Enter your name';
