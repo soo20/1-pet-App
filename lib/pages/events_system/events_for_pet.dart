@@ -38,6 +38,7 @@ class ReminderData {
     required this.night,
     required this.weekDay,
     required this.year,
+    required this.petId,
     required this.reminderId,
   });
   late String day;
@@ -48,6 +49,7 @@ class ReminderData {
   late String night;
   late String weekDay;
   late String year;
+  late String petId;
   late String reminderId;
 }
 

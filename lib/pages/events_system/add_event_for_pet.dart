@@ -2,14 +2,16 @@
 
 import 'dart:ui';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:intl/intl.dart';
-import 'package:petapplication/pages/events_system/add_reminder_to_firestore.dart';
+
 import 'package:petapplication/pages/events_system/events_for_pet.dart';
 // import 'package:petapplication/pages/events_system/events_for_pet.dart';
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 import 'package:petapplication/some_files_to_data/adding_pet_to_firestore.dart';
+import 'package:petapplication/some_files_to_data/reminders_api.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 // import 'package:petapplication/pages/sign_login_acount/loginbody.dart';
@@ -40,6 +42,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
     'Walking',
     'Custom',
   ];
+  bool loadedreminder = false;
   @override
   void initState() {
     super.initState();
@@ -59,8 +62,10 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
 
     void onFinishButtonPressed() async {
       // Create the ReminderData object
-      var reminderData = await createReminderData(
-          selectedDate, reminderTime, currentItemSelected, widget.petInfo);
+      final reminderApi = ReminderDataApi();
+      ReminderData? reminderData = reminderApi.createReminderData(
+              selectedDate, reminderTime, currentItemSelected, widget.petInfo)
+          as ReminderData?;
       setState(() {
         isSending = true;
       });
@@ -148,6 +153,18 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
             // Add the ReminderData object to the list
             widget.petInfo.remindersData.add(reminderData);
             // Close the dialog
+            try {
+              ReminderDataApi().addReminderInFireStore(
+                  selectedDate: selectedDate,
+                  reminderType: currentItemSelected,
+                  reminderTime: reminderTime,
+                  petId: widget.petInfo.petId);
+              loadedreminder = true;
+            } on FirebaseException {
+              loadedreminder = false;
+              widget.petInfo.remindersData.remove(reminderData);
+            }
+
             Navigator.of(context).pop();
           }
         });
@@ -701,17 +718,19 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                   left: size.width * 0.06,
                   right: size.width * 0.06,
                 ),
-                child: Text(
-                  'Finish',
-                  style: TextStyle(
-                    height: 0.0,
-                    fontFamily: 'Cosffira',
-                    fontSize: size.width * 0.045,
-                    fontWeight: FontWeight.w800,
-                    color: const Color.fromARGB(255, 255, 255, 255),
-                    letterSpacing: 0.5,
-                  ),
-                ),
+                child: loadedreminder
+                    ? const CircularProgressIndicator()
+                    : Text(
+                        'Finish',
+                        style: TextStyle(
+                          height: 0.0,
+                          fontFamily: 'Cosffira',
+                          fontSize: size.width * 0.045,
+                          fontWeight: FontWeight.w800,
+                          color: const Color.fromARGB(255, 255, 255, 255),
+                          letterSpacing: 0.5,
+                        ),
+                      ),
               ),
             ),
           ],
