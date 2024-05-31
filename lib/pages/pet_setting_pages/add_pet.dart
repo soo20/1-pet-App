@@ -467,44 +467,42 @@ class _AddPetsState extends State<AddPets> {
                         text: 'Finish',
                         onTap: () async {
                           if (_formKey.currentState!.validate()) {
-                            String imageUrl =
-                                await _uploadImageToFirebase(_selectedImage!);
-                            if (imageUrl.isNotEmpty) {
-                              // Image uploaded successfully
-                              // Create a new PetsInformation object with the entered information and image URL
-                              PetsInformation newPet = PetsInformation(
-                                imageUrl: imageUrl,
-                                petName: petNameController.text,
-                                petGender: _Selected!,
-                                petId:
-                                    '', // Initialize petId as an empty string
-                                petType: petTypeController.text,
-                                age: ageController.text,
-                                petIsDogOrCat: selectedPetType!,
-                                petWeight:
-                                    double.tryParse(weightController.text),
-                              );
-
-                              // Add the new pet to Firestore
-                              await addPetInFireStore(pet: newPet);
-
-                              // Add the new pet to the appropriate list based on petType
-                              if (selectedPetType == 'Cat') {
-                                catsInformationList.add(newPet);
-                              } else {
-                                dogsInformationList.add(newPet);
-                              }
-
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const TheMainHomePage(index1: 2),
-                                ),
-                              );
-                            } else {
-                              // Show error message if image upload fails
-                              // You can implement this part based on your UI/UX requirements
+                            String downloadURL = _uploadedImageUrl ??
+                                'assets/image/profileImage.png';
+                            if (_selectedImage != null) {
+                              downloadURL =
+                                  await _uploadImageToFirebase(_selectedImage!);
                             }
+                            PetsInformation newPet = PetsInformation(
+                              imageUrl: downloadURL,
+                              petName: petNameController.text,
+                              petGender: _Selected!,
+                              petId: '', // Initialize petId as an empty string
+                              petType: petTypeController.text,
+                              age: ageController.text,
+                              petIsDogOrCat: selectedPetType!,
+                              petWeight: double.tryParse(weightController.text),
+                            );
+
+                            // Add the new pet to Firestore
+                            await addPetInFireStore(pet: newPet);
+
+                            // Add the new pet to the appropriate list based on petType
+                            if (selectedPetType == 'Cat') {
+                              catsInformationList.add(newPet);
+                            } else {
+                              dogsInformationList.add(newPet);
+                            }
+
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const TheMainHomePage(index1: 2),
+                              ),
+                            );
+                          } else {
+                            // Show error message if image upload fails
+                            // You can implement this part based on your UI/UX requirements
                           }
                         },
                         fontWeight: FontWeight.w500,

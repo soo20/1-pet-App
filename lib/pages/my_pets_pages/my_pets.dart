@@ -238,6 +238,9 @@ class BuildPetCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+    final double height = size.height;
+    // final double width = size.width;
     // Check if the image URL is a local asset path
 
     //String? profileImageUrl = userData['profileImageUrl'];
@@ -263,24 +266,53 @@ class BuildPetCard extends StatelessWidget {
         ),
         child: Column(
           children: [
-            // Adjust the radius value as needed
             IconButton(
-              iconSize: size.width * 0.037,
-              icon: ClipRRect(
-                borderRadius: BorderRadius.circular(size.width * 0.025),
-                child: petsInfo.imageUrl.startsWith('profile_image')
-                    ? Image.network(
-                        petsInfo.imageUrl,
-                        width: double.infinity,
-                        height: imageHeight,
-                        fit: BoxFit.cover,
-                      )
-                    : Image.asset(
-                        petsInfo.imageUrl,
-                        width: double.infinity,
-                        height: imageHeight,
-                        fit: BoxFit.cover,
+              iconSize: MediaQuery.of(context).size.width * 0.037,
+              icon: StreamBuilder<DocumentSnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('pets')
+                    .doc(petsInfo.petId)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    ScaffoldMessenger.of(context).clearSnackBars();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: const Text(
+                            'Failed to load your profile photo, please try again later.'),
+                        action: SnackBarAction(
+                            label: 'Close',
+                            onPressed: () {
+                              ScaffoldMessenger.of(context)
+                                  .hideCurrentSnackBar();
+                            }),
                       ),
+                    );
+                    return CircleAvatar(
+                      radius: height * 0.07,
+                      backgroundImage:
+                          const AssetImage('assets/image/profileImage.png'),
+                    );
+                  } else if (snapshot.hasData && snapshot.data != null) {
+                    var petData = snapshot.data;
+                    return CircleAvatar(
+                      radius: height * 0.08,
+                      foregroundImage: petData?['imageUrl'] != null
+                          ? NetworkImage(petData!['imageUrl'])
+                          : null,
+                      backgroundImage:
+                          const AssetImage('assets/image/profileImage.png'),
+                    );
+                  } else {
+                    return CircleAvatar(
+                      radius: height * 0.07,
+                      backgroundImage:
+                          const AssetImage('assets/image/profileImage.png'),
+                    );
+                  }
+                },
               ),
               onPressed: () {
                 Get.to(
