@@ -54,6 +54,7 @@ class _MyPetsPage extends State<MyPetsPage> {
         closeTopevents = controller.offset > 50;
       });
     });
+    fetchPets();
   }
 
   Future<void> fetchPets() async {
@@ -276,21 +277,13 @@ class BuildPetCard extends StatelessWidget {
             IconButton(
               iconSize: size.width * 0.037,
               icon: ClipRRect(
-                borderRadius: BorderRadius.circular(size.width * 0.025),
-                child: petsInfo.imageUrl.startsWith('profile_image')
-                    ? Image.network(
-                        petsInfo.imageUrl,
-                        width: double.infinity,
-                        height: imageHeight,
-                        fit: BoxFit.cover,
-                      )
-                    : Image.asset(
-                        petsInfo.imageUrl,
-                        width: double.infinity,
-                        height: imageHeight,
-                        fit: BoxFit.cover,
-                      ),
-              ),
+                  borderRadius: BorderRadius.circular(size.width * 0.25),
+                  child: Image.network(
+                    petsInfo.imageUrl,
+                    width: double.infinity,
+                    height: imageHeight,
+                    fit: BoxFit.cover,
+                  )),
               onPressed: () {
                 Get.to(
                   PetProfilePage(petInformation: petsInfo),

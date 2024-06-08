@@ -1,21 +1,14 @@
 // ignore_for_file: library_private_types_in_public_api
-
 import 'dart:ui';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 import 'package:intl/intl.dart';
 
 import 'package:petapplication/pages/events_system/events_for_pet.dart';
-// import 'package:petapplication/pages/events_system/events_for_pet.dart';
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 import 'package:petapplication/some_files_to_data/adding_pet_to_firestore.dart';
 import 'package:petapplication/some_files_to_data/reminders_api.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
-// import 'package:petapplication/pages/sign_login_acount/loginbody.dart';
-// import 'package:petapplication/pages/events_system/events_for_pet.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class AddTaskDialog extends StatefulWidget {
   const AddTaskDialog({super.key, required this.petInfo});
@@ -63,9 +56,8 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
     void onFinishButtonPressed() async {
       // Create the ReminderData object
       final reminderApi = ReminderDataApi();
-      ReminderData? reminderData = reminderApi.createReminderData(
-              selectedDate, reminderTime, currentItemSelected, widget.petInfo)
-          as ReminderData?;
+      ReminderData? reminderData = await reminderApi.createReminderData(
+          selectedDate, reminderTime, currentItemSelected, widget.petInfo);
       setState(() {
         isSending = true;
       });
@@ -151,7 +143,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
             );
           } else {
             // Add the ReminderData object to the list
-            widget.petInfo.remindersData.add(reminderData);
+
             // Close the dialog
             try {
               ReminderDataApi().addReminderInFireStore(
@@ -159,8 +151,9 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                   reminderType: currentItemSelected,
                   reminderTime: reminderTime,
                   petId: widget.petInfo.petId);
+              widget.petInfo.remindersData.add(reminderData);
               loadedreminder = true;
-            } on FirebaseException {
+            } on Exception {
               loadedreminder = false;
               widget.petInfo.remindersData.remove(reminderData);
             }

@@ -524,7 +524,8 @@ class _AddPetsState extends State<AddPets> {
           ? GestureDetector(
               onTap: () {
                 setState(() {
-                  showSecondContainer = F; // hide container when tapped
+                  showSecondContainer = false;
+                  // hide container when tapped
                 });
               },
               child: Container(

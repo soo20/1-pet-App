@@ -335,7 +335,7 @@ class _EditAcountState extends State<EditAcount> {
                       try {
                         String? imageUrl;
                         if (_pickedImageFile != null) {
-                          await imageApi.uploadingImageOnFirebase(
+                          imageUrl = await imageApi.uploadingImageOnFirebase(
                               _pickedImageFile, context);
                         }
                         final doc = await FirebaseFirestore.instance
@@ -344,6 +344,7 @@ class _EditAcountState extends State<EditAcount> {
                             .get();
                         updateUserInformation(
                           imageUrl: imageUrl,
+                          // ignore: use_build_context_synchronously
                           cxt: context,
                           phoneNumber: phoneNumberController.text ==
                                   doc.data()?['phone_number']
