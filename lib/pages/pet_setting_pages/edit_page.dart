@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -33,9 +34,11 @@ class _EditPetsState extends State<EditPets> {
   TextEditingController weightController = TextEditingController();
   String? selectedPetType; // Variable to store the selected pet type
   bool showSecondContainer = false;
-  late final PetsInformation petInformation;
+
   final _gender = ["Male", "Female"];
   File? _pickedImageFile;
+  bool _isLocalImageSelected = false;
+
   //final _petTypeGender = ['Cat', 'Dog'];
 
   String?
@@ -55,6 +58,7 @@ class _EditPetsState extends State<EditPets> {
     if (pickedImage != null) {
       setState(() {
         _pickedImageFile = File(pickedImage.path);
+        _isLocalImageSelected = true;
       });
     }
   }
@@ -70,6 +74,7 @@ class _EditPetsState extends State<EditPets> {
     if (pickedImage != null) {
       setState(() {
         _pickedImageFile = File(pickedImage.path);
+        _isLocalImageSelected = true;
       });
     }
   }
@@ -98,19 +103,6 @@ class _EditPetsState extends State<EditPets> {
 
   @override
   Widget build(BuildContext context) {
-    DecorationImage? decorationImage;
-    if (_pickedImageFile != null && File(_pickedImageFile!.path).existsSync()) {
-      decorationImage = DecorationImage(
-        image: FileImage(File(_pickedImageFile!.path)),
-        fit: BoxFit.fill,
-      );
-    } else {
-      decorationImage = const DecorationImage(
-        image: AssetImage('assets/image/profileImage.png'),
-        fit: BoxFit.fill,
-      );
-    }
-
     return Scaffold(
       backgroundColor: const Color(0xffEEEFEF),
       extendBodyBehindAppBar: true,
@@ -130,43 +122,158 @@ class _EditPetsState extends State<EditPets> {
                               !showSecondContainer; // Toggle the visibility of the second container
                         });
                       },
-                      child: Container(
-                        height: 280.h,
-                        width: 270.w,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          // If _imagePath is not null, display the selected image, else display a placeholder
-                          image: decorationImage,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 70, left: 70),
-                          child: Container(
-                            height: 50.h,
-                            width: 50.w,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                width: 0.5,
-                                color: Colors.white,
+                      child: _isLocalImageSelected
+                          ? Container(
+                              height: 280.h,
+                              width: 270.w,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  image: FileImage(_pickedImageFile!),
+                                  fit: BoxFit.fill,
+                                ),
                               ),
-                              boxShadow: [
-                                BoxShadow(
-                                  spreadRadius: 2,
-                                  blurRadius: 10,
-                                  color: Colors.black.withOpacity(0.13),
-                                  offset: const Offset(0, 10),
-                                )
-                              ],
-                              color: const Color(0xff80CBC4),
+                            )
+                          : StreamBuilder<DocumentSnapshot>(
+                              stream: FirebaseFirestore.instance
+                                  .collection('pets')
+                                  .doc(widget.petInformation.petId)
+                                  .snapshots(),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return const CircularProgressIndicator();
+                                } else if (snapshot.hasError) {
+                                  ScaffoldMessenger.of(context)
+                                      .clearSnackBars();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: const Text(
+                                          'Failed to load your profile photo, please try again later.'),
+                                      action: SnackBarAction(
+                                        label: 'Close',
+                                        onPressed: () {
+                                          ScaffoldMessenger.of(context)
+                                              .hideCurrentSnackBar();
+                                        },
+                                      ),
+                                    ),
+                                  );
+                                  return Container(
+                                    height: 280.h,
+                                    width: 270.w,
+                                    decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                            'assets/image/profileImage.png'),
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  );
+                                } else if (snapshot.hasData &&
+                                    snapshot.data != null) {
+                                  var userData = snapshot.data!.data()
+                                      as Map<String, dynamic>?;
+                                  var profileImageUrl = userData?['imageUrl'];
+                                  DecorationImage decorationImage;
+                                  if (profileImageUrl != null) {
+                                    decorationImage = DecorationImage(
+                                      image: NetworkImage(profileImageUrl),
+                                      fit: BoxFit.fill,
+                                    );
+                                  } else {
+                                    decorationImage = const DecorationImage(
+                                      image: AssetImage(
+                                          'assets/image/profileImage.png'),
+                                      fit: BoxFit.fill,
+                                    );
+                                  }
+
+                                  return Container(
+                                    height: 280.h,
+                                    width: 270.w,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: decorationImage,
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 70, left: 70),
+                                      child: Container(
+                                        height: 50.h,
+                                        width: 50.w,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                            width: 0.5,
+                                            color: Colors.white,
+                                          ),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              spreadRadius: 2,
+                                              blurRadius: 10,
+                                              color: Colors.black
+                                                  .withOpacity(0.13),
+                                              offset: const Offset(0, 10),
+                                            )
+                                          ],
+                                          color: const Color(0xff80CBC4),
+                                        ),
+                                        child: const Icon(
+                                          Icons.edit,
+                                          size: 20,
+                                          color: Color.fromARGB(190, 0, 0, 0),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  return Container(
+                                    height: 280.h,
+                                    width: 270.w,
+                                    decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                            'assets/image/profileImage.png'),
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 70, left: 70),
+                                      child: Container(
+                                        height: 50.h,
+                                        width: 50.w,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                            width: 0.5,
+                                            color: Colors.white,
+                                          ),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              spreadRadius: 2,
+                                              blurRadius: 10,
+                                              color: Colors.black
+                                                  .withOpacity(0.13),
+                                              offset: const Offset(0, 10),
+                                            )
+                                          ],
+                                          color: const Color(0xff80CBC4),
+                                        ),
+                                        child: const Icon(
+                                          Icons.edit,
+                                          size: 20,
+                                          color: Color.fromARGB(190, 0, 0, 0),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }
+                              },
                             ),
-                            child: const Icon(
-                              Icons.edit,
-                              size: 20,
-                              color: Color.fromARGB(190, 0, 0, 0),
-                            ),
-                          ),
-                        ),
-                      ),
                     ),
 
                     SizedBox(
