@@ -298,86 +298,10 @@ class _EditPetsState extends State<EditPets> {
                     ),
                     // 4
 
-                    /* DropdownButton(
-                      value: _Selected,
-                         items: _gender.map((e) => DropdownMenuItem(child: Text(e), value: e)).toList(),
-                           onChanged: (val) {
-                    // Handle the onChanged event here
-                             setState(() {
-                              _Selected = val.toString(); // Update the selected value
-                             });
-                                 },
-                            ),*/
-                    /*Padding(
-                      padding:
-                          const EdgeInsets.only(left: 40, right: 40, top: 10),
-                      child: DropdownButtonFormField(
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return '';
-                          }
-                          return null;
-                        },
-                        dropdownColor: const Color(0xffB8D8D4),
-                        iconEnabledColor: const Color(0xffB8D8D4),
-                        style: TextStyle(
-                          fontFamily: 'Cosffira',
-                          fontSize: 45.sp,
-                          color: const Color(0xffF5F5F5),
-                          fontWeight: FontWeight.w400,
-                        ),
-                        decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.only(left: 10),
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          hintText: 'pet type',
-                          hintStyle: TextStyle(
-                            fontFamily: 'Cosffira',
-                            fontSize: 45.sp,
-                            color: const Color.fromARGB(126, 0, 0, 0),
-                            fontWeight: FontWeight.w400,
-                          ),
-                          enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xffD1D2D2),
-                              width: .8, // Set the width of the border here
-                            ),
-                          ),
-                        ),
-                        value: selectedPetType,
-                        items: _petTypeGender
-                            .map((e) =>
-                                DropdownMenuItem(value: e, child: Text(e)))
-                            .toList(),
-                        onChanged: (val) {
-                          // Handle the onChanged event here
-                          setState(() {
-                            selectedPetType =
-                                val.toString(); // Update the selected value
-                          });
-                        },
-                        selectedItemBuilder: (BuildContext context) {
-                          return _petTypeGender.map<Widget>((String item) {
-                            return Text(
-                              item,
-                              style: const TextStyle(
-                                  color: Color.fromARGB(255, 162, 192, 189)),
-                            );
-                          }).toList();
-                        },
-                      ),
-                    ),*/
-
-                    //
                     Padding(
                       padding:
                           const EdgeInsets.only(left: 40, right: 40, top: 10),
                       child: DropdownButtonFormField(
-                        /* onChanged: (newValue) {
-                setState(() {
-                  _Selected = newValue!;
-                  widget.petInformation.petGender = newValue;
-                });
-              },*/
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return '';
@@ -500,22 +424,23 @@ class _EditPetsState extends State<EditPets> {
                       width: 385.w,
                       borderColor: const Color.fromARGB(108, 112, 112, 112),
                       text: 'Save',
-                      onTap: () {
+                      onTap: () async {
                         // Save changes and pop the page with updated information
                         if (_formKey.currentState!.validate()) {
-                          Navigator.pop(
-                              context,
-                              PetsInformation(
-                                petName: petNameController.text,
-                                petType: petTypeController.text,
-                                petGender: _Selected!,
-                                age: ageController.text,
-                                imageUrl: widget.petInformation.imageUrl,
-                                petId: petIdController.text,
-                                petWeight:
-                                    double.tryParse(weightController.text),
-                                // petIsDogOrCat: selectedPetType!,
-                              ));
+                          widget.petInformation.petName =
+                              petNameController.text;
+                          widget.petInformation.petType =
+                              petTypeController.text;
+                          widget.petInformation.petGender = _Selected!;
+                          widget.petInformation.age = ageController.text;
+                          widget.petInformation.petWeight =
+                              double.tryParse(weightController.text);
+                          // petIsDogOrCat: selectedPetType!,
+
+                          // Call the function to update pet information in Firestore
+                          await updatePetInFirestore(
+                              pet: widget.petInformation);
+                          Navigator.pop(context, widget.petInformation);
                         }
                       },
                       fontWeight: FontWeight.w500,

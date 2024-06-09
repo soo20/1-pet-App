@@ -1,7 +1,8 @@
-// ignore_for_file: unused_element, must_be_immutable
+// ignore_for_file: unused_element, must_be_immutable, unused_field, curly_braces_in_flow_control_structures
 
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -35,7 +36,9 @@ class _PetProfilePage extends State<PetProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final Size size = MediaQuery.of(context).size;
+    final double height = size.height;
+    // Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -85,36 +88,62 @@ class _PetProfilePage extends State<PetProfilePage> {
             children: [
               SizedBox(
                 height: size.height > 707.4285714285714
-                    ? size.height * 0.09
-                    : size.height * 0.08,
+                    ? size.height * 0.04
+                    : size.height * 0.047,
               ),
               ClipOval(
-                child: _selectedImage != null // Check if imagePath is available
-                    ? Image.file(
-                        File(_selectedImage!
-                            .path), // If imagePath is available, use the selected file
-                        width: size.width <= 411.42857142857144
-                            ? size.width * 0.79472
-                            : size.width * 0.66472,
-                        height: size.height > 707.4285714285714
-                            ? size.height * 0.35472
-                            : size.height * 0.36472,
-                        fit: BoxFit.fill,
-                      )
-                    : Image.asset(
-                        widget.petInformation
-                            .imageUrl, // If imagePath is not available, use the imageUrl from petInformation
-                        width: size.width <= 411.42857142857144
-                            ? size.width * 0.79472
-                            : size.width * 0.66472,
-                        height: size.height > 707.4285714285714
-                            ? size.height * 0.35472
-                            : size.height * 0.36472,
-                        fit: BoxFit.fill,
-                      ),
+                child: StreamBuilder<DocumentSnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('pets')
+                      .doc(widget.petInformation.petId)
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const CircularProgressIndicator();
+                    } else if (snapshot.hasError) {
+                      ScaffoldMessenger.of(context).clearSnackBars();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: const Text(
+                              'Failed to load your profile photo, please try again later.'),
+                          action: SnackBarAction(
+                              label: 'Close',
+                              onPressed: () {
+                                ScaffoldMessenger.of(context)
+                                    .hideCurrentSnackBar();
+                              }),
+                        ),
+                      );
+
+                      return Container(
+                        width: size.width * 0.7,
+                        height: size.height * 0.37,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/image/profileImage.png'),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      );
+                    } else {
+                      return Padding(
+                        padding:
+                            const EdgeInsets.only(top: 0, right: 0, left: 0.6),
+                        child: CircleAvatar(
+                          radius: height * 0.228,
+                          foregroundImage: snapshot.data?['imageUrl'] != null
+                              ? NetworkImage(snapshot.data!['imageUrl'])
+                              : null,
+                          backgroundImage:
+                              const AssetImage('assets/image/profileImage.png'),
+                        ),
+                      );
+                    }
+                  },
+                ),
               ),
               SizedBox(
-                height: size.height * 0.03,
+                height: size.height * 0.02,
               ),
               Text(
                 widget.petInformation.petName,
@@ -128,7 +157,7 @@ class _PetProfilePage extends State<PetProfilePage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(bottom: size.height * 0.03),
+                padding: EdgeInsets.only(bottom: size.height * 0.01),
                 child: Text(
                   '${widget.petInformation.petType} | ${widget.petInformation.petGender} | ${widget.petInformation.age}',
                   style: TextStyle(

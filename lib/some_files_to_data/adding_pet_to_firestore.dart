@@ -123,3 +123,29 @@ Future<List<PetsInformation>> fetchUserPets() async {
     return [];
   }
 }
+
+Future<void> updatePetInFirestore({
+  required PetsInformation pet,
+}) async {
+  try {
+    // Reference to the Firestore collection
+    CollectionReference petsCollection =
+        FirebaseFirestore.instance.collection('pets');
+
+    // Update the pet document with the provided ID
+    await petsCollection.doc(pet.petId).update({
+      'petName': pet.petName,
+      'petGender': pet.petGender,
+      'petType': pet.petType,
+      'age': pet.age,
+      'petIsDogOrCat': pet.petIsDogOrCat,
+      'petWeight': pet.petWeight,
+      'imageUrl': pet.imageUrl,
+      // Any other fields you want to update
+    });
+
+    print('Pet updated with ID: ${pet.petId}');
+  } catch (e) {
+    print('Error updating pet in Firestore: $e');
+  }
+}
