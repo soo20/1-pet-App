@@ -877,21 +877,23 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                                                         ReminderDataApi();
                                                     await api
                                                         .deleteReminder(
-                                                            reminderId: reminder
-                                                                .reminderId,
-                                                            petId:
-                                                                reminder.petId)
-                                                        .then((_) {
-                                                      setState(() {
-                                                        widget.petInformation
-                                                            .remindersData
-                                                            .removeWhere((item) =>
-                                                                item.reminderId ==
-                                                                reminder
-                                                                    .reminderId);
-                                                        deleting = false;
-                                                      });
-                                                    });
+                                                          reminderId: reminder
+                                                              .reminderId,
+                                                          petId: reminder.petId,
+                                                        )
+                                                        .then(
+                                                          (value) =>
+                                                              setState(() {
+                                                            widget
+                                                                .petInformation
+                                                                .remindersData
+                                                                .removeAt(
+                                                                    index);
+                                                            print(
+                                                                '${widget.petInformation.remindersData.length}  ');
+                                                            deleting = false;
+                                                          }),
+                                                        );
                                                   } catch (e) {
                                                     setState(() {
                                                       deleting = false;
