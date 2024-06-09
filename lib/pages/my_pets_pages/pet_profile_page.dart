@@ -1,7 +1,5 @@
 // ignore_for_file: unused_element, must_be_immutable, unused_field, curly_braces_in_flow_control_structures
 
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

@@ -35,21 +35,43 @@ class _EditPetsState extends State<EditPets> {
   bool showSecondContainer = false;
   late final PetsInformation petInformation;
   final _gender = ["Male", "Female"];
+  File? _pickedImageFile;
   //final _petTypeGender = ['Cat', 'Dog'];
 
   String?
       _Selected; // Make _Selected nullable againRemove the nullable operator
   //var _currentItemSelected =
   // Function to open the gallery and select an image
-  XFile? _selectedImage;
+  //XFile? _selectedImage;
 
   // Add a function to open the device's gallery and select an image
-  Future<void> _selectImageFromGallery() async {
-    final picker = ImagePicker();
-    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      _selectedImage = pickedImage;
-    });
+  Future<void> _pickedImage(BuildContext context) async {
+    final pickedImage = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 100,
+      maxWidth: MediaQuery.of(context).size.width,
+      maxHeight: MediaQuery.of(context).size.height,
+    );
+    if (pickedImage != null) {
+      setState(() {
+        _pickedImageFile = File(pickedImage.path);
+      });
+    }
+  }
+
+// Add a function to open the device's camera and capture an image
+  Future<void> _selectImageFromCamera() async {
+    final pickedImage = await ImagePicker().pickImage(
+      source: ImageSource.camera,
+      imageQuality: 100,
+      maxWidth: MediaQuery.of(context).size.width,
+      maxHeight: MediaQuery.of(context).size.height,
+    );
+    if (pickedImage != null) {
+      setState(() {
+        _pickedImageFile = File(pickedImage.path);
+      });
+    }
   }
 
   @override
@@ -77,14 +99,14 @@ class _EditPetsState extends State<EditPets> {
   @override
   Widget build(BuildContext context) {
     DecorationImage? decorationImage;
-    if (_selectedImage != null && File(_selectedImage!.path).existsSync()) {
+    if (_pickedImageFile != null && File(_pickedImageFile!.path).existsSync()) {
       decorationImage = DecorationImage(
-        image: FileImage(File(_selectedImage!.path)),
+        image: FileImage(File(_pickedImageFile!.path)),
         fit: BoxFit.fill,
       );
     } else {
       decorationImage = const DecorationImage(
-        image: AssetImage('assets/image/Group998.png'),
+        image: AssetImage('assets/image/profileImage.png'),
         fit: BoxFit.fill,
       );
     }
@@ -485,32 +507,34 @@ class _EditPetsState extends State<EditPets> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const CustomGeneralButtom(
-                      boxColor: Color(0xffE3B1A8),
+                    CustomGeneralButtom(
+                      boxColor: const Color(0xffE3B1A8),
                       textColor: kMainColor,
                       height: 50,
                       width: 150,
-                      borderColor: Color(0xffE3B1A8),
+                      borderColor: const Color(0xffE3B1A8),
                       customFontSize: 20,
                       // bord: 0.r,
                       fontWeight: FontWeight.normal,
                       text: 'Camera',
+                      onTap: _selectImageFromCamera,
                     ),
                     const SizedBox(
                       width: 30,
                     ),
                     CustomGeneralButtom(
-                      boxColor: const Color.fromARGB(255, 132, 193, 187),
-                      textColor: kMainColor,
-                      height: 50,
-                      width: 150,
-                      // bord: 0.r,
-                      borderColor: const Color(0xff80CBC4),
-                      customFontSize: 20,
-                      fontWeight: FontWeight.normal,
-                      text: 'Gallery',
-                      onTap: _selectImageFromGallery,
-                    )
+                        boxColor: const Color.fromARGB(255, 132, 193, 187),
+                        textColor: kMainColor,
+                        height: 50,
+                        width: 150,
+                        // bord: 0.r,
+                        borderColor: const Color(0xff80CBC4),
+                        customFontSize: 20,
+                        fontWeight: FontWeight.normal,
+                        text: 'Gallery',
+                        onTap: () {
+                          _pickedImage(context);
+                        })
                   ],
                 )),
               ),
