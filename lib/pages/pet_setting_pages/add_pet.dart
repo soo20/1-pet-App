@@ -8,7 +8,6 @@ import 'package:flutter/services.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
@@ -467,7 +466,7 @@ class _AddPetsState extends State<AddPets> {
                         text: 'Finish',
                         onTap: () async {
                           if (_formKey.currentState!.validate()) {
-                            String downloadURL = _uploadedImageUrl ??
+                            String downloadURL =
                                 'assets/image/profileImage.png';
                             if (_selectedImage != null) {
                               downloadURL =
