@@ -6,9 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 class FirebaseApiForUserImage {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   User? user = FirebaseAuth.instance.currentUser;
   Future<String?> uploadingImageOnFirebase(
       File? uploadedImage, BuildContext context) async {
@@ -25,7 +23,6 @@ class FirebaseApiForUserImage {
           .child('${user!.uid}.png');
 
       try {
-        // Delete the previous image if it exists
         await storageRef.delete();
       } catch (e) {
         // If the image doesn't exist, continue without throwing an error
@@ -33,6 +30,7 @@ class FirebaseApiForUserImage {
 
       // Upload the new image
       await storageRef.putFile(uploadedImage);
+
       final imageUrl = await storageRef.getDownloadURL();
 
       return imageUrl;
@@ -41,32 +39,6 @@ class FirebaseApiForUserImage {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(e.toString()),
-          action: SnackBarAction(
-              label: 'Close',
-              onPressed: () {
-                ScaffoldMessenger.of(context).hideCurrentSnackBar();
-              }),
-        ),
-      );
-      return null;
-    }
-  }
-
-  Future<String?> getProfileImage(BuildContext context) async {
-    try {
-      final user = _auth.currentUser;
-      if (user == null) {
-        return null;
-      }
-      final doc = await _firestore.collection('users').doc(user.uid).get();
-
-      return doc.data()?['profile_image'];
-    } on FirebaseException {
-      ScaffoldMessenger.of(context).clearSnackBars();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text(
-              'Failed to load your profile photo, please try again later.'),
           action: SnackBarAction(
               label: 'Close',
               onPressed: () {

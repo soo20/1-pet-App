@@ -53,8 +53,8 @@ class _PageViewLoginState extends State<PageViewLogin> {
   }
 
   late PageController _pageController;
-  TextEditingController myController = TextEditingController();
-  final TextEditingController name = TextEditingController();
+  final TextEditingController _name = TextEditingController();
+
   final TextEditingController _email = TextEditingController();
   final TextEditingController _passward = TextEditingController();
   final TextEditingController _phoneNumber = TextEditingController();
@@ -67,19 +67,21 @@ class _PageViewLoginState extends State<PageViewLogin> {
 
   @override
   void dispose() {
-    myController.dispose();
+    _name.dispose();
     super.dispose();
   }
 
   bool _obscureText = true;
-  registration(BuildContext context, String? image) async {
+  registration({required BuildContext context, File? tImage}) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
               email: _email.text, password: _passward.text);
+      final api = FirebaseApiForUserImage();
 
+      final image = await api.uploadingImageOnFirebase(tImage, context);
       uploadingUserInformationTofireStoreWithManualUploading(
-          displayName: name.text,
+          displayName: _name.text,
           phoneNumber: _phoneNumber.text,
           context: context,
           uploadedImage: image);
@@ -427,8 +429,9 @@ class _PageViewLoginState extends State<PageViewLogin> {
                           height: 10.h,
                         ),
                         TextFormField(
+                          textCapitalization: TextCapitalization.words,
                           expands: false,
-                          controller: myController,
+                          controller: _name,
                           validator: (text) {
                             if (text == null || text.isEmpty) {
                               return 'please Enter your name';
@@ -595,12 +598,14 @@ class _PageViewLoginState extends State<PageViewLogin> {
                               customFontSize: 50.sp,
                               onTap: () async {
                                 if (_fformKey.currentState!.validate()) {
-                                  final api = FirebaseApiForUserImage();
-                                  String? imageUrl =
-                                      await api.uploadingImageOnFirebase(
-                                          _tackedImageFile, context);
-
-                                  registration(context, imageUrl);
+                                  try {
+                                    registration(
+                                      context: context,
+                                      tImage: _tackedImageFile,
+                                    );
+                                  } catch (error) {
+                                    print(error);
+                                  }
                                 }
                               },
                               textColor: kMainColorPage,

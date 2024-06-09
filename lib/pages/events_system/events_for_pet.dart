@@ -1,10 +1,13 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:petapplication/pages/events_system/build_reminder_card.dart';
+import 'package:petapplication/pages/events_system/edit_event_for_pet.dart';
 
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 import 'package:petapplication/pages/events_system/add_event_for_pet.dart';
 import 'package:petapplication/some_files_to_data/adding_pet_to_firestore.dart';
+import 'package:petapplication/some_files_to_data/reminders_api.dart';
 
 class EventsForPetPage extends StatefulWidget {
   const EventsForPetPage({super.key, required this.petInformation});
@@ -38,6 +41,7 @@ class ReminderData {
     required this.night,
     required this.weekDay,
     required this.year,
+    required this.petId,
     required this.reminderId,
   });
   late String day;
@@ -48,15 +52,18 @@ class ReminderData {
   late String night;
   late String weekDay;
   late String year;
+  late String petId;
   late String reminderId;
 }
+
+bool loadingReminders = true;
 
 class _EventsForPetPage extends State<EventsForPetPage> {
   ScrollController controller = ScrollController();
 
   Color feedTimeColor = const Color.fromARGB(255, 255, 255, 255);
   String currentItemSelected = 'Playing';
-
+  final api = ReminderDataApi();
   void onFinishButtonPressed({required TimeOfDay timeOfDay}) {
     // Create the ReminderData object
     final CustomTime timeData =
@@ -143,6 +150,27 @@ class _EventsForPetPage extends State<EventsForPetPage> {
   bool isInSelectionMode = false;
   Set<String> selectedItems = <String>{};
   int feedCountSelected = 0;
+
+  Future<void> fetchReminders() async {
+    List<ReminderData?> remindersData = await api
+        .fetchRemindersDatafromFirestore(petId: widget.petInformation.petId);
+
+    // Filter out any null values if the list contains nullable types
+    List<ReminderData> nonNullRemindersData =
+        remindersData.whereType<ReminderData>().toList();
+
+    setState(() {
+      widget.petInformation.remindersData = nonNullRemindersData;
+      loadingReminders = false;
+    });
+  }
+
+  @override
+  void initState() {
+    fetchReminders();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -207,7 +235,7 @@ class _EventsForPetPage extends State<EventsForPetPage> {
           children: [
             Container(
               width: size.width,
-              height: size.height * 0.45,
+              height: size.height * 0.4,
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
@@ -216,368 +244,360 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                   fit: BoxFit.fill,
                 ),
               ),
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      widget.petInformation.petName,
-                      style: TextStyle(
-                        height: 0.0,
-                        fontFamily: 'Cosffira',
-                        fontSize: size.width * 0.150,
-                        fontWeight: FontWeight.w800,
-                        color: const Color(0xff4A5E7C),
-                        letterSpacing: 0.5,
-                      ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    widget.petInformation.petName,
+                    style: TextStyle(
+                      height: 0.0,
+                      fontFamily: 'Cosffira',
+                      fontSize: size.width * 0.150,
+                      fontWeight: FontWeight.w800,
+                      color: const Color(0xff4A5E7C),
+                      letterSpacing: 0.5,
                     ),
-                    Text(
-                      '${widget.petInformation.petType} | ${widget.petInformation.petGender}',
-                      style: TextStyle(
-                        fontFamily: 'Cosffira',
-                        fontSize: size.width * 0.04,
-                        fontWeight: FontWeight.w400,
-                        color: const Color.fromARGB(255, 255, 255, 255),
-                      ),
+                  ),
+                  Text(
+                    '${widget.petInformation.petType} | ${widget.petInformation.petGender}',
+                    style: TextStyle(
+                      fontFamily: 'Cosffira',
+                      fontSize: size.width * 0.04,
+                      fontWeight: FontWeight.w400,
+                      color: const Color.fromARGB(255, 255, 255, 255),
                     ),
-                    SizedBox(
-                      height: size.height * 0.028,
+                  ),
+                  SizedBox(
+                    height: size.height * 0.028,
+                  ),
+                  Text(
+                    'Feed Time',
+                    style: TextStyle(
+                      fontFamily: 'Cosffira',
+                      fontSize: size.width * 0.056,
+                      fontWeight: FontWeight.w800,
+                      color: const Color(0xff4A5E7C),
                     ),
-                    Text(
-                      'Feed Time',
-                      style: TextStyle(
-                        fontFamily: 'Cosffira',
-                        fontSize: size.width * 0.056,
-                        fontWeight: FontWeight.w800,
-                        color: const Color(0xff4A5E7C),
-                      ),
-                    ),
-                    SizedBox(
-                      height: size.height * 0.014,
-                    ),
-                    widget.petInformation.feedTimesForPet.isEmpty
-                        ? Flexible(
-                            child: Theme(
-                              data: ThemeData(
-                                primarySwatch: Colors.blue,
-                                timePickerTheme: TimePickerThemeData(
-                                  helpTextStyle: TextStyle(
-                                    fontFamily: 'Cosffira',
-                                    fontSize: size.width * 0.045,
-                                    fontWeight: FontWeight.bold,
-                                    color: const Color(0xff4A5E7C),
-                                  ),
-                                  backgroundColor: const Color(0xffEFE7E7),
-                                  elevation: 0.0,
-                                  cancelButtonStyle: ButtonStyle(
-                                    foregroundColor:
-                                        const WidgetStatePropertyAll(
-                                            Color(0xff4A5E7C)),
-                                    textStyle: WidgetStatePropertyAll(
-                                      TextStyle(
-                                        fontFamily: 'Cosffira',
-                                        fontSize: size.width * 0.045,
-                                        fontWeight: FontWeight.bold,
-                                        color: const Color(0xff4A5E7C),
-                                      ),
-                                    ),
-                                  ),
-                                  confirmButtonStyle: ButtonStyle(
-                                    foregroundColor:
-                                        const WidgetStatePropertyAll(
-                                            Color(0xff4A5E7C)),
-                                    textStyle: WidgetStatePropertyAll(
-                                      TextStyle(
-                                        fontFamily: 'Cosffira',
-                                        fontSize: size.width * 0.045,
-                                        fontWeight: FontWeight.bold,
-                                        color: const Color(0xff4A5E7C),
-                                      ),
-                                    ),
-                                  ),
-                                  dialBackgroundColor: const Color(0xffffffff),
-                                  entryModeIconColor: const Color(0xffA26874),
-                                  hourMinuteTextStyle: TextStyle(
-                                    fontFamily: 'Cosffira',
-                                    fontSize: size.width * 0.085,
-                                    fontWeight: FontWeight.bold,
-                                    color: const Color(0xff4A5E7C),
-                                  ),
-                                  dayPeriodTextStyle: TextStyle(
-                                    fontFamily: 'Cosffira',
-                                    fontSize: size.width * 0.045,
-                                    fontWeight: FontWeight.bold,
-                                    color: const Color(0xff4A5E7C),
-                                  ),
-                                  dialTextStyle: TextStyle(
-                                    fontFamily: 'Cosffira',
-                                    fontSize: size.width * 0.045,
-                                    fontWeight: FontWeight.bold,
-                                    color: const Color(0xff4A5E7C),
-                                  ),
-                                  dayPeriodTextColor: const Color(0xffffffff),
-                                  dayPeriodColor: const Color(
-                                      0xff4A5E7C), //Background of AM/PM.
-                                  dialHandColor: const Color(0xff4A5E7C),
-                                  dialTextColor: const Color(0xffA26874),
-                                  hourMinuteTextColor: const Color(0xffffffff),
-                                  hourMinuteColor: const Color(0xffA26874),
+                  ),
+                  SizedBox(
+                    height: size.height * 0.014,
+                  ),
+                  widget.petInformation.feedTimesForPet.isEmpty
+                      ? Flexible(
+                          child: Theme(
+                            data: ThemeData(
+                              primarySwatch: Colors.blue,
+                              timePickerTheme: TimePickerThemeData(
+                                helpTextStyle: TextStyle(
+                                  fontFamily: 'Cosffira',
+                                  fontSize: size.width * 0.045,
+                                  fontWeight: FontWeight.bold,
+                                  color: const Color(0xff4A5E7C),
                                 ),
-                              ),
-                              child: Builder(
-                                builder: (BuildContext context) {
-                                  return IconButton(
-                                    icon: Image.asset(
-                                      'assets/icons/events_for_pet_page_icons/add_feed_if_impty.png',
-                                      height: size.height * 0.09,
-                                      width: size.width * 0.29,
-                                      fit: BoxFit.fill,
+                                backgroundColor: const Color(0xffEFE7E7),
+                                elevation: 0.0,
+                                cancelButtonStyle: ButtonStyle(
+                                  foregroundColor: const WidgetStatePropertyAll(
+                                      Color(0xff4A5E7C)),
+                                  textStyle: WidgetStatePropertyAll(
+                                    TextStyle(
+                                      fontFamily: 'Cosffira',
+                                      fontSize: size.width * 0.045,
+                                      fontWeight: FontWeight.bold,
+                                      color: const Color(0xff4A5E7C),
                                     ),
-                                    onPressed: () async {
-                                      TimeOfDay reminderTime = TimeOfDay.now();
-                                      final TimeOfDay? timeOfFeed =
-                                          await showTimePicker(
-                                        context: context,
-                                        initialTime: reminderTime,
-                                        initialEntryMode:
-                                            TimePickerEntryMode.dial,
-                                      );
-                                      if (timeOfFeed != null) {
-                                        setState(() {
-                                          onFinishButtonPressed(
-                                              timeOfDay: timeOfFeed);
-                                        });
-                                      }
-                                    },
-                                  );
-                                },
+                                  ),
+                                ),
+                                confirmButtonStyle: ButtonStyle(
+                                  foregroundColor: const WidgetStatePropertyAll(
+                                      Color(0xff4A5E7C)),
+                                  textStyle: WidgetStatePropertyAll(
+                                    TextStyle(
+                                      fontFamily: 'Cosffira',
+                                      fontSize: size.width * 0.045,
+                                      fontWeight: FontWeight.bold,
+                                      color: const Color(0xff4A5E7C),
+                                    ),
+                                  ),
+                                ),
+                                dialBackgroundColor: const Color(0xffffffff),
+                                entryModeIconColor: const Color(0xffA26874),
+                                hourMinuteTextStyle: TextStyle(
+                                  fontFamily: 'Cosffira',
+                                  fontSize: size.width * 0.085,
+                                  fontWeight: FontWeight.bold,
+                                  color: const Color(0xff4A5E7C),
+                                ),
+                                dayPeriodTextStyle: TextStyle(
+                                  fontFamily: 'Cosffira',
+                                  fontSize: size.width * 0.045,
+                                  fontWeight: FontWeight.bold,
+                                  color: const Color(0xff4A5E7C),
+                                ),
+                                dialTextStyle: TextStyle(
+                                  fontFamily: 'Cosffira',
+                                  fontSize: size.width * 0.045,
+                                  fontWeight: FontWeight.bold,
+                                  color: const Color(0xff4A5E7C),
+                                ),
+                                dayPeriodTextColor: const Color(0xffffffff),
+                                dayPeriodColor: const Color(
+                                    0xff4A5E7C), //Background of AM/PM.
+                                dialHandColor: const Color(0xff4A5E7C),
+                                dialTextColor: const Color(0xffA26874),
+                                hourMinuteTextColor: const Color(0xffffffff),
+                                hourMinuteColor: const Color(0xffA26874),
                               ),
                             ),
-                          )
-                        : Flexible(
-                            child: SingleChildScrollView(
-                              padding: EdgeInsets.only(
-                                left: size.width * 0.06,
-                                bottom: size.height * 0.06,
+                            child: Builder(
+                              builder: (BuildContext context) {
+                                return IconButton(
+                                  icon: Image.asset(
+                                    'assets/icons/events_for_pet_page_icons/add_feed_if_impty.png',
+                                    height: size.height * 0.09,
+                                    width: size.width * 0.29,
+                                    fit: BoxFit.fill,
+                                  ),
+                                  onPressed: () async {
+                                    TimeOfDay reminderTime = TimeOfDay.now();
+                                    final TimeOfDay? timeOfFeed =
+                                        await showTimePicker(
+                                      context: context,
+                                      initialTime: reminderTime,
+                                      initialEntryMode:
+                                          TimePickerEntryMode.dial,
+                                    );
+                                    if (timeOfFeed != null) {
+                                      setState(() {
+                                        onFinishButtonPressed(
+                                            timeOfDay: timeOfFeed);
+                                      });
+                                    }
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        )
+                      : Flexible(
+                          child: SingleChildScrollView(
+                            padding: EdgeInsets.only(
+                              left: size.width * 0.06,
+                              bottom: size.height * 0.06,
+                            ),
+                            physics: const BouncingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            child: Container(
+                              height: size.height *
+                                  0.143, // Set a fixed height for the cards
+                              margin: EdgeInsets.symmetric(
+                                horizontal: size.height * 0.02,
                               ),
-                              physics: const BouncingScrollPhysics(),
-                              scrollDirection: Axis.horizontal,
-                              child: Container(
-                                height: size.height *
-                                    0.143, // Set a fixed height for the cards
-                                margin: EdgeInsets.symmetric(
-                                  horizontal: size.height * 0.02,
-                                ),
-                                child: FittedBox(
-                                  fit: BoxFit.fill,
-                                  //this is might be cause of overflow
-                                  child: Row(
-                                    children: [
-                                      // this will be dynamic coloumn that depends on the length of list
-                                      for (CustomTime i in widget
-                                          .petInformation.feedTimesForPet)
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                            right: size.width * 0.06,
-                                          ),
-                                          child: GestureDetector(
-                                            onLongPress: () {
-                                              setState(() {
-                                                isInSelectionMode = true;
-
-                                                selectedItems.add(i.feedId);
-                                              });
-                                            },
-                                            onTap: () {
-                                              setState(() {
-                                                if (isInSelectionMode) {
-                                                  if (selectedItems
-                                                      .contains(i.feedId)) {
-                                                    selectedItems
-                                                        .remove(i.feedId);
-                                                  } else {
-                                                    selectedItems.add(i.feedId);
-                                                  }
-                                                }
-                                              });
-                                            },
-                                            child: Container(
-                                              height: size.height * 0.170,
-                                              width: size.width * 0.24,
-                                              decoration: BoxDecoration(
-                                                color: i.checked &&
-                                                        !selectedItems
-                                                            .contains(i.feedId)
-                                                    ? const Color(
-                                                        0xffA26874) // Case 1: i.checked is true
-                                                    : selectedItems
-                                                            .contains(i.feedId)
-                                                        ? const Color.fromARGB(
-                                                            255,
-                                                            139,
-                                                            152,
-                                                            170) // Case 2: i.checked is false but the item is selected
-                                                        : const Color(
-                                                            0xffEFE7E7),
-                                                borderRadius: BorderRadius.all(
-                                                  Radius.circular(
-                                                      size.width * 0.3),
-                                                ),
-                                              ),
-                                              child: Column(
-                                                children: [
-                                                  IconButton(
-                                                    onPressed: () {
-                                                      setState(() => i.checked =
-                                                          !i.checked);
-                                                    },
-                                                    icon: Image.asset(
-                                                      i.checked
-                                                          ? "assets/icons/events_for_pet_page_icons/check_yes.png"
-                                                          : "assets/icons/events_for_pet_page_icons/Ellipse_icon_for_feed.png",
-                                                      height:
-                                                          size.height * 0.060,
-                                                      width: size.width * 0.054,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    '${i.hours}:${i.minutes}\n ${i.night}',
-                                                    style: TextStyle(
-                                                      height: 0.0,
-                                                      fontFamily: 'Cosffira',
-                                                      fontSize:
-                                                          size.width * 0.056,
-                                                      fontWeight:
-                                                          FontWeight.w800,
-                                                      color: i.checked
-                                                          ? const Color(
-                                                              0xffEFE7E7)
-                                                          : const Color(
-                                                              0xff4A5E7C),
-                                                      letterSpacing: 0.5,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
+                              child: FittedBox(
+                                fit: BoxFit.fill,
+                                //this is might be cause of overflow
+                                child: Row(
+                                  children: [
+                                    // this will be dynamic coloumn that depends on the length of list
+                                    for (CustomTime i in widget
+                                        .petInformation.feedTimesForPet)
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                          right: size.width * 0.06,
                                         ),
+                                        child: GestureDetector(
+                                          onLongPress: () {
+                                            setState(() {
+                                              isInSelectionMode = true;
 
-                                      Theme(
-                                        data: ThemeData(
-                                          primarySwatch: Colors.blue,
-                                          timePickerTheme: TimePickerThemeData(
-                                            helpTextStyle: TextStyle(
-                                              fontFamily: 'Cosffira',
-                                              fontSize: size.width * 0.045,
-                                              fontWeight: FontWeight.bold,
-                                              color: const Color(0xff4A5E7C),
-                                            ),
-                                            backgroundColor:
-                                                const Color(0xffEFE7E7),
-                                            elevation: 0.0,
-                                            cancelButtonStyle: ButtonStyle(
-                                              foregroundColor:
-                                                  const WidgetStatePropertyAll(
-                                                      Color(0xff4A5E7C)),
-                                              textStyle: WidgetStatePropertyAll(
-                                                TextStyle(
-                                                  fontFamily: 'Cosffira',
-                                                  fontSize: size.width * 0.045,
-                                                  fontWeight: FontWeight.bold,
-                                                  color:
-                                                      const Color(0xff4A5E7C),
-                                                ),
-                                              ),
-                                            ),
-                                            confirmButtonStyle: ButtonStyle(
-                                              foregroundColor:
-                                                  const WidgetStatePropertyAll(
-                                                      Color(0xff4A5E7C)),
-                                              textStyle: WidgetStatePropertyAll(
-                                                TextStyle(
-                                                  fontFamily: 'Cosffira',
-                                                  fontSize: size.width * 0.045,
-                                                  fontWeight: FontWeight.bold,
-                                                  color:
-                                                      const Color(0xff4A5E7C),
-                                                ),
-                                              ),
-                                            ),
-                                            dialBackgroundColor:
-                                                const Color(0xffffffff),
-                                            entryModeIconColor:
-                                                const Color(0xffA26874),
-                                            hourMinuteTextStyle: TextStyle(
-                                              fontFamily: 'Cosffira',
-                                              fontSize: size.width * 0.085,
-                                              fontWeight: FontWeight.bold,
-                                              color: const Color(0xff4A5E7C),
-                                            ),
-                                            dayPeriodTextStyle: TextStyle(
-                                              fontFamily: 'Cosffira',
-                                              fontSize: size.width * 0.045,
-                                              fontWeight: FontWeight.bold,
-                                              color: const Color(0xff4A5E7C),
-                                            ),
-                                            dialTextStyle: TextStyle(
-                                              fontFamily: 'Cosffira',
-                                              fontSize: size.width * 0.045,
-                                              fontWeight: FontWeight.bold,
-                                              color: const Color(0xff4A5E7C),
-                                            ),
-                                            dayPeriodTextColor:
-                                                const Color(0xffffffff),
-                                            dayPeriodColor: const Color(
-                                                0xff4A5E7C), //Background of AM/PM.
-                                            dialHandColor:
-                                                const Color(0xff4A5E7C),
-                                            dialTextColor:
-                                                const Color(0xffA26874),
-                                            hourMinuteTextColor:
-                                                const Color(0xffffffff),
-                                            hourMinuteColor:
-                                                const Color(0xffA26874),
-                                          ),
-                                        ),
-                                        child: Builder(
-                                          builder: (BuildContext context) {
-                                            return IconButton(
-                                              icon: Image.asset(
-                                                'assets/icons/events_for_pet_page_icons/add_feed_in_list.png',
-                                                height: size.height * 0.170,
-                                                width: size.width * 0.24,
-                                                fit: BoxFit.fill,
-                                              ),
-                                              onPressed: () async {
-                                                TimeOfDay reminderTime =
-                                                    TimeOfDay.now();
-                                                final TimeOfDay? timeOfFeed =
-                                                    await showTimePicker(
-                                                  context: context,
-                                                  initialTime: reminderTime,
-                                                  initialEntryMode:
-                                                      TimePickerEntryMode.dial,
-                                                );
-                                                if (timeOfFeed != null) {
-                                                  setState(() {
-                                                    onFinishButtonPressed(
-                                                        timeOfDay: timeOfFeed);
-                                                  });
-                                                }
-                                              },
-                                            );
+                                              selectedItems.add(i.feedId);
+                                            });
                                           },
+                                          onTap: () {
+                                            setState(() {
+                                              if (isInSelectionMode) {
+                                                if (selectedItems
+                                                    .contains(i.feedId)) {
+                                                  selectedItems
+                                                      .remove(i.feedId);
+                                                } else {
+                                                  selectedItems.add(i.feedId);
+                                                }
+                                              }
+                                            });
+                                          },
+                                          child: Container(
+                                            height: size.height * 0.170,
+                                            width: size.width * 0.24,
+                                            decoration: BoxDecoration(
+                                              color: i.checked &&
+                                                      !selectedItems
+                                                          .contains(i.feedId)
+                                                  ? const Color(
+                                                      0xffA26874) // Case 1: i.checked is true
+                                                  : selectedItems
+                                                          .contains(i.feedId)
+                                                      ? const Color.fromARGB(
+                                                          255,
+                                                          139,
+                                                          152,
+                                                          170) // Case 2: i.checked is false but the item is selected
+                                                      : const Color(0xffEFE7E7),
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(
+                                                    size.width * 0.3),
+                                              ),
+                                            ),
+                                            child: Column(
+                                              children: [
+                                                IconButton(
+                                                  onPressed: () {
+                                                    setState(() =>
+                                                        i.checked = !i.checked);
+                                                  },
+                                                  icon: Image.asset(
+                                                    i.checked
+                                                        ? "assets/icons/events_for_pet_page_icons/check_yes.png"
+                                                        : "assets/icons/events_for_pet_page_icons/Ellipse_icon_for_feed.png",
+                                                    height: size.height * 0.060,
+                                                    width: size.width * 0.054,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '${i.hours}:${i.minutes}\n ${i.night}',
+                                                  style: TextStyle(
+                                                    height: 0.0,
+                                                    fontFamily: 'Cosffira',
+                                                    fontSize:
+                                                        size.width * 0.056,
+                                                    fontWeight: FontWeight.w800,
+                                                    color: i.checked
+                                                        ? const Color(
+                                                            0xffEFE7E7)
+                                                        : const Color(
+                                                            0xff4A5E7C),
+                                                    letterSpacing: 0.5,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
                                         ),
                                       ),
-                                    ],
-                                  ),
+
+                                    Theme(
+                                      data: ThemeData(
+                                        primarySwatch: Colors.blue,
+                                        timePickerTheme: TimePickerThemeData(
+                                          helpTextStyle: TextStyle(
+                                            fontFamily: 'Cosffira',
+                                            fontSize: size.width * 0.045,
+                                            fontWeight: FontWeight.bold,
+                                            color: const Color(0xff4A5E7C),
+                                          ),
+                                          backgroundColor:
+                                              const Color(0xffEFE7E7),
+                                          elevation: 0.0,
+                                          cancelButtonStyle: ButtonStyle(
+                                            foregroundColor:
+                                                const WidgetStatePropertyAll(
+                                                    Color(0xff4A5E7C)),
+                                            textStyle: WidgetStatePropertyAll(
+                                              TextStyle(
+                                                fontFamily: 'Cosffira',
+                                                fontSize: size.width * 0.045,
+                                                fontWeight: FontWeight.bold,
+                                                color: const Color(0xff4A5E7C),
+                                              ),
+                                            ),
+                                          ),
+                                          confirmButtonStyle: ButtonStyle(
+                                            foregroundColor:
+                                                const WidgetStatePropertyAll(
+                                                    Color(0xff4A5E7C)),
+                                            textStyle: WidgetStatePropertyAll(
+                                              TextStyle(
+                                                fontFamily: 'Cosffira',
+                                                fontSize: size.width * 0.045,
+                                                fontWeight: FontWeight.bold,
+                                                color: const Color(0xff4A5E7C),
+                                              ),
+                                            ),
+                                          ),
+                                          dialBackgroundColor:
+                                              const Color(0xffffffff),
+                                          entryModeIconColor:
+                                              const Color(0xffA26874),
+                                          hourMinuteTextStyle: TextStyle(
+                                            fontFamily: 'Cosffira',
+                                            fontSize: size.width * 0.085,
+                                            fontWeight: FontWeight.bold,
+                                            color: const Color(0xff4A5E7C),
+                                          ),
+                                          dayPeriodTextStyle: TextStyle(
+                                            fontFamily: 'Cosffira',
+                                            fontSize: size.width * 0.045,
+                                            fontWeight: FontWeight.bold,
+                                            color: const Color(0xff4A5E7C),
+                                          ),
+                                          dialTextStyle: TextStyle(
+                                            fontFamily: 'Cosffira',
+                                            fontSize: size.width * 0.045,
+                                            fontWeight: FontWeight.bold,
+                                            color: const Color(0xff4A5E7C),
+                                          ),
+                                          dayPeriodTextColor:
+                                              const Color(0xffffffff),
+                                          dayPeriodColor: const Color(
+                                              0xff4A5E7C), //Background of AM/PM.
+                                          dialHandColor:
+                                              const Color(0xff4A5E7C),
+                                          dialTextColor:
+                                              const Color(0xffA26874),
+                                          hourMinuteTextColor:
+                                              const Color(0xffffffff),
+                                          hourMinuteColor:
+                                              const Color(0xffA26874),
+                                        ),
+                                      ),
+                                      child: Builder(
+                                        builder: (BuildContext context) {
+                                          return IconButton(
+                                            icon: Image.asset(
+                                              'assets/icons/events_for_pet_page_icons/add_feed_in_list.png',
+                                              height: size.height * 0.170,
+                                              width: size.width * 0.24,
+                                              fit: BoxFit.fill,
+                                            ),
+                                            onPressed: () async {
+                                              TimeOfDay reminderTime =
+                                                  TimeOfDay.now();
+                                              final TimeOfDay? timeOfFeed =
+                                                  await showTimePicker(
+                                                context: context,
+                                                initialTime: reminderTime,
+                                                initialEntryMode:
+                                                    TimePickerEntryMode.dial,
+                                              );
+                                              if (timeOfFeed != null) {
+                                                setState(() {
+                                                  onFinishButtonPressed(
+                                                    timeOfDay: timeOfFeed,
+                                                  );
+                                                });
+                                              }
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
                           ),
-                  ],
-                ),
+                        ),
+                ],
               ),
             ),
             Row(
@@ -589,7 +609,7 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                     height: 0.0,
                     fontFamily: 'Cosffira',
                     fontSize: size.width * 0.056,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w600,
                     color: const Color(0xff4A5E7C),
                   ),
                 ),
@@ -599,65 +619,67 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                     height: 0.0,
                     fontFamily: 'Cosffira',
                     fontSize: size.width * 0.066,
-                    fontWeight: FontWeight.w900,
+                    fontWeight: FontWeight.w800,
                     color: const Color(0xffA26874),
                   ),
                 ),
               ],
             ),
             SizedBox(
-              height: size.height * 0.02,
+              height:
+                  loadingReminders ? size.height * 0.08 : size.height * 0.02,
             ),
-            widget.petInformation.remindersData.isEmpty
+            loadingReminders
                 ? Center(
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(
-                              top: size.height * 0.04,
-                              bottom: size.height * 0.01),
-                          child: Text(
-                            'you don\'t have tasks yet, please \n        add some events',
+                    child: SizedBox(
+                      height: size.height * 0.04,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CircularProgressIndicator.adaptive(
+                            strokeWidth: size.height * 0.0023,
+                            backgroundColor:
+                                const Color.fromARGB(60, 58, 54, 54),
+                            valueColor: const AlwaysStoppedAnimation<Color>(
+                              Color.fromARGB(170, 162, 104, 116),
+                            ),
+                          ),
+                          SizedBox(
+                            width: size.width * 0.02,
+                          ),
+                          Text(
+                            'Fetching pet reminders.....',
                             style: TextStyle(
                               fontFamily: 'Cosffira',
                               fontSize: size.width * 0.048,
                               fontWeight: FontWeight.normal,
                               color: const Color.fromARGB(60, 58, 54, 54),
                             ),
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () async {
-                            await showDialog(
-                                context: context,
-                                builder: (context) => AddTaskDialog(
-                                    petInfo: widget.petInformation));
-                            setState(() {});
-                          },
-                          icon: Image.asset(
-                            'assets/icons/events_for_pet_page_icons/add_reminder_icon.png',
-                            height: size.width * 0.19,
-                            width: size.width * 0.29,
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                      ],
+                          )
+                        ],
+                      ),
                     ),
                   )
-                : Flexible(
-                    child: ListView.builder(
-                        controller: controller,
-                        itemCount:
-                            widget.petInformation.remindersData.length + 1,
-                        physics: const BouncingScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          if (index <
-                              widget.petInformation.remindersData.length) {
-                            final ReminderData remainder =
-                                widget.petInformation.remindersData[index];
-                            return BuildReminder(reminderData: remainder);
-                          } else {
-                            return IconButton(
+                : widget.petInformation.remindersData.isEmpty
+                    ? Center(
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: size.height * 0.04,
+                                  bottom: size.height * 0.01),
+                              child: Text(
+                                'you don\'t have tasks yet, please \n        add some events',
+                                style: TextStyle(
+                                  fontFamily: 'Cosffira',
+                                  fontSize: size.width * 0.048,
+                                  fontWeight: FontWeight.normal,
+                                  color: const Color.fromARGB(60, 58, 54, 54),
+                                ),
+                              ),
+                            ),
+                            IconButton(
                               onPressed: () async {
                                 await showDialog(
                                     context: context,
@@ -671,175 +693,249 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                                 width: size.width * 0.29,
                                 fit: BoxFit.fill,
                               ),
-                            );
-                          }
-                        }),
-                  )
+                            ),
+                          ],
+                        ),
+                      )
+                    : Flexible(
+                        child: ListView.builder(
+                            controller: controller,
+                            itemCount:
+                                widget.petInformation.remindersData.length + 1,
+                            physics: const BouncingScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              if (index <
+                                  widget.petInformation.remindersData.length) {
+                                bool deleting = false;
+                                final ReminderData reminder =
+                                    widget.petInformation.remindersData[index];
+                                return Container(
+                                  height: size.height * 0.10,
+                                  margin: EdgeInsets.symmetric(
+                                    horizontal: size.width * 0.04,
+                                    vertical: size.height * 0.01,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: const Color.fromARGB(
+                                        255, 255, 255, 255),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(size.width * 0.06),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color:
+                                              const Color.fromARGB(54, 0, 0, 0),
+                                          blurRadius: size.width * 0.020),
+                                    ],
+                                  ),
+                                  child: Center(
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                              reminder.day,
+                                              style: TextStyle(
+                                                height: 0.0,
+                                                fontFamily: 'Cosffira',
+                                                fontSize: size.width * 0.072,
+                                                fontWeight: FontWeight.w800,
+                                                color: const Color(0XffA26874),
+                                                letterSpacing: 0.5,
+                                              ),
+                                            ),
+                                            Text(
+                                              reminder.month,
+                                              style: TextStyle(
+                                                height: 0.0,
+                                                fontFamily: 'Cosffira',
+                                                fontSize: size.width * 0.048,
+                                                fontWeight: FontWeight.normal,
+                                                color: const Color.fromARGB(
+                                                    155, 74, 94, 128),
+                                                letterSpacing: 0.5,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          width: size.width * 0.03,
+                                        ),
+                                        Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              reminder.reminderType,
+                                              style: TextStyle(
+                                                fontFamily: 'Cosffira',
+                                                fontSize: size.width * 0.063,
+                                                fontWeight: FontWeight.w800,
+                                                color: const Color.fromARGB(
+                                                    255, 81, 102, 133),
+                                                letterSpacing: 0.5,
+                                              ),
+                                            ),
+                                            Text(
+                                              '${reminder.weekDay}${reminder.year}, ${reminder.hours}:${reminder.minutes} ${reminder.night}',
+                                              style: TextStyle(
+                                                fontFamily: 'Cosffira',
+                                                fontSize: size.width * 0.045,
+                                                height: 0.0,
+                                                fontWeight: FontWeight.bold,
+                                                color: const Color.fromARGB(
+                                                    109, 74, 94, 124),
+                                                letterSpacing: 0.5,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          width: size.width * 0.25,
+                                        ),
+                                        PopupMenuButton<String>(
+                                          elevation: 0.0,
+                                          color: const Color.fromARGB(
+                                              255, 81, 102, 133),
+                                          itemBuilder: (context) {
+                                            return [
+                                              PopupMenuItem(
+                                                value: 'edit',
+                                                child: Text(
+                                                  'Edit',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Cosffira',
+                                                    fontSize:
+                                                        size.width * 0.045,
+                                                    height: 0.0,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    color: const Color.fromARGB(
+                                                        255, 255, 255, 255),
+                                                    letterSpacing: 0.5,
+                                                  ),
+                                                ),
+                                                onTap: () async {
+                                                  final api = ReminderDataApi();
+                                                  MergedReminderData
+                                                      reminderData =
+                                                      api.mergedReminderData(
+                                                          reminder);
+                                                  await showDialog(
+                                                      context: context,
+                                                      builder: (context) =>
+                                                          EditReminder(
+                                                            petInfo: widget
+                                                                .petInformation,
+                                                            reciervedDate:
+                                                                reminderData
+                                                                    .getrReminderDate(),
+                                                            reciervedTime:
+                                                                reminderData
+                                                                    .getReminderTime(),
+                                                            reciervedType:
+                                                                reminder
+                                                                    .reminderType,
+                                                            reminderId: reminder
+                                                                .reminderId,
+                                                          ));
+                                                  setState(() {});
+                                                },
+                                              ),
+                                              PopupMenuItem(
+                                                value: 'Delete',
+                                                child: deleting
+                                                    ? const CircularProgressIndicator()
+                                                    : Text(
+                                                        'Delete',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Cosffira',
+                                                          fontSize: size.width *
+                                                              0.045,
+                                                          height: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          color: const Color
+                                                              .fromARGB(255,
+                                                              255, 255, 255),
+                                                          letterSpacing: 0.5,
+                                                        ),
+                                                      ),
+                                                onTap: () async {
+                                                  setState(() {
+                                                    deleting = true;
+                                                  });
+
+                                                  try {
+                                                    final api =
+                                                        ReminderDataApi();
+                                                    await api
+                                                        .deleteReminder(
+                                                          reminderId: reminder
+                                                              .reminderId,
+                                                          petId: reminder.petId,
+                                                        )
+                                                        .then(
+                                                          (value) =>
+                                                              setState(() {
+                                                            widget
+                                                                .petInformation
+                                                                .remindersData
+                                                                .removeAt(
+                                                                    index);
+                                                            print(
+                                                                '${widget.petInformation.remindersData.length}  ');
+                                                            deleting = false;
+                                                          }),
+                                                        );
+                                                  } catch (e) {
+                                                    setState(() {
+                                                      deleting = false;
+                                                    });
+                                                    print(
+                                                        'Error deleting reminder: $e');
+                                                  }
+                                                },
+                                              ),
+                                            ];
+                                          },
+                                          child: Image.asset(
+                                            "assets/icons/events_for_pet_page_icons/option_icon.png",
+                                            height: size.height * 0.061,
+                                            width: size.width * 0.016,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                return IconButton(
+                                  onPressed: () async {
+                                    await showDialog(
+                                        context: context,
+                                        builder: (context) => AddTaskDialog(
+                                            petInfo: widget.petInformation));
+                                    setState(() {});
+                                  },
+                                  icon: Image.asset(
+                                    'assets/icons/events_for_pet_page_icons/add_reminder_icon.png',
+                                    height: size.width * 0.19,
+                                    width: size.width * 0.29,
+                                    fit: BoxFit.fill,
+                                  ),
+                                );
+                              }
+                            })),
           ],
         ),
       ),
     );
   }
-}
-
-class BuildReminder extends StatelessWidget {
-  const BuildReminder({
-    super.key,
-    required this.reminderData,
-  });
-  final ReminderData reminderData;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: size.height * 0.10,
-      margin: EdgeInsets.symmetric(
-        horizontal: size.width * 0.04,
-        vertical: size.height * 0.01,
-      ),
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 255, 255, 255),
-        borderRadius: BorderRadius.all(
-          Radius.circular(size.width * 0.06),
-        ),
-        boxShadow: [
-          BoxShadow(
-              color: const Color.fromARGB(54, 0, 0, 0),
-              blurRadius: size.width * 0.020),
-        ],
-      ),
-      child: Center(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  reminderData.day,
-                  style: TextStyle(
-                    height: 0.0,
-                    fontFamily: 'Cosffira',
-                    fontSize: size.width * 0.072,
-                    fontWeight: FontWeight.w800,
-                    color: const Color(0XffA26874),
-                    letterSpacing: 0.5,
-                  ),
-                ),
-                Text(
-                  reminderData.month,
-                  style: TextStyle(
-                    height: 0.0,
-                    fontFamily: 'Cosffira',
-                    fontSize: size.width * 0.048,
-                    fontWeight: FontWeight.normal,
-                    color: const Color.fromARGB(155, 74, 94, 128),
-                    letterSpacing: 0.5,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              width: size.width * 0.03,
-            ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  reminderData.reminderType,
-                  style: TextStyle(
-                    fontFamily: 'Cosffira',
-                    fontSize: size.width * 0.063,
-                    fontWeight: FontWeight.w800,
-                    color: const Color.fromARGB(255, 81, 102, 133),
-                    letterSpacing: 0.5,
-                  ),
-                ),
-                Text(
-                  '${reminderData.weekDay}${reminderData.year}, ${reminderData.hours}:${reminderData.minutes} ${reminderData.night}',
-                  style: TextStyle(
-                    fontFamily: 'Cosffira',
-                    fontSize: size.width * 0.045,
-                    height: 0.0,
-                    fontWeight: FontWeight.bold,
-                    color: const Color.fromARGB(109, 74, 94, 124),
-                    letterSpacing: 0.5,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              width: size.width * 0.25,
-            ),
-            PopupMenuButton<String>(
-              elevation: 0.0,
-              color: const Color.fromARGB(255, 81, 102, 133),
-              itemBuilder: (context) {
-                return [
-                  PopupMenuItem(
-                    value: 'edit',
-                    child: Text(
-                      'Edit',
-                      style: TextStyle(
-                        fontFamily: 'Cosffira',
-                        fontSize: size.width * 0.045,
-                        height: 0.0,
-                        fontWeight: FontWeight.normal,
-                        color: const Color.fromARGB(255, 255, 255, 255),
-                        letterSpacing: 0.5,
-                      ),
-                    ),
-                    onTap: () {
-                      // Handle edit action
-                    },
-                  ),
-                  PopupMenuItem(
-                    value: 'Delete',
-                    child: Text(
-                      'Delete',
-                      style: TextStyle(
-                        fontFamily: 'Cosffira',
-                        fontSize: size.width * 0.045,
-                        height: 0.0,
-                        fontWeight: FontWeight.normal,
-                        color: const Color.fromARGB(255, 255, 255, 255),
-                        letterSpacing: 0.5,
-                      ),
-                    ),
-                    onTap: () {
-                      // Handle delete action
-                    },
-                  ),
-                ];
-              },
-              child: Image.asset(
-                "assets/icons/events_for_pet_page_icons/option_icon.png",
-                height: size.height * 0.061,
-                width: size.width * 0.016,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-CustomTime createFeedTime(
-    {required TimeOfDay reminderTime, required BuildContext context}) {
-  // Extracting date components
-
-  // Extracting time components
-  final String hours = reminderTime.hourOfPeriod.toString().padLeft(2, '0');
-  final String period = reminderTime.hour < 12 ? 'AM' : 'PM';
-  final String minutes = reminderTime.minute.toString().padLeft(2, '0');
-
-  return CustomTime(
-    hours: hours,
-    minutes: minutes,
-    night: period,
-    checked: false,
-    feedId: UniqueKey().toString(),
-  );
 }

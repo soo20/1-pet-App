@@ -1,19 +1,14 @@
 // ignore_for_file: library_private_types_in_public_api
-
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-
 import 'package:intl/intl.dart';
-import 'package:petapplication/pages/events_system/add_reminder_to_firestore.dart';
+
 import 'package:petapplication/pages/events_system/events_for_pet.dart';
-// import 'package:petapplication/pages/events_system/events_for_pet.dart';
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 import 'package:petapplication/some_files_to_data/adding_pet_to_firestore.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:petapplication/some_files_to_data/reminders_api.dart';
 
-// import 'package:petapplication/pages/sign_login_acount/loginbody.dart';
-// import 'package:petapplication/pages/events_system/events_for_pet.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class AddTaskDialog extends StatefulWidget {
   const AddTaskDialog({super.key, required this.petInfo});
@@ -40,6 +35,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
     'Walking',
     'Custom',
   ];
+  bool loadedreminder = false;
   @override
   void initState() {
     super.initState();
@@ -59,11 +55,18 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
 
     void onFinishButtonPressed() async {
       // Create the ReminderData object
-      var reminderData = await createReminderData(
+      final reminderApi = ReminderDataApi();
+      ReminderData? reminderData = await reminderApi.createReminderData(
           selectedDate, reminderTime, currentItemSelected, widget.petInfo);
       setState(() {
         isSending = true;
       });
+      Future<String?> id = ReminderDataApi().addReminderInFireStore(
+        selectedDate: selectedDate,
+        reminderType: currentItemSelected,
+        reminderTime: reminderTime,
+        petId: widget.petInfo.petId,
+      );
       if (reminderData is ReminderData) {
         setState(() {
           bool foundDuplicate = false;
@@ -146,8 +149,17 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
             );
           } else {
             // Add the ReminderData object to the list
-            widget.petInfo.remindersData.add(reminderData);
+
             // Close the dialog
+            try {
+              reminderData.reminderId = id.toString();
+              widget.petInfo.remindersData.add(reminderData);
+              loadedreminder = true;
+            } on Exception {
+              loadedreminder = false;
+              widget.petInfo.remindersData.remove(reminderData);
+            }
+
             Navigator.of(context).pop();
           }
         });
@@ -701,17 +713,19 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                   left: size.width * 0.06,
                   right: size.width * 0.06,
                 ),
-                child: Text(
-                  'Finish',
-                  style: TextStyle(
-                    height: 0.0,
-                    fontFamily: 'Cosffira',
-                    fontSize: size.width * 0.045,
-                    fontWeight: FontWeight.w800,
-                    color: const Color.fromARGB(255, 255, 255, 255),
-                    letterSpacing: 0.5,
-                  ),
-                ),
+                child: loadedreminder
+                    ? const CircularProgressIndicator()
+                    : Text(
+                        'Finish',
+                        style: TextStyle(
+                          height: 0.0,
+                          fontFamily: 'Cosffira',
+                          fontSize: size.width * 0.045,
+                          fontWeight: FontWeight.w800,
+                          color: const Color.fromARGB(255, 255, 255, 255),
+                          letterSpacing: 0.5,
+                        ),
+                      ),
               ),
             ),
           ],

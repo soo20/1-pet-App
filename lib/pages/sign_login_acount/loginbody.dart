@@ -41,10 +41,10 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
     pageController = PageController(initialPage: 0)
       ..addListener(() {
         setState(() {
-          ratio = false;
+          ratio = true;
         });
       });
-
+    ratio = false;
     super.initState();
   }
 
@@ -304,7 +304,7 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                       bottom: MediaQuery.of(context).viewInsets.bottom),
                   child: SingleChildScrollView(
                     child: Container(
-                      height: ratio ? height * 0.8 : height * 0.5,
+                      height: ratio ? height * 0.9 : height * 0.5,
                       width: double.infinity,
                       decoration: const BoxDecoration(
                         image: DecorationImage(

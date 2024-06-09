@@ -54,6 +54,7 @@ class _MyPetsPage extends State<MyPetsPage> {
         closeTopevents = controller.offset > 50;
       });
     });
+    fetchPets();
   }
 
   Future<void> fetchPets() async {
@@ -182,43 +183,52 @@ class _MyPetsPage extends State<MyPetsPage> {
               ),
             ),
           ),
-
-          //to build the card of pets
-          Flexible(
-            child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                dragStartBehavior: DragStartBehavior.start,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Column(
-                      children: [
-                        for (int index = 0;
-                            index < petsOnTheLeft(petsList).length;
-                            index++)
-                          BuildPetCard(
-                            petsInfo: petsOnTheLeft(petsList)[index],
-                            cardHeight: index % 2 == 0 ? 0.26841 : 0.3694,
-                            imageHeight: index % 2 == 0 ? 0.14966 : 0.20000,
+          petsList.isEmpty
+              ? Padding(
+                  padding: EdgeInsets.only(top: size.height * 0.11),
+                  child: Image.asset(
+                    'assets/image/my_pets_page_images/emptyPetList.png',
+                    height: size.height * 0.4,
+                    width: size.height * 0.4,
+                  ),
+                )
+              //to build the card of pets
+              : Flexible(
+                  child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      dragStartBehavior: DragStartBehavior.start,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Column(
+                            children: [
+                              for (int index = 0;
+                                  index < petsOnTheLeft(petsList).length;
+                                  index++)
+                                BuildPetCard(
+                                  petsInfo: petsOnTheLeft(petsList)[index],
+                                  cardHeight: index % 2 == 0 ? 0.26841 : 0.3694,
+                                  imageHeight:
+                                      index % 2 == 0 ? 0.14966 : 0.20000,
+                                ),
+                            ],
                           ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        for (int index = 0;
-                            index < petsOnTheRight(petsList).length;
-                            index++)
-                          BuildPetCard(
-                            petsInfo: petsOnTheRight(petsList)[index],
-                            cardHeight: index % 2 == 0 ? 0.3694 : 0.26841,
-                            imageHeight: index % 2 == 0 ? 0.2 : 0.14966,
+                          Column(
+                            children: [
+                              for (int index = 0;
+                                  index < petsOnTheRight(petsList).length;
+                                  index++)
+                                BuildPetCard(
+                                  petsInfo: petsOnTheRight(petsList)[index],
+                                  cardHeight: index % 2 == 0 ? 0.3694 : 0.26841,
+                                  imageHeight: index % 2 == 0 ? 0.2 : 0.14966,
+                                ),
+                            ],
                           ),
-                      ],
-                    ),
-                  ],
-                )),
-          ),
+                        ],
+                      )),
+                ),
         ],
       ),
     );

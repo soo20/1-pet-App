@@ -226,7 +226,7 @@ class ChooseDetectionType extends StatelessWidget {
                 ElevatedButton.icon(
                   style: ButtonStyle(
                       backgroundColor: WidgetStateProperty.all<Color?>(
-                        const Color(0xffEBBBBB),
+                        const Color(0xffA26874),
                       ),
                       foregroundColor: WidgetStateProperty.all<Color?>(
                         const Color(0xffF3F2F2),

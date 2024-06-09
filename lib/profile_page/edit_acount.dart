@@ -344,6 +344,7 @@ class _EditAcountState extends State<EditAcount> {
                             .get();
                         updateUserInformation(
                           imageUrl: imageUrl,
+                          // ignore: use_build_context_synchronously
                           cxt: context,
                           phoneNumber: phoneNumberController.text ==
                                   doc.data()?['phone_number']
