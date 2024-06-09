@@ -74,16 +74,18 @@ class ReminderDataApi {
     final String period = reminderTime.hour < 12 ? 'AM' : 'PM';
     final String minutes = reminderTime.minute.toString().padLeft(2, '0');
     returnedReminder = ReminderData(
-        day: day,
-        month: month,
-        reminderType: currentItemSelected,
-        hours: hours,
-        minutes: minutes,
-        night: period,
-        weekDay: weekDay,
-        year: year,
-        petId: pet.petId,
-        reminderId: '');
+      day: day,
+      month: month,
+      reminderType: currentItemSelected,
+      hours: hours,
+      minutes: minutes,
+      night: period,
+      weekDay: weekDay,
+      year: year,
+      petId: pet.petId,
+      reminderId: '',
+      monthNumber: selectedDate.month,
+    );
 
     return returnedReminder;
   }
@@ -108,6 +110,7 @@ class ReminderDataApi {
         year: date.year.toString(),
         petId: data['pet-id'],
         reminderId: data['reminder-id'],
+        monthNumber: date.month,
       );
     } catch (error) {
       rethrow;
@@ -206,8 +209,11 @@ class ReminderDataApi {
   }
 
   MergedReminderData mergedReminderData(ReminderData reminder) {
-    DateTime date = DateTime(int.parse(reminder.year),
-        int.parse(reminder.month), int.parse(reminder.day));
+    DateTime date = DateTime(
+      int.parse(reminder.year),
+      reminder.monthNumber,
+      int.parse(reminder.day),
+    );
     int hour = int.parse(reminder.hours);
     int minute = int.parse(reminder.hours);
     TimeOfDay time = TimeOfDay(hour: hour, minute: minute);

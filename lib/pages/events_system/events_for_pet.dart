@@ -1,12 +1,13 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:petapplication/pages/events_system/build_reminder_card.dart';
+
 import 'package:petapplication/pages/events_system/edit_event_for_pet.dart';
 
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 import 'package:petapplication/pages/events_system/add_event_for_pet.dart';
 import 'package:petapplication/some_files_to_data/adding_pet_to_firestore.dart';
+import 'package:petapplication/some_files_to_data/feeds_api.dart';
 import 'package:petapplication/some_files_to_data/reminders_api.dart';
 
 class EventsForPetPage extends StatefulWidget {
@@ -16,34 +17,19 @@ class EventsForPetPage extends StatefulWidget {
   State<EventsForPetPage> createState() => _EventsForPetPage();
 }
 
-class CustomTime {
-  CustomTime({
-    required this.hours,
-    required this.minutes,
-    required this.night,
-    required this.checked,
-    required this.feedId,
-  });
-  late String hours;
-  late String minutes;
-  late String night;
-  late String feedId;
-  bool checked = false;
-}
-
 class ReminderData {
-  ReminderData({
-    required this.day,
-    required this.month,
-    required this.reminderType,
-    required this.hours,
-    required this.minutes,
-    required this.night,
-    required this.weekDay,
-    required this.year,
-    required this.petId,
-    required this.reminderId,
-  });
+  ReminderData(
+      {required this.day,
+      required this.month,
+      required this.reminderType,
+      required this.hours,
+      required this.minutes,
+      required this.night,
+      required this.weekDay,
+      required this.year,
+      required this.petId,
+      required this.reminderId,
+      required this.monthNumber});
   late String day;
   late String month;
   late String reminderType;
@@ -54,6 +40,7 @@ class ReminderData {
   late String year;
   late String petId;
   late String reminderId;
+  late int monthNumber;
 }
 
 bool loadingReminders = true;
@@ -64,10 +51,19 @@ class _EventsForPetPage extends State<EventsForPetPage> {
   Color feedTimeColor = const Color.fromARGB(255, 255, 255, 255);
   String currentItemSelected = 'Playing';
   final api = ReminderDataApi();
-  void onFinishButtonPressed({required TimeOfDay timeOfDay}) {
+  void onFinishButtonPressed(
+      {required TimeOfDay timeOfDay, required String petId}) {
     // Create the ReminderData object
-    final CustomTime timeData =
-        createFeedTime(reminderTime: timeOfDay, context: context);
+    final feedTimesApi = FeedTimesApi();
+
+    final CustomTime timeData = feedTimesApi.createFeedTime(
+      reminderTime: timeOfDay,
+      context: context,
+      petId: petId,
+    );
+    Future<String?> id =
+        FeedTimesApi().addFeedInFireStore(timeOfDay: timeOfDay, petId: petId);
+
     bool foundDuplicate = false;
     for (CustomTime time in widget.petInformation.feedTimesForPet) {
       if (time.hours == timeData.hours &&
@@ -143,15 +139,21 @@ class _EventsForPetPage extends State<EventsForPetPage> {
         ),
       );
     } else {
-      widget.petInformation.feedTimesForPet.add(timeData);
+      try {
+        timeData.feedId = id.toString();
+
+        widget.petInformation.feedTimesForPet.add(timeData);
+      } on Exception {
+        widget.petInformation.feedTimesForPet.remove(timeData);
+      }
     }
   }
 
   bool isInSelectionMode = false;
-  Set<String> selectedItems = <String>{};
+  List<String> selectedItems = [];
   int feedCountSelected = 0;
 
-  Future<void> fetchReminders() async {
+  Future<void> fetchRemindersAndFeedTimes() async {
     List<ReminderData?> remindersData = await api
         .fetchRemindersDatafromFirestore(petId: widget.petInformation.petId);
 
@@ -167,7 +169,8 @@ class _EventsForPetPage extends State<EventsForPetPage> {
 
   @override
   void initState() {
-    fetchReminders();
+    fetchRemindersAndFeedTimes();
+
     super.initState();
   }
 
@@ -190,10 +193,15 @@ class _EventsForPetPage extends State<EventsForPetPage> {
             ),
             onPressed: () {
               setState(() {
-                // Remove elements from feedTimesForPet where feedId is in selectedItems
+                final feedApi = FeedTimesApi();
+                feedApi.deleteFeedTimes(
+                  selectedItems: selectedItems,
+                  petId: widget.petInformation,
+                );
                 widget.petInformation.feedTimesForPet.removeWhere(
                   (i) => selectedItems.contains(i.feedId),
                 );
+
                 selectedItems.clear();
               });
             },
@@ -370,7 +378,9 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                                     if (timeOfFeed != null) {
                                       setState(() {
                                         onFinishButtonPressed(
-                                            timeOfDay: timeOfFeed);
+                                          timeOfDay: timeOfFeed,
+                                          petId: widget.petInformation.petId,
+                                        );
                                       });
                                     }
                                   },
@@ -583,6 +593,8 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                                                 setState(() {
                                                   onFinishButtonPressed(
                                                     timeOfDay: timeOfFeed,
+                                                    petId: widget
+                                                        .petInformation.petId,
                                                   );
                                                 });
                                               }
@@ -770,15 +782,17 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text(
-                                              reminder.reminderType,
-                                              style: TextStyle(
-                                                fontFamily: 'Cosffira',
-                                                fontSize: size.width * 0.063,
-                                                fontWeight: FontWeight.w800,
-                                                color: const Color.fromARGB(
-                                                    255, 81, 102, 133),
-                                                letterSpacing: 0.5,
+                                            Flexible(
+                                              child: Text(
+                                                reminder.reminderType,
+                                                style: TextStyle(
+                                                  fontFamily: 'Cosffira',
+                                                  fontSize: size.width * 0.063,
+                                                  fontWeight: FontWeight.w800,
+                                                  color: const Color.fromARGB(
+                                                      255, 81, 102, 133),
+                                                  letterSpacing: 0.5,
+                                                ),
                                               ),
                                             ),
                                             Text(
@@ -796,7 +810,7 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                                           ],
                                         ),
                                         SizedBox(
-                                          width: size.width * 0.25,
+                                          width: size.width * 0.2,
                                         ),
                                         PopupMenuButton<String>(
                                           elevation: 0.0,
@@ -898,17 +912,18 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                                                     setState(() {
                                                       deleting = false;
                                                     });
-                                                    print(
-                                                        'Error deleting reminder: $e');
                                                   }
                                                 },
                                               ),
                                             ];
                                           },
-                                          child: Image.asset(
-                                            "assets/icons/events_for_pet_page_icons/option_icon.png",
-                                            height: size.height * 0.061,
-                                            width: size.width * 0.016,
+                                          child: SizedBox(
+                                            width: size.width * 0.02,
+                                            child: Image.asset(
+                                              "assets/icons/events_for_pet_page_icons/option_icon.png",
+                                              height: size.height * 0.061,
+                                              width: size.width * 0.016,
+                                            ),
                                           ),
                                         ),
                                       ],
