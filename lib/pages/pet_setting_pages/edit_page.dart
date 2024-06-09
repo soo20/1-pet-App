@@ -2,6 +2,7 @@
 
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -133,6 +134,35 @@ class _EditPetsState extends State<EditPets> {
                                   fit: BoxFit.fill,
                                 ),
                               ),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 70, left: 70),
+                                child: Container(
+                                  height: 50.h,
+                                  width: 50.w,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      width: 0.5,
+                                      color: Colors.white,
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        spreadRadius: 2,
+                                        blurRadius: 10,
+                                        color: Colors.black.withOpacity(0.13),
+                                        offset: const Offset(0, 10),
+                                      )
+                                    ],
+                                    color: const Color(0xff80CBC4),
+                                  ),
+                                  child: const Icon(
+                                    Icons.edit,
+                                    size: 20,
+                                    color: Color.fromARGB(190, 0, 0, 0),
+                                  ),
+                                ),
+                              ),
                             )
                           : StreamBuilder<DocumentSnapshot>(
                               stream: FirebaseFirestore.instance
@@ -168,6 +198,36 @@ class _EditPetsState extends State<EditPets> {
                                         image: AssetImage(
                                             'assets/image/profileImage.png'),
                                         fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 70, left: 70),
+                                      child: Container(
+                                        height: 50.h,
+                                        width: 50.w,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                            width: 0.5,
+                                            color: Colors.white,
+                                          ),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              spreadRadius: 2,
+                                              blurRadius: 10,
+                                              color: Colors.black
+                                                  .withOpacity(0.13),
+                                              offset: const Offset(0, 10),
+                                            )
+                                          ],
+                                          color: const Color(0xff80CBC4),
+                                        ),
+                                        child: const Icon(
+                                          Icons.edit,
+                                          size: 20,
+                                          color: Color.fromARGB(190, 0, 0, 0),
+                                        ),
                                       ),
                                     ),
                                   );
@@ -564,11 +624,28 @@ class _EditPetsState extends State<EditPets> {
                           widget.petInformation.age = ageController.text;
                           widget.petInformation.petWeight =
                               double.tryParse(weightController.text);
+
+                          String? imageUrl;
+                          if (_pickedImageFile != null) {
+                            // Upload the image to Firebase Storage
+                            final storageRef = FirebaseStorage.instance
+                                .ref()
+                                .child('pets')
+                                .child(widget.petInformation.petId)
+                                .child('pet_images.jpg');
+
+                            final uploadTask =
+                                storageRef.putFile(_pickedImageFile!);
+
+                            final snapshot =
+                                await uploadTask.whenComplete(() => {});
+                            imageUrl = await snapshot.ref.getDownloadURL();
+                          }
                           // petIsDogOrCat: selectedPetType!,
 
                           // Call the function to update pet information in Firestore
                           await updatePetInFirestore(
-                              pet: widget.petInformation);
+                              imageUrl: imageUrl, pet: widget.petInformation);
                           Navigator.pop(context, widget.petInformation);
                         }
                       },

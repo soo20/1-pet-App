@@ -126,6 +126,7 @@ Future<List<PetsInformation>> fetchUserPets() async {
 
 Future<void> updatePetInFirestore({
   required PetsInformation pet,
+  String? imageUrl,
 }) async {
   try {
     // Reference to the Firestore collection
@@ -140,7 +141,7 @@ Future<void> updatePetInFirestore({
       'age': pet.age,
       'petIsDogOrCat': pet.petIsDogOrCat,
       'petWeight': pet.petWeight,
-      'imageUrl': pet.imageUrl,
+      if (imageUrl != null) 'imageUrl': imageUrl,
       // Any other fields you want to update
     });
 
