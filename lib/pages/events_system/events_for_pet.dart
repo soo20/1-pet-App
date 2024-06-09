@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:petapplication/pages/events_system/build_reminder_card.dart';
 import 'package:petapplication/pages/events_system/edit_event_for_pet.dart';
 
 import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
@@ -705,11 +706,212 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                             itemBuilder: (context, index) {
                               if (index <
                                   widget.petInformation.remindersData.length) {
-                                final ReminderData remainder =
+                                bool deleting = false;
+                                final ReminderData reminder =
                                     widget.petInformation.remindersData[index];
-                                return BuildReminder(
-                                  reminderData: remainder,
-                                  petInformation: widget.petInformation,
+                                return Container(
+                                  height: size.height * 0.10,
+                                  margin: EdgeInsets.symmetric(
+                                    horizontal: size.width * 0.04,
+                                    vertical: size.height * 0.01,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: const Color.fromARGB(
+                                        255, 255, 255, 255),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(size.width * 0.06),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color:
+                                              const Color.fromARGB(54, 0, 0, 0),
+                                          blurRadius: size.width * 0.020),
+                                    ],
+                                  ),
+                                  child: Center(
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                              reminder.day,
+                                              style: TextStyle(
+                                                height: 0.0,
+                                                fontFamily: 'Cosffira',
+                                                fontSize: size.width * 0.072,
+                                                fontWeight: FontWeight.w800,
+                                                color: const Color(0XffA26874),
+                                                letterSpacing: 0.5,
+                                              ),
+                                            ),
+                                            Text(
+                                              reminder.month,
+                                              style: TextStyle(
+                                                height: 0.0,
+                                                fontFamily: 'Cosffira',
+                                                fontSize: size.width * 0.048,
+                                                fontWeight: FontWeight.normal,
+                                                color: const Color.fromARGB(
+                                                    155, 74, 94, 128),
+                                                letterSpacing: 0.5,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          width: size.width * 0.03,
+                                        ),
+                                        Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              reminder.reminderType,
+                                              style: TextStyle(
+                                                fontFamily: 'Cosffira',
+                                                fontSize: size.width * 0.063,
+                                                fontWeight: FontWeight.w800,
+                                                color: const Color.fromARGB(
+                                                    255, 81, 102, 133),
+                                                letterSpacing: 0.5,
+                                              ),
+                                            ),
+                                            Text(
+                                              '${reminder.weekDay}${reminder.year}, ${reminder.hours}:${reminder.minutes} ${reminder.night}',
+                                              style: TextStyle(
+                                                fontFamily: 'Cosffira',
+                                                fontSize: size.width * 0.045,
+                                                height: 0.0,
+                                                fontWeight: FontWeight.bold,
+                                                color: const Color.fromARGB(
+                                                    109, 74, 94, 124),
+                                                letterSpacing: 0.5,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          width: size.width * 0.25,
+                                        ),
+                                        PopupMenuButton<String>(
+                                          elevation: 0.0,
+                                          color: const Color.fromARGB(
+                                              255, 81, 102, 133),
+                                          itemBuilder: (context) {
+                                            return [
+                                              PopupMenuItem(
+                                                value: 'edit',
+                                                child: Text(
+                                                  'Edit',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Cosffira',
+                                                    fontSize:
+                                                        size.width * 0.045,
+                                                    height: 0.0,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    color: const Color.fromARGB(
+                                                        255, 255, 255, 255),
+                                                    letterSpacing: 0.5,
+                                                  ),
+                                                ),
+                                                onTap: () async {
+                                                  final api = ReminderDataApi();
+                                                  MergedReminderData
+                                                      reminderData =
+                                                      api.mergedReminderData(
+                                                          reminder);
+                                                  await showDialog(
+                                                      context: context,
+                                                      builder: (context) =>
+                                                          EditReminder(
+                                                            petInfo: widget
+                                                                .petInformation,
+                                                            reciervedDate:
+                                                                reminderData
+                                                                    .getrReminderDate(),
+                                                            reciervedTime:
+                                                                reminderData
+                                                                    .getReminderTime(),
+                                                            reciervedType:
+                                                                reminder
+                                                                    .reminderType,
+                                                            reminderId: reminder
+                                                                .reminderId,
+                                                          ));
+                                                  setState(() {});
+                                                },
+                                              ),
+                                              PopupMenuItem(
+                                                value: 'Delete',
+                                                child: deleting
+                                                    ? const CircularProgressIndicator()
+                                                    : Text(
+                                                        'Delete',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Cosffira',
+                                                          fontSize: size.width *
+                                                              0.045,
+                                                          height: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          color: const Color
+                                                              .fromARGB(255,
+                                                              255, 255, 255),
+                                                          letterSpacing: 0.5,
+                                                        ),
+                                                      ),
+                                                onTap: () async {
+                                                  setState(() {
+                                                    deleting = true;
+                                                  });
+
+                                                  try {
+                                                    final api =
+                                                        ReminderDataApi();
+                                                    await api
+                                                        .deleteReminder(
+                                                            reminderId: reminder
+                                                                .reminderId,
+                                                            petId:
+                                                                reminder.petId)
+                                                        .then((_) {
+                                                      setState(() {
+                                                        widget.petInformation
+                                                            .remindersData
+                                                            .removeWhere((item) =>
+                                                                item.reminderId ==
+                                                                reminder
+                                                                    .reminderId);
+                                                        deleting = false;
+                                                      });
+                                                    });
+                                                  } catch (e) {
+                                                    setState(() {
+                                                      deleting = false;
+                                                    });
+                                                    print(
+                                                        'Error deleting reminder: $e');
+                                                  }
+                                                },
+                                              ),
+                                            ];
+                                          },
+                                          child: Image.asset(
+                                            "assets/icons/events_for_pet_page_icons/option_icon.png",
+                                            height: size.height * 0.061,
+                                            width: size.width * 0.016,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 );
                               } else {
                                 return IconButton(
@@ -728,220 +930,10 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                                   ),
                                 );
                               }
-                            }),
-                      )
+                            })),
           ],
         ),
       ),
     );
   }
-}
-
-class BuildReminder extends StatefulWidget {
-  const BuildReminder({
-    super.key,
-    required this.reminderData,
-    required this.petInformation,
-  });
-  final ReminderData reminderData;
-  final PetsInformation petInformation;
-  @override
-  State<BuildReminder> createState() => _BuildReminder();
-}
-
-class _BuildReminder extends State<BuildReminder> {
-  @override
-  Widget build(BuildContext context) {
-    bool deleting = false;
-    return Container(
-      height: size.height * 0.10,
-      margin: EdgeInsets.symmetric(
-        horizontal: size.width * 0.04,
-        vertical: size.height * 0.01,
-      ),
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 255, 255, 255),
-        borderRadius: BorderRadius.all(
-          Radius.circular(size.width * 0.06),
-        ),
-        boxShadow: [
-          BoxShadow(
-              color: const Color.fromARGB(54, 0, 0, 0),
-              blurRadius: size.width * 0.020),
-        ],
-      ),
-      child: Center(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  widget.reminderData.day,
-                  style: TextStyle(
-                    height: 0.0,
-                    fontFamily: 'Cosffira',
-                    fontSize: size.width * 0.072,
-                    fontWeight: FontWeight.w800,
-                    color: const Color(0XffA26874),
-                    letterSpacing: 0.5,
-                  ),
-                ),
-                Text(
-                  widget.reminderData.month,
-                  style: TextStyle(
-                    height: 0.0,
-                    fontFamily: 'Cosffira',
-                    fontSize: size.width * 0.048,
-                    fontWeight: FontWeight.normal,
-                    color: const Color.fromARGB(155, 74, 94, 128),
-                    letterSpacing: 0.5,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              width: size.width * 0.03,
-            ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.reminderData.reminderType,
-                  style: TextStyle(
-                    fontFamily: 'Cosffira',
-                    fontSize: size.width * 0.063,
-                    fontWeight: FontWeight.w800,
-                    color: const Color.fromARGB(255, 81, 102, 133),
-                    letterSpacing: 0.5,
-                  ),
-                ),
-                Text(
-                  '${widget.reminderData.weekDay}${widget.reminderData.year}, ${widget.reminderData.hours}:${widget.reminderData.minutes} ${widget.reminderData.night}',
-                  style: TextStyle(
-                    fontFamily: 'Cosffira',
-                    fontSize: size.width * 0.045,
-                    height: 0.0,
-                    fontWeight: FontWeight.bold,
-                    color: const Color.fromARGB(109, 74, 94, 124),
-                    letterSpacing: 0.5,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              width: size.width * 0.25,
-            ),
-            PopupMenuButton<String>(
-              elevation: 0.0,
-              color: const Color.fromARGB(255, 81, 102, 133),
-              itemBuilder: (context) {
-                return [
-                  PopupMenuItem(
-                    value: 'edit',
-                    child: Text(
-                      'Edit',
-                      style: TextStyle(
-                        fontFamily: 'Cosffira',
-                        fontSize: size.width * 0.045,
-                        height: 0.0,
-                        fontWeight: FontWeight.normal,
-                        color: const Color.fromARGB(255, 255, 255, 255),
-                        letterSpacing: 0.5,
-                      ),
-                    ),
-                    onTap: () async {
-                      final api = ReminderDataApi();
-                      MergedReminderData reminderData =
-                          api.mergedReminderData(widget.reminderData);
-                      await showDialog(
-                          context: context,
-                          builder: (context) => EditReminder(
-                              petInfo: widget.petInformation,
-                              reciervedDate: reminderData.getrReminderDate(),
-                              reciervedTime: reminderData.getReminderTime(),
-                              reciervedType: widget.reminderData.reminderType,
-                              reminderId: widget.reminderData.reminderId));
-                      setState(() {});
-                    },
-                  ),
-                  PopupMenuItem(
-                    value: 'Delete',
-                    child: deleting
-                        ? const CircularProgressIndicator()
-                        : Text(
-                            'Delete',
-                            style: TextStyle(
-                              fontFamily: 'Cosffira',
-                              fontSize: size.width * 0.045,
-                              height: 0.0,
-                              fontWeight: FontWeight.normal,
-                              color: const Color.fromARGB(255, 255, 255, 255),
-                              letterSpacing: 0.5,
-                            ),
-                          ),
-                    onTap: () async {
-                      setState(() {
-                        deleting = true;
-                      });
-
-                      try {
-                        final api = ReminderDataApi();
-                        await api.deleteReminder(
-                            reminderId: widget.reminderData.reminderId,
-                            petId: widget.reminderData.petId);
-
-                        // Remove the deleted reminder from the list
-                        widget.petInformation.remindersData.removeWhere(
-                            (reminder) =>
-                                reminder.reminderId ==
-                                widget.reminderData.reminderId);
-
-                        // Update the state after the deletion
-                        setState(() {
-                          deleting = false;
-                        });
-                      } catch (e) {
-                        // Handle the exception and update the state
-                        setState(() {
-                          deleting = false;
-                        });
-                        print('Error deleting reminder: $e');
-                      }
-                    },
-                  ),
-                ];
-              },
-              child: Image.asset(
-                "assets/icons/events_for_pet_page_icons/option_icon.png",
-                height: size.height * 0.061,
-                width: size.width * 0.016,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-CustomTime createFeedTime(
-    {required TimeOfDay reminderTime, required BuildContext context}) {
-  // Extracting date components
-
-  // Extracting time components
-  final String hours = reminderTime.hourOfPeriod.toString().padLeft(2, '0');
-  final String period = reminderTime.hour < 12 ? 'AM' : 'PM';
-  final String minutes = reminderTime.minute.toString().padLeft(2, '0');
-
-  return CustomTime(
-    hours: hours,
-    minutes: minutes,
-    night: period,
-    checked: false,
-    feedId: UniqueKey().toString(),
-  );
 }

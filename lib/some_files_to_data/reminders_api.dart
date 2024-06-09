@@ -22,14 +22,13 @@ class MergedReminderData {
 }
 
 class ReminderDataApi {
-  Future<void> addReminderInFireStore({
-    required selectedDate,
+  Future<String?> addReminderInFireStore({
+    required DateTime selectedDate,
     required TimeOfDay reminderTime,
-    required reminderType,
-    required petId,
+    required String reminderType,
+    required String petId,
   }) async {
     try {
-      // Get the current user
       User? user = FirebaseAuth.instance.currentUser;
 
       if (user == null) {
@@ -46,12 +45,15 @@ class ReminderDataApi {
         'reminder-minute': reminderTime.minute,
         'user-id': user.uid,
         'pet-id': petId,
-        'reminder-id': '',
+        'reminder-id': '', // Temporarily set to empty
       });
 
       final reminderId = documentRef.id;
       await documentRef.update({'reminder-id': reminderId});
+      print('Reminder added with ID: $reminderId');
+      return reminderId;
     } catch (e) {
+      print('Error adding reminder: $e');
       rethrow;
     }
   }
@@ -180,6 +182,10 @@ class ReminderDataApi {
 
   Future<void> deleteReminder(
       {required String reminderId, required String petId}) async {
+    if (reminderId.isEmpty) {
+      throw Exception('reminderId cannot be empty');
+    }
+
     try {
       User? user = FirebaseAuth.instance.currentUser;
 
@@ -187,29 +193,12 @@ class ReminderDataApi {
         throw Exception('No user is signed in');
       }
 
-      // Fetch the documents that match the criteria
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+      await FirebaseFirestore.instance
           .collection('reminders')
-          .where('user-id', isEqualTo: user.uid)
-          .where('pet-id', isEqualTo: petId)
-          .where('reminder-id', isEqualTo: reminderId)
-          .get();
+          .doc(reminderId)
+          .delete();
 
-      // Ensure there is exactly one document to delete
-      if (querySnapshot.docs.isNotEmpty) {
-        // Get the document ID
-        String docId = querySnapshot.docs.first.id;
-
-        // Delete the document
-        await FirebaseFirestore.instance
-            .collection('reminders')
-            .doc(docId)
-            .delete();
-
-        print("Deleted reminder successfully");
-      } else {
-        print("No matching document found");
-      }
+      print("Deleted reminder successfully");
     } catch (error) {
       print("Error deleting reminder: $error");
       rethrow;
