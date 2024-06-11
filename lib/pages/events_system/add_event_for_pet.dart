@@ -60,12 +60,6 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
       ReminderData? reminderData = await reminderApi.createReminderData(
           selectedDate, reminderTime, currentItemSelected, widget.petInfo);
 
-      Future<String?> id = ReminderDataApi().addReminderInFireStore(
-        selectedDate: selectedDate,
-        reminderType: currentItemSelected,
-        reminderTime: reminderTime,
-        petId: widget.petInfo.petId,
-      );
       if (reminderData is ReminderData) {
         setState(() {
           bool foundDuplicate = false;
@@ -151,8 +145,19 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
 
             // Close the dialog
             try {
+              Future<String?> id = ReminderDataApi().addReminderInFireStore(
+                selectedDate: selectedDate,
+                reminderType: currentItemSelected,
+                reminderTime: reminderTime,
+                petId: widget.petInfo.petId,
+              );
+
               reminderData.reminderId = id.toString();
-              widget.petInfo.remindersData.add(reminderData);
+              if (reminderData.reminderId != "null") {
+                print('reminder is : ${id.toString()}');
+                widget.petInfo.remindersData.add(reminderData);
+              }
+
               loadedreminder = true;
             } on Exception {
               loadedreminder = false;

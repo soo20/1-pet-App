@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:petapplication/pages/events_system/edit_event_for_pet.dart';
@@ -18,18 +19,20 @@ class EventsForPetPage extends StatefulWidget {
 }
 
 class ReminderData {
-  ReminderData(
-      {required this.day,
-      required this.month,
-      required this.reminderType,
-      required this.hours,
-      required this.minutes,
-      required this.night,
-      required this.weekDay,
-      required this.year,
-      required this.petId,
-      required this.reminderId,
-      required this.monthNumber});
+  ReminderData({
+    required this.day,
+    required this.month,
+    required this.reminderType,
+    required this.hours,
+    required this.minutes,
+    required this.night,
+    required this.weekDay,
+    required this.year,
+    required this.petId,
+    required this.reminderId,
+    required this.monthNumber,
+    required this.checked,
+  });
   late String day;
   late String month;
   late String reminderType;
@@ -41,6 +44,7 @@ class ReminderData {
   late String petId;
   late String reminderId;
   late int monthNumber;
+  late bool checked;
 }
 
 bool loadingReminders = true;
@@ -52,7 +56,7 @@ class _EventsForPetPage extends State<EventsForPetPage> {
   String currentItemSelected = 'Playing';
   final api = ReminderDataApi();
   void onFinishButtonPressed(
-      {required TimeOfDay timeOfDay, required String petId}) {
+      {required TimeOfDay timeOfDay, required String petId}) async {
     // Create the ReminderData object
     final feedTimesApi = FeedTimesApi();
 
@@ -61,8 +65,6 @@ class _EventsForPetPage extends State<EventsForPetPage> {
       context: context,
       petId: petId,
     );
-    Future<String?> id =
-        FeedTimesApi().addFeedInFireStore(timeOfDay: timeOfDay, petId: petId);
 
     bool foundDuplicate = false;
     for (CustomTime time in widget.petInformation.feedTimesForPet) {
@@ -140,10 +142,16 @@ class _EventsForPetPage extends State<EventsForPetPage> {
       );
     } else {
       try {
-        timeData.feedId = id.toString();
-
-        widget.petInformation.feedTimesForPet.add(timeData);
-      } on Exception {
+        String? id = await FeedTimesApi()
+            .addFeedInFireStore(timeOfDay: timeOfDay, petId: petId);
+        if (id != null) {
+          setState(() {
+            timeData.feedId = id.toString();
+            widget.petInformation.feedTimesForPet.add(timeData);
+          });
+        }
+      } on Exception catch (e) {
+        print('Error adding feed time to list: $e');
         widget.petInformation.feedTimesForPet.remove(timeData);
       }
     }
@@ -152,25 +160,33 @@ class _EventsForPetPage extends State<EventsForPetPage> {
   bool isInSelectionMode = false;
   List<String> selectedItems = [];
   int feedCountSelected = 0;
-
   Future<void> fetchRemindersAndFeedTimes() async {
-    List<ReminderData?> remindersData = await api
-        .fetchRemindersDatafromFirestore(petId: widget.petInformation.petId);
+    try {
+      List<ReminderData?> remindersData = await api
+          .fetchRemindersDatafromFirestore(petId: widget.petInformation.petId);
 
-    // Filter out any null values if the list contains nullable types
-    List<ReminderData> nonNullRemindersData =
-        remindersData.whereType<ReminderData>().toList();
+      // Filter out any null values if the list contains nullable types
+      List<ReminderData> nonNullRemindersData =
+          remindersData.whereType<ReminderData>().toList();
 
-    setState(() {
-      widget.petInformation.remindersData = nonNullRemindersData;
-      loadingReminders = false;
-    });
+      final feedTimesApi = FeedTimesApi();
+      List<CustomTime> nonNullFeedTimesData =
+          await feedTimesApi.getFeedTimes(petId: widget.petInformation.petId);
+
+      setState(() {
+        widget.petInformation.remindersData = nonNullRemindersData;
+        widget.petInformation.feedTimesForPet = nonNullFeedTimesData;
+        loadingReminders = false;
+      });
+    } catch (e) {
+      print("Error fetching reminders and feed times: $e");
+    }
   }
 
   @override
   void initState() {
     fetchRemindersAndFeedTimes();
-
+    loadingReminders = true;
     super.initState();
   }
 
@@ -196,7 +212,7 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                 final feedApi = FeedTimesApi();
                 feedApi.deleteFeedTimes(
                   selectedItems: selectedItems,
-                  petId: widget.petInformation,
+                  petId: widget.petInformation.petId,
                 );
                 widget.petInformation.feedTimesForPet.removeWhere(
                   (i) => selectedItems.contains(i.feedId),
@@ -290,325 +306,422 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                   SizedBox(
                     height: size.height * 0.014,
                   ),
-                  widget.petInformation.feedTimesForPet.isEmpty
-                      ? Flexible(
-                          child: Theme(
-                            data: ThemeData(
-                              primarySwatch: Colors.blue,
-                              timePickerTheme: TimePickerThemeData(
-                                helpTextStyle: TextStyle(
-                                  fontFamily: 'Cosffira',
-                                  fontSize: size.width * 0.045,
-                                  fontWeight: FontWeight.bold,
-                                  color: const Color(0xff4A5E7C),
-                                ),
-                                backgroundColor: const Color(0xffEFE7E7),
-                                elevation: 0.0,
-                                cancelButtonStyle: ButtonStyle(
-                                  foregroundColor: const WidgetStatePropertyAll(
-                                      Color(0xff4A5E7C)),
-                                  textStyle: WidgetStatePropertyAll(
-                                    TextStyle(
-                                      fontFamily: 'Cosffira',
-                                      fontSize: size.width * 0.045,
-                                      fontWeight: FontWeight.bold,
-                                      color: const Color(0xff4A5E7C),
-                                    ),
+                  loadingReminders
+                      ? Center(
+                          child: SizedBox(
+                            height: size.height * 0.04,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CircularProgressIndicator.adaptive(
+                                  strokeWidth: size.height * 0.0023,
+                                  backgroundColor:
+                                      const Color.fromARGB(60, 58, 54, 54),
+                                  valueColor:
+                                      const AlwaysStoppedAnimation<Color>(
+                                    Color.fromARGB(170, 162, 104, 116),
                                   ),
                                 ),
-                                confirmButtonStyle: ButtonStyle(
-                                  foregroundColor: const WidgetStatePropertyAll(
-                                      Color(0xff4A5E7C)),
-                                  textStyle: WidgetStatePropertyAll(
-                                    TextStyle(
-                                      fontFamily: 'Cosffira',
-                                      fontSize: size.width * 0.045,
-                                      fontWeight: FontWeight.bold,
-                                      color: const Color(0xff4A5E7C),
-                                    ),
+                                SizedBox(
+                                  width: size.width * 0.02,
+                                ),
+                                Text(
+                                  'Fetching pet feed times.....',
+                                  style: TextStyle(
+                                    fontFamily: 'Cosffira',
+                                    fontSize: size.width * 0.048,
+                                    fontWeight: FontWeight.normal,
+                                    color: const Color.fromARGB(60, 58, 54, 54),
                                   ),
-                                ),
-                                dialBackgroundColor: const Color(0xffffffff),
-                                entryModeIconColor: const Color(0xffA26874),
-                                hourMinuteTextStyle: TextStyle(
-                                  fontFamily: 'Cosffira',
-                                  fontSize: size.width * 0.085,
-                                  fontWeight: FontWeight.bold,
-                                  color: const Color(0xff4A5E7C),
-                                ),
-                                dayPeriodTextStyle: TextStyle(
-                                  fontFamily: 'Cosffira',
-                                  fontSize: size.width * 0.045,
-                                  fontWeight: FontWeight.bold,
-                                  color: const Color(0xff4A5E7C),
-                                ),
-                                dialTextStyle: TextStyle(
-                                  fontFamily: 'Cosffira',
-                                  fontSize: size.width * 0.045,
-                                  fontWeight: FontWeight.bold,
-                                  color: const Color(0xff4A5E7C),
-                                ),
-                                dayPeriodTextColor: const Color(0xffffffff),
-                                dayPeriodColor: const Color(
-                                    0xff4A5E7C), //Background of AM/PM.
-                                dialHandColor: const Color(0xff4A5E7C),
-                                dialTextColor: const Color(0xffA26874),
-                                hourMinuteTextColor: const Color(0xffffffff),
-                                hourMinuteColor: const Color(0xffA26874),
-                              ),
-                            ),
-                            child: Builder(
-                              builder: (BuildContext context) {
-                                return IconButton(
-                                  icon: Image.asset(
-                                    'assets/icons/events_for_pet_page_icons/add_feed_if_impty.png',
-                                    height: size.height * 0.09,
-                                    width: size.width * 0.29,
-                                    fit: BoxFit.fill,
-                                  ),
-                                  onPressed: () async {
-                                    TimeOfDay reminderTime = TimeOfDay.now();
-                                    final TimeOfDay? timeOfFeed =
-                                        await showTimePicker(
-                                      context: context,
-                                      initialTime: reminderTime,
-                                      initialEntryMode:
-                                          TimePickerEntryMode.dial,
-                                    );
-                                    if (timeOfFeed != null) {
-                                      setState(() {
-                                        onFinishButtonPressed(
-                                          timeOfDay: timeOfFeed,
-                                          petId: widget.petInformation.petId,
-                                        );
-                                      });
-                                    }
-                                  },
-                                );
-                              },
+                                )
+                              ],
                             ),
                           ),
                         )
-                      : Flexible(
-                          child: SingleChildScrollView(
-                            padding: EdgeInsets.only(
-                              left: size.width * 0.06,
-                              bottom: size.height * 0.06,
-                            ),
-                            physics: const BouncingScrollPhysics(),
-                            scrollDirection: Axis.horizontal,
-                            child: Container(
-                              height: size.height *
-                                  0.143, // Set a fixed height for the cards
-                              margin: EdgeInsets.symmetric(
-                                horizontal: size.height * 0.02,
-                              ),
-                              child: FittedBox(
-                                fit: BoxFit.fill,
-                                //this is might be cause of overflow
-                                child: Row(
-                                  children: [
-                                    // this will be dynamic coloumn that depends on the length of list
-                                    for (CustomTime i in widget
-                                        .petInformation.feedTimesForPet)
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                          right: size.width * 0.06,
+                      : widget.petInformation.feedTimesForPet.isEmpty
+                          ? Flexible(
+                              child: Theme(
+                                data: ThemeData(
+                                  primarySwatch: Colors.blue,
+                                  timePickerTheme: TimePickerThemeData(
+                                    helpTextStyle: TextStyle(
+                                      fontFamily: 'Cosffira',
+                                      fontSize: size.width * 0.045,
+                                      fontWeight: FontWeight.bold,
+                                      color: const Color(0xff4A5E7C),
+                                    ),
+                                    backgroundColor: const Color(0xffEFE7E7),
+                                    elevation: 0.0,
+                                    cancelButtonStyle: ButtonStyle(
+                                      foregroundColor:
+                                          const WidgetStatePropertyAll(
+                                              Color(0xff4A5E7C)),
+                                      textStyle: WidgetStatePropertyAll(
+                                        TextStyle(
+                                          fontFamily: 'Cosffira',
+                                          fontSize: size.width * 0.045,
+                                          fontWeight: FontWeight.bold,
+                                          color: const Color(0xff4A5E7C),
                                         ),
-                                        child: GestureDetector(
-                                          onLongPress: () {
-                                            setState(() {
-                                              isInSelectionMode = true;
-
-                                              selectedItems.add(i.feedId);
-                                            });
-                                          },
-                                          onTap: () {
-                                            setState(() {
-                                              if (isInSelectionMode) {
-                                                if (selectedItems
-                                                    .contains(i.feedId)) {
-                                                  selectedItems
-                                                      .remove(i.feedId);
-                                                } else {
-                                                  selectedItems.add(i.feedId);
-                                                }
-                                              }
-                                            });
-                                          },
-                                          child: Container(
-                                            height: size.height * 0.170,
-                                            width: size.width * 0.24,
-                                            decoration: BoxDecoration(
-                                              color: i.checked &&
-                                                      !selectedItems
-                                                          .contains(i.feedId)
-                                                  ? const Color(
-                                                      0xffA26874) // Case 1: i.checked is true
-                                                  : selectedItems
-                                                          .contains(i.feedId)
-                                                      ? const Color.fromARGB(
-                                                          255,
-                                                          139,
-                                                          152,
-                                                          170) // Case 2: i.checked is false but the item is selected
-                                                      : const Color(0xffEFE7E7),
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(
-                                                    size.width * 0.3),
-                                              ),
-                                            ),
-                                            child: Column(
-                                              children: [
-                                                IconButton(
-                                                  onPressed: () {
-                                                    setState(() =>
-                                                        i.checked = !i.checked);
-                                                  },
-                                                  icon: Image.asset(
-                                                    i.checked
-                                                        ? "assets/icons/events_for_pet_page_icons/check_yes.png"
-                                                        : "assets/icons/events_for_pet_page_icons/Ellipse_icon_for_feed.png",
-                                                    height: size.height * 0.060,
-                                                    width: size.width * 0.054,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  '${i.hours}:${i.minutes}\n ${i.night}',
-                                                  style: TextStyle(
-                                                    height: 0.0,
-                                                    fontFamily: 'Cosffira',
-                                                    fontSize:
-                                                        size.width * 0.056,
-                                                    fontWeight: FontWeight.w800,
-                                                    color: i.checked
-                                                        ? const Color(
-                                                            0xffEFE7E7)
-                                                        : const Color(
-                                                            0xff4A5E7C),
-                                                    letterSpacing: 0.5,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-
-                                    Theme(
-                                      data: ThemeData(
-                                        primarySwatch: Colors.blue,
-                                        timePickerTheme: TimePickerThemeData(
-                                          helpTextStyle: TextStyle(
-                                            fontFamily: 'Cosffira',
-                                            fontSize: size.width * 0.045,
-                                            fontWeight: FontWeight.bold,
-                                            color: const Color(0xff4A5E7C),
-                                          ),
-                                          backgroundColor:
-                                              const Color(0xffEFE7E7),
-                                          elevation: 0.0,
-                                          cancelButtonStyle: ButtonStyle(
-                                            foregroundColor:
-                                                const WidgetStatePropertyAll(
-                                                    Color(0xff4A5E7C)),
-                                            textStyle: WidgetStatePropertyAll(
-                                              TextStyle(
-                                                fontFamily: 'Cosffira',
-                                                fontSize: size.width * 0.045,
-                                                fontWeight: FontWeight.bold,
-                                                color: const Color(0xff4A5E7C),
-                                              ),
-                                            ),
-                                          ),
-                                          confirmButtonStyle: ButtonStyle(
-                                            foregroundColor:
-                                                const WidgetStatePropertyAll(
-                                                    Color(0xff4A5E7C)),
-                                            textStyle: WidgetStatePropertyAll(
-                                              TextStyle(
-                                                fontFamily: 'Cosffira',
-                                                fontSize: size.width * 0.045,
-                                                fontWeight: FontWeight.bold,
-                                                color: const Color(0xff4A5E7C),
-                                              ),
-                                            ),
-                                          ),
-                                          dialBackgroundColor:
-                                              const Color(0xffffffff),
-                                          entryModeIconColor:
-                                              const Color(0xffA26874),
-                                          hourMinuteTextStyle: TextStyle(
-                                            fontFamily: 'Cosffira',
-                                            fontSize: size.width * 0.085,
-                                            fontWeight: FontWeight.bold,
-                                            color: const Color(0xff4A5E7C),
-                                          ),
-                                          dayPeriodTextStyle: TextStyle(
-                                            fontFamily: 'Cosffira',
-                                            fontSize: size.width * 0.045,
-                                            fontWeight: FontWeight.bold,
-                                            color: const Color(0xff4A5E7C),
-                                          ),
-                                          dialTextStyle: TextStyle(
-                                            fontFamily: 'Cosffira',
-                                            fontSize: size.width * 0.045,
-                                            fontWeight: FontWeight.bold,
-                                            color: const Color(0xff4A5E7C),
-                                          ),
-                                          dayPeriodTextColor:
-                                              const Color(0xffffffff),
-                                          dayPeriodColor: const Color(
-                                              0xff4A5E7C), //Background of AM/PM.
-                                          dialHandColor:
-                                              const Color(0xff4A5E7C),
-                                          dialTextColor:
-                                              const Color(0xffA26874),
-                                          hourMinuteTextColor:
-                                              const Color(0xffffffff),
-                                          hourMinuteColor:
-                                              const Color(0xffA26874),
-                                        ),
-                                      ),
-                                      child: Builder(
-                                        builder: (BuildContext context) {
-                                          return IconButton(
-                                            icon: Image.asset(
-                                              'assets/icons/events_for_pet_page_icons/add_feed_in_list.png',
-                                              height: size.height * 0.170,
-                                              width: size.width * 0.24,
-                                              fit: BoxFit.fill,
-                                            ),
-                                            onPressed: () async {
-                                              TimeOfDay reminderTime =
-                                                  TimeOfDay.now();
-                                              final TimeOfDay? timeOfFeed =
-                                                  await showTimePicker(
-                                                context: context,
-                                                initialTime: reminderTime,
-                                                initialEntryMode:
-                                                    TimePickerEntryMode.dial,
-                                              );
-                                              if (timeOfFeed != null) {
-                                                setState(() {
-                                                  onFinishButtonPressed(
-                                                    timeOfDay: timeOfFeed,
-                                                    petId: widget
-                                                        .petInformation.petId,
-                                                  );
-                                                });
-                                              }
-                                            },
-                                          );
-                                        },
                                       ),
                                     ),
-                                  ],
+                                    confirmButtonStyle: ButtonStyle(
+                                      foregroundColor:
+                                          const WidgetStatePropertyAll(
+                                              Color(0xff4A5E7C)),
+                                      textStyle: WidgetStatePropertyAll(
+                                        TextStyle(
+                                          fontFamily: 'Cosffira',
+                                          fontSize: size.width * 0.045,
+                                          fontWeight: FontWeight.bold,
+                                          color: const Color(0xff4A5E7C),
+                                        ),
+                                      ),
+                                    ),
+                                    dialBackgroundColor:
+                                        const Color(0xffffffff),
+                                    entryModeIconColor: const Color(0xffA26874),
+                                    hourMinuteTextStyle: TextStyle(
+                                      fontFamily: 'Cosffira',
+                                      fontSize: size.width * 0.085,
+                                      fontWeight: FontWeight.bold,
+                                      color: const Color(0xff4A5E7C),
+                                    ),
+                                    dayPeriodTextStyle: TextStyle(
+                                      fontFamily: 'Cosffira',
+                                      fontSize: size.width * 0.045,
+                                      fontWeight: FontWeight.bold,
+                                      color: const Color(0xff4A5E7C),
+                                    ),
+                                    dialTextStyle: TextStyle(
+                                      fontFamily: 'Cosffira',
+                                      fontSize: size.width * 0.045,
+                                      fontWeight: FontWeight.bold,
+                                      color: const Color(0xff4A5E7C),
+                                    ),
+                                    dayPeriodTextColor: const Color(0xffffffff),
+                                    dayPeriodColor: const Color(
+                                        0xff4A5E7C), //Background of AM/PM.
+                                    dialHandColor: const Color(0xff4A5E7C),
+                                    dialTextColor: const Color(0xffA26874),
+                                    hourMinuteTextColor:
+                                        const Color(0xffffffff),
+                                    hourMinuteColor: const Color(0xffA26874),
+                                  ),
+                                ),
+                                child: Builder(
+                                  builder: (BuildContext context) {
+                                    return IconButton(
+                                      icon: Image.asset(
+                                        'assets/icons/events_for_pet_page_icons/add_feed_if_impty.png',
+                                        height: size.height * 0.09,
+                                        width: size.width * 0.29,
+                                        fit: BoxFit.fill,
+                                      ),
+                                      onPressed: () async {
+                                        TimeOfDay reminderTime =
+                                            TimeOfDay.now();
+                                        final TimeOfDay? timeOfFeed =
+                                            await showTimePicker(
+                                          context: context,
+                                          initialTime: reminderTime,
+                                          initialEntryMode:
+                                              TimePickerEntryMode.dial,
+                                        );
+                                        if (timeOfFeed != null) {
+                                          setState(() {
+                                            onFinishButtonPressed(
+                                              timeOfDay: timeOfFeed,
+                                              petId:
+                                                  widget.petInformation.petId,
+                                            );
+                                          });
+                                        }
+                                      },
+                                    );
+                                  },
+                                ),
+                              ),
+                            )
+                          : Flexible(
+                              child: SingleChildScrollView(
+                                padding: EdgeInsets.only(
+                                  left: size.width * 0.06,
+                                  bottom: size.height * 0.06,
+                                ),
+                                physics: const BouncingScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                child: Container(
+                                  height: size.height *
+                                      0.143, // Set a fixed height for the cards
+                                  margin: EdgeInsets.symmetric(
+                                    horizontal: size.height * 0.02,
+                                  ),
+                                  child: FittedBox(
+                                    fit: BoxFit.fill,
+                                    //this is might be cause of overflow
+                                    child: Row(
+                                      children: [
+                                        // this will be dynamic coloumn that depends on the length of list
+                                        for (CustomTime i in widget
+                                            .petInformation.feedTimesForPet)
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                              right: size.width * 0.06,
+                                            ),
+                                            child: GestureDetector(
+                                              onLongPress: () {
+                                                setState(() {
+                                                  isInSelectionMode = true;
+
+                                                  selectedItems.add(i.feedId);
+                                                });
+                                              },
+                                              onTap: () {
+                                                setState(() {
+                                                  if (isInSelectionMode) {
+                                                    if (selectedItems
+                                                        .contains(i.feedId)) {
+                                                      selectedItems
+                                                          .remove(i.feedId);
+                                                    } else {
+                                                      selectedItems
+                                                          .add(i.feedId);
+                                                    }
+                                                  }
+                                                });
+                                              },
+                                              child: Container(
+                                                height: size.height * 0.170,
+                                                width: size.width * 0.24,
+                                                decoration: BoxDecoration(
+                                                  color: i.checked &&
+                                                          !selectedItems
+                                                              .contains(
+                                                                  i.feedId)
+                                                      ? const Color(
+                                                          0xffA26874) // Case 1: i.checked is true
+                                                      : selectedItems.contains(
+                                                              i.feedId)
+                                                          ? const Color
+                                                              .fromARGB(
+                                                              255,
+                                                              139,
+                                                              152,
+                                                              170) // Case 2: i.checked is false but the item is selected
+                                                          : const Color(
+                                                              0xffEFE7E7),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                    Radius.circular(
+                                                        size.width * 0.3),
+                                                  ),
+                                                ),
+                                                child: Column(
+                                                  children: [
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        final api =
+                                                            FeedTimesApi();
+                                                        try {
+                                                          setState(() =>
+                                                              i.checked =
+                                                                  !i.checked);
+                                                          if (i.checked) {
+                                                            api.feedCheckedState(
+                                                                value: "true",
+                                                                feedId:
+                                                                    i.feedId);
+                                                          } else {
+                                                            api.feedCheckedState(
+                                                                value: "false",
+                                                                feedId:
+                                                                    i.feedId);
+                                                          }
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .showSnackBar(
+                                                            const SnackBar(
+                                                              content: Text(
+                                                                  "The checked feed state has been successfully updated."),
+                                                              duration:
+                                                                  Duration(
+                                                                      seconds:
+                                                                          3),
+                                                            ),
+                                                          );
+                                                        } on Exception {
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .showSnackBar(
+                                                            const SnackBar(
+                                                              content: Text(
+                                                                  "Failed to update the checked feed state."),
+                                                              duration:
+                                                                  Duration(
+                                                                      seconds:
+                                                                          3),
+                                                            ),
+                                                          );
+                                                        }
+                                                      },
+                                                      icon: Image.asset(
+                                                        i.checked
+                                                            ? "assets/icons/events_for_pet_page_icons/check_yes.png"
+                                                            : "assets/icons/events_for_pet_page_icons/Ellipse_icon_for_feed.png",
+                                                        height:
+                                                            size.height * 0.060,
+                                                        width:
+                                                            size.width * 0.054,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      '${i.hours}:${i.minutes}\n ${i.night}',
+                                                      style: TextStyle(
+                                                        height: 0.0,
+                                                        fontFamily: 'Cosffira',
+                                                        fontSize:
+                                                            size.width * 0.056,
+                                                        fontWeight:
+                                                            FontWeight.w800,
+                                                        color: i.checked
+                                                            ? const Color(
+                                                                0xffEFE7E7)
+                                                            : const Color(
+                                                                0xff4A5E7C),
+                                                        letterSpacing: 0.5,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+
+                                        Theme(
+                                          data: ThemeData(
+                                            primarySwatch: Colors.blue,
+                                            timePickerTheme:
+                                                TimePickerThemeData(
+                                              helpTextStyle: TextStyle(
+                                                fontFamily: 'Cosffira',
+                                                fontSize: size.width * 0.045,
+                                                fontWeight: FontWeight.bold,
+                                                color: const Color(0xff4A5E7C),
+                                              ),
+                                              backgroundColor:
+                                                  const Color(0xffEFE7E7),
+                                              elevation: 0.0,
+                                              cancelButtonStyle: ButtonStyle(
+                                                foregroundColor:
+                                                    const WidgetStatePropertyAll(
+                                                        Color(0xff4A5E7C)),
+                                                textStyle:
+                                                    WidgetStatePropertyAll(
+                                                  TextStyle(
+                                                    fontFamily: 'Cosffira',
+                                                    fontSize:
+                                                        size.width * 0.045,
+                                                    fontWeight: FontWeight.bold,
+                                                    color:
+                                                        const Color(0xff4A5E7C),
+                                                  ),
+                                                ),
+                                              ),
+                                              confirmButtonStyle: ButtonStyle(
+                                                foregroundColor:
+                                                    const WidgetStatePropertyAll(
+                                                        Color(0xff4A5E7C)),
+                                                textStyle:
+                                                    WidgetStatePropertyAll(
+                                                  TextStyle(
+                                                    fontFamily: 'Cosffira',
+                                                    fontSize:
+                                                        size.width * 0.045,
+                                                    fontWeight: FontWeight.bold,
+                                                    color:
+                                                        const Color(0xff4A5E7C),
+                                                  ),
+                                                ),
+                                              ),
+                                              dialBackgroundColor:
+                                                  const Color(0xffffffff),
+                                              entryModeIconColor:
+                                                  const Color(0xffA26874),
+                                              hourMinuteTextStyle: TextStyle(
+                                                fontFamily: 'Cosffira',
+                                                fontSize: size.width * 0.085,
+                                                fontWeight: FontWeight.bold,
+                                                color: const Color(0xff4A5E7C),
+                                              ),
+                                              dayPeriodTextStyle: TextStyle(
+                                                fontFamily: 'Cosffira',
+                                                fontSize: size.width * 0.045,
+                                                fontWeight: FontWeight.bold,
+                                                color: const Color(0xff4A5E7C),
+                                              ),
+                                              dialTextStyle: TextStyle(
+                                                fontFamily: 'Cosffira',
+                                                fontSize: size.width * 0.045,
+                                                fontWeight: FontWeight.bold,
+                                                color: const Color(0xff4A5E7C),
+                                              ),
+                                              dayPeriodTextColor:
+                                                  const Color(0xffffffff),
+                                              dayPeriodColor: const Color(
+                                                  0xff4A5E7C), //Background of AM/PM.
+                                              dialHandColor:
+                                                  const Color(0xff4A5E7C),
+                                              dialTextColor:
+                                                  const Color(0xffA26874),
+                                              hourMinuteTextColor:
+                                                  const Color(0xffffffff),
+                                              hourMinuteColor:
+                                                  const Color(0xffA26874),
+                                            ),
+                                          ),
+                                          child: Builder(
+                                            builder: (BuildContext context) {
+                                              return IconButton(
+                                                icon: Image.asset(
+                                                  'assets/icons/events_for_pet_page_icons/add_feed_in_list.png',
+                                                  height: size.height * 0.170,
+                                                  width: size.width * 0.24,
+                                                  fit: BoxFit.fill,
+                                                ),
+                                                onPressed: () async {
+                                                  TimeOfDay reminderTime =
+                                                      TimeOfDay.now();
+                                                  final TimeOfDay? timeOfFeed =
+                                                      await showTimePicker(
+                                                    context: context,
+                                                    initialTime: reminderTime,
+                                                    initialEntryMode:
+                                                        TimePickerEntryMode
+                                                            .dial,
+                                                  );
+                                                  if (timeOfFeed != null) {
+                                                    setState(() {
+                                                      onFinishButtonPressed(
+                                                        timeOfDay: timeOfFeed,
+                                                        petId: widget
+                                                            .petInformation
+                                                            .petId,
+                                                      );
+                                                    });
+                                                  }
+                                                },
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
                 ],
               ),
             ),
@@ -835,30 +948,76 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                                                   ),
                                                 ),
                                                 onTap: () async {
-                                                  final api = ReminderDataApi();
-                                                  MergedReminderData
-                                                      reminderData =
-                                                      api.mergedReminderData(
-                                                          reminder);
-                                                  await showDialog(
-                                                      context: context,
-                                                      builder: (context) =>
-                                                          EditReminder(
-                                                            petInfo: widget
-                                                                .petInformation,
-                                                            reciervedDate:
-                                                                reminderData
-                                                                    .getrReminderDate(),
-                                                            reciervedTime:
-                                                                reminderData
-                                                                    .getReminderTime(),
-                                                            reciervedType:
-                                                                reminder
-                                                                    .reminderType,
-                                                            reminderId: reminder
-                                                                .reminderId,
-                                                          ));
-                                                  setState(() {});
+                                                  try {
+                                                    final api =
+                                                        ReminderDataApi();
+                                                    MergedReminderData
+                                                        reminderData =
+                                                        api.mergedReminderData(
+                                                            reminder);
+
+                                                    // Check if the reminder exists before showing the dialog
+                                                    DocumentSnapshot doc =
+                                                        await FirebaseFirestore
+                                                            .instance
+                                                            .collection(
+                                                                'reminders')
+                                                            .doc(reminder
+                                                                .reminderId)
+                                                            .get();
+
+                                                    if (doc.exists) {
+                                                      await showDialog(
+                                                        context: context,
+                                                        builder: (context) =>
+                                                            EditReminder(
+                                                          petInfo: widget
+                                                              .petInformation,
+                                                          reciervedDate:
+                                                              reminderData
+                                                                  .getrReminderDate(),
+                                                          reciervedTime:
+                                                              reminderData
+                                                                  .getReminderTime(),
+                                                          reciervedType:
+                                                              reminder
+                                                                  .reminderType,
+                                                          reminderId: reminder
+                                                              .reminderId,
+                                                          index: index,
+                                                        ),
+                                                      ).then((_) {
+                                                        fetchRemindersAndFeedTimes();
+                                                      });
+                                                      setState(() {});
+                                                    } else {
+                                                      // Handle the case where the reminder does not exist
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                        const SnackBar(
+                                                          content: Text(
+                                                              "The reminder does not uploaded to the server yet please wait a few minutes"),
+                                                          duration: Duration(
+                                                              seconds: 3),
+                                                        ),
+                                                      );
+                                                    }
+                                                  } catch (e) {
+                                                    // Handle any errors that occur during the process
+                                                    print(
+                                                        "Error fetching reminder: $e");
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                      const SnackBar(
+                                                        content: Text(
+                                                            "Failed to fetch the reminder."),
+                                                        duration: Duration(
+                                                            seconds: 3),
+                                                      ),
+                                                    );
+                                                  }
                                                 },
                                               ),
                                               PopupMenuItem(

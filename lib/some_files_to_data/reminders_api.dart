@@ -45,6 +45,7 @@ class ReminderDataApi {
         'reminder-minute': reminderTime.minute,
         'user-id': user.uid,
         'pet-id': petId,
+        'checked': false,
         'reminder-id': '', // Temporarily set to empty
       });
 
@@ -85,6 +86,7 @@ class ReminderDataApi {
       petId: pet.petId,
       reminderId: '',
       monthNumber: selectedDate.month,
+      checked: false,
     );
 
     return returnedReminder;
@@ -111,6 +113,7 @@ class ReminderDataApi {
         petId: data['pet-id'],
         reminderId: data['reminder-id'],
         monthNumber: date.month,
+        checked: data['checked'],
       );
     } catch (error) {
       rethrow;
@@ -218,5 +221,30 @@ class ReminderDataApi {
     int minute = int.parse(reminder.hours);
     TimeOfDay time = TimeOfDay(hour: hour, minute: minute);
     return MergedReminderData(date: date, remindertime: time);
+  }
+
+  Future<void> reminderCheckedState({
+    required bool value,
+    required String reminderId,
+  }) async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+
+      if (user == null) {
+        throw Exception('No user is signed in');
+      }
+
+      // Make a copy of the list to iterate over
+
+      await FirebaseFirestore.instance
+          .collection('reminders')
+          .doc(reminderId)
+          .update({'checked': value});
+
+      print("update ckecked reminder successfully");
+    } catch (error) {
+      print("Error on update  reminder: $error");
+      rethrow;
+    }
   }
 }

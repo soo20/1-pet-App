@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
 import 'dart:ui';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -18,6 +19,7 @@ class EditReminder extends StatefulWidget {
     required this.reciervedTime,
     required this.reciervedType,
     required this.reminderId,
+    required this.index,
   });
 
   final PetsInformation petInfo;
@@ -25,6 +27,7 @@ class EditReminder extends StatefulWidget {
   final TimeOfDay reciervedTime;
   final String reciervedType;
   final String reminderId;
+  final int index;
   @override
   _EditReminderState createState() => _EditReminderState();
 }
@@ -69,123 +72,154 @@ class _EditReminderState extends State<EditReminder> {
     final Size size = MediaQuery.of(context).size;
 
     void onFinishButtonPressed() async {
-      // Create the ReminderData object
-      final reminderApi = ReminderDataApi();
-      ReminderData? reminderData = await reminderApi.createReminderData(
-          selectedDate, reminderTime, currentItemSelected, widget.petInfo);
       setState(() {
         isSending = true;
       });
-      if (reminderData is ReminderData) {
-        setState(() {
-          bool foundDuplicate = false;
-          for (PetsInformation pet in petsList) {
-            for (ReminderData reminder in pet.remindersData) {
-              if (reminder.day == reminderData.day &&
-                  reminder.hours == reminderData.hours &&
-                  reminder.minutes == reminderData.minutes) {
-                foundDuplicate = true;
-                break;
-              }
-            }
-            if (foundDuplicate) {
+
+      try {
+        widget.petInfo.remindersData.removeAt(widget.index);
+        // Create the ReminderData object
+        final reminderApi = ReminderDataApi();
+        ReminderData? reminderData = await reminderApi.createReminderData(
+            selectedDate, reminderTime, currentItemSelected, widget.petInfo);
+
+        if (reminderData == null) {
+          throw Exception("Failed to create reminder data");
+        }
+
+        bool foundDuplicate = false;
+        for (PetsInformation pet in petsList) {
+          for (ReminderData reminder in pet.remindersData) {
+            if (reminder.day == reminderData.day &&
+                reminder.hours == reminderData.hours &&
+                reminder.minutes == reminderData.minutes) {
+              foundDuplicate = true;
               break;
             }
           }
           if (foundDuplicate) {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) => BackdropFilter(
-                filter: ImageFilter.blur(
-                  sigmaX: size.width * 0.02,
-                  sigmaY: size.width * 0.02,
-                ),
-                child: AlertDialog(
-                  elevation: 0.0,
-                  backgroundColor: const Color(0xffDCD3D3),
-                  content: Text(
-                    textAlign: TextAlign.center,
-                    "It is not possible to set the same reminder more than once. Please choose a different time.",
-                    style: TextStyle(
-                      height: 0.0,
-                      fontFamily: 'Cosffira',
-                      fontSize: size.width * 0.037,
-                      fontWeight: FontWeight.w800,
-                      color: const Color(0xff4A5E7C),
-                      letterSpacing: 0.5,
-                    ),
+            break;
+          }
+        }
+
+        if (foundDuplicate) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: size.width * 0.02,
+                sigmaY: size.width * 0.02,
+              ),
+              child: AlertDialog(
+                elevation: 0.0,
+                backgroundColor: const Color(0xffDCD3D3),
+                content: Text(
+                  textAlign: TextAlign.center,
+                  "It is not possible to set the same reminder more than once. Please choose a different time.",
+                  style: TextStyle(
+                    height: 0.0,
+                    fontFamily: 'Cosffira',
+                    fontSize: size.width * 0.037,
+                    fontWeight: FontWeight.w800,
+                    color: const Color(0xff4A5E7C),
+                    letterSpacing: 0.5,
                   ),
-                  actions: [
-                    Center(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xffA26874),
-                          padding: EdgeInsets.symmetric(
-                            horizontal: size.width * 0.028,
-                            vertical: size.height * 0.025,
-                          ), // Adjust the padding as needed
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                              size.width * 0.092,
-                            ), // Set the border radius of the button
-                          ),
+                ),
+                actions: [
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xffA26874),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: size.width * 0.028,
+                          vertical: size.height * 0.025,
+                        ), // Adjust the padding as needed
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                            size.width * 0.092,
+                          ), // Set the border radius of the button
                         ),
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            left: size.width * 0.06,
-                            right: size.width * 0.06,
-                          ),
-                          child: Text(
-                            'modify',
-                            style: TextStyle(
-                              height: 0.0,
-                              fontFamily: 'Cosffira',
-                              fontSize: size.width * 0.045,
-                              fontWeight: FontWeight.w800,
-                              color: const Color.fromARGB(255, 255, 255, 255),
-                              letterSpacing: 0.5,
-                            ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          left: size.width * 0.06,
+                          right: size.width * 0.06,
+                        ),
+                        child: Text(
+                          'modify',
+                          style: TextStyle(
+                            height: 0.0,
+                            fontFamily: 'Cosffira',
+                            fontSize: size.width * 0.045,
+                            fontWeight: FontWeight.w800,
+                            color: const Color.fromARGB(255, 255, 255, 255),
+                            letterSpacing: 0.5,
                           ),
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            );
-          } else {
-            try {
-              ReminderDataApi().updateReminder(
-                  reminderId: widget.reminderId,
-                  selectedDate: selectedDate,
-                  reminderType: currentItemSelected,
-                  reminderTime: reminderTime,
-                  petId: widget.petInfo.petId);
+            ),
+          );
+        } else {
+          try {
+            // Check if the reminder document exists before updating
+            DocumentSnapshot doc = await FirebaseFirestore.instance
+                .collection('reminders')
+                .doc(widget.reminderId)
+                .get();
+
+            if (doc.exists) {
+              await ReminderDataApi().updateReminder(
+                reminderId: widget.reminderId,
+                selectedDate: selectedDate,
+                reminderType: currentItemSelected,
+                reminderTime: reminderTime,
+                petId: widget.petInfo.petId,
+              );
               loadedreminder = true;
-            } on Exception {
-              loadedreminder = false;
+            } else {
+              throw Exception("Reminder does not exist");
             }
-
-            Navigator.of(context).pop();
-
+          } catch (e) {
+            loadedreminder = false;
+            print("Error updating reminder: $e");
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
-                content: Text("failed To update the reminder"),
+                content: Text("Failed to update the reminder."),
                 duration: Duration(seconds: 3),
               ),
             );
           }
-        });
-      } else if (reminderData is String) {
+
+          Navigator.of(context).pop();
+
+          if (loadedreminder) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("Reminder updated successfully"),
+                duration: Duration(seconds: 3),
+              ),
+            );
+          }
+        }
+      } catch (e) {
+        print("Error onFinishButtonPressed: $e");
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(reminderData.toString()),
-            duration: const Duration(seconds: 3),
+          const SnackBar(
+            content: Text("Failed to create reminder data."),
+            duration: Duration(seconds: 3),
           ),
         );
+      } finally {
+        setState(() {
+          isSending = false;
+        });
       }
     }
 

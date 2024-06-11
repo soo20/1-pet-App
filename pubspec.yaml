@@ -173,12 +173,12 @@ flutter:
     - assets/image/pet_inf_type_image/GoldenFromScrapping.jpeg
     - assets/image/home_page_afterAdding_pets_assets/cat_gromming.png
     - assets/image/home_page_afterAdding_pets_assets/dog_gromming.png
-    - assets/image/home_page_afterAdding_pets_assets/vet-appointment.png
+    - assets/image/home_page_afterAdding_pets_assets/vet_appointment.png
     - assets/image/home_page_afterAdding_pets_assets/pets_bathing.png
     - assets/image/home_page_afterAdding_pets_assets/cat_playing.PNG
     - assets/image/home_page_afterAdding_pets_assets/dog_playing.png
-    - assets/image/home_page_afterAdding_pets_assets/walking_with_cat.png
-    - assets/image/home_page_afterAdding_pets_assets/walking_with_dog.png
+    - assets/image/home_page_afterAdding_pets_assets/cat_walking.png
+    - assets/image/home_page_afterAdding_pets_assets/dog_walking.png
     - assets/image/home_page_afterAdding_pets_assets/custom_events.png
     - assets/image/my_pets_page_images/emptyPetList.png
 

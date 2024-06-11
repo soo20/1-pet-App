@@ -24,7 +24,7 @@ class CustomTime {
 class FeedTimesApi {
   Future<String?> addFeedInFireStore({
     required TimeOfDay timeOfDay,
-    required petId,
+    required String petId,
   }) async {
     try {
       // Get the current user
@@ -35,28 +35,29 @@ class FeedTimesApi {
       }
 
       // Reference to the Firestore collection
-      CollectionReference remindersCollection =
+      CollectionReference feedTimesCollection =
           FirebaseFirestore.instance.collection('feedTimes');
       // Get the current time
       Timestamp currentTime = Timestamp.now();
 
       // Add the pet document with a generated ID
-      DocumentReference documentRef = await remindersCollection.add(
-        {
-          'feed-hour': timeOfDay.hour,
-          'feed-minute': timeOfDay.minute,
-          'pet-id': petId,
-          'user-id': user.uid,
-          'checked': "false",
-          'feedId': '',
-          'timeOfCreation': currentTime,
-        },
-      );
-      //to can edit on this reminder
+      DocumentReference documentRef = await feedTimesCollection.add({
+        'feed-hour': timeOfDay.hour,
+        'feed-minute': timeOfDay.minute,
+        'pet-id': petId,
+        'user-id': user.uid,
+        'checked': "false",
+        'feedId': '',
+        'timeOfCreation': currentTime,
+      });
+
+      // Update the document with the generated ID
       final feedId = documentRef.id;
       await documentRef.update({'feedId': feedId});
+
       return feedId;
     } catch (e) {
+      print('Error adding feed to Firestore: $e');
       rethrow;
     }
   }
@@ -74,7 +75,7 @@ class FeedTimesApi {
         minutes: minute.toString().padLeft(2, '0'),
         night: time.hour < 12 ? 'AM' : 'PM',
         petId: data['pet-id'],
-        checked: data['checked'],
+        checked: data['checked'] == "false" ? false : true,
         feedId: data['feedId'],
         timeOfCreation: data['timeOfCreation'],
       );
@@ -116,68 +117,96 @@ class FeedTimesApi {
         throw Exception('No user is signed in');
       }
 
-      // Get the current time
       Timestamp currentTime = Timestamp.now();
 
-      // Query the 'feedTimes' collection for the current user's pet
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('feedTimes')
           .where('user-id', isEqualTo: user.uid)
           .where('pet-id', isEqualTo: petId)
           .get();
 
-      List<CustomTime> feeds = querySnapshot.docs.isNotEmpty
-          ? querySnapshot.docs.map((doc) => fromFirestore(doc)).toList()
-              as List<CustomTime>
-          : [];
+      List<CustomTime> feeds = querySnapshot.docs
+          .map((doc) => fromFirestore(doc))
+          .whereType<CustomTime>()
+          .toList();
 
-      // List to hold feeds created within the last 24 hours
-      List<CustomTime> recentFeeds = [];
+      List<String> feedsToDelete = [];
+      List<CustomTime> validFeeds = [];
+
+      DateTime currentDateTime = currentTime.toDate();
 
       for (CustomTime time in feeds) {
-        Timestamp timeOfCreation = time.timeOfCreation;
-        DateTime creationDateTime = timeOfCreation.toDate();
-        DateTime currentDateTime = currentTime.toDate();
-
-        // Calculate the difference between the current time and the creation time
-        Duration difference = currentDateTime.difference(creationDateTime);
-
-        if (difference.inHours < 24) {
-          // If the feed was created within the last 24 hours, add it to the recentFeeds list
-          recentFeeds.add(time);
+        DateTime creationTime = time.timeOfCreation.toDate();
+        if (currentDateTime.difference(creationTime).inHours >= 24) {
+          feedsToDelete.add(time.feedId);
         } else {
-          // Otherwise, delete the document from the collection
-          await FirebaseFirestore.instance
-              .collection('feedTimes')
-              .doc(time.feedId) // Assuming `time.id` holds the document ID
-              .delete();
+          validFeeds.add(time);
         }
       }
 
-      // Return the list of recent feeds
-      return recentFeeds;
+      // Delete outdated feed times from Firestore
+      for (String feedId in feedsToDelete) {
+        await FirebaseFirestore.instance
+            .collection('feedTimes')
+            .doc(feedId)
+            .delete();
+      }
+
+      return validFeeds;
     } catch (e) {
       rethrow;
     }
   }
 
-  Future<void> deleteFeedTimes(
-      {required List<String> selectedItems, required petId}) async {
+  Future<void> deleteFeedTimes({
+    required List<String> selectedItems,
+    required String petId,
+  }) async {
     try {
       User? user = FirebaseAuth.instance.currentUser;
 
       if (user == null) {
         throw Exception('No user is signed in');
       }
-      for (String feedId in selectedItems) {
+
+      // Make a copy of the list to iterate over
+      List<String> itemsToDelete = List.from(selectedItems);
+
+      for (String feedId in itemsToDelete) {
         await FirebaseFirestore.instance
-            .collection('reminders')
+            .collection('feedTimes')
             .doc(feedId)
             .delete();
       }
+
       print("Deleted feeds successfully");
     } catch (error) {
       print("Error on delete feeds: $error");
+      rethrow;
+    }
+  }
+
+  Future<void> feedCheckedState({
+    required String value,
+    required String feedId,
+  }) async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+
+      if (user == null) {
+        throw Exception('No user is signed in');
+      }
+
+      // Make a copy of the list to iterate over
+
+      await FirebaseFirestore.instance
+          .collection('feedTimes')
+          .doc(feedId)
+          .update({'checked': value});
+
+      print("update ckecked feed successfully");
+    } catch (error) {
+      print("Error on update feeds: $error");
       rethrow;
     }
   }
