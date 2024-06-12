@@ -25,8 +25,8 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
   bool calenderShowing = false;
   DateTime selectedDate = DateTime.now();
   DateTime previousDate = DateTime.now();
-  late TextEditingController customTypeController;
-  bool isSending = false;
+  late TextEditingController customTypeController = TextEditingController();
+
   List<String> eventTypes = [
     'Gromming',
     'Playing',
@@ -36,11 +36,12 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
     'Custom',
   ];
   bool loadedreminder = false;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   void initState() {
     super.initState();
     currentItemSelected = 'Playing';
-    customTypeController = TextEditingController();
   }
 
   @override
@@ -58,15 +59,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
       final reminderApi = ReminderDataApi();
       ReminderData? reminderData = await reminderApi.createReminderData(
           selectedDate, reminderTime, currentItemSelected, widget.petInfo);
-      setState(() {
-        isSending = true;
-      });
-      Future<String?> id = ReminderDataApi().addReminderInFireStore(
-        selectedDate: selectedDate,
-        reminderType: currentItemSelected,
-        reminderTime: reminderTime,
-        petId: widget.petInfo.petId,
-      );
+
       if (reminderData is ReminderData) {
         setState(() {
           bool foundDuplicate = false;
@@ -152,8 +145,19 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
 
             // Close the dialog
             try {
+              Future<String?> id = ReminderDataApi().addReminderInFireStore(
+                selectedDate: selectedDate,
+                reminderType: currentItemSelected,
+                reminderTime: reminderTime,
+                petId: widget.petInfo.petId,
+              );
+
               reminderData.reminderId = id.toString();
-              widget.petInfo.remindersData.add(reminderData);
+              if (reminderData.reminderId != "null") {
+                print('reminder is : ${id.toString()}');
+                widget.petInfo.remindersData.add(reminderData);
+              }
+
               loadedreminder = true;
             } on Exception {
               loadedreminder = false;
@@ -293,69 +297,80 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                         ),
                       ),
                     ),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SizedBox(
-                          width: size.width * 0.01,
-                        ),
-                        SizedBox(
-                          width: size.width * 0.46,
-                          height: size.height * 0.084,
-                          child: TextField(
-                            style: TextStyle(
-                              fontFamily: 'Cosffira',
-                              fontSize: size.width * 0.040,
-                              fontWeight: FontWeight.normal,
-                              color: const Color.fromARGB(255, 37, 40, 50),
-                            ),
-                            controller: customTypeController,
-                            cursorColor: const Color(0xffA26874),
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                  width: 1,
-                                  color: Color(0xff4A5E7C),
-                                ),
-                                borderRadius: BorderRadius.circular(size.width *
-                                    0.067), // Same as the container's border radius
+                    Form(
+                      key: _formKey,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(
+                            width: size.width * 0.01,
+                          ),
+                          SizedBox(
+                            width: size.width * 0.46,
+                            height: size.height * 0.086,
+                            child: TextFormField(
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter some text';
+                                }
+                                if (value.length > 20) {
+                                  return 'Maximum length exceeded';
+                                }
+                                return null; // Return null if the input is valid
+                              },
+                              style: TextStyle(
+                                fontFamily: 'Cosffira',
+                                fontSize: size.width * 0.040,
+                                fontWeight: FontWeight.normal,
+                                color: const Color.fromARGB(255, 37, 40, 50),
                               ),
-                              filled: true,
-                              fillColor: Colors.white,
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                  width: 1,
-                                  color: Color(0xffA26874),
+                              controller: customTypeController,
+                              cursorColor: const Color(0xffA26874),
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                    width: 1,
+                                    color: Color(0xff4A5E7C),
+                                  ),
+                                  borderRadius:
+                                      BorderRadius.circular(size.width * 0.067),
                                 ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(size.width * 0.067),
+                                filled: true,
+                                fillColor: Colors.white,
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                    width: 1,
+                                    color: Color(0xffA26874),
+                                  ),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(size.width * 0.067),
+                                  ),
                                 ),
                               ),
-                              // Background color
                             ),
                           ),
-                        ),
-                        IconButton(
-                          icon: Image.asset(
-                            'assets/icons/add_event_page_icons/check_custom_type.png',
-                            width: size.width * 0.128,
-                            height: size.height * 0.135,
+                          IconButton(
+                            icon: Image.asset(
+                              'assets/icons/add_event_page_icons/check_custom_type.png',
+                              width: size.width * 0.128,
+                              height: size.height * 0.135,
+                            ),
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                setState(() {
+                                  String customTypeValue =
+                                      customTypeController.text;
+                                  eventTypes.removeLast();
+                                  eventTypes.add(customTypeValue);
+                                  currentItemSelected = customTypeValue;
+                                  customType = false;
+                                  customTypeController.clear();
+                                });
+                              } else {}
+                            },
                           ),
-                          onPressed: () {
-                            setState(() {
-                              setState(() {
-                                String customTypeValue =
-                                    customTypeController.text;
-                                eventTypes.removeLast();
-                                eventTypes.add(customTypeValue);
-                                currentItemSelected = customTypeValue;
-                                customType = false;
-                                customTypeController.clear();
-                              });
-                            });
-                          },
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),

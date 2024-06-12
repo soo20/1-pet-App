@@ -20,7 +20,8 @@ class BuildReminderCard extends StatefulWidget {
 class _BuildReminderCard extends State<BuildReminderCard> {
   @override
   Widget build(BuildContext context) {
-    size = MediaQuery.of(context).size;
+    final Size size = MediaQuery.of(context).size;
+    final double height = size.height;
     return Container(
       height: size.height <= 707.4285714285714
           ? size.height * 0.117
@@ -50,15 +51,13 @@ class _BuildReminderCard extends State<BuildReminderCard> {
             ),
             Padding(
               padding: EdgeInsets.all(size.width * 0.001),
-              child: ClipOval(
-                child: Image(
-                  image: AssetImage(
-                    widget.remindersData.imageUrl,
-                  ),
-                  width: size.width * 0.150,
-                  height: size.height * 0.150,
-                  fit: BoxFit.fill,
-                ),
+              child: CircleAvatar(
+                radius: height * 0.04,
+                foregroundImage: widget.remindersData.imageUrl != 'null'
+                    ? NetworkImage(widget.remindersData.imageUrl)
+                    : null,
+                backgroundImage:
+                    const AssetImage('assets/image/profileImage.png'),
               ),
             ),
             Padding(

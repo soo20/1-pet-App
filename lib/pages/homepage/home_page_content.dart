@@ -3,88 +3,34 @@
 import 'package:flutter/material.dart';
 import 'package:petapplication/pages/homepage/scrolled_events.dart';
 import 'package:petapplication/pages/homepage/scrolled_reminder.dart';
-import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
+import 'package:petapplication/some_files_to_data/reminders_api.dart';
 import 'package:petapplication/some_files_to_data/today_and_future_reminders_data.dart';
 
-/* We will use a stateful widget for this page since the content contains a dynamic variable. */
 class HomePageAfterAddingPets extends StatefulWidget {
   const HomePageAfterAddingPets({super.key});
   @override
-  // intialize the object of HomePageAfterAddingTheReminders to set state for it
   State<HomePageAfterAddingPets> createState() => _HomePageAfterAddingPets();
 }
 
-// Create an instance of ScrolledEvents
-
-// List to store card widgets for reminders
-List<Widget> itemsData = [];
-// These variables allow Textbuttons to change their style when pressed.
-// "textColor" variable refers to the color of the text button for today's tasks before it is pressed.
-Color textColor = const Color(0xff4A5E7C);
-/* 
-   The boolean variable "onPressedText" is used to determine the color 
-   of the text button for today's tasks after it has been pressed. 
-   If the user has not yet pressed the button, the variable will be false.
-   However, since the button will be initially pressed,
-   the variable is set to true.
-*/
-bool onPressedText = true;
-/* 
-  The variables "textColor2" and "onPressedText2" are similar to
-  "textColor" and "onPressedText", respectively, but they are used
-  specifically for the TextButton "Checked Tasks". When you press
-  the "Checked Tasks" button, the color of "Today's Tasks" will 
-  change to gray while the value of the "OnPressed" variable will be false.
-  The same action will occur in reverse when you press "Today's Tasks".
-*/
-Color textColor2 = const Color(0xff9A9EAC);
-bool onPressedText2 = false;
-List<FutureEventsInformations> petsInformationList = [];
-
-// State class for the home page
 class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
-  // we create an object of "scrolledEvents" to control showing when scrolling.
-  // Scroll controller to control the scrolling behavior
+  // State variables
   ScrollController controller = ScrollController();
-  // Boolean variable to manage the visibility of events as scrolling occurs
   bool closeTopevents = false;
   double topContainer = 0;
   List<Reminders> remindersInHome = [];
+  List<FutureEventsInformations> petsInformationList = [];
 
-  // Method to get reminder cards
-
-  void getCards() {
-    setState(() {
-      remindersInHome = mergeReminders(
-        dogsInformationList,
-        catsInformationList,
-      );
-
-      petsInformationList = getFutureEvents(
-        dogsInformationList,
-        catsInformationList,
-      );
-      if (remindersInHome.isNotEmpty) {
-        // Update itemsData with reminder cards
-        itemsData = remindersInHome
-            .map((item) => BuildReminderCard(
-                  remindersData: item,
-                  onPressed: () {
-                    setState(() {
-                      item.checked = !item.checked;
-                    });
-                  },
-                ))
-            .toList();
-      }
-    });
-  }
+  // Variables for TextButton states
+  Color textColor = const Color(0xff4A5E7C);
+  bool onPressedText = true;
+  Color textColor2 = const Color(0xff9A9EAC);
+  bool onPressedText2 = false;
 
   late ScrolledEvents scrolledEvents;
+
   @override
   void initState() {
     super.initState();
-    getCards();
     scrolledEvents = ScrolledEvents(petsInformationList: petsInformationList);
   }
 
@@ -94,10 +40,7 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
     // Calculate the height of the event container based on the screen size
     final Size size = MediaQuery.of(context).size;
 
-    // Scaffold widget containing the app structure
-    return
-        // Body of the app containing various UI elements
-        Container(
+    return Container(
       height: size.height,
       width: size.width,
       margin: EdgeInsets.all(size.height * 0.008),
@@ -129,34 +72,139 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
               ),
             ),
           ),
-
-          // Animated container for future events cards
-          // the same explain for "Animated container for future events text"
-          petsInformationList.isNotEmpty
-              ? Container(
-                  width: size.width,
-
-                  // When we scroll, the reminders feature events will appear at a height of 0.
-                  height: size.height * 0.15,
-                  // We will apply this animation on the 'scrolledEvents' object.
-                  child: scrolledEvents)
-              : Padding(
-                  padding: EdgeInsets.only(
-                    top: size.height * 0.03,
-                    bottom: size.height * 0.03,
-                  ),
-                  child: Text(
-                    "There are no upcoming events yet.",
-                    style: TextStyle(
-                      fontFamily: 'Cosffira',
-                      fontSize: size.width * 0.049,
-                      fontWeight: FontWeight.normal,
-                      color: const Color.fromARGB(145, 154, 158, 172),
+          // FutureBuilder<List<FutureEventsInformations>>(
+          //   future: getFutureEvents(),
+          //   builder: (context, snapshot) {
+          //     if (snapshot.connectionState == ConnectionState.waiting) {
+          //       return Center(
+          //         child: SizedBox(
+          //           height: size.height * 0.04,
+          //           child: Row(
+          //             mainAxisSize: MainAxisSize.min,
+          //             mainAxisAlignment: MainAxisAlignment.center,
+          //             children: [
+          //               CircularProgressIndicator.adaptive(
+          //                 strokeWidth: size.height * 0.0023,
+          //                 backgroundColor: const Color.fromARGB(60, 58, 54, 54),
+          //                 valueColor: const AlwaysStoppedAnimation<Color>(
+          //                   Color.fromARGB(170, 162, 104, 116),
+          //                 ),
+          //               ),
+          //               SizedBox(
+          //                 width: size.width * 0.02,
+          //               ),
+          //               Text(
+          //                 'Fetching future events.....',
+          //                 style: TextStyle(
+          //                   fontFamily: 'Cosffira',
+          //                   fontSize: size.width * 0.048,
+          //                   fontWeight: FontWeight.normal,
+          //                   color: const Color.fromARGB(60, 58, 54, 54),
+          //                 ),
+          //               )
+          //             ],
+          //           ),
+          //         ),
+          //       );
+          //     } else if (snapshot.hasError) {
+          //       print(snapshot.error);
+          //       return Text('Error: ${snapshot.error}');
+          //     } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+          //       List<FutureEventsInformations> petsInformationList =
+          //           snapshot.data!;
+          //       return Container(
+          //         width: size.width,
+          //         height: size.height * 0.15,
+          //         child:
+          //             ScrolledEvents(petsInformationList: petsInformationList),
+          //       );
+          //     } else {
+          //       return Padding(
+          //         padding: EdgeInsets.only(
+          //           top: size.height * 0.03,
+          //           bottom: size.height * 0.03,
+          //         ),
+          //         child: Text(
+          //           "There are no upcoming events yet.",
+          //           style: TextStyle(
+          //             fontFamily: 'Cosffira',
+          //             fontSize: size.width * 0.049,
+          //             fontWeight: FontWeight.normal,
+          //             color: const Color.fromARGB(145, 154, 158, 172),
+          //           ),
+          //         ),
+          //       );
+          //     }
+          //   },
+          // ),
+          FutureBuilder<List<FutureEventsInformations>>(
+            future: getFutureEvents(),
+            builder: (context, snapshot) {
+              print('Snapshot state: ${snapshot.connectionState}');
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: SizedBox(
+                    height: size.height * 0.04,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircularProgressIndicator.adaptive(
+                          strokeWidth: size.height * 0.0023,
+                          backgroundColor: const Color.fromARGB(60, 58, 54, 54),
+                          valueColor: const AlwaysStoppedAnimation<Color>(
+                            Color.fromARGB(170, 162, 104, 116),
+                          ),
+                        ),
+                        SizedBox(width: size.width * 0.02),
+                        Text(
+                          'Fetching future events.....',
+                          style: TextStyle(
+                            fontFamily: 'Cosffira',
+                            fontSize: size.width * 0.048,
+                            fontWeight: FontWeight.normal,
+                            color: const Color.fromARGB(60, 58, 54, 54),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-
-          // Row containing TextButtons for Today Tasks and Complete Tasks
+                );
+              } else if (snapshot.hasError) {
+                print('Error: ${snapshot.error}');
+                return Text('Error: ${snapshot.error}');
+              } else if (snapshot.hasData) {
+                print('Snapshot has data: ${snapshot.data}');
+                if (snapshot.data!.isNotEmpty) {
+                  petsInformationList = snapshot.data!;
+                  return Container(
+                    width: size.width,
+                    height: size.height * 0.15,
+                    child: ScrolledEvents(
+                        petsInformationList: petsInformationList),
+                  );
+                } else {
+                  return Padding(
+                    padding: EdgeInsets.only(
+                      top: size.height * 0.03,
+                      bottom: size.height * 0.03,
+                    ),
+                    child: Text(
+                      "There are no upcoming events yet.",
+                      style: TextStyle(
+                        fontFamily: 'Cosffira',
+                        fontSize: size.width * 0.049,
+                        fontWeight: FontWeight.normal,
+                        color: const Color.fromARGB(145, 154, 158, 172),
+                      ),
+                    ),
+                  );
+                }
+              } else {
+                return Text('No data available');
+              }
+            },
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -192,10 +240,9 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
                       ],
                     )),
               ),
-              // Button for Complete Tasks
+
               TextButton(
                 onPressed: () {
-                  // Set the state when Complete Tasks button is pressed
                   setState(() {
                     onPressedText2 = true;
                     onPressedText = false;
@@ -226,40 +273,81 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
               ),
             ],
           ),
-          // Expanded ListView to display dynamic items
-          /* 
-                  Expanded:  It is used to indicate that a widget
-                  should take up as much available space as possible
-                  along the axis in which it is placed. Typically,
-                  it is used within a Column or Row to specify how much
-                  of the available vertical or horizontal space a child widget should occupy.
-                */
-          remindersInHome.isNotEmpty
-              ? Builder(builder: (_) {
-                  final List<Reminders> itemList = (onPressedText)
-                      ? remindersInHome.where((e) => !e.checked).toList()
-                      : remindersInHome.where((e) => e.checked).toList();
-
-                  return Expanded(
-                    child: ListView.builder(
-                      controller: controller,
-                      itemCount: itemList.length,
-                      physics: const BouncingScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        final Reminders passedReminder = itemList[index];
-                        return BuildReminderCard(
-                          remindersData: passedReminder,
-                          onPressed: () {
-                            setState(() => passedReminder.checked =
-                                !passedReminder.checked);
-                          },
-                        );
-                        // return itemsData[index];
-                      },
+          // Use FutureBuilder for reminders
+          FutureBuilder<List<Reminders>>(
+            future: mergeReminders(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: SizedBox(
+                    height: size.height * 0.04,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircularProgressIndicator.adaptive(
+                          strokeWidth: size.height * 0.0023,
+                          backgroundColor: const Color.fromARGB(60, 58, 54, 54),
+                          valueColor: const AlwaysStoppedAnimation<Color>(
+                            Color.fromARGB(170, 162, 104, 116),
+                          ),
+                        ),
+                        SizedBox(
+                          width: size.width * 0.02,
+                        ),
+                        Text(
+                          'Fetching today tasks.....',
+                          style: TextStyle(
+                            fontFamily: 'Cosffira',
+                            fontSize: size.width * 0.048,
+                            fontWeight: FontWeight.normal,
+                            color: const Color.fromARGB(60, 58, 54, 54),
+                          ),
+                        )
+                      ],
                     ),
-                  );
-                })
-              : Expanded(
+                  ),
+                );
+              } else if (snapshot.hasError) {
+                print(snapshot.error);
+                return Text('Error: ${snapshot.error}');
+              } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                remindersInHome = snapshot.data!;
+                final List<Reminders> itemList = (onPressedText)
+                    ? remindersInHome.where((e) => !e.checked).toList()
+                    : remindersInHome.where((e) => e.checked).toList();
+
+                return Expanded(
+                  child: ListView.builder(
+                    controller: controller,
+                    itemCount: itemList.length,
+                    physics: const BouncingScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      final Reminders passedReminder = itemList[index];
+                      return BuildReminderCard(
+                        remindersData: passedReminder,
+                        onPressed: () {
+                          setState(() {
+                            final reminderApi = ReminderDataApi();
+                            if (passedReminder.checked) {
+                              reminderApi.reminderCheckedState(
+                                  value: true,
+                                  reminderId: passedReminder.reminderId);
+                            } else {
+                              reminderApi.reminderCheckedState(
+                                  value: true,
+                                  reminderId: passedReminder.reminderId);
+                            }
+
+                            passedReminder.checked = !passedReminder.checked;
+                          });
+                        },
+                      );
+                    },
+                  ),
+                );
+              } else {
+                return Expanded(
                   child: Padding(
                     padding: EdgeInsets.only(
                       top: size.height * 0.08,
@@ -274,7 +362,10 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
                       ),
                     ),
                   ),
-                ),
+                );
+              }
+            },
+          ),
         ],
       ),
     );

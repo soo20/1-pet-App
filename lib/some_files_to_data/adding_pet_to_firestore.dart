@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:petapplication/pages/events_system/events_for_pet.dart';
+import 'package:petapplication/some_files_to_data/feeds_api.dart';
 
 class PetsInformation {
   PetsInformation({

@@ -34,7 +34,9 @@ class _DetectionResulrPageState extends State<DetectionResulrPage> {
 
     choosePetToAddThisDetectionFor(
         List<PetsInformation> dogsInfo, detectionResult) {
-      dogsInfo = dogsInformationList;
+      setState(() {
+        dogsInfo = dogsInformationList;
+      });
       bool isThere = false;
       return showDialog(
         context: context,
