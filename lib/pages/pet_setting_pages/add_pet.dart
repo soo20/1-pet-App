@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, must_be_immutable
 
 import 'dart:io';
 
@@ -17,7 +17,8 @@ import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 import 'package:petapplication/some_files_to_data/adding_pet_to_firestore.dart';
 
 class AddPets extends StatefulWidget {
-  const AddPets({super.key});
+  AddPets({super.key, this.petType});
+  String? petType;
 
   @override
   State<AddPets> createState() => _AddPetsState();
@@ -69,6 +70,27 @@ class _AddPetsState extends State<AddPets> {
       print('Error uploading image: $e');
       return ''; // Return an empty string if there's an error
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize controllers with existing information
+    if (widget.petType != null) {
+      petTypeController.text = widget.petType!;
+    } else {
+      petTypeController.text =
+          ''; // Provide a default value or handle null case
+    }
+  }
+
+  @override
+  void dispose() {
+    // Dispose controllers when they are no longer needed
+
+    petTypeController.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -212,6 +234,11 @@ class _AddPetsState extends State<AddPets> {
                             const EdgeInsets.only(left: 40, right: 40, top: 5),
                         child: TextFormField(
                           controller: petTypeController,
+                          onChanged: (value) {
+                            setState(() {
+                              widget.petType = value;
+                            });
+                          },
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return '';

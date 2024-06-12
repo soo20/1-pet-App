@@ -160,8 +160,9 @@ class _DetectScreenState extends State<DetectScreen> {
                           text: 'Add to your pets',
                           onTap: () {
                             Get.to(
-                              () =>
-                                  const AddPets(), // Replace YourNextPage with the actual class for the next page
+                              () => AddPets(
+                                petType: widget.petType,
+                              ), // Replace YourNextPage with the actual class for the next page
                               transition: Transition.rightToLeft,
                               duration: const Duration(milliseconds: 300),
                             );

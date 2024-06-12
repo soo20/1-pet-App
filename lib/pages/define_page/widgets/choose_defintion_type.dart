@@ -117,7 +117,7 @@ class ChooseDefintionType extends StatelessWidget {
                     customFontSize: 35.r,
                     onTap: () {
                       navigator?.pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (e) => const AddPets()),
+                        MaterialPageRoute(builder: (e) => AddPets()),
                         (route) => true,
                       );
                     },

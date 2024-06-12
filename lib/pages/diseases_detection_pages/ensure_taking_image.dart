@@ -41,7 +41,8 @@ class _EnsureTakingImageState extends State<EnsureTakingImage>
     setState(() {
       isLoading = true;
     });
-    await Future.delayed(Duration(seconds: 5)); // Adjust the seconds as needed
+    await Future.delayed(
+        const Duration(seconds: 6)); // Adjust the seconds as needed
     if (widget.detectionType) {
       // Call the skin prediction method
       await _getPredictionSkin();
@@ -171,7 +172,7 @@ class _EnsureTakingImageState extends State<EnsureTakingImage>
       body: isLoading
           ? Center(
               child: Image.network(
-                  'https://cdnl.iconscout.com/lottie/premium/thumb/loading-lines-6747317-5601928.gif',
+                  'https://i.giphy.com/dCMV8kWz1efSMvSSvM.webp',
                   width: 250,
                   height: height))
           : Container(
