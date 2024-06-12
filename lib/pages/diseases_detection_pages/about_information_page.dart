@@ -58,7 +58,7 @@ class _AboutInformationPageState extends State<AboutInformationPage> {
                     left: size.width * 0.01,
                   ),
                   child: Text(
-                    'What is Bacterial Dermatosis?',
+                    widget.detectionResult,
                     style: TextStyle(
                       fontFamily: 'Cosffira',
                       fontSize: size.width * 0.062,

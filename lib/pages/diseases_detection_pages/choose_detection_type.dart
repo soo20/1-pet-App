@@ -248,7 +248,7 @@ class ChooseDetectionType extends StatelessWidget {
                       elevation:
                           WidgetStateProperty.all<double>(size.width * 0.01)),
                   onPressed: () {
-                    allowingCameraDialog(detectionType: true);
+                    allowingCameraDialog(detectionType: false);
                   },
                   icon: Image.asset(
                     "assets/icons/diseases_detection_page_icons/boob_icon.png",

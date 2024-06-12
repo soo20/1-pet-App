@@ -126,9 +126,9 @@ class _PetProfilePage extends State<PetProfilePage> {
                     } else {
                       return Padding(
                         padding:
-                            const EdgeInsets.only(top: 0, right: 0, left: 0.6),
+                            const EdgeInsets.only(top: 25, right: 0, left: 0.6),
                         child: CircleAvatar(
-                          radius: height * 0.228,
+                          radius: height * 0.185,
                           foregroundImage: snapshot.data?['imageUrl'] != null
                               ? NetworkImage(snapshot.data!['imageUrl'])
                               : null,

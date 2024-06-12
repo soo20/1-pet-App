@@ -401,7 +401,7 @@ class _DetectionResulrPageState extends State<DetectionResulrPage> {
                           widget.detectionResult,
                           style: TextStyle(
                             fontFamily: 'Cosffira',
-                            fontSize: size.width * 0.075,
+                            fontSize: size.width * 0.055,
                             fontWeight: FontWeight.w900,
                             color: const Color.fromARGB(255, 74, 94, 124),
                             letterSpacing: 0.5,

@@ -18,8 +18,10 @@ class DetectScreen extends StatefulWidget {
     required this.imgPath,
     required this.onCapturePressed,
     required this.petType,
+    this.prediction,
   });
   final String petType;
+  final String? prediction;
   @override
   State<DetectScreen> createState() => _DetectScreenState();
 }
@@ -89,7 +91,7 @@ class _DetectScreenState extends State<DetectScreen> {
                     ),
                     Text(
                       // we put the text string.
-                      ' 90% ',
+                      '${widget.prediction ?? 'No Prediction'}%',
                       //to style your text:
                       style: TextStyle(
                         fontFamily: 'Cosffira',

@@ -5,6 +5,9 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -26,11 +29,127 @@ class EnsureTakingImage extends StatefulWidget {
   _EnsureTakingImageState createState() => _EnsureTakingImageState();
 }
 
-class _EnsureTakingImageState extends State<EnsureTakingImage> {
+class _EnsureTakingImageState extends State<EnsureTakingImage>
+    with SingleTickerProviderStateMixin {
   late CameraController cameraController;
-  final String detectionResult = "Bacterial Dermatosis";
+  String detectionResult = "";
+  bool isLoading = true;
+  double maxScore = 0.0;
+
+  // Simulate model processing
+  Future<void> processImage() async {
+    setState(() {
+      isLoading = true;
+    });
+    await Future.delayed(Duration(seconds: 5)); // Adjust the seconds as needed
+    if (widget.detectionType) {
+      // Call the skin prediction method
+      await _getPredictionSkin();
+    } else {
+      // Call the boob prediction method
+      await _getPredictionBoob();
+    }
+
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  Future<void> _getPredictionSkin() async {
+    final request = http.MultipartRequest(
+      'PUT',
+      Uri.parse('http://10.0.2.2:5000/predict'),
+    );
+    request.files
+        .add(await http.MultipartFile.fromPath('file', widget.imgPath));
+    print('Sending request to server...');
+
+    try {
+      final response = await request.send();
+      final responseBody = await response.stream.bytesToString();
+
+      if (response.statusCode == 200) {
+        print('Response received: $responseBody');
+        final Map<String, dynamic> data = json.decode(responseBody);
+        setState(() {
+          detectionResult = data['prediction'].toString();
+
+          final Map<String, dynamic> predictions = data['predictions'];
+          maxScore = 0.0; // Reset maxScore
+          var maxClass = '';
+          predictions.forEach((key, value) {
+            final score = double.parse(value.replaceAll('%', ''));
+            if (score > maxScore) {
+              maxScore = score;
+              maxClass = key;
+            }
+          });
+          print('Biggest Prediction Score: $maxScore for $maxClass');
+        });
+      } else {
+        print('Failed to load prediction: ${response.statusCode}');
+        print('Response body: $responseBody');
+        throw Exception('Failed to load prediction: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Exception caught: $e');
+      throw Exception('Failed to load prediction');
+    }
+  }
+
+  Future<void> _getPredictionBoob() async {
+    final request = http.MultipartRequest(
+      'PUT',
+      Uri.parse('http://10.0.2.2:5000/predict2'),
+    );
+    request.files
+        .add(await http.MultipartFile.fromPath('file', widget.imgPath));
+    print('Sending request to server...');
+
+    try {
+      final response = await request.send();
+      final responseBody = await response.stream.bytesToString();
+
+      if (response.statusCode == 200) {
+        print('Response received: $responseBody');
+        final Map<String, dynamic> data = json.decode(responseBody);
+        setState(() {
+          detectionResult = data['prediction'].toString();
+
+          final Map<String, dynamic> predictions = data['predictions'];
+          maxScore = 0.0; // Reset maxScore
+          var maxClass = '';
+          predictions.forEach((key, value) {
+            final score = double.parse(value.replaceAll('%', ''));
+            if (score > maxScore) {
+              maxScore = score;
+              maxClass = key;
+            }
+          });
+          print('Biggest Prediction Score: $maxScore for $maxClass');
+        });
+      } else {
+        print('Failed to load prediction: ${response.statusCode}');
+        print('Response body: $responseBody');
+        throw Exception('Failed to load prediction: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Exception caught: $e');
+      throw Exception('Failed to load prediction');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    processImage();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+    final double height = size.height;
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
@@ -49,78 +168,73 @@ class _EnsureTakingImageState extends State<EnsureTakingImage> {
         ),
       ),
       extendBodyBehindAppBar: true,
-      body: Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-          fit: BoxFit.cover,
-          image: FileImage(
-            File(widget.imgPath),
-          ),
-        )),
-        child: Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            width: double.infinity,
-            height: 400.h,
-            color: Colors.transparent,
-            child: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5.0),
-                    child: IconButton(
-                      color: Colors.blue,
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      icon: SvgPicture.asset(
-                        'assets/icons/rephoto.svg',
-                        width: 200.w,
-                        height: 200.h,
-                      ),
+      body: isLoading
+          ? Center(
+              child: Image.network(
+                  'https://cdnl.iconscout.com/lottie/premium/thumb/loading-lines-6747317-5601928.gif',
+                  width: 250,
+                  height: height))
+          : Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                fit: BoxFit.cover,
+                image: FileImage(
+                  File(widget.imgPath),
+                ),
+              )),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  width: double.infinity,
+                  height: 400.h,
+                  color: Colors.transparent,
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5.0),
+                          child: IconButton(
+                            color: Colors.blue,
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            icon: SvgPicture.asset(
+                              'assets/icons/rephoto.svg',
+                              width: 200.w,
+                              height: 200.h,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 200.w,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10.0),
+                          child: IconButton(
+                            color: Colors.blue,
+                            onPressed: () async {
+                              await processImage();
+                              Get.to(
+                                DetectionResulrPage(
+                                    detectionType: widget.detectionType,
+                                    detectionResult: detectionResult),
+                                transition: Transition.zoom,
+                              );
+                            },
+                            icon: SvgPicture.asset(
+                              'assets/icons/right.svg',
+                              width: 200.w,
+                              height: 200.h,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  SizedBox(
-                    width: 200.w,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10.0),
-                    child: IconButton(
-                      color: Colors.blue,
-                      onPressed: () {
-                        /*  Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => DetectScreen(
-                                  imgPath: widget
-                                      .imgPath, // Pass the image path to DetectScreen
-                                  onCapturePressed: widget
-                                      .onCapturePressed, // Pass the function to DetectScreen
-                                ),
-                              ),
-                            ); */
-
-                        Get.to(
-                          DetectionResulrPage(
-                              detectionType: true,
-                              detectionResult: detectionResult),
-                          transition: Transition.zoom,
-                        );
-                      },
-                      icon: SvgPicture.asset(
-                        'assets/icons/right.svg',
-                        width: 200.w,
-                        height: 200.h,
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
-          ),
-        ),
-      ),
     );
   }
 }

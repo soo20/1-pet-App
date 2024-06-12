@@ -29,7 +29,7 @@ class _DiseasesDetectionCameraState extends State<DiseasesDetectionCamera> {
   late int selectedCameraIndex;
   late String imagePath;
   late Future<void> _initializeControllerFuture;
-  late String detectionResult = 'Bacterial Dermatosis';
+  late String detectionResult = '';
 
   @override
   void initState() {
