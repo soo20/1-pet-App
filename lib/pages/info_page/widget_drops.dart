@@ -8,7 +8,9 @@ import 'package:petapplication/pages/info_page/scroll_bar.dart'; // Import MyScr
 
 class Droper extends StatefulWidget {
   final String textContent;
-  const Droper({super.key, required this.textContent});
+  final String content;
+
+  const Droper({super.key, required this.textContent, required this.content});
 
   @override
   State<Droper> createState() => _DroperState();
@@ -95,10 +97,10 @@ class _DroperState extends State<Droper> {
                         builder: (context, scrollController) =>
                             ListView.builder(
                           controller: scrollController,
-                          itemCount: 2,
+                          itemCount: 1,
                           itemBuilder: (context, index) {
                             return Text(
-                              ' The Golden Retriever, An Exuberant Scottish Gundog Of Great Beauty, Stands Among America\'s Most Popular Dog Breeds. They Are Serious Workers At Hunting And Field Work, As Guides For The Blind, And In Search-And-Rescue, Enjoy Obedience And Other Competitive Events, And Have An Endearing Love Of Life When Not At Work. The Golde N Retriever Is A Sturdy, Muscular Dog Of Medium Size,Famous For The Dense, Lustrous Coat Of Gold That Gives The Breed Its Name. The Broad Head, With Its Friendly And',
+                              widget.content,
                               style: TextStyle(
                                 fontFamily: 'Cosffira',
                                 fontSize: 44.sp,
