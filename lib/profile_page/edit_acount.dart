@@ -1,11 +1,14 @@
 import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
+
 import 'package:petapplication/profile_page/updating_user_information.dart';
 import 'package:petapplication/profile_page/user_profile.dart';
 import 'package:petapplication/profile_page/uploading_image_for_user.dart';
@@ -68,15 +71,17 @@ class _EditAcountState extends State<EditAcount> {
           .collection('users')
           .doc(userInfo!.uid)
           .get();
-      if (userInfo != null) {
-        nameController.text =
-            userInfo!.displayName ?? doc.data()?['user_name'] ?? '';
-        emailController.text = userInfo!.email ?? '';
-        phoneNumberController.text =
-            userInfo!.phoneNumber ?? doc.data()?['phone_number'] ?? '';
+
+      if (doc.exists) {
+        nameController.text = userInfo!.displayName ?? doc.data()?['user_name'];
+
+        emailController.text = userInfo!.email!;
+        phoneNumberController.text = doc.data()?['phone_number'] ?? '';
+      } else {
+        print("User document does not exist");
       }
-    } on FirebaseException {
-      print("error in there......................");
+    } on FirebaseException catch (e) {
+      print("Error fetching user data: $e");
     }
   }
 
@@ -84,6 +89,116 @@ class _EditAcountState extends State<EditAcount> {
   void initState() {
     super.initState();
     _initializeUserData();
+  }
+
+  Future<bool> _reauthenticateWithEmailPassword(
+      BuildContext context, User user) async {
+    TextEditingController passwordController = TextEditingController();
+    bool isAuthenticated = false;
+
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: const Color(0xffDCD3D3),
+          title: const Text(
+            "Confirm your password to delete your account",
+            textAlign: TextAlign.center,
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: passwordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  labelText: 'Enter your password',
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () async {
+                AuthCredential credential = EmailAuthProvider.credential(
+                  email: user.email!,
+                  password: passwordController.text,
+                );
+
+                try {
+                  await user.reauthenticateWithCredential(credential);
+                  isAuthenticated = true;
+                  Navigator.of(context).pop();
+                } catch (error) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content:
+                          Text("Re-authentication failed. Please try again."),
+                    ),
+                  );
+                }
+              },
+              child: const Text('Submit'),
+            ),
+          ],
+        );
+      },
+    );
+
+    return isAuthenticated;
+  }
+
+  Future<bool> _reauthenticateWithGoogle(
+      BuildContext context, User user) async {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+
+    if (googleUser == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Re-authentication cancelled by user."),
+        ),
+      );
+      return false;
+    }
+
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    try {
+      await user.reauthenticateWithCredential(credential);
+      return true;
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Re-authentication failed. Please try again."),
+        ),
+      );
+      return false;
+    }
+  }
+
+  Future<void> _showProgressDialog(BuildContext context) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
   }
 
   @override
@@ -107,31 +222,6 @@ class _EditAcountState extends State<EditAcount> {
 
     return Scaffold(
       backgroundColor: const Color(0xffDCD3D3),
-      appBar: AppBar(
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        forceMaterialTransparency: true,
-        toolbarOpacity: 1,
-        toolbarHeight: 110.h,
-        actions: [
-          IconButton(
-            icon: SvgPicture.asset(
-              'assets/icons/trash.svg',
-              width: 120.w,
-              color: const Color(0XFFA26874),
-            ),
-            onPressed: () {
-              nameController.clear();
-              emailController.clear();
-              phoneNumberController.clear();
-            },
-          ),
-        ],
-        iconTheme: const IconThemeData(
-          color: Color(0xff707070),
-          size: 50.0,
-        ),
-      ),
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -144,47 +234,65 @@ class _EditAcountState extends State<EditAcount> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                StreamBuilder(
-                  stream: FirebaseFirestore.instance
-                      .collection('users')
-                      .doc(userInfo!.uid)
-                      .snapshots(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const CircularProgressIndicator();
-                    } else if (snapshot.hasError) {
-                      ScaffoldMessenger.of(context).clearSnackBars();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: const Text(
-                              'Failed to load your profile photo, please try again later.'),
-                          action: SnackBarAction(
-                              label: 'Close',
-                              onPressed: () {
-                                ScaffoldMessenger.of(context)
-                                    .hideCurrentSnackBar();
-                              }),
-                        ),
-                      );
-                      return CircleAvatar(
-                        radius: height * 0.11,
-                        backgroundImage:
-                            const AssetImage('assets/image/Group 998.png'),
-                      );
-                    } else {
-                      return CircleAvatar(
-                        radius: height * 0.11,
-                        foregroundImage: _pickedImageFile != null
-                            ? FileImage(_pickedImageFile!) as ImageProvider
-                            : snapshot.data?['profile_image'] != null
-                                ? NetworkImage(snapshot.data!['profile_image'])
-                                : null,
-                        backgroundImage:
-                            const AssetImage('assets/image/Group 998.png'),
-                      );
-                    }
-                  },
-                ),
+                if (userInfo != null)
+                  StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(userInfo!.uid)
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const CircularProgressIndicator();
+                      } else if (snapshot.hasError) {
+                        ScaffoldMessenger.of(context).clearSnackBars();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: const Text(
+                                'Failed to load your profile photo, please try again later.'),
+                            action: SnackBarAction(
+                                label: 'Close',
+                                onPressed: () {
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
+                                }),
+                          ),
+                        );
+                        return CircleAvatar(
+                          radius: height * 0.11,
+                          backgroundImage:
+                              const AssetImage('assets/image/Group 998.png'),
+                        );
+                      } else if (snapshot.hasData) {
+                        final doc = snapshot.data!;
+                        if (doc.exists) {
+                          final profileImageUrl =
+                              doc['profile_image'] as String?;
+                          return CircleAvatar(
+                            radius: height * 0.11,
+                            foregroundImage: _pickedImageFile != null
+                                ? FileImage(_pickedImageFile!) as ImageProvider
+                                : profileImageUrl != null
+                                    ? NetworkImage(profileImageUrl)
+                                    : null,
+                            backgroundImage:
+                                const AssetImage('assets/image/Group 998.png'),
+                          );
+                        } else {
+                          return CircleAvatar(
+                            radius: height * 0.11,
+                            backgroundImage:
+                                const AssetImage('assets/image/Group 998.png'),
+                          );
+                        }
+                      } else {
+                        return CircleAvatar(
+                          radius: height * 0.11,
+                          backgroundImage:
+                              const AssetImage('assets/image/Group 998.png'),
+                        );
+                      }
+                    },
+                  ),
                 TextButton.icon(
                   icon: Icon(
                     Icons.account_box_rounded,
@@ -252,6 +360,7 @@ class _EditAcountState extends State<EditAcount> {
                   padding: const EdgeInsets.only(
                       left: 35, right: 35, top: 15, bottom: 15),
                   child: TextFormField(
+                    readOnly: true,
                     controller: emailController,
                     validator: validateEmail,
                     keyboardType: TextInputType.emailAddress,

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:petapplication/pages/sign_login_acount/loginbody.dart';
 import 'firebase_options.dart';
 import 'package:petapplication/pages/splashscreen.dart';
 
@@ -47,6 +48,7 @@ class YunaPetApp extends StatelessWidget {
           routes: {
             // When navigating to the "/" route, build the FirstScreen widget.
             'home': (context) => const SplashScreen(),
+            'login': (context) => const LoginBody()
             // When navigating to the "/second" route, build the SecondScreen widget.
           }, // Display the splash screen first
         );

@@ -142,31 +142,36 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
             builder: (context, snapshot) {
               print('Snapshot state: ${snapshot.connectionState}');
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: SizedBox(
-                    height: size.height * 0.04,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircularProgressIndicator.adaptive(
-                          strokeWidth: size.height * 0.0023,
-                          backgroundColor: const Color.fromARGB(60, 58, 54, 54),
-                          valueColor: const AlwaysStoppedAnimation<Color>(
-                            Color.fromARGB(170, 162, 104, 116),
+                return SizedBox(
+                  width: size.width,
+                  height: size.height * 0.15,
+                  child: Center(
+                    child: SizedBox(
+                      height: size.height * 0.04,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CircularProgressIndicator.adaptive(
+                            strokeWidth: size.height * 0.0023,
+                            backgroundColor:
+                                const Color.fromARGB(60, 58, 54, 54),
+                            valueColor: const AlwaysStoppedAnimation<Color>(
+                              Color.fromARGB(170, 162, 104, 116),
+                            ),
                           ),
-                        ),
-                        SizedBox(width: size.width * 0.02),
-                        Text(
-                          'Fetching future events.....',
-                          style: TextStyle(
-                            fontFamily: 'Cosffira',
-                            fontSize: size.width * 0.048,
-                            fontWeight: FontWeight.normal,
-                            color: const Color.fromARGB(60, 58, 54, 54),
+                          SizedBox(width: size.width * 0.02),
+                          Text(
+                            'Fetching future events.....',
+                            style: TextStyle(
+                              fontFamily: 'Cosffira',
+                              fontSize: size.width * 0.048,
+                              fontWeight: FontWeight.normal,
+                              color: const Color.fromARGB(60, 58, 54, 54),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 );
@@ -278,33 +283,39 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
             future: mergeReminders(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: SizedBox(
-                    height: size.height * 0.04,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircularProgressIndicator.adaptive(
-                          strokeWidth: size.height * 0.0023,
-                          backgroundColor: const Color.fromARGB(60, 58, 54, 54),
-                          valueColor: const AlwaysStoppedAnimation<Color>(
-                            Color.fromARGB(170, 162, 104, 116),
+                return Padding(
+                  padding: EdgeInsets.only(
+                    top: size.height * 0.1,
+                  ),
+                  child: Center(
+                    child: SizedBox(
+                      height: size.height * 0.04,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CircularProgressIndicator.adaptive(
+                            strokeWidth: size.height * 0.0023,
+                            backgroundColor:
+                                const Color.fromARGB(60, 58, 54, 54),
+                            valueColor: const AlwaysStoppedAnimation<Color>(
+                              Color.fromARGB(170, 162, 104, 116),
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          width: size.width * 0.02,
-                        ),
-                        Text(
-                          'Fetching today tasks.....',
-                          style: TextStyle(
-                            fontFamily: 'Cosffira',
-                            fontSize: size.width * 0.048,
-                            fontWeight: FontWeight.normal,
-                            color: const Color.fromARGB(60, 58, 54, 54),
+                          SizedBox(
+                            width: size.width * 0.02,
                           ),
-                        )
-                      ],
+                          Text(
+                            'Fetching today tasks.....',
+                            style: TextStyle(
+                              fontFamily: 'Cosffira',
+                              fontSize: size.width * 0.048,
+                              fontWeight: FontWeight.normal,
+                              color: const Color.fromARGB(60, 58, 54, 54),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 );
@@ -313,6 +324,7 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
                 return Text('Error: ${snapshot.error}');
               } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                 remindersInHome = snapshot.data!;
+                print("hhhhhhhhhhhhhhhhhhhhh");
                 final List<Reminders> itemList = (onPressedText)
                     ? remindersInHome.where((e) => !e.checked).toList()
                     : remindersInHome.where((e) => e.checked).toList();
@@ -326,40 +338,55 @@ class _HomePageAfterAddingPets extends State<HomePageAfterAddingPets> {
                       final Reminders passedReminder = itemList[index];
                       return BuildReminderCard(
                         remindersData: passedReminder,
-                        onPressed: () {
+                        onPressed: () async {
                           setState(() {
+                            passedReminder.checked = !passedReminder.checked;
                             final reminderApi = ReminderDataApi();
-                            if (passedReminder.checked) {
+                            if (passedReminder.checked == true) {
                               reminderApi.reminderCheckedState(
-                                  value: true,
+                                  value: 't',
                                   reminderId: passedReminder.reminderId);
                             } else {
                               reminderApi.reminderCheckedState(
-                                  value: true,
+                                  value: 'f',
                                   reminderId: passedReminder.reminderId);
                             }
-
-                            passedReminder.checked = !passedReminder.checked;
                           });
                         },
                       );
                     },
                   ),
                 );
-              } else {
-                return Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      top: size.height * 0.08,
+              } else if (remindersInHome.isEmpty) {
+                return Padding(
+                  padding: EdgeInsets.only(
+                    top: size.height * 0.08,
+                  ),
+                  child: Text(
+                    'You have no tasks for today or you\n    haven\'t created any tasks yet.',
+                    style: TextStyle(
+                      fontFamily: 'Cosffira',
+                      fontSize: size.width * 0.049,
+                      fontWeight: FontWeight.normal,
+                      color: const Color.fromARGB(145, 154, 158, 172),
                     ),
-                    child: Text(
-                      'You have no tasks for today or you\n    haven\'t created any tasks yet.',
-                      style: TextStyle(
-                        fontFamily: 'Cosffira',
-                        fontSize: size.width * 0.049,
-                        fontWeight: FontWeight.normal,
-                        color: const Color.fromARGB(145, 154, 158, 172),
-                      ),
+                  ),
+                );
+              } else {
+                remindersInHome = snapshot.data!;
+                print(remindersInHome);
+
+                return Padding(
+                  padding: EdgeInsets.only(
+                    top: size.height * 0.08,
+                  ),
+                  child: Text(
+                    'You have no tasks for today or you\n    haven\'t created any tasks yet.',
+                    style: TextStyle(
+                      fontFamily: 'Cosffira',
+                      fontSize: size.width * 0.049,
+                      fontWeight: FontWeight.normal,
+                      color: const Color.fromARGB(145, 154, 158, 172),
                     ),
                   ),
                 );

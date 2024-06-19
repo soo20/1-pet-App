@@ -51,6 +51,7 @@ class _TheMainHomePage extends State<TheMainHomePage> {
     User? userInfo = FirebaseAuth.instance.currentUser;
     final double height = size.height;
     // final double width = size.width;
+    print(userInfo?.email != null);
     return PopScope(
       canPop: false,
       child: SafeArea(
@@ -169,9 +170,11 @@ class _TheMainHomePage extends State<TheMainHomePage> {
                     },
                     iconSize: 90.sp,
                   ),
-                  // Actions on the app bar
+                  // // Actions on the app bar
+
                   actions: <Widget>[
                     // Container containing user image and button
+
                     userInfo?.email != null
                         ? IconButton(
                             padding: EdgeInsets.only(

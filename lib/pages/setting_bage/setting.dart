@@ -178,164 +178,151 @@ class Setting extends StatelessWidget {
                   onTap: index == 5
                       ? () {
                           showDialog(
-                              context: context,
-                              builder: (BuildContext context) => BackdropFilter(
-                                    filter: ImageFilter.blur(
-                                      sigmaX: size.width * 0.01,
-                                      sigmaY: size.width * 0.01,
+                            context: context,
+                            builder: (BuildContext context) => BackdropFilter(
+                              filter: ImageFilter.blur(
+                                sigmaX: size.width * 0.01,
+                                sigmaY: size.width * 0.01,
+                              ),
+                              child: AlertDialog(
+                                elevation: 0.0,
+                                backgroundColor: const Color(0xffDCD3D3),
+                                content: Text.rich(
+                                  textAlign: TextAlign.center,
+                                  TextSpan(
+                                    style: TextStyle(
+                                      height: 0.0,
+                                      fontFamily: 'Cosffira',
+                                      fontSize: size.width * 0.047,
+                                      fontWeight: FontWeight.w800,
+                                      color: const Color(0xff4A5E7C),
+                                      letterSpacing: 0.5,
                                     ),
-                                    child: AlertDialog(
-                                      elevation: 0.0,
-                                      backgroundColor: const Color(0xffDCD3D3),
-                                      content: Text.rich(
-                                        textAlign: TextAlign.center,
-                                        TextSpan(
-                                          style: TextStyle(
-                                            height: 0.0,
-                                            fontFamily: 'Cosffira',
-                                            fontSize: size.width * 0.047,
-                                            fontWeight: FontWeight.w800,
-                                            color: const Color(0xff4A5E7C),
-                                            letterSpacing: 0.5,
-                                          ),
-                                          children: const [
-                                            TextSpan(
-                                              text: "are you sure you want to ",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                            TextSpan(
-                                              text: 'Log out?',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w800,
-                                              ),
-                                            ),
-                                          ],
+                                    children: const [
+                                      TextSpan(
+                                        text: "are you sure you want to ",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w400,
                                         ),
                                       ),
-                                      actions: [
-                                        Center(
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            // Align buttons at the ends
-                                            children: [
-                                              ElevatedButton(
-                                                onPressed: () async {
-                                                  try {
-                                                    // Sign out from Firebase
-                                                    await FirebaseAuth.instance
-                                                        .signOut();
+                                      TextSpan(
+                                        text: 'Log out?',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w800,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                actions: [
+                                  Center(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      // Align buttons at the ends
+                                      children: [
+                                        ElevatedButton(
+                                          onPressed: () async {
+                                            try {
+                                              // Sign out from Firebase
+                                              await FirebaseAuth.instance
+                                                  .signOut();
 
-                                                    // Sign out from Google
-                                                    await GoogleSignIn
-                                                            .standard()
-                                                        .signOut();
-                                                    Get.to(
-                                                        () => const LoginBody(),
-                                                        transition:
-                                                            Transition.zoom);
-                                                  } catch (error) {
-                                                    print(
-                                                        'Error during sign-out: $error');
-                                                  }
-                                                  //
-                                                },
-                                                style: ElevatedButton.styleFrom(
-                                                  backgroundColor:
-                                                      const Color(0xffA26874),
-                                                  padding: EdgeInsets.symmetric(
-                                                    horizontal:
-                                                        size.width * 0.028,
-                                                    vertical:
-                                                        size.height * 0.025,
-                                                  ), // Adjust the padding as needed
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                      size.width * 0.092,
-                                                    ), // Set the border radius of the button
-                                                  ),
-                                                ),
-                                                child: Padding(
-                                                  padding: EdgeInsets.only(
-                                                    left: size.width * 0.23,
-                                                    right: size.width * 0.23,
-                                                  ),
-                                                  child: Text(
-                                                    'yes',
-                                                    style: TextStyle(
-                                                      height: 0.0,
-                                                      fontFamily: 'Cosffira',
-                                                      fontSize:
-                                                          size.width * 0.045,
-                                                      fontWeight:
-                                                          FontWeight.w800,
-                                                      color:
-                                                          const Color.fromARGB(
-                                                              255,
-                                                              255,
-                                                              255,
-                                                              255),
-                                                      letterSpacing: 0.5,
-                                                    ),
-                                                  ),
-                                                ),
+                                              // Sign out from Google
+                                              await GoogleSignIn.standard()
+                                                  .signOut();
+                                              Navigator.pushAndRemoveUntil(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const LoginBody()),
+                                                (Route<dynamic> route) => false,
+                                              );
+                                            } catch (error) {
+                                              print(
+                                                  'Error during sign-out: $error');
+                                            }
+                                            //
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor:
+                                                const Color(0xffA26874),
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: size.width * 0.028,
+                                              vertical: size.height * 0.025,
+                                            ), // Adjust the padding as needed
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                size.width * 0.092,
+                                              ), // Set the border radius of the button
+                                            ),
+                                          ),
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                              left: size.width * 0.23,
+                                              right: size.width * 0.23,
+                                            ),
+                                            child: Text(
+                                              'yes',
+                                              style: TextStyle(
+                                                height: 0.0,
+                                                fontFamily: 'Cosffira',
+                                                fontSize: size.width * 0.045,
+                                                fontWeight: FontWeight.w800,
+                                                color: const Color.fromARGB(
+                                                    255, 255, 255, 255),
+                                                letterSpacing: 0.5,
                                               ),
-                                              SizedBox(
-                                                height: size.height * 0.015,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: size.height * 0.015,
+                                        ),
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor:
+                                                const Color(0xffB5C0D0),
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: size.width * 0.028,
+                                              vertical: size.height * 0.025,
+                                            ), // Adjust the padding as needed
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                size.width * 0.092,
+                                              ), // Set the border radius of the button
+                                            ),
+                                          ),
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                              left: size.width * 0.2,
+                                              right: size.width * 0.2,
+                                            ),
+                                            child: Text(
+                                              'Cancel',
+                                              style: TextStyle(
+                                                height: 0.0,
+                                                fontFamily: 'Cosffira',
+                                                fontSize: size.width * 0.045,
+                                                fontWeight: FontWeight.w800,
+                                                color: const Color.fromARGB(
+                                                    255, 255, 255, 255),
+                                                letterSpacing: 0.5,
                                               ),
-                                              ElevatedButton(
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                                style: ElevatedButton.styleFrom(
-                                                  backgroundColor:
-                                                      const Color(0xffB5C0D0),
-                                                  padding: EdgeInsets.symmetric(
-                                                    horizontal:
-                                                        size.width * 0.028,
-                                                    vertical:
-                                                        size.height * 0.025,
-                                                  ), // Adjust the padding as needed
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                      size.width * 0.092,
-                                                    ), // Set the border radius of the button
-                                                  ),
-                                                ),
-                                                child: Padding(
-                                                  padding: EdgeInsets.only(
-                                                    left: size.width * 0.2,
-                                                    right: size.width * 0.2,
-                                                  ),
-                                                  child: Text(
-                                                    'Cancel',
-                                                    style: TextStyle(
-                                                      height: 0.0,
-                                                      fontFamily: 'Cosffira',
-                                                      fontSize:
-                                                          size.width * 0.045,
-                                                      fontWeight:
-                                                          FontWeight.w800,
-                                                      color:
-                                                          const Color.fromARGB(
-                                                              255,
-                                                              255,
-                                                              255,
-                                                              255),
-                                                      letterSpacing: 0.5,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
+                                            ),
                                           ),
                                         ),
                                       ],
                                     ),
-                                  ));
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
                         }
                       : onTapFunctions[index],
                 ),

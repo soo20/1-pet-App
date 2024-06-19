@@ -45,8 +45,12 @@ class _BuildReminderCard extends State<BuildReminderCard> {
                 widget.remindersData.checked
                     ? 'assets/icons/home_page_after_adding_reminders_icons/checked_button.png'
                     : 'assets/icons/home_page_after_adding_reminders_icons/unchecked_button.png',
-                height: 63.h,
-                width: 65.w,
+                height: widget.remindersData.checked
+                    ? height * 0.043
+                    : height * 0.04,
+                width: widget.remindersData.checked
+                    ? height * 0.043
+                    : height * 0.04,
               ),
             ),
             Padding(

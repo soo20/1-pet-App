@@ -182,7 +182,7 @@ class _TheMainLoginPageState extends State<TheMainLoginPage> {
       extendBodyBehindAppBar: true,
       body: Container(
         width: double.infinity,
-        padding: EdgeInsets.only(top: height * 0.040, right: 0),
+        padding: EdgeInsets.only(top: height * 0.048, right: 0),
         decoration: const BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.fill,
@@ -194,10 +194,10 @@ class _TheMainLoginPageState extends State<TheMainLoginPage> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(0, height * 0.05, width * 0.33, 00),
+              padding: EdgeInsets.fromLTRB(0, height * 0.01, width * 0.33, 00),
               child: Container(
-                width: width * 0.52,
-                height: width * 0.53,
+                width: width * 0.51,
+                height: width * 0.51,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/image/Group286.png'),

@@ -14,7 +14,9 @@ class NewUserException implements Exception {
 
 final GoogleSignIn googleSignIn = GoogleSignIn();
 Future<UserCredential?> signUpWithGoogle() async {
+  await googleSignIn.signOut();
   // Check if the user is already signed in
+
   GoogleSignInAccount? googleUser = GoogleSignIn.standard().currentUser;
 
   // If not, trigger the authentication flow
@@ -38,7 +40,13 @@ Future<UserCredential?> signUpWithGoogle() async {
   try {
     final UserCredential userCredential =
         await FirebaseAuth.instance.signInWithCredential(credential);
+    final isNewUser = userCredential.additionalUserInfo?.isNewUser ?? false;
 
+    // If the user is new, delete their account and throw an exception
+    if (!isNewUser) {
+      await googleSignIn.signOut();
+      throw "An account already exists with this email.";
+    }
     // Existing user can proceed
     return userCredential;
   } catch (e) {
@@ -49,11 +57,11 @@ Future<UserCredential?> signUpWithGoogle() async {
 }
 
 Future<UserCredential?> signInWithGoogle() async {
-  // Check if the user is already signed in
-  GoogleSignInAccount? googleUser = googleSignIn.currentUser;
+  // Sign out any existing user to force account selection
+  await googleSignIn.signOut();
 
-  // If not, trigger the authentication flow
-  googleUser ??= await googleSignIn.signIn();
+  // Trigger the authentication flow
+  GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
   // If the user cancelled the sign-in flow, return null
   if (googleUser == null) {
