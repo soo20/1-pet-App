@@ -65,10 +65,10 @@ class _AddPetsState extends State<AddPets> {
       await storageRef.putFile(File(image.path));
       String downloadURL = await storageRef.getDownloadURL();
       print('Image uploaded: $downloadURL');
-      return downloadURL; // Return the download URL
+      return downloadURL;
     } catch (e) {
       print('Error uploading image: $e');
-      return ''; // Return an empty string if there's an error
+      return '';
     }
   }
 
@@ -79,15 +79,12 @@ class _AddPetsState extends State<AddPets> {
     if (widget.petType != null) {
       petTypeController.text = widget.petType!;
     } else {
-      petTypeController.text =
-          ''; // Provide a default value or handle null case
+      petTypeController.text = '';
     }
   }
 
   @override
   void dispose() {
-    // Dispose controllers when they are no longer needed
-
     petTypeController.dispose();
 
     super.dispose();
@@ -103,8 +100,7 @@ class _AddPetsState extends State<AddPets> {
       );
     } else {
       decorationImage = const DecorationImage(
-        image: AssetImage(
-            'assets/image/profileImage.png'), // Use AssetImage for local asset
+        image: AssetImage('assets/image/profileImage.png'),
         fit: BoxFit.cover,
       );
     }
@@ -266,8 +262,7 @@ class _AddPetsState extends State<AddPets> {
                               enabledBorder: const UnderlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Color(0xffD1D2D2),
-                                  width:
-                                      0.8, // Set the width of the border here
+                                  width: 0.8,
                                 ),
                               )),
                         ),
@@ -403,7 +398,7 @@ class _AddPetsState extends State<AddPets> {
                             enabledBorder: const OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0xffD1D2D2),
-                                width: .8, // Set the width of the border here
+                                width: .8,
                               ),
                             ),
                           ),
@@ -608,7 +603,7 @@ class _AddPetsState extends State<AddPets> {
                 )),
               ),
             )
-          : const SizedBox(), // Hide the container initially
+          : const SizedBox(),
     );
   }
 }

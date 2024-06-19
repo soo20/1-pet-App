@@ -41,8 +41,7 @@ class _EnsureTakingImageState extends State<EnsureTakingImage>
     setState(() {
       isLoading = true;
     });
-    await Future.delayed(
-        const Duration(seconds: 6)); // Adjust the seconds as needed
+    // Adjust the seconds as needed
     if (widget.detectionType) {
       // Call the skin prediction method
       await _getPredictionSkin();
@@ -149,8 +148,8 @@ class _EnsureTakingImageState extends State<EnsureTakingImage>
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-    final double height = size.height;
+    //final Size size = MediaQuery.of(context).size;
+    //  final double height = size.height;
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
@@ -169,73 +168,67 @@ class _EnsureTakingImageState extends State<EnsureTakingImage>
         ),
       ),
       extendBodyBehindAppBar: true,
-      body: isLoading
-          ? Center(
-              child: Image.network(
-                  'https://i.giphy.com/dCMV8kWz1efSMvSSvM.webp',
-                  width: 250,
-                  height: height))
-          : Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                fit: BoxFit.cover,
-                image: FileImage(
-                  File(widget.imgPath),
-                ),
-              )),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  width: double.infinity,
-                  height: 400.h,
-                  color: Colors.transparent,
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 5.0),
-                          child: IconButton(
-                            color: Colors.blue,
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            icon: SvgPicture.asset(
-                              'assets/icons/rephoto.svg',
-                              width: 200.w,
-                              height: 200.h,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 200.w,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 10.0),
-                          child: IconButton(
-                            color: Colors.blue,
-                            onPressed: () async {
-                              await processImage();
-                              Get.to(
-                                DetectionResulrPage(
-                                    detectionType: widget.detectionType,
-                                    detectionResult: detectionResult),
-                                transition: Transition.zoom,
-                              );
-                            },
-                            icon: SvgPicture.asset(
-                              'assets/icons/right.svg',
-                              width: 200.w,
-                              height: 200.h,
-                            ),
-                          ),
-                        ),
-                      ],
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+          fit: BoxFit.cover,
+          image: FileImage(
+            File(widget.imgPath),
+          ),
+        )),
+        child: Align(
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            width: double.infinity,
+            height: 400.h,
+            color: Colors.transparent,
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5.0),
+                    child: IconButton(
+                      color: Colors.blue,
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: SvgPicture.asset(
+                        'assets/icons/rephoto.svg',
+                        width: 200.w,
+                        height: 200.h,
+                      ),
                     ),
                   ),
-                ),
+                  SizedBox(
+                    width: 200.w,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10.0),
+                    child: IconButton(
+                      color: Colors.blue,
+                      onPressed: () async {
+                        await processImage();
+                        Get.to(
+                          () => DetectionResulrPage(
+                              detectionType: widget.detectionType,
+                              detectionResult: detectionResult),
+                          transition: Transition.zoom,
+                        );
+                      },
+                      icon: SvgPicture.asset(
+                        'assets/icons/right.svg',
+                        width: 200.w,
+                        height: 200.h,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
+          ),
+        ),
+      ),
     );
   }
 }

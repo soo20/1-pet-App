@@ -41,6 +41,8 @@ class PetsInformation {
       petType: data['petType'] ?? '',
       age: data['age'] ?? '',
       petIsDogOrCat: data['petIsDogOrCat'] ?? '',
+      petWeight:
+          (data['petWeight'] != null) ? data['petWeight'].toDouble() : null,
     );
   }
 
@@ -49,6 +51,7 @@ class PetsInformation {
       'imageUrl': imageUrl,
       'petName': petName,
       'petGender': petGender,
+      'petWeight': petWeight,
       'petId': petId,
       'petType': petType,
       'age': age,
