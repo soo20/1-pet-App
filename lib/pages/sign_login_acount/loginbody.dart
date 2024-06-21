@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, avoid_print
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -48,6 +49,89 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
     super.initState();
   }
 
+  Future<void> _showProgressDialog(BuildContext context) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+  }
+
+  Future<void> _signInWithGoogle(BuildContext context) async {
+    _showProgressDialog(context);
+    try {
+      UserCredential? userCredential = await signInWithGoogle();
+      if (userCredential != null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => TheMainHomePage()),
+        );
+      }
+    } catch (error) {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        error is NewUserException
+            ? SnackBar(
+                elevation: 1,
+                backgroundColor: Colors.transparent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                      10.0), // Adjust the radius as needed
+                ),
+                content: Text(
+                  error.message,
+                  style: TextStyle(
+                    fontFamily: 'Cosffira',
+                    fontSize: 16, // Adjust the font size as needed
+                    color: const Color(0xffEFE6E5),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                action: SnackBarAction(
+                    label: 'Sign up',
+                    textColor: const Color(0xff4A5E7C),
+                    onPressed: () {
+                      setState(() {
+                        showSecondContainer =
+                            !showSecondContainer; // Toggle the visibility of the second container
+                      });
+                    }),
+              )
+            : SnackBar(
+                elevation: 1,
+                backgroundColor: Colors.transparent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                      10.0), // Adjust the radius as needed
+                ),
+                content: Text(
+                  "Failed to login with Gmail, try again later",
+                  style: TextStyle(
+                    fontFamily: 'Cosffira',
+                    fontSize: 16, // Adjust the font size as needed
+                    color: const Color(0xffEFE6E5),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+      );
+    } finally {
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => TheMainHomePage()),
+        );
+      } else {
+        Navigator.pop(context);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -85,67 +169,7 @@ class _LoginBodyState extends State<LoginBody> with TickerProviderStateMixin {
                   ),
                   child: CustomGeneralButtom2(
                     height: height * 0.068,
-                    onTap: () {
-                      signInWithGoogle().then((userCredential) {
-                        print(userCredential!.user!.email);
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => TheMainHomePage()),
-                        );
-                      }).catchError(
-                        (error) {
-                          ScaffoldMessenger.of(context).clearSnackBars();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            error is NewUserException
-                                ? SnackBar(
-                                    elevation: 1,
-                                    backgroundColor: Colors.transparent,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          10.0), // Adjust the radius as needed
-                                    ),
-                                    content: Text(
-                                      error.message,
-                                      style: TextStyle(
-                                        fontFamily: 'Cosffira',
-                                        fontSize:
-                                            16, // Adjust the font size as needed
-                                        color: const Color(0xffEFE6E5),
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    action: SnackBarAction(
-                                        label: 'Sign up',
-                                        textColor: const Color(0xff4A5E7C),
-                                        onPressed: () {
-                                          PageViewLogin();
-                                          ScaffoldMessenger.of(context)
-                                              .hideCurrentSnackBar();
-                                        }),
-                                  )
-                                : SnackBar(
-                                    elevation: 1,
-                                    backgroundColor: Colors.transparent,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          10.0), // Adjust the radius as needed
-                                    ),
-                                    content: Text(
-                                      "Failed to login with Gmail, try again later",
-                                      style: TextStyle(
-                                        fontFamily: 'Cosffira',
-                                        fontSize:
-                                            16, // Adjust the font size as needed
-                                        color: const Color(0xffEFE6E5),
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-                          );
-                        },
-                      );
-                    },
+                    onTap: () => _signInWithGoogle(context),
                     text: 'Login With Gmail',
                     textColor: const Color(0xffA26874),
                     icon: FontAwesomeIcons.google,

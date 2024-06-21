@@ -113,7 +113,7 @@ class ReminderDataApi {
         petId: data['pet-id'],
         reminderId: data['reminder-id'],
         monthNumber: date.month,
-        checked: data['checked'],
+        checked: data['checked'] == 'f' ? false : true,
       );
     } catch (error) {
       rethrow;
@@ -224,7 +224,7 @@ class ReminderDataApi {
   }
 
   Future<void> reminderCheckedState({
-    required bool value,
+    required String value,
     required String reminderId,
   }) async {
     try {

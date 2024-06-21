@@ -119,6 +119,7 @@ class _PageViewLoginState extends State<PageViewLogin> {
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => const TheMainLoginPage()));
     } on FirebaseAuthException {
+      Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: const Color.fromARGB(80, 0, 0, 0),
@@ -287,7 +288,7 @@ class _PageViewLoginState extends State<PageViewLogin> {
                                   ),
                                   hitTestBehavior: HitTestBehavior.translucent,
                                   content: Text(
-                                    "can't create an account now,please try again later",
+                                    onError.toString(),
                                     style: TextStyle(
                                       fontFamily: 'Cosffira',
                                       fontSize: 50.sp,

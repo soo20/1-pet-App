@@ -25,8 +25,8 @@ class _UserAcountState extends State<UserAcount> {
           .doc(userInfo!.uid)
           .get();
       if (userInfo != null) {
-        nameController.text =
-            userInfo!.displayName ?? doc.data()?['user_name'] ?? '';
+        nameController.text = userInfo!.displayName ?? doc.data()?['user_name'];
+
         emailController.text = userInfo!.email ?? '';
         phoneNumberController.text = doc.data()?['phone_number'] ?? '';
       }
@@ -205,9 +205,9 @@ class _UserAcountState extends State<UserAcount> {
                         child: TextFormField(
                           controller: emailController,
                           //validator: validateEmail,
-
+                          maxLines: 2,
                           keyboardType: TextInputType.emailAddress,
-                          obscureText: false,
+
                           style: TextStyle(
                             color: const Color(0xff4A5E7C),
                             fontFamily: 'Cosffira',
