@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, prefer_conditional_assignment
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -30,6 +30,7 @@ class PetsInformation {
   List<CustomTime> feedTimesForPet = [];
   List<ReminderData> remindersData = [];
   double? petWeight;
+
   factory PetsInformation.fromFirestore(DocumentSnapshot doc) {
     Map data = doc.data() as Map<String, dynamic>;
     return PetsInformation(
@@ -71,6 +72,10 @@ Future<void> addPetInFireStore({
     }
 // Upload pet image and get the download URL
 
+    // Fetch petIsDogOrCat if not provided
+    if (pet.petIsDogOrCat == null) {
+      pet.petIsDogOrCat = await fetchPetIsDogOrCat(pet.petType);
+    }
     // Reference to the Firestore collection
     CollectionReference petsCollection =
         FirebaseFirestore.instance.collection('pets');
@@ -96,6 +101,24 @@ Future<void> addPetInFireStore({
     print('Pet added with ID: ${pet.petId}');
   } catch (e) {
     print('Error adding pet to Firestore: $e');
+  }
+}
+
+Future<String?> fetchPetIsDogOrCat(String petType) async {
+  try {
+    final doc = await FirebaseFirestore.instance
+        .collection('petsInformation')
+        .doc(petType)
+        .get();
+
+    if (doc.exists) {
+      return doc.data()?['petIsDogOrCat'] as String?;
+    } else {
+      return null;
+    }
+  } catch (e) {
+    print('Error fetching petIsDogOrCat: $e');
+    return null;
   }
 }
 

@@ -247,6 +247,8 @@ class _PetProfilePage extends State<PetProfilePage> {
                     Get.to(
                         () => InfoPage(
                               petType: widget.petInformation.petType,
+                              petIsDogOrCat:
+                                  widget.petInformation.petIsDogOrCat!,
                             ),
                         transition: Transition.upToDown);
                   },

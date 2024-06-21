@@ -1,38 +1,28 @@
-// ignore_for_file: unused_field, unnecessary_cast
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:petapplication/pages/info_page/widget_drops.dart';
-// Import MyScrollbar if defined elsewhere
 
 class DropDown extends StatefulWidget {
   final String petType;
   final String? petIsDogOrCat;
-  const DropDown({super.key, required this.petType, this.petIsDogOrCat});
+
+  const DropDown({Key? key, required this.petType, this.petIsDogOrCat})
+      : super(key: key);
 
   @override
   DropDownState createState() => DropDownState();
 }
 
 class DropDownState extends State<DropDown> {
-  bool screenDropDown = false;
   late final Future<Map<String, dynamic>> petInformationss;
-  late final Future<Map<String, dynamic>>? petIsDogOrCatInformation;
 
   @override
   void initState() {
     super.initState();
-    petInformationss = fetchPetInformation(widget.petType);
-
-    // Conditionally fetch petIsDogOrCat information if not null
-    if (widget.petIsDogOrCat != null) {
-      petIsDogOrCatInformation = fetchPetInformation(widget.petIsDogOrCat!);
-    } else {
-      petIsDogOrCatInformation = null;
-    }
+    petInformationss =
+        fetchPetInformation(widget.petType, widget.petIsDogOrCat);
   }
 
   @override
@@ -107,8 +97,10 @@ class DropDownState extends State<DropDown> {
     );
   }
 
-  Future<Map<String, dynamic>> fetchPetInformation(String petType) async {
+  Future<Map<String, dynamic>> fetchPetInformation(
+      String petType, String? petIsDogOrCat) async {
     try {
+      // First, attempt to fetch by petType
       final doc = await FirebaseFirestore.instance
           .collection('petsInformation')
           .doc(petType)
@@ -117,7 +109,21 @@ class DropDownState extends State<DropDown> {
       if (doc.exists) {
         return doc.data()! as Map<String, dynamic>;
       } else {
-        throw Exception('Document does not exist');
+        // If petType document does not exist, fetch by petIsDogOrCat if provided
+        if (petIsDogOrCat != null) {
+          final alternativeDoc = await FirebaseFirestore.instance
+              .collection('petsInformation')
+              .doc(petIsDogOrCat)
+              .get();
+
+          if (alternativeDoc.exists) {
+            return alternativeDoc.data()! as Map<String, dynamic>;
+          } else {
+            throw Exception('Neither document exists');
+          }
+        } else {
+          throw Exception('Document does not exist');
+        }
       }
     } catch (e) {
       print('Error fetching pet information: $e');
