@@ -47,7 +47,7 @@ class DropDownState extends State<DropDown> {
                     backgroundColor: const Color(0xffEFE6E5),
                     title: const Text('Alert'),
                     content: Text(
-                        'This type of ${widget.petIsDogOrCat} is not present in our dataset, but we will provide you with general information about dogs so that you can benefit.'),
+                        'This type of ${widget.petIsDogOrCat} is not present in our dataset, but we will provide you with general information about ${widget.petIsDogOrCat} so that you can benefit.'),
                     titleTextStyle: TextStyle(
                       height: size.height * 0.003,
                       fontFamily: 'Cosffira',
