@@ -6,7 +6,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:petapplication/profile_page/updating_user_information.dart';
@@ -89,116 +88,6 @@ class _EditAcountState extends State<EditAcount> {
   void initState() {
     super.initState();
     _initializeUserData();
-  }
-
-  Future<bool> _reauthenticateWithEmailPassword(
-      BuildContext context, User user) async {
-    TextEditingController passwordController = TextEditingController();
-    bool isAuthenticated = false;
-
-    await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: const Color(0xffDCD3D3),
-          title: const Text(
-            "Confirm your password to delete your account",
-            textAlign: TextAlign.center,
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: passwordController,
-                obscureText: true,
-                decoration: const InputDecoration(
-                  labelText: 'Enter your password',
-                ),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () async {
-                AuthCredential credential = EmailAuthProvider.credential(
-                  email: user.email!,
-                  password: passwordController.text,
-                );
-
-                try {
-                  await user.reauthenticateWithCredential(credential);
-                  isAuthenticated = true;
-                  Navigator.of(context).pop();
-                } catch (error) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content:
-                          Text("Re-authentication failed. Please try again."),
-                    ),
-                  );
-                }
-              },
-              child: const Text('Submit'),
-            ),
-          ],
-        );
-      },
-    );
-
-    return isAuthenticated;
-  }
-
-  Future<bool> _reauthenticateWithGoogle(
-      BuildContext context, User user) async {
-    final GoogleSignIn googleSignIn = GoogleSignIn();
-    final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-
-    if (googleUser == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Re-authentication cancelled by user."),
-        ),
-      );
-      return false;
-    }
-
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser.authentication;
-
-    final AuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-
-    try {
-      await user.reauthenticateWithCredential(credential);
-      return true;
-    } catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Re-authentication failed. Please try again."),
-        ),
-      );
-      return false;
-    }
-  }
-
-  Future<void> _showProgressDialog(BuildContext context) async {
-    return showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    );
   }
 
   @override
@@ -447,23 +336,26 @@ class _EditAcountState extends State<EditAcount> {
                           imageUrl = await imageApi.uploadingImageOnFirebase(
                               _pickedImageFile, context);
                         }
-                        final doc = await FirebaseFirestore.instance
-                            .collection('users')
-                            .doc(userInfo!.uid)
-                            .get();
-                        updateUserInformation(
-                          imageUrl: imageUrl,
-                          // ignore: use_build_context_synchronously
-                          cxt: context,
-                          phoneNumber: phoneNumberController.text ==
-                                  doc.data()?['phone_number']
-                              ? doc.data()!['phone_number']
-                              : phoneNumberController.text,
-                          name: nameController.text == doc.data()?['user_name']
-                              ? doc.data()!['user_name']
-                              : nameController.text,
-                          email: userInfo!.email as String,
-                        );
+                        if (imageUrl != null) {
+                          final doc = await FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(userInfo!.uid)
+                              .get();
+                          updateUserInformation(
+                            imageUrl: imageUrl,
+                            // ignore: use_build_context_synchronously
+                            cxt: context,
+                            phoneNumber: phoneNumberController.text ==
+                                    doc.data()?['phone_number']
+                                ? doc.data()!['phone_number']
+                                : phoneNumberController.text,
+                            name:
+                                nameController.text == doc.data()?['user_name']
+                                    ? doc.data()!['user_name']
+                                    : nameController.text,
+                            email: userInfo!.email as String,
+                          );
+                        }
                         Navigator.push(
                           context,
                           MaterialPageRoute(

@@ -729,7 +729,10 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                   right: size.width * 0.06,
                 ),
                 child: loadedreminder
-                    ? const CircularProgressIndicator()
+                    ? SizedBox(
+                        width: size.width * 0.045,
+                        height: size.width * 0.045,
+                        child: const CircularProgressIndicator())
                     : Text(
                         'Finish',
                         style: TextStyle(

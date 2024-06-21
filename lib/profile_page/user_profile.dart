@@ -28,7 +28,7 @@ class _UserAcountState extends State<UserAcount> {
         nameController.text = userInfo!.displayName ?? doc.data()?['user_name'];
 
         emailController.text = userInfo!.email ?? '';
-        phoneNumberController.text = doc.data()?['phone_number'] ?? '';
+        phoneNumberController.text = doc.data()?['phone_number'];
       }
     } on FirebaseException {
       ScaffoldMessenger.of(context).clearSnackBars();
@@ -205,7 +205,7 @@ class _UserAcountState extends State<UserAcount> {
                         child: TextFormField(
                           controller: emailController,
                           //validator: validateEmail,
-                          maxLines: 2,
+
                           keyboardType: TextInputType.emailAddress,
 
                           style: TextStyle(

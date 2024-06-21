@@ -156,7 +156,7 @@ Future<void> updatePetInFirestore({
   }
 }
 
-Future<void> deleteFeedTimes({
+Future<void> deletePetInformations({
   required List<String> selectedItems,
 }) async {
   try {

@@ -45,7 +45,7 @@ class ReminderDataApi {
         'reminder-minute': reminderTime.minute,
         'user-id': user.uid,
         'pet-id': petId,
-        'checked': false,
+        'checked': 'f',
         'reminder-id': '', // Temporarily set to empty
       });
 
