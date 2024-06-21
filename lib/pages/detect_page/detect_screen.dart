@@ -19,8 +19,10 @@ class DetectScreen extends StatefulWidget {
     required this.onCapturePressed,
     required this.petType,
     this.prediction,
+    this.petIsDogOrCat,
   });
   final String petType;
+  final String? petIsDogOrCat;
   final String? prediction;
   @override
   State<DetectScreen> createState() => _DetectScreenState();
@@ -173,8 +175,9 @@ class _DetectScreenState extends State<DetectScreen> {
                                     onTap: () {
                                       Get.to(
                                         () => InfoPage(
-                                            petType: widget
-                                                .petType), // Replace YourNextPage with the actual class for the next page
+                                          petType: widget.petType,
+                                          petIsDogOrCat: widget.petIsDogOrCat!,
+                                        ), // Replace YourNextPage with the actual class for the next page
                                         transition: Transition.rightToLeft,
                                         duration:
                                             const Duration(milliseconds: 300),
