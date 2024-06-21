@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
 import 'package:petapplication/pages/my_pets_pages/pet_profile_page.dart';
 
 import 'package:petapplication/some_files_to_data/adding_pet_to_firestore.dart';
@@ -235,7 +236,7 @@ class _MyPetsPage extends State<MyPetsPage> {
   }
 }
 
-class BuildPetCard extends StatelessWidget {
+class BuildPetCard extends StatefulWidget {
   const BuildPetCard({
     super.key,
     required this.petsInfo,
@@ -245,7 +246,11 @@ class BuildPetCard extends StatelessWidget {
   final PetsInformation petsInfo;
   final double cardHeight;
   final double imageHeight;
+  @override
+  State<BuildPetCard> createState() => _BuildPetCard();
+}
 
+class _BuildPetCard extends State<BuildPetCard> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -256,8 +261,8 @@ class BuildPetCard extends StatelessWidget {
     //String? profileImageUrl = userData['profileImageUrl'];
     return Container(
       height: size.height <= 707.4285714285714
-          ? size.height * cardHeight
-          : size.height * cardHeight,
+          ? size.height * widget.cardHeight
+          : size.height * widget.cardHeight,
       width: size.width * 0.41122,
       margin: EdgeInsets.symmetric(
           horizontal: size.width * 0.02, vertical: size.height * 0.01),
@@ -274,85 +279,108 @@ class BuildPetCard extends StatelessWidget {
         padding: EdgeInsets.symmetric(
           vertical: size.height * 0.001,
         ),
-        child: Column(
-          children: [
-            IconButton(
-              iconSize: MediaQuery.of(context).size.width * 0.037,
-              icon: StreamBuilder<DocumentSnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection('pets')
-                    .doc(petsInfo.petId)
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
-                  } else if (snapshot.hasError) {
-                    ScaffoldMessenger.of(context).clearSnackBars();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: const Text(
-                            'Failed to load your profile photo, please try again later.'),
-                        action: SnackBarAction(
-                            label: 'Close',
-                            onPressed: () {
-                              ScaffoldMessenger.of(context)
-                                  .hideCurrentSnackBar();
-                            }),
-                      ),
+        child: GestureDetector(
+          onLongPress: () {
+            setState(() {
+              isInSelectionModePets = true;
+
+              selectedPets.add(widget.petsInfo.petId);
+              print(selectedPets.length);
+            });
+          },
+          onTap: () {
+            setState(() {
+              if (isInSelectionModePets) {
+                if (selectedPets.contains(widget.petsInfo.petId)) {
+                  selectedPets.remove(widget.petsInfo.petId);
+                } else {
+                  selectedPets.add(widget.petsInfo.petId);
+                }
+              }
+            });
+          },
+          child: Container(
+            child: Column(
+              children: [
+                IconButton(
+                  iconSize: MediaQuery.of(context).size.width * 0.037,
+                  icon: StreamBuilder<DocumentSnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection('pets')
+                        .doc(widget.petsInfo.petId)
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const CircularProgressIndicator();
+                      } else if (snapshot.hasError) {
+                        ScaffoldMessenger.of(context).clearSnackBars();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: const Text(
+                                'Failed to load your profile photo, please try again later.'),
+                            action: SnackBarAction(
+                                label: 'Close',
+                                onPressed: () {
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
+                                }),
+                          ),
+                        );
+                        return CircleAvatar(
+                          radius: height * 0.07,
+                          backgroundImage:
+                              const AssetImage('assets/image/profileImage.png'),
+                        );
+                      } else if (snapshot.hasData && snapshot.data != null) {
+                        var petData = snapshot.data;
+                        return CircleAvatar(
+                          radius: height * 0.08,
+                          foregroundImage: petData?['imageUrl'] != null
+                              ? NetworkImage(petData!['imageUrl'])
+                              : null,
+                          backgroundImage:
+                              const AssetImage('assets/image/profileImage.png'),
+                        );
+                      } else {
+                        return CircleAvatar(
+                          radius: height * 0.07,
+                          backgroundImage:
+                              const AssetImage('assets/image/profileImage.png'),
+                        );
+                      }
+                    },
+                  ),
+                  onPressed: () {
+                    Get.to(
+                      PetProfilePage(petInformation: widget.petsInfo),
+                      transition: Transition.zoom,
                     );
-                    return CircleAvatar(
-                      radius: height * 0.07,
-                      backgroundImage:
-                          const AssetImage('assets/image/profileImage.png'),
-                    );
-                  } else if (snapshot.hasData && snapshot.data != null) {
-                    var petData = snapshot.data;
-                    return CircleAvatar(
-                      radius: height * 0.08,
-                      foregroundImage: petData?['imageUrl'] != null
-                          ? NetworkImage(petData!['imageUrl'])
-                          : null,
-                      backgroundImage:
-                          const AssetImage('assets/image/profileImage.png'),
-                    );
-                  } else {
-                    return CircleAvatar(
-                      radius: height * 0.07,
-                      backgroundImage:
-                          const AssetImage('assets/image/profileImage.png'),
-                    );
-                  }
-                },
-              ),
-              onPressed: () {
-                Get.to(
-                  PetProfilePage(petInformation: petsInfo),
-                  transition: Transition.zoom,
-                );
-              },
+                  },
+                ),
+                Text(
+                  widget.petsInfo.petName,
+                  style: TextStyle(
+                    height: 0.0,
+                    fontFamily: 'Cosffira',
+                    fontSize: size.width * 0.060,
+                    fontWeight: FontWeight.w900,
+                    color: const Color(0xffA26874),
+                    letterSpacing: 0.5,
+                  ),
+                ),
+                Text(
+                  widget.petsInfo.petGender,
+                  style: TextStyle(
+                    fontFamily: 'Cosffira',
+                    fontSize: size.width * 0.040,
+                    fontWeight: FontWeight.w700,
+                    color: const Color.fromARGB(166, 74, 94, 124),
+                    letterSpacing: 0.5,
+                  ),
+                ),
+              ],
             ),
-            Text(
-              petsInfo.petName,
-              style: TextStyle(
-                height: 0.0,
-                fontFamily: 'Cosffira',
-                fontSize: size.width * 0.060,
-                fontWeight: FontWeight.w900,
-                color: const Color(0xffA26874),
-                letterSpacing: 0.5,
-              ),
-            ),
-            Text(
-              petsInfo.petGender,
-              style: TextStyle(
-                fontFamily: 'Cosffira',
-                fontSize: size.width * 0.040,
-                fontWeight: FontWeight.w700,
-                color: const Color.fromARGB(166, 74, 94, 124),
-                letterSpacing: 0.5,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

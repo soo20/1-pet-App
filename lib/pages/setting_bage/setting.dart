@@ -8,12 +8,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:petapplication/pages/setting_bage/alart_page.dart';
 
 import 'package:petapplication/pages/setting_bage/help_tips.dart';
 import 'package:petapplication/pages/sign_login_acount/loginbody.dart';
 import 'package:petapplication/profile_page/edit_acount.dart';
+
+void sendFeedback() async {
+  final Uri emailUri = Uri(
+    scheme: 'mailto',
+    path: '279a206m224@gmail.com', // Replace with your email address
+    query: 'subject=App Feedback', // Optional: you can predefine the subject
+  );
+
+  if (await canLaunchUrl(emailUri)) {
+    await launchUrl(emailUri);
+  } else {
+    print('Could not launch $emailUri');
+  }
+}
 
 class Setting extends StatelessWidget {
   final BuildContext ccontext;
@@ -141,9 +156,7 @@ class Setting extends StatelessWidget {
         print("Tapped on Rate Us");
       },
 
-      () {
-        print("Tapped on Send Feedback");
-      },
+      sendFeedback,
     ];
     return SizedBox(
       height: size.height,

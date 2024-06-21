@@ -14,6 +14,7 @@ import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 import 'package:petapplication/pages/setting_bage/setting.dart';
 import 'package:petapplication/pages/sign_login_acount/loginbody.dart';
 import 'package:petapplication/profile_page/user_profile.dart';
+import 'package:petapplication/some_files_to_data/adding_pet_to_firestore.dart';
 
 class TheMainHomePage extends StatefulWidget {
   final int? index1; // Define index here
@@ -29,7 +30,9 @@ class TheMainHomePage extends StatefulWidget {
 }
 
 //var to check if the user is login in or not!!
-bool isLogin = false;
+
+List<String> selectedPets = [];
+bool isInSelectionModePets = false;
 
 class _TheMainHomePage extends State<TheMainHomePage> {
   late int index;
@@ -50,7 +53,133 @@ class _TheMainHomePage extends State<TheMainHomePage> {
     Size size = MediaQuery.of(context).size;
     User? userInfo = FirebaseAuth.instance.currentUser;
     final double height = size.height;
+
     // final double width = size.width;
+    final AppBar defaultBar = AppBar(
+      surfaceTintColor: Colors.transparent,
+      // Remove any shadow from the app bar
+      elevation: 0.0,
+      // Set the background color of the app bar
+      backgroundColor: const Color(0xffEFE7E7),
+      // Leading icon/button on the app bar
+      // leading this will put the icon in thr left of app bar as we want to put
+      leading: IconButton(
+        icon: const Icon(Icons.settings, color: Color(0xff4A5E7C)),
+        onPressed: () {
+          Get.to(
+            () => Setting(
+              ccontext: context,
+            ),
+            transition: Transition.zoom,
+          );
+        },
+        iconSize: 90.sp,
+      ),
+      // // Actions on the app bar
+
+      actions: <Widget>[
+        // Container containing user image and button
+
+        userInfo?.email != null
+            ? IconButton(
+                padding: EdgeInsets.only(
+                  top: size.width * 0.02,
+                ),
+                onPressed: () {
+                  Get.to(
+                    () => const UserAcount(),
+                    transition: Transition.zoom,
+                  );
+                },
+                icon: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('users')
+                      .doc(userInfo!.uid)
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const CircularProgressIndicator();
+                    } else if (snapshot.hasError) {
+                      return CircleAvatar(
+                        radius: height * 0.023,
+                        backgroundImage:
+                            const AssetImage('assets/image/Group 998.png'),
+                      );
+                    } else {
+                      return CircleAvatar(
+                        radius: height * 0.023,
+                        foregroundImage: snapshot.data?['profile_image'] != null
+                            ? NetworkImage(snapshot.data!['profile_image'])
+                            : null,
+                        backgroundImage:
+                            const AssetImage('assets/image/Group 998.png'),
+                      );
+                    }
+                  },
+                ))
+            : IconButton(
+                padding: EdgeInsets.only(
+                  top: size.width * 0.02,
+                ),
+                onPressed: () {
+                  Get.to(
+                    () => const LoginBody(),
+                    transition: Transition.zoom,
+                  );
+                },
+                icon: Image.asset(
+                  'assets/icons/home_page_after_adding_reminders_icons/add_user.png',
+                  height: size.height * 0.7947,
+                  width: size.width * 0.1,
+                ),
+              ),
+      ],
+    );
+    final AppBar selectBar = AppBar(
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.delete,
+              size: size.width * 0.08,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              setState(() {
+                deletePetInformations(
+                  selectedItems: selectedPets,
+                );
+
+                selectedPets.clear();
+              });
+            },
+          ),
+        ],
+        backgroundColor: const Color.fromARGB(255, 139, 152, 170),
+        title: Text(
+          '${selectedPets.length} selected',
+          style: TextStyle(
+            height: 0.0,
+            fontFamily: 'Cosffira',
+            fontSize: size.width * 0.07,
+            fontWeight: FontWeight.normal,
+            color: const Color.fromARGB(255, 255, 255, 255),
+            letterSpacing: 0.5,
+          ),
+        ),
+        leading: IconButton(
+          icon: Icon(
+            Icons.close,
+            size: size.width * 0.08,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            setState(() {
+              isInSelectionModePets = false;
+              selectedPets.clear();
+            });
+          },
+        ));
+
     print(userInfo?.email != null);
     return PopScope(
       canPop: false,
@@ -150,89 +279,8 @@ class _TheMainHomePage extends State<TheMainHomePage> {
                     ? const Color(0xffffffff)
                     : const Color(0xffEFE7E7),
                 // App bar at the top of the screen
-                appBar: AppBar(
-                  surfaceTintColor: Colors.transparent,
-                  // Remove any shadow from the app bar
-                  elevation: 0.0,
-                  // Set the background color of the app bar
-                  backgroundColor: const Color(0xffEFE7E7),
-                  // Leading icon/button on the app bar
-                  // leading this will put the icon in thr left of app bar as we want to put
-                  leading: IconButton(
-                    icon: const Icon(Icons.settings, color: Color(0xff4A5E7C)),
-                    onPressed: () {
-                      Get.to(
-                        () => Setting(
-                          ccontext: context,
-                        ),
-                        transition: Transition.zoom,
-                      );
-                    },
-                    iconSize: 90.sp,
-                  ),
-                  // // Actions on the app bar
+                appBar: isInSelectionModePets ? selectBar : defaultBar,
 
-                  actions: <Widget>[
-                    // Container containing user image and button
-
-                    userInfo?.email != null
-                        ? IconButton(
-                            padding: EdgeInsets.only(
-                              top: size.width * 0.02,
-                            ),
-                            onPressed: () {
-                              Get.to(
-                                () => const UserAcount(),
-                                transition: Transition.zoom,
-                              );
-                            },
-                            icon: StreamBuilder(
-                              stream: FirebaseFirestore.instance
-                                  .collection('users')
-                                  .doc(userInfo!.uid)
-                                  .snapshots(),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return const CircularProgressIndicator();
-                                } else if (snapshot.hasError) {
-                                  return CircleAvatar(
-                                    radius: height * 0.023,
-                                    backgroundImage: const AssetImage(
-                                        'assets/image/Group 998.png'),
-                                  );
-                                } else {
-                                  return CircleAvatar(
-                                    radius: height * 0.023,
-                                    foregroundImage:
-                                        snapshot.data?['profile_image'] != null
-                                            ? NetworkImage(
-                                                snapshot.data!['profile_image'])
-                                            : null,
-                                    backgroundImage: const AssetImage(
-                                        'assets/image/Group 998.png'),
-                                  );
-                                }
-                              },
-                            ))
-                        : IconButton(
-                            padding: EdgeInsets.only(
-                              top: size.width * 0.02,
-                            ),
-                            onPressed: () {
-                              Get.to(
-                                () => const LoginBody(),
-                                transition: Transition.zoom,
-                              );
-                            },
-                            icon: Image.asset(
-                              'assets/icons/home_page_after_adding_reminders_icons/add_user.png',
-                              height: size.height * 0.7947,
-                              width: size.width * 0.1,
-                            ),
-                          ),
-                  ],
-                ),
                 body: screens[index],
               )
             : const ChooseDefintionType(),

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import 'package:petapplication/pages/events_system/edit_event_for_pet.dart';
 
-import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 import 'package:petapplication/pages/events_system/add_event_for_pet.dart';
 import 'package:petapplication/some_files_to_data/adding_pet_to_firestore.dart';
 import 'package:petapplication/some_files_to_data/feeds_api.dart';
@@ -51,111 +50,21 @@ bool loadingReminders = true;
 
 class _EventsForPetPage extends State<EventsForPetPage> {
   ScrollController controller = ScrollController();
+  Future<void> _showProgressDialog(BuildContext context) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+  }
 
   Color feedTimeColor = const Color.fromARGB(255, 255, 255, 255);
   String currentItemSelected = 'Playing';
   final api = ReminderDataApi();
-  void onFinishButtonPressed(
-      {required TimeOfDay timeOfDay, required String petId}) async {
-    // Create the ReminderData object
-    final feedTimesApi = FeedTimesApi();
-
-    final CustomTime timeData = feedTimesApi.createFeedTime(
-      reminderTime: timeOfDay,
-      context: context,
-      petId: petId,
-    );
-
-    bool foundDuplicate = false;
-    for (CustomTime time in widget.petInformation.feedTimesForPet) {
-      if (time.hours == timeData.hours &&
-          time.minutes == timeData.minutes &&
-          time.night == timeData.night) {
-        foundDuplicate = true;
-        break;
-      }
-    }
-
-    if (foundDuplicate) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) => BackdropFilter(
-          filter: ImageFilter.blur(
-            sigmaX: size.width * 0.02,
-            sigmaY: size.width * 0.02,
-          ),
-          child: AlertDialog(
-            elevation: 0.0,
-            backgroundColor: const Color(0xffDCD3D3),
-            content: Text(
-              textAlign: TextAlign.center,
-              "It is not possible to set the same feeding time for a single pet more than once, please modify this feed time",
-              style: TextStyle(
-                height: 0.0,
-                fontFamily: 'Cosffira',
-                fontSize: size.width * 0.037,
-                fontWeight: FontWeight.w800,
-                color: const Color(0xff4A5E7C),
-                letterSpacing: 0.5,
-              ),
-            ),
-            actions: [
-              Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xffA26874),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: size.width * 0.028,
-                      vertical: size.height * 0.025,
-                    ), // Adjust the padding as needed
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                        size.width * 0.092,
-                      ), // Set the border radius of the button
-                    ),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      left: size.width * 0.06,
-                      right: size.width * 0.06,
-                    ),
-                    child: Text(
-                      'modify',
-                      style: TextStyle(
-                        height: 0.0,
-                        fontFamily: 'Cosffira',
-                        fontSize: size.width * 0.045,
-                        fontWeight: FontWeight.w800,
-                        color: const Color.fromARGB(255, 255, 255, 255),
-                        letterSpacing: 0.5,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    } else {
-      try {
-        String? id = await FeedTimesApi()
-            .addFeedInFireStore(timeOfDay: timeOfDay, petId: petId);
-        if (id != null) {
-          setState(() {
-            timeData.feedId = id.toString();
-            widget.petInformation.feedTimesForPet.add(timeData);
-          });
-        }
-      } on Exception catch (e) {
-        print('Error adding feed time to list: $e');
-        widget.petInformation.feedTimesForPet.remove(timeData);
-      }
-    }
-  }
 
   bool isInSelectionMode = false;
   List<String> selectedItems = [];
@@ -193,6 +102,110 @@ class _EventsForPetPage extends State<EventsForPetPage> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    void onFinishButtonPressed(
+        {required TimeOfDay timeOfDay, required String petId}) async {
+      // Create the ReminderData object
+      final feedTimesApi = FeedTimesApi();
+
+      final CustomTime timeData = feedTimesApi.createFeedTime(
+        reminderTime: timeOfDay,
+        context: context,
+        petId: petId,
+      );
+      _showProgressDialog(context);
+
+      bool foundDuplicate = false;
+      for (CustomTime time in widget.petInformation.feedTimesForPet) {
+        if (time.hours == timeData.hours &&
+            time.minutes == timeData.minutes &&
+            time.night == timeData.night) {
+          foundDuplicate = true;
+          break;
+        }
+      }
+
+      if (foundDuplicate) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) => BackdropFilter(
+            filter: ImageFilter.blur(
+              sigmaX: size.width * 0.02,
+              sigmaY: size.width * 0.02,
+            ),
+            child: AlertDialog(
+              elevation: 0.0,
+              backgroundColor: const Color(0xffDCD3D3),
+              content: Text(
+                textAlign: TextAlign.center,
+                "It is not possible to set the same feeding time for a single pet more than once, please modify this feed time",
+                style: TextStyle(
+                  height: 0.0,
+                  fontFamily: 'Cosffira',
+                  fontSize: size.width * 0.037,
+                  fontWeight: FontWeight.w800,
+                  color: const Color(0xff4A5E7C),
+                  letterSpacing: 0.5,
+                ),
+              ),
+              actions: [
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xffA26874),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: size.width * 0.028,
+                        vertical: size.height * 0.025,
+                      ), // Adjust the padding as needed
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                          size.width * 0.092,
+                        ), // Set the border radius of the button
+                      ),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        left: size.width * 0.06,
+                        right: size.width * 0.06,
+                      ),
+                      child: Text(
+                        'modify',
+                        style: TextStyle(
+                          height: 0.0,
+                          fontFamily: 'Cosffira',
+                          fontSize: size.width * 0.045,
+                          fontWeight: FontWeight.w800,
+                          color: const Color.fromARGB(255, 255, 255, 255),
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      } else {
+        try {
+          String? id = await FeedTimesApi()
+              .addFeedInFireStore(timeOfDay: timeOfDay, petId: petId);
+          if (id != null) {
+            setState(() {
+              timeData.feedId = id.toString();
+              widget.petInformation.feedTimesForPet.add(timeData);
+            });
+          }
+        } on Exception catch (e) {
+          print('Error adding feed time to list: $e');
+          widget.petInformation.feedTimesForPet.remove(timeData);
+        } finally {
+          Navigator.of(context).pop();
+        }
+      }
+    }
 
     final AppBar defaultBar = AppBar(
       backgroundColor: const Color(0xffB5C0D0),
