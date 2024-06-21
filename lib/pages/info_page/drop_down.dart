@@ -1,5 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// ignore_for_file: unnecessary_cast
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:petapplication/pages/info_page/widget_drops.dart';
@@ -37,6 +38,52 @@ class DropDownState extends State<DropDown> {
           return Center(child: Text('Error: ${snapshot.error}'));
         } else if (snapshot.hasData) {
           final data = snapshot.data!;
+          if (data.containsKey('alert')) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    backgroundColor: const Color(0xffEFE6E5),
+                    title: const Text('Alert'),
+                    content: Text(
+                        'This type of ${widget.petIsDogOrCat} is not present in our dataset, but we will provide you with general information about dogs so that you can benefit.'),
+                    titleTextStyle: TextStyle(
+                      height: size.height * 0.003,
+                      fontFamily: 'Cosffira',
+                      fontSize: 75.sp,
+                      color: const Color(0xffA26874),
+                      fontWeight: FontWeight.w600,
+                    ),
+                    contentTextStyle: TextStyle(
+                      height: size.height * 0.002,
+                      fontFamily: 'Cosffira',
+                      fontSize: 45.sp,
+                      color: const Color(0xff4A5E7C),
+                      fontWeight: FontWeight.w400,
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          'OK',
+                          style: TextStyle(
+                            height: size.height * 0.003,
+                            fontFamily: 'Cosffira',
+                            fontSize: 55.sp,
+                            color: const Color(0xffA26874),
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              );
+            });
+          }
           return SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -117,7 +164,9 @@ class DropDownState extends State<DropDown> {
               .get();
 
           if (alternativeDoc.exists) {
-            return alternativeDoc.data()! as Map<String, dynamic>;
+            final data = alternativeDoc.data()! as Map<String, dynamic>;
+            data['alert'] = true; // Add alert key to indicate fallback
+            return data;
           } else {
             throw Exception('Neither document exists');
           }
