@@ -1,81 +1,93 @@
-// ignore_for_file: avoid_print
-
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import 'package:petapplication/core/utils/widgets/repeatColorsUse.dart';
-import 'package:petapplication/pages/pageforgetpass/create_new_pass.dart';
 import 'package:pinput/pinput.dart';
+import 'dart:async';
+import 'package:email_otp/email_otp.dart';
+import 'package:petapplication/pages/pageforgetpass/create_new_pass.dart';
 
 class MyVerify extends StatefulWidget {
-  const MyVerify({super.key});
+  final EmailOTP myauth;
+  final String email;
+
+  const MyVerify({Key? key, required this.myauth, required this.email})
+      : super(key: key);
 
   @override
   State<MyVerify> createState() => _MyVerifyState();
 }
 
-class _MyVerifyState extends State<MyVerify> {
+class _MyVerifyState extends State<MyVerify>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Timer _countdownTimer;
   int resendtime = 120;
-  late Timer countertimer;
-  bool isTimerRunning = false;
+  bool isTimerRunning = true;
+
   @override
   void initState() {
-    starttimer();
     super.initState();
+    _animationController = AnimationController(vsync: this);
+    startTimer();
   }
 
-  void starttimer() {
-    countertimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        resendtime = resendtime - 1;
-      });
-      if (resendtime < 1) {
-        stoptimer();
+  @override
+  void dispose() {
+    _animationController.dispose();
+    _countdownTimer.cancel();
+    super.dispose();
+  }
+
+  void startTimer() {
+    _countdownTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (resendtime > 0) {
+        setState(() {
+          resendtime--;
+        });
+      } else {
+        stopTimer();
       }
     });
   }
 
-  void stoptimer() {
-    if (countertimer.isActive) {
-      countertimer.cancel();
-      setState(() {
-        isTimerRunning = false;
-      });
-    }
+  void stopTimer() {
+    _countdownTimer.cancel();
+    setState(() {
+      isTimerRunning = false;
+    });
   }
 
   String getFormattedTime() {
     int minutes = resendtime ~/ 60;
     int seconds = resendtime % 60;
-    return '$minutes:${seconds.toString().padLeft(1, '0')}';
+    return '$minutes:${seconds.toString().padLeft(2, '0')}';
   }
 
   @override
   Widget build(BuildContext context) {
-     Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
+
     final defaultPinTheme = PinTheme(
-      margin: const EdgeInsets.symmetric(horizontal: 5),
+      margin: EdgeInsets.symmetric(horizontal: 5),
       width: 100.w,
       height: 160.h,
       textStyle: TextStyle(
-          fontSize: 42.sp,
-          color: const Color(0xff020202),
-          fontWeight: FontWeight.w500),
+        fontSize: 42.sp,
+        color: const Color(0xff020202),
+        fontWeight: FontWeight.w500,
+      ),
       decoration: BoxDecoration(
-        color:const  Color.fromARGB(20, 128, 121, 121),
+        color: const Color.fromARGB(20, 128, 121, 121),
         border: Border.all(color: const Color.fromARGB(88, 112, 112, 112)),
         borderRadius: BorderRadius.circular(30.r),
       ),
     );
 
-    final focusedPinTheme = defaultPinTheme.copyDecorationWith(
-      color: const Color(0xffF7F7F7),
-      border: Border.all(
-        color: kMainColorSplash,
+    final focusedPinTheme = defaultPinTheme.copyWith(
+      decoration: defaultPinTheme.decoration?.copyWith(
+        color: const Color(0xffF7F7F7),
+        border: Border.all(color: const Color(0xffA26874)),
+        borderRadius: BorderRadius.circular(30.r),
       ),
-      borderRadius: BorderRadius.circular(30.r),
     );
 
     final submittedPinTheme = defaultPinTheme.copyWith(
@@ -89,10 +101,10 @@ class _MyVerifyState extends State<MyVerify> {
       extendBodyBehindAppBar: true,
       body: Container(
         margin: EdgeInsets.only(
-          left: size.width*0.07, 
-          right: size.width*0.07,
-          bottom: size.height*0.05
-           ),
+          left: size.width * 0.07,
+          right: size.width * 0.07,
+          bottom: size.height * 0.05,
+        ),
         alignment: Alignment.center,
         child: SingleChildScrollView(
           child: Column(
@@ -103,11 +115,9 @@ class _MyVerifyState extends State<MyVerify> {
                 width: 500.w,
                 height: 280.h,
               ),
-              SizedBox(
-                height: 100.h,
-              ),
+              SizedBox(height: 100.h),
               Text(
-                "Please Enter 5-Digit Code",
+                "Please Enter 4-Digit Code",
                 style: TextStyle(
                   fontFamily: 'Cosffira',
                   fontSize: 70.sp,
@@ -115,9 +125,7 @@ class _MyVerifyState extends State<MyVerify> {
                   color: const Color(0xff4A5E7C),
                 ),
               ),
-              const SizedBox(
-                height: 0,
-              ),
+              const SizedBox(height: 0),
               RichText(
                 text: TextSpan(
                   text: 'We\'ve Sent A Code To ',
@@ -129,47 +137,58 @@ class _MyVerifyState extends State<MyVerify> {
                   ),
                   children: <TextSpan>[
                     TextSpan(
-                      text: 'malk22@gmail.com\n',
+                      text: widget.email,
                       style: TextStyle(
                         fontSize: 44.sp,
-                        color: const  Color(0xffA26874),
+                        color: const Color(0xffA26874),
                         fontWeight: FontWeight.w900,
                       ),
                     ),
                     TextSpan(
-                      text: 'Enter a Code In That Message',
+                      text: '\nEnter the Code From That Message',
                       style: TextStyle(
                         fontSize: 45.sp,
-                       color: const Color(0xff000000),
+                        color: const Color(0xff000000),
                         fontWeight: FontWeight.w800,
                       ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(
-                height: 60.h,
-              ),
+              SizedBox(height: 60.h),
               Pinput(
-                length: 5,
+                length: 4,
                 defaultPinTheme: defaultPinTheme,
                 focusedPinTheme: focusedPinTheme,
                 submittedPinTheme: submittedPinTheme,
                 showCursor: true,
-                onCompleted: (pin) {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                        builder: (context) => const GreateNewPass()),
-                  );
+                onCompleted: (pin) async {
+                  if (await widget.myauth.verifyOTP(otp: pin)) {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                          builder: (context) => const GreateNewPass()),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          "Incorrect OTP. Please try again.",
+                          style: TextStyle(
+                            fontFamily: 'Cosffira',
+                            fontSize: 20,
+                            color: Color(0xff354A6B),
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    );
+                  }
                 },
               ),
-              SizedBox(
-                height: 40.h,
-              ),
+              SizedBox(height: 40.h),
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(width: 660.w),
                   isTimerRunning
                       ? Row(
                           children: [
@@ -178,26 +197,24 @@ class _MyVerifyState extends State<MyVerify> {
                               color: Color(0xffA26874),
                               size: 20,
                             ),
-                            SizedBox(width: 0.w),
+                            SizedBox(width: 10.w),
                             Text(
-                              ' ${getFormattedTime()} Min',
+                              ' ${getFormattedTime()}',
                               style: TextStyle(
                                 fontSize: 40.sp,
                                 fontWeight: FontWeight.w700,
-                                color: const  Color(0xffA26874),
+                                color: const Color(0xffA26874),
                               ),
-                              
                             ),
                           ],
                         )
                       : InkWell(
                           onTap: () {
-                            // resend code
                             setState(() {
                               resendtime = 120;
                               isTimerRunning = true;
                             });
-                            starttimer();
+                            startTimer();
                           },
                           child: Text(
                             'Resend',

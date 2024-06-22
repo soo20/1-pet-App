@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 
 import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
-import 'package:petapplication/pages/pageforgetpass/my_verify_pass.dart';
+import 'package:petapplication/pages/pageforgetpass/emailvierfiy.dart';
 
 //import 'package:flutter_svg/svg.dart';
 
@@ -61,8 +61,16 @@ class _TheMainLoginPageState extends State<TheMainLoginPage> {
     return null; // Return null if the email is valid
   }
 
+  Future<void> checkAuthentication() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      // User is already logged in, navigate to main homepage
+      Get.offAll(() => const TheMainHomePage());
+    }
+  }
+
   // login function
-  signInWithEmailAndPassword() async {
+  void signInWithEmailAndPassword() async {
     String errorMessage = 'Login Successed';
     try {
       setState(() {
@@ -74,8 +82,7 @@ class _TheMainLoginPageState extends State<TheMainLoginPage> {
       );
 
       // Navigate to the main homepage upon successful login
-
-      Get.offAll(() => const TheMainHomePage());
+      await checkAuthentication();
 
       ScaffoldMessenger.of(context).clearSnackBars();
 
@@ -93,18 +100,16 @@ class _TheMainLoginPageState extends State<TheMainLoginPage> {
             ),
           ),
           shape: RoundedRectangleBorder(
-            borderRadius:
-                BorderRadius.circular(10.0), // Adjust the radius as needed
+            borderRadius: BorderRadius.circular(10.0),
           ),
           action: SnackBarAction(
-            label: 'Wellcome',
-            textColor:
-                const Color(0xff4A5E7C), // Set the color of the close icon
+            label: 'Welcome',
+            textColor: const Color(0xff4A5E7C),
             onPressed: () {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
             },
           ),
-          behavior: SnackBarBehavior.floating, // Set the behavior to floating
+          behavior: SnackBarBehavior.floating,
         ),
       );
     } on FirebaseAuthException catch (e) {
@@ -117,9 +122,9 @@ class _TheMainLoginPageState extends State<TheMainLoginPage> {
       } else if (e.code == 'wrong-password') {
         errorMessage = 'Wrong password';
       } else if (e.code == 'network-request-failed') {
-        errorMessage = 'You are offline check your connectoin';
+        errorMessage = 'You are offline, check your connection';
       } else {
-        errorMessage = 'incorrect email or password, please try again';
+        errorMessage = 'Incorrect email or password, please try again';
       }
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
@@ -127,8 +132,7 @@ class _TheMainLoginPageState extends State<TheMainLoginPage> {
           elevation: 1,
           backgroundColor: Colors.transparent,
           shape: RoundedRectangleBorder(
-            borderRadius:
-                BorderRadius.circular(10.0), // Adjust the radius as needed
+            borderRadius: BorderRadius.circular(10.0),
           ),
           hitTestBehavior: HitTestBehavior.translucent,
           content: Text(
@@ -141,11 +145,46 @@ class _TheMainLoginPageState extends State<TheMainLoginPage> {
             ),
           ),
           action: SnackBarAction(
-              label: 'close',
-              textColor: const Color(0xff4A5E7C),
-              onPressed: () {
-                ScaffoldMessenger.of(context).hideCurrentSnackBar();
-              }),
+            label: 'Close',
+            textColor: const Color(0xff4A5E7C),
+            onPressed: () {
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            },
+          ),
+        ),
+      );
+    }
+  }
+
+  Future<void> changePassword(
+      String currentPassword, String newPassword) async {
+    try {
+      // Re-authenticate the user to ensure security (optional but recommended)
+      User user = FirebaseAuth.instance.currentUser!;
+      AuthCredential credential = EmailAuthProvider.credential(
+        email: user.email!,
+        password: currentPassword,
+      );
+      await user.reauthenticateWithCredential(credential);
+
+      // Update the password
+      await user.updatePassword(newPassword);
+
+      // Password updated successfully
+      // You can navigate back to the login page or handle it based on your UI flow
+      // For example:
+      Navigator.of(context).pop(); // Close the change password screen
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Password updated successfully!'),
+        ),
+      );
+    } on FirebaseAuthException catch (e) {
+      // Handle errors such as invalid password, network issues, etc.
+      print('Failed to update password: ${e.message}');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to update password: ${e.message}'),
         ),
       );
     }
@@ -374,7 +413,7 @@ class _TheMainLoginPageState extends State<TheMainLoginPage> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const MyVerify()),
+                                                  const EmailVerify()),
                                         );
                                       },
                                   ),
