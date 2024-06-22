@@ -44,6 +44,7 @@ class ReminderData {
   late String reminderId;
   late int monthNumber;
   late bool checked;
+  late Timestamp timeOfCreation;
 }
 
 bool loadingReminders = true;
@@ -95,7 +96,10 @@ class _EventsForPetPage extends State<EventsForPetPage> {
   @override
   void initState() {
     fetchRemindersAndFeedTimes();
-    loadingReminders = true;
+    if (widget.petInformation.remindersData.isNotEmpty) {
+      loadingReminders = true;
+    }
+
     super.initState();
   }
 

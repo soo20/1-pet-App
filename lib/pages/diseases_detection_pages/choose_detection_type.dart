@@ -210,7 +210,11 @@ class ChooseDetectionType extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    allowingCameraDialog(detectionType: true);
+                    Get.to(
+                        () => const DiseasesDetectionCamera(
+                              detectionType: true,
+                            ),
+                        transition: Transition.native);
                   },
                   icon: Image.asset(
                     "assets/icons/diseases_detection_page_icons/skin_icon.png",
@@ -248,7 +252,11 @@ class ChooseDetectionType extends StatelessWidget {
                       elevation:
                           WidgetStateProperty.all<double>(size.width * 0.01)),
                   onPressed: () {
-                    allowingCameraDialog(detectionType: false);
+                    Get.to(
+                        () => const DiseasesDetectionCamera(
+                              detectionType: false,
+                            ),
+                        transition: Transition.native);
                   },
                   icon: Image.asset(
                     "assets/icons/diseases_detection_page_icons/boob_icon.png",
