@@ -86,6 +86,7 @@ dependencies:
   flutter_barcode_scanner: ^2.0.0
   email_otp: ^2.0.1
 
+ 
   
   
 
@@ -185,6 +186,7 @@ flutter:
     - assets/image/home_page_afterAdding_pets_assets/dog_walking.png
     - assets/image/home_page_afterAdding_pets_assets/custom_events.png
     - assets/image/my_pets_page_images/emptyPetList.png
+    - assets/icons/my_pets_page_icons/trash_for_pets.png
 
 
     - assets/icons/Group312.svg

@@ -101,6 +101,7 @@ class _AddPetsState extends State<AddPets> {
           '${DateTime.now().millisecondsSinceEpoch}_${image.name}';
       Reference storageRef =
           FirebaseStorage.instance.ref().child('pet_images/$fileName');
+
       await storageRef.putFile(File(image.path));
       String downloadURL = await storageRef.getDownloadURL();
       print('Image uploaded: $downloadURL');
@@ -141,6 +142,17 @@ class _AddPetsState extends State<AddPets> {
       decorationImage = const DecorationImage(
         image: AssetImage('assets/image/profileImage.png'),
         fit: BoxFit.cover,
+      );
+    }
+    Future<void> _showProgressDialog(BuildContext context) async {
+      return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
       );
     }
 
@@ -490,6 +502,7 @@ class _AddPetsState extends State<AddPets> {
                         borderColor: const Color(0xffA26874),
                         text: 'Finish',
                         onTap: () async {
+                          _showProgressDialog(context);
                           if (_formKey.currentState!.validate()) {
                             String downloadURL =
                                 'assets/image/profileImage.png';
@@ -706,7 +719,17 @@ class _AddPetsState extends State<AddPets> {
                       width: 0,
                       height: 35,
                       child: ListTile(
-                        title: Text(option),
+                        title: Text(
+                          option,
+                          style: TextStyle(
+                            height: 0.0,
+                            fontFamily: 'Cosffira',
+                            fontSize: size.width * 0.045,
+                            fontWeight: FontWeight.w400,
+                            color: const Color(0xffA26874),
+                            letterSpacing: 0.5,
+                          ),
+                        ),
                       ),
                     ),
                   );

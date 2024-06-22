@@ -2,7 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+
 import 'package:petapplication/pages/events_system/events_for_pet.dart';
 import 'package:petapplication/some_files_to_data/feeds_api.dart';
 
@@ -180,7 +180,7 @@ Future<void> updatePetInFirestore({
 }
 
 Future<void> deletePetInformations({
-  required List<String> selectedItems,
+  required String petId,
 }) async {
   try {
     User? user = FirebaseAuth.instance.currentUser;
@@ -190,56 +190,31 @@ Future<void> deletePetInformations({
     }
 
     // Make a copy of the list to iterate over
-    List<String> petsToDelete = List.from(selectedItems);
 
-    for (String petId in petsToDelete) {
-      QuerySnapshot reminderSnapshot = await FirebaseFirestore.instance
+    QuerySnapshot reminderSnapshot = await FirebaseFirestore.instance
+        .collection('reminders')
+        .where('pet-id', isEqualTo: petId)
+        .get();
+
+    QuerySnapshot feedSnapshot = await FirebaseFirestore.instance
+        .collection('feedTimes')
+        .where('pet-id', isEqualTo: petId)
+        .get();
+
+    await FirebaseFirestore.instance.collection('pets').doc(petId).delete();
+
+    for (QueryDocumentSnapshot doc in reminderSnapshot.docs) {
+      await FirebaseFirestore.instance
           .collection('reminders')
-          .where('pet-id', isEqualTo: petId)
-          .get();
-      QuerySnapshot petsSnapshot = await FirebaseFirestore.instance
-          .collection('pets')
-          .where('pet-id', isEqualTo: petId)
-          .get();
-      QuerySnapshot feedSnapshot = await FirebaseFirestore.instance
+          .doc(doc.id)
+          .delete();
+    }
+
+    for (QueryDocumentSnapshot doc in feedSnapshot.docs) {
+      await FirebaseFirestore.instance
           .collection('feedTimes')
-          .where('pet-id', isEqualTo: petId)
-          .get();
-      for (QueryDocumentSnapshot doc in petsSnapshot.docs) {
-        await FirebaseFirestore.instance
-            .collection('pets')
-            .doc(doc.id)
-            .delete();
-      }
-
-      for (QueryDocumentSnapshot doc in reminderSnapshot.docs) {
-        await FirebaseFirestore.instance
-            .collection('reminders')
-            .doc(doc.id)
-            .delete();
-      }
-
-      for (QueryDocumentSnapshot doc in feedSnapshot.docs) {
-        await FirebaseFirestore.instance
-            .collection('feedTimes')
-            .doc(doc.id)
-            .delete();
-      }
-      try {
-        final storageRef =
-            FirebaseStorage.instance.ref().child('pet_images').child(petId);
-        ListResult result = await storageRef.listAll();
-        for (var item in result.items) {
-          await item.delete();
-        }
-        for (var prefix in result.prefixes) {
-          await prefix.delete();
-        }
-      } on FirebaseException catch (error) {
-        if (error.code != 'object-not-found') {
-          print("Error deleting storage: $error");
-        }
-      }
+          .doc(doc.id)
+          .delete();
     }
 
     print("Deleted feeds successfully");
@@ -248,3 +223,5 @@ Future<void> deletePetInformations({
     rethrow;
   }
 }
+
+class StorageReference {}

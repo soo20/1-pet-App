@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:petapplication/pages/sign_login_acount/loginbody.dart';
+
 import 'firebase_options.dart';
 import 'package:petapplication/pages/splashscreen.dart';
 
@@ -20,7 +21,9 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(const YunaPetApp());
+  runApp(
+    const YunaPetApp(),
+  );
 }
 
 class YunaPetApp extends StatelessWidget {
