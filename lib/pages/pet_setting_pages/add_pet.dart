@@ -144,6 +144,17 @@ class _AddPetsState extends State<AddPets> {
         fit: BoxFit.cover,
       );
     }
+    Future<void> _showProgressDialog(BuildContext context) async {
+      return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      );
+    }
 
     return Scaffold(
       backgroundColor: const Color(0xffEFE6E5),
@@ -491,6 +502,7 @@ class _AddPetsState extends State<AddPets> {
                         borderColor: const Color(0xffA26874),
                         text: 'Finish',
                         onTap: () async {
+                          _showProgressDialog(context);
                           if (_formKey.currentState!.validate()) {
                             String downloadURL =
                                 'assets/image/profileImage.png';
