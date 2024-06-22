@@ -101,6 +101,7 @@ class _AddPetsState extends State<AddPets> {
           '${DateTime.now().millisecondsSinceEpoch}_${image.name}';
       Reference storageRef =
           FirebaseStorage.instance.ref().child('pet_images/$fileName');
+
       await storageRef.putFile(File(image.path));
       String downloadURL = await storageRef.getDownloadURL();
       print('Image uploaded: $downloadURL');
@@ -706,7 +707,17 @@ class _AddPetsState extends State<AddPets> {
                       width: 0,
                       height: 35,
                       child: ListTile(
-                        title: Text(option),
+                        title: Text(
+                          option,
+                          style: TextStyle(
+                            height: 0.0,
+                            fontFamily: 'Cosffira',
+                            fontSize: size.width * 0.045,
+                            fontWeight: FontWeight.w400,
+                            color: const Color(0xffA26874),
+                            letterSpacing: 0.5,
+                          ),
+                        ),
                       ),
                     ),
                   );

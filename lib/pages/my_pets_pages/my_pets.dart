@@ -4,7 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
+
 import 'package:petapplication/pages/my_pets_pages/pet_profile_page.dart';
 
 import 'package:petapplication/some_files_to_data/adding_pet_to_firestore.dart';
@@ -33,6 +33,17 @@ var cnt2 = 0;
 /*List<PetsInformation> petsList = List.from(dogsInformationList)
   ..addAll(catsInformationList);*/
 List<PetsInformation> petsList = [];
+Future<void> _showProgressDialog(BuildContext context) async {
+  return showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    },
+  );
+}
 
 // State class for the home page
 class _MyPetsPage extends State<MyPetsPage> {
@@ -209,9 +220,10 @@ class _MyPetsPage extends State<MyPetsPage> {
                                   index++)
                                 BuildPetCard(
                                   petsInfo: petsOnTheLeft(petsList)[index],
-                                  cardHeight: index % 2 == 0 ? 0.26841 : 0.3694,
+                                  cardHeight: index % 2 == 0 ? 0.32 : 0.3694,
                                   imageHeight:
                                       index % 2 == 0 ? 0.14966 : 0.20000,
+                                  index: index,
                                 ),
                             ],
                           ),
@@ -222,8 +234,9 @@ class _MyPetsPage extends State<MyPetsPage> {
                                   index++)
                                 BuildPetCard(
                                   petsInfo: petsOnTheRight(petsList)[index],
-                                  cardHeight: index % 2 == 0 ? 0.3694 : 0.26841,
+                                  cardHeight: index % 2 == 0 ? 0.3694 : 0.32,
                                   imageHeight: index % 2 == 0 ? 0.2 : 0.14966,
+                                  index: index,
                                 ),
                             ],
                           ),
@@ -242,10 +255,12 @@ class BuildPetCard extends StatefulWidget {
     required this.petsInfo,
     required this.cardHeight,
     required this.imageHeight,
+    required this.index,
   });
   final PetsInformation petsInfo;
   final double cardHeight;
   final double imageHeight;
+  final int index;
   @override
   State<BuildPetCard> createState() => _BuildPetCard();
 }
@@ -255,15 +270,12 @@ class _BuildPetCard extends State<BuildPetCard> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final double height = size.height;
-    // final double width = size.width;
-    // Check if the image URL is a local asset path
 
-    //String? profileImageUrl = userData['profileImageUrl'];
     return Container(
       height: size.height <= 707.4285714285714
           ? size.height * widget.cardHeight
           : size.height * widget.cardHeight,
-      width: size.width * 0.41122,
+      width: size.width * 0.42122,
       margin: EdgeInsets.symmetric(
           horizontal: size.width * 0.02, vertical: size.height * 0.01),
       decoration: BoxDecoration(
@@ -279,108 +291,162 @@ class _BuildPetCard extends State<BuildPetCard> {
         padding: EdgeInsets.symmetric(
           vertical: size.height * 0.001,
         ),
-        child: GestureDetector(
-          onLongPress: () {
-            setState(() {
-              isInSelectionModePets = true;
-
-              selectedPets.add(widget.petsInfo.petId);
-              print(selectedPets.length);
-            });
-          },
-          onTap: () {
-            setState(() {
-              if (isInSelectionModePets) {
-                if (selectedPets.contains(widget.petsInfo.petId)) {
-                  selectedPets.remove(widget.petsInfo.petId);
-                } else {
-                  selectedPets.add(widget.petsInfo.petId);
-                }
-              }
-            });
-          },
-          child: Container(
-            child: Column(
-              children: [
-                IconButton(
-                  iconSize: MediaQuery.of(context).size.width * 0.037,
-                  icon: StreamBuilder<DocumentSnapshot>(
-                    stream: FirebaseFirestore.instance
-                        .collection('pets')
-                        .doc(widget.petsInfo.petId)
-                        .snapshots(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const CircularProgressIndicator();
-                      } else if (snapshot.hasError) {
-                        ScaffoldMessenger.of(context).clearSnackBars();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: const Text(
-                                'Failed to load your profile photo, please try again later.'),
-                            action: SnackBarAction(
-                                label: 'Close',
-                                onPressed: () {
-                                  ScaffoldMessenger.of(context)
-                                      .hideCurrentSnackBar();
-                                }),
-                          ),
-                        );
-                        return CircleAvatar(
-                          radius: height * 0.07,
-                          backgroundImage:
-                              const AssetImage('assets/image/profileImage.png'),
-                        );
-                      } else if (snapshot.hasData && snapshot.data != null) {
-                        var petData = snapshot.data;
-                        return CircleAvatar(
-                          radius: height * 0.08,
-                          foregroundImage: petData?['imageUrl'] != null
-                              ? NetworkImage(petData!['imageUrl'])
-                              : null,
-                          backgroundImage:
-                              const AssetImage('assets/image/profileImage.png'),
-                        );
-                      } else {
-                        return CircleAvatar(
-                          radius: height * 0.07,
-                          backgroundImage:
-                              const AssetImage('assets/image/profileImage.png'),
-                        );
-                      }
-                    },
-                  ),
-                  onPressed: () {
-                    Get.to(
-                      PetProfilePage(petInformation: widget.petsInfo),
-                      transition: Transition.zoom,
+        child: Column(
+          children: [
+            IconButton(
+              iconSize: MediaQuery.of(context).size.width * 0.037,
+              icon: StreamBuilder<DocumentSnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('pets')
+                    .doc(widget.petsInfo.petId)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    ScaffoldMessenger.of(context).clearSnackBars();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: const Text(
+                            'Failed to load your profile photo, please try again later.'),
+                        action: SnackBarAction(
+                            label: 'Close',
+                            onPressed: () {
+                              ScaffoldMessenger.of(context)
+                                  .hideCurrentSnackBar();
+                            }),
+                      ),
                     );
-                  },
-                ),
-                Text(
-                  widget.petsInfo.petName,
-                  style: TextStyle(
-                    height: 0.0,
-                    fontFamily: 'Cosffira',
-                    fontSize: size.width * 0.060,
-                    fontWeight: FontWeight.w900,
-                    color: const Color(0xffA26874),
-                    letterSpacing: 0.5,
-                  ),
-                ),
-                Text(
-                  widget.petsInfo.petGender,
-                  style: TextStyle(
-                    fontFamily: 'Cosffira',
-                    fontSize: size.width * 0.040,
-                    fontWeight: FontWeight.w700,
-                    color: const Color.fromARGB(166, 74, 94, 124),
-                    letterSpacing: 0.5,
-                  ),
-                ),
-              ],
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(size.width * 0.025),
+                      child: Image.asset(
+                        'assets/image/profileImage.png',
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: height * 0.15, // Adjust height as needed
+                      ),
+                    );
+                  } else if (snapshot.hasData &&
+                      snapshot.data != null &&
+                      snapshot.data!.exists) {
+                    final petData =
+                        snapshot.data!.data() as Map<String, dynamic>?;
+                    String? imageUrl = petData?['imageUrl'];
+
+                    if (imageUrl != null && imageUrl.isNotEmpty) {
+                      return ClipRRect(
+                        borderRadius: BorderRadius.circular(size.width * 0.026),
+                        child: Image.network(
+                          imageUrl,
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                          height: height * 0.15, // Adjust height as needed
+                          errorBuilder: (context, error, stackTrace) {
+                            return Image.asset(
+                              'assets/image/profileImage.png',
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                              height: height * 0.15, // Adjust height as needed
+                            );
+                          },
+                        ),
+                      );
+                    } else {
+                      return ClipRRect(
+                        borderRadius: BorderRadius.circular(size.width * 0.026),
+                        child: Image.asset(
+                          'assets/image/profileImage.png',
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                          height: height * 0.15, // Adjust height as needed
+                        ),
+                      );
+                    }
+                  } else {
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(size.width * 0.025),
+                      child: Image.asset(
+                        'assets/image/profileImage.png',
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: height * 0.15, // Adjust height as needed
+                      ),
+                    );
+                  }
+                },
+              ),
+              onPressed: () {
+                Get.to(
+                  PetProfilePage(petInformation: widget.petsInfo),
+                  transition: Transition.zoom,
+                );
+              },
             ),
-          ),
+            Text(
+              widget.petsInfo.petName,
+              style: TextStyle(
+                height: 0.0,
+                fontFamily: 'Cosffira',
+                fontSize: size.width * 0.060,
+                fontWeight: FontWeight.w900,
+                color: const Color(0xffA26874),
+                letterSpacing: 0.5,
+              ),
+            ),
+            Text(
+              widget.petsInfo.petGender,
+              style: TextStyle(
+                fontFamily: 'Cosffira',
+                fontSize: size.width * 0.040,
+                fontWeight: FontWeight.w700,
+                color: const Color.fromARGB(166, 74, 94, 124),
+                letterSpacing: 0.5,
+              ),
+            ),
+            if (widget.cardHeight > 0.32) SizedBox(height: size.height * 0.057),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: IconButton(
+                onPressed: () {
+                  try {
+                    setState(() {
+                      petsList.removeAt(widget.index);
+                    });
+                    _showProgressDialog(context);
+                    deletePetInformations(
+                      petId: widget.petsInfo.petId,
+                    ).then((_) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                              "Delete ${widget.petsInfo.petName} from your ${widget.petsInfo.petIsDogOrCat}s has been successfilly"),
+                          duration: const Duration(seconds: 3),
+                        ),
+                      );
+                    });
+                  } on Exception {
+                    Navigator.of(context).pop();
+                    setState(() {
+                      petsList.add(widget.petsInfo);
+                    });
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                            "Failed to Delete ${widget.petsInfo.petName} from your ${widget.petsInfo.petIsDogOrCat}s"),
+                        duration: const Duration(seconds: 3),
+                      ),
+                    );
+                  } finally {
+                    Navigator.of(context).pop();
+                  }
+                },
+                icon: Image.asset(
+                  'assets/icons/my_pets_page_icons/trash_for_pets.png',
+                  width: size.width * 0.13,
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );
