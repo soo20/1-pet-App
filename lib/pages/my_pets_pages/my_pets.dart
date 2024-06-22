@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
 
 import 'package:petapplication/pages/my_pets_pages/pet_profile_page.dart';
 
@@ -407,37 +408,46 @@ class _BuildPetCard extends State<BuildPetCard> {
             Align(
               alignment: Alignment.bottomRight,
               child: IconButton(
-                onPressed: () {
+                onPressed: () async {
+                  bool deletionSuccess = false;
+
                   try {
-                    setState(() {
-                      petsList.removeAt(widget.index);
-                    });
                     _showProgressDialog(context);
-                    deletePetInformations(
-                      petId: widget.petsInfo.petId,
-                    ).then((_) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                              "Delete ${widget.petsInfo.petName} from your ${widget.petsInfo.petIsDogOrCat}s has been successfilly"),
-                          duration: const Duration(seconds: 3),
-                        ),
-                      );
+                    await deletePetInformations(petId: widget.petsInfo.petId)
+                        .then((_) {
+                      deletionSuccess = true;
                     });
-                  } on Exception {
-                    Navigator.of(context).pop();
+                  } catch (e) {
+                    deletionSuccess = false;
+                  } finally {
+                    Navigator.of(context).pop(); // Close the progress dialog
+                  }
+
+                  if (deletionSuccess) {
                     setState(() {
-                      petsList.add(widget.petsInfo);
+                      petsList.removeWhere(
+                          (pet) => pet.petId == widget.petsInfo.petId);
                     });
+                    Get.to(
+                      const TheMainHomePage(
+                        index1: 2,
+                      ),
+                    );
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(
-                            "Failed to Delete ${widget.petsInfo.petName} from your ${widget.petsInfo.petIsDogOrCat}s"),
+                            "Successfully deleted ${widget.petsInfo.petName}"),
                         duration: const Duration(seconds: 3),
                       ),
                     );
-                  } finally {
-                    Navigator.of(context).pop();
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content:
+                            Text("Failed to delete ${widget.petsInfo.petName}"),
+                        duration: const Duration(seconds: 3),
+                      ),
+                    );
                   }
                 },
                 icon: Image.asset(
