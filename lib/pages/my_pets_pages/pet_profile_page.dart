@@ -155,7 +155,10 @@ class _PetProfilePage extends State<PetProfilePage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(bottom: size.height * 0.01),
+                padding: EdgeInsets.only(
+                    bottom: size.height * 0.01,
+                    left: size.width * 0.1,
+                    right: size.width * 0.1),
                 child: Text(
                   '${widget.petInformation.petType} | ${widget.petInformation.petGender} | ${widget.petInformation.age}',
                   style: TextStyle(
@@ -165,6 +168,7 @@ class _PetProfilePage extends State<PetProfilePage> {
                     color: const Color.fromARGB(105, 74, 94, 124),
                     letterSpacing: 0.5,
                   ),
+                  textAlign: TextAlign.center,
                 ),
               ),
               ElevatedButton.icon(

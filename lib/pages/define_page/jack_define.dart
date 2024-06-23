@@ -2,12 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:get/get.dart';
 
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 
-
-import 'package:petapplication/pages/pet_setting_pages/alart2_page.dart';
+import '../page3/camera.dart';
 
 class JackDefine extends StatelessWidget {
   const JackDefine({super.key});
@@ -51,39 +50,28 @@ class JackDefine extends StatelessWidget {
             height: 1450.h,
             fit: BoxFit.contain, // Adjust the fit as needed
           ),
-           Padding(
-                padding: const EdgeInsets.only(bottom: 00),
-                child: Row(
-                  //mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-      
-                  children: [
-                    CustomGeneralButtom3(
+          Padding(
+            padding: const EdgeInsets.only(bottom: 00),
+            child: Row(
+              //mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
 
-                      text: '',
-                      boxColor: const Color(0xffA26874),
-                      height: 140.h,
-                      width: 260.w,
-                      textColor: null,
-                      onTap: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) => const
-                             Alart2(
-                              text1: 'allow "yuna app" to access\nyour camera on this device"', 
-                              text1buttom: 'While Using This App',
-                              text2buttom: 'Cancle',
-                              ));
-                      },
-                    ),
-                  ],
+              children: [
+                CustomGeneralButtom3(
+                  text: '',
+                  boxColor: const Color(0xffA26874),
+                  height: 140.h,
+                  width: 260.w,
+                  textColor: null,
+                  onTap: () {
+                    Get.to(() => const CameraAlt(),
+                        transition: Transition.native);
+                  },
                 ),
-              )
-      
-      
-      
-          
+              ],
+            ),
+          )
         ],
       ),
     );

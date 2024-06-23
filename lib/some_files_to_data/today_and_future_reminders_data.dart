@@ -20,6 +20,7 @@ class Reminders {
   late String petName;
   late String reminderId;
   late bool checked;
+  late Timestamp checkedTime;
 }
 
 class FutureEventsInformations {
