@@ -221,7 +221,7 @@ class _MyPetsPage extends State<MyPetsPage> {
                                   index++)
                                 BuildPetCard(
                                   petsInfo: petsOnTheLeft(petsList)[index],
-                                  cardHeight: index % 2 == 0 ? 0.32 : 0.3694,
+                                  cardHeight: index % 2 == 0 ? 0.4 : 0.4594,
                                   imageHeight:
                                       index % 2 == 0 ? 0.14966 : 0.20000,
                                   index: index,
@@ -235,7 +235,7 @@ class _MyPetsPage extends State<MyPetsPage> {
                                   index++)
                                 BuildPetCard(
                                   petsInfo: petsOnTheRight(petsList)[index],
-                                  cardHeight: index % 2 == 0 ? 0.3694 : 0.32,
+                                  cardHeight: index % 2 == 0 ? 0.4594 : 0.4,
                                   imageHeight: index % 2 == 0 ? 0.2 : 0.14966,
                                   index: index,
                                 ),
@@ -404,7 +404,7 @@ class _BuildPetCard extends State<BuildPetCard> {
                 letterSpacing: 0.5,
               ),
             ),
-            if (widget.cardHeight > 0.32) SizedBox(height: size.height * 0.057),
+            if (widget.cardHeight > 0.32) SizedBox(height: size.height * 0.06),
             Align(
               alignment: Alignment.bottomRight,
               child: IconButton(

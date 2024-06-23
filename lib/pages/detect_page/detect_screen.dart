@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
 import 'package:petapplication/pages/info_page/information.dart';
-
 import 'package:petapplication/pages/pet_setting_pages/add_pet.dart';
 
 class DetectScreen extends StatefulWidget {
@@ -32,10 +31,17 @@ class _DetectScreenState extends State<DetectScreen> {
   late CameraController cameraController;
   bool isLoading = true;
   bool isImageLoaded = false;
+
   @override
   void initState() {
     super.initState();
     _loadImage();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (widget.prediction != null &&
+          double.tryParse(widget.prediction!)! < 33) {
+        _showLowPredictionAlert(context);
+      }
+    });
   }
 
   Future<void> _loadImage() async {
@@ -57,6 +63,28 @@ class _DetectScreenState extends State<DetectScreen> {
         isLoading = false;
       });
     }
+  }
+
+  void _showLowPredictionAlert(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: const Color(0xffEFE6E5),
+          title: const Text('Low Prediction Score'),
+          content: const Text(
+              'The prediction score is less than 33%. Please re-take the photo for a better prediction.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -176,7 +204,7 @@ class _DetectScreenState extends State<DetectScreen> {
                                       Get.to(
                                         () => InfoPage(
                                           petType: widget.petType,
-                                          petIsDogOrCat: widget.petIsDogOrCat!,
+                                          petIsDogOrCat: widget.petIsDogOrCat,
                                         ), // Replace YourNextPage with the actual class for the next page
                                         transition: Transition.rightToLeft,
                                         duration:

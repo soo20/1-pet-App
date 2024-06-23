@@ -624,121 +624,107 @@ class _AddPetsState extends State<AddPets> {
   }
 
   Widget buildAutocomplete() {
-    return SizedBox(
-      // Set the desired width here
-      child: Autocomplete<String>(
-        optionsBuilder: (TextEditingValue textEditingValue) {
-          // Filter the petSpecies list based on the current input value
-          return petSpecies.where((String option) {
-            return option
-                .toLowerCase()
-                .contains(textEditingValue.text.toLowerCase());
-          }).toList();
-        },
-        onSelected: (String selection) {
-          setState(() {
-            petTypeController.text = selection; // Update the text field
-            widget.petType = selection; // Update the widget property
-          });
-        },
-        fieldViewBuilder: (BuildContext context,
-            TextEditingController textEditingController,
-            FocusNode focusNode,
-            VoidCallback onFieldSubmitted) {
-          textEditingController.text = petTypeController
-              .text; // Ensure the controller is initialized with the current value
-          return TextFormField(
-            controller: textEditingController,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return '';
-              }
-              return null;
-            },
-            focusNode: focusNode,
-            onFieldSubmitted: (String value) {
-              onFieldSubmitted();
-              setState(() {
-                petTypeController.text =
-                    value; // Update the text field on submission
-                widget.petType =
-                    value; // Update the widget property on submission
-              });
-            },
-            onChanged: (String value) {
-              // Handle input changes if needed
-              setState(() {
-                petTypeController.text = value;
-                widget.petType = value;
-              });
-            },
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.only(left: 10),
-              hintText: 'Pet species',
-              hintStyle: TextStyle(
-                fontFamily: 'Cosffira',
-                fontSize: 45.sp,
-                color: const Color.fromARGB(126, 0, 0, 0),
-                fontWeight: FontWeight.w400,
-              ),
-              enabledBorder: const UnderlineInputBorder(
-                borderSide: BorderSide(
-                  color: Color(0xffD1D2D2),
-                  width: 0.8,
-                ),
-              ),
-            ),
-            style: TextStyle(
+    return Autocomplete<String>(
+      optionsBuilder: (TextEditingValue textEditingValue) {
+        return petSpecies.where((String option) {
+          return option
+              .toLowerCase()
+              .contains(textEditingValue.text.toLowerCase());
+        }).toList();
+      },
+      onSelected: (String selection) {
+        petTypeController.text = selection; // Update the text field
+        widget.petType = selection; // Update the widget property
+      },
+      fieldViewBuilder: (BuildContext context,
+          TextEditingController textEditingController,
+          FocusNode focusNode,
+          VoidCallback onFieldSubmitted) {
+        textEditingController.text = petTypeController
+            .text; // Ensure the controller is initialized with the current value
+        return TextFormField(
+          controller: textEditingController,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return '';
+            }
+            return null;
+          },
+          focusNode: focusNode,
+          onFieldSubmitted: (String value) {
+            onFieldSubmitted();
+            petTypeController.text =
+                value; // Update the text field on submission
+            widget.petType = value; // Update the widget property on submission
+          },
+          onChanged: (String value) {
+            // No setState() here
+          },
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.only(left: 10),
+            hintText: 'Pet species',
+            hintStyle: TextStyle(
               fontFamily: 'Cosffira',
-              fontSize: 50.sp,
-              color: const Color(0xff000000),
+              fontSize: 45.sp,
+              color: const Color.fromARGB(126, 0, 0, 0),
               fontWeight: FontWeight.w400,
             ),
-          );
-        },
-        optionsViewBuilder: (BuildContext context,
-            AutocompleteOnSelected<String> onSelected,
-            Iterable<String> options) {
-          return Material(
-            elevation: 4.0,
-            child: Container(
-              color: const Color(0xffEFE6E5),
-              height: 50,
-              width:
-                  0.0, // Ensure the dropdown width matches the text field width
-              child: ListView.builder(
-                padding: const EdgeInsets.only(bottom: 25),
-                itemCount: options.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final String option = options.elementAt(index);
-                  return GestureDetector(
-                    onTap: () {
-                      onSelected(option);
-                    },
-                    child: Container(
-                      width: 0,
-                      height: 35,
-                      child: ListTile(
-                        title: Text(
-                          option,
-                          style: TextStyle(
-                            height: 0.0,
-                            fontFamily: 'Cosffira',
-                            fontSize: size.width * 0.045,
-                            fontWeight: FontWeight.w400,
-                            color: const Color(0xffA26874),
-                            letterSpacing: 0.5,
-                          ),
+            enabledBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: Color(0xffD1D2D2),
+                width: 0.8,
+              ),
+            ),
+          ),
+          style: TextStyle(
+            fontFamily: 'Cosffira',
+            fontSize: 50.sp,
+            color: const Color(0xff000000),
+            fontWeight: FontWeight.w400,
+          ),
+        );
+      },
+      optionsViewBuilder: (BuildContext context,
+          AutocompleteOnSelected<String> onSelected, Iterable<String> options) {
+        return Material(
+          elevation: 4.0,
+          child: Container(
+            color: const Color(0xffEFE6E5),
+            height: 50,
+            width:
+                0.0, // Ensure the dropdown width matches the text field width
+            child: ListView.builder(
+              padding: const EdgeInsets.only(bottom: 25),
+              itemCount: options.length,
+              itemBuilder: (BuildContext context, int index) {
+                final String option = options.elementAt(index);
+                return GestureDetector(
+                  onTap: () {
+                    onSelected(option);
+                  },
+                  child: Container(
+                    width: 0,
+                    height: 35,
+                    child: ListTile(
+                      title: Text(
+                        option,
+                        style: TextStyle(
+                          height: 0.0,
+                          fontFamily: 'Cosffira',
+                          fontSize: MediaQuery.of(context).size.width * 0.045,
+                          fontWeight: FontWeight.w400,
+                          color: const Color(0xffA26874),
+                          letterSpacing: 0.5,
                         ),
                       ),
                     ),
-                  );
-                },
-              ),
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }
