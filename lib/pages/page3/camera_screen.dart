@@ -93,7 +93,10 @@ class _PreviewScreenState extends State<PreviewScreen> {
             ),
           ),
           content: Text(
-            'The prediction score is lower than expected. Please submit another correct photo or re-take the photo well',
+            'The prediction score is lower than expected. Please submit another correct photo or re-take the photo well, '
+            'Reasons for this\n'
+            '1. You have entered a pet that is not in our database.\n'
+            '2. You did not enter an incorrect photo that is not a photo of a pet.',
             style: TextStyle(
               fontFamily: 'Cosffira',
               fontSize: 47.sp,
