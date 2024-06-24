@@ -29,6 +29,7 @@ class DetectionResulrPage extends StatefulWidget {
 class _DetectionResulrPageState extends State<DetectionResulrPage> {
   bool isLoading = true;
   bool isImageLoaded = false;
+  bool submitLoader = false;
   @override
   void initState() {
     super.initState();
@@ -38,6 +39,7 @@ class _DetectionResulrPageState extends State<DetectionResulrPage> {
   Future<void> _loadImage() async {
     setState(() {
       isLoading = true;
+      submitLoader = false;
     });
 
     try {
@@ -182,7 +184,7 @@ class _DetectionResulrPageState extends State<DetectionResulrPage> {
             actions: [
               Center(
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (isThere) {
                       setState(() {
                         if (widget.detectionType) {
@@ -193,13 +195,25 @@ class _DetectionResulrPageState extends State<DetectionResulrPage> {
                               widget.detectionResult;
                         }
                       });
-                      Get.to(
-                        () => DiseasesInformationForPet(
-                            poopDetectionResult:
-                                dogsInfo[selectedIndex].poopDiseaseType,
-                            skinDetectionResult:
-                                dogsInfo[selectedIndex].skinDiseaseType),
-                      );
+                      try {
+                        setState(() {
+                          submitLoader = true;
+                        });
+
+                        await updatePetInFirestore(pet: dogsInfo[selectedIndex])
+                            .then((_) {
+                          Get.to(
+                            () => DiseasesInformationForPet(
+                                poopDetectionResult:
+                                    dogsInfo[selectedIndex].poopDiseaseType,
+                                skinDetectionResult:
+                                    dogsInfo[selectedIndex].skinDiseaseType),
+                          );
+                        });
+                      } on Exception {
+                        //nothing
+                        submitLoader = false;
+                      }
                     }
                   },
                   style: ElevatedButton.styleFrom(
@@ -221,19 +235,27 @@ class _DetectionResulrPageState extends State<DetectionResulrPage> {
                       left: size.width * 0.12,
                       right: size.width * 0.12,
                     ),
-                    child: Text(
-                      'Done',
-                      style: TextStyle(
-                        height: 0.0,
-                        fontFamily: 'Cosffira',
-                        fontSize: size.width * 0.045,
-                        fontWeight: FontWeight.w800,
-                        color: isThere
-                            ? const Color.fromARGB(255, 255, 255, 255)
-                            : const Color.fromARGB(162, 215, 222, 232),
-                        letterSpacing: 0.5,
-                      ),
-                    ),
+                    child: submitLoader
+                        ? SizedBox(
+                            width: size.width * 0.050,
+                            height: size.width * 0.050,
+                            child: const CircularProgressIndicator(
+                              color: Color.fromARGB(255, 255, 255, 255),
+                              strokeWidth: 2,
+                            ))
+                        : Text(
+                            'Done',
+                            style: TextStyle(
+                              height: 0.0,
+                              fontFamily: 'Cosffira',
+                              fontSize: size.width * 0.045,
+                              fontWeight: FontWeight.w800,
+                              color: isThere
+                                  ? const Color.fromARGB(255, 255, 255, 255)
+                                  : const Color.fromARGB(162, 215, 222, 232),
+                              letterSpacing: 0.5,
+                            ),
+                          ),
                   ),
                 ),
               ),
