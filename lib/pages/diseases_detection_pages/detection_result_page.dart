@@ -146,7 +146,7 @@ class _DetectionResulrPageState extends State<DetectionResulrPage> {
                                           size.width * 0.069656,
                                         ),
                                       ),
-                                      child: Image.asset(
+                                      child: Image.network(
                                         dogsInfo[index].imageUrl,
                                         width: size.width * 0.29656,
                                         height: size.height * 0.13656,

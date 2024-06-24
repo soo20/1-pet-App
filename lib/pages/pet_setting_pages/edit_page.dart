@@ -79,12 +79,14 @@ class _EditPetsState extends State<EditPets> {
     }
   }
 
+  bool editPetloader = false;
   @override
   void initState() {
     super.initState();
     // Initialize controllers with existing information
     petNameController.text = widget.petInformation.petName;
     petTypeController.text = widget.petInformation.petType;
+    editPetloader = false;
     //petGenderController.text = widget.petInformation.petGender;
     // Fetch the pet gender from Firebase and set it to _Selected
     FirebaseFirestore.instance
@@ -121,6 +123,7 @@ class _EditPetsState extends State<EditPets> {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xffEFE6E5),
       extendBodyBehindAppBar: true,
@@ -634,53 +637,93 @@ class _EditPetsState extends State<EditPets> {
                       ),
                     ),
                     SizedBox(
-                      height: 80.h,
+                      height: 150.h,
                     ),
-                    CustomGeneralButtom(
-                      boxColor: const Color(0xffA26874),
-                      textColor: const Color(0xffFFFFFF),
-                      height: 135.h,
-                      width: 385.w,
-                      borderColor: const Color(0xffA26874),
-                      text: 'Save',
-                      onTap: () async {
+                    ElevatedButton(
+                      onPressed: () async {
                         // Save changes and pop the page with updated information
                         if (_formKey.currentState!.validate()) {
-                          widget.petInformation.petName =
-                              petNameController.text;
-                          widget.petInformation.petType =
-                              petTypeController.text;
-                          widget.petInformation.petGender = _Selected!;
-                          widget.petInformation.age = ageController.text;
-                          widget.petInformation.petWeight =
-                              double.tryParse(weightController.text);
+                          try {
+                            setState(() {
+                              editPetloader = true;
+                            });
 
-                          String? imageUrl;
-                          if (_pickedImageFile != null) {
-                            // Upload the image to Firebase Storage
-                            final storageRef = FirebaseStorage.instance
-                                .ref()
-                                .child('pets')
-                                .child(widget.petInformation.petId)
-                                .child('pet_images.jpg');
+                            widget.petInformation.petName =
+                                petNameController.text;
+                            widget.petInformation.petType =
+                                petTypeController.text;
+                            widget.petInformation.petGender = _Selected!;
+                            widget.petInformation.age = ageController.text;
+                            widget.petInformation.petWeight =
+                                double.tryParse(weightController.text);
 
-                            final uploadTask =
-                                storageRef.putFile(_pickedImageFile!);
+                            String? imageUrl;
+                            if (_pickedImageFile != null) {
+                              // Upload the image to Firebase Storage
+                              final storageRef = FirebaseStorage.instance
+                                  .ref()
+                                  .child('pets')
+                                  .child(widget.petInformation.petId)
+                                  .child('pet_images.jpg');
 
-                            final snapshot =
-                                await uploadTask.whenComplete(() => {});
-                            imageUrl = await snapshot.ref.getDownloadURL();
+                              final uploadTask =
+                                  storageRef.putFile(_pickedImageFile!);
+
+                              final snapshot =
+                                  await uploadTask.whenComplete(() => {});
+                              imageUrl = await snapshot.ref.getDownloadURL();
+                            }
+                            // petIsDogOrCat: selectedPetType!,
+
+                            // Call the function to update pet information in Firestore
+                            await updatePetInFirestore(
+                                imageUrl: imageUrl, pet: widget.petInformation);
+                            Navigator.pop(context, widget.petInformation);
+                          } on FirebaseException {
+                            setState(() {
+                              editPetloader = false;
+                            });
                           }
-                          // petIsDogOrCat: selectedPetType!,
-
-                          // Call the function to update pet information in Firestore
-                          await updatePetInFirestore(
-                              imageUrl: imageUrl, pet: widget.petInformation);
-                          Navigator.pop(context, widget.petInformation);
                         }
                       },
-                      fontWeight: FontWeight.w500,
-                      customFontSize: 50.sp,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xffA26874),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: size.width * 0.028,
+                          vertical: size.height * 0.025,
+                        ), // Adjust the padding as needed
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                            size.width * 0.068,
+                          ), // Set the border radius of the button
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          left: size.width * 0.12,
+                          right: size.width * 0.12,
+                        ),
+                        child: editPetloader
+                            ? SizedBox(
+                                width: size.width * 0.050,
+                                height: size.width * 0.050,
+                                child: const CircularProgressIndicator(
+                                  color: Color.fromARGB(255, 255, 255, 255),
+                                  strokeWidth: 2,
+                                ))
+                            : Text(
+                                'save',
+                                style: TextStyle(
+                                  height: 1.0,
+                                  fontFamily: 'Cosffira',
+                                  fontSize: size.width * 0.050,
+                                  fontWeight: FontWeight.w500,
+                                  color:
+                                      const Color.fromARGB(255, 255, 255, 255),
+                                  letterSpacing: 0.5,
+                                ),
+                              ),
+                      ),
                     ),
 
                     // Conditional rendering of the shadowed container

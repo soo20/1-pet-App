@@ -973,7 +973,9 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                                                         api.mergedReminderData(
                                                             reminder);
 
-                                                    // Check if the reminder exists before showing the dialog
+                                                    print(
+                                                        "Fetching reminder with ID: ${reminder.reminderId}");
+
                                                     DocumentSnapshot doc =
                                                         await FirebaseFirestore
                                                             .instance
@@ -984,6 +986,8 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                                                             .get();
 
                                                     if (doc.exists) {
+                                                      print(
+                                                          "Reminder found: ${doc.data()}");
                                                       await showDialog(
                                                         context: context,
                                                         builder: (context) =>
@@ -1008,20 +1012,20 @@ class _EventsForPetPage extends State<EventsForPetPage> {
                                                       });
                                                       setState(() {});
                                                     } else {
-                                                      // Handle the case where the reminder does not exist
+                                                      print(
+                                                          "Reminder not found.");
                                                       ScaffoldMessenger.of(
                                                               context)
                                                           .showSnackBar(
                                                         const SnackBar(
                                                           content: Text(
-                                                              "The reminder does not uploaded to the server yet please wait a few minutes"),
+                                                              "The reminder has not been uploaded to the server yet, please wait a few minutes."),
                                                           duration: Duration(
                                                               seconds: 3),
                                                         ),
                                                       );
                                                     }
                                                   } catch (e) {
-                                                    // Handle any errors that occur during the process
                                                     print(
                                                         "Error fetching reminder: $e");
                                                     ScaffoldMessenger.of(

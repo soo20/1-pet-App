@@ -121,11 +121,11 @@ class ReminderDataApi {
   }
 
   Future<void> updateReminder({
-    required reminderId,
-    required selectedDate,
+    required String reminderId,
+    required DateTime selectedDate,
     required TimeOfDay reminderTime,
-    required reminderType,
-    required petId,
+    required String reminderType,
+    required String petId,
   }) async {
     try {
       User? user = FirebaseAuth.instance.currentUser;
@@ -133,24 +133,15 @@ class ReminderDataApi {
       if (user == null) {
         throw Exception('No user is signed in');
       }
+
       await FirebaseFirestore.instance
           .collection('reminders')
-          .where('user-id', isEqualTo: user.uid)
-          .where('pet-id', isEqualTo: petId)
-          .where('pet-id', isEqualTo: reminderId)
-          .get()
-          .then((_) {
-        FirebaseFirestore.instance
-            .collection('reminders')
-            .doc(reminderId)
-            .update({
-          'reminder-date': selectedDate.toString(),
-          'reminder-title': reminderType,
-          'reminder-hour': reminderTime.hour,
-          'reminder-minute': reminderTime.minute,
-        });
-      }).catchError((error) {
-        throw error;
+          .doc(reminderId)
+          .update({
+        'reminder-date': selectedDate.toString(),
+        'reminder-title': reminderType,
+        'reminder-hour': reminderTime.hour,
+        'reminder-minute': reminderTime.minute,
       });
     } catch (error) {
       rethrow;
