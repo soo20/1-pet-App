@@ -76,7 +76,7 @@ class _DetectionResulrPageState extends State<DetectionResulrPage> {
             backgroundColor: const Color(0xffDCD3D3),
             content: SizedBox(
               width: size.width * 0.336,
-              height: size.height * 0.315,
+              height: size.height * 0.35,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
