@@ -12,6 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:petapplication/core/utils/widgets/custom_buttom.dart';
+import 'package:petapplication/pages/my_pets_pages/my_pets.dart';
 
 import 'package:petapplication/some_files_to_data/adding_pet_to_firestore.dart';
 
@@ -673,12 +674,32 @@ class _EditPetsState extends State<EditPets> {
                                   await uploadTask.whenComplete(() => {});
                               imageUrl = await snapshot.ref.getDownloadURL();
                             }
-                            // petIsDogOrCat: selectedPetType!,
 
                             // Call the function to update pet information in Firestore
                             await updatePetInFirestore(
                                 imageUrl: imageUrl, pet: widget.petInformation);
-                            Navigator.pop(context, widget.petInformation);
+
+                            // Fetch the updated pet information from Firestore
+                            DocumentSnapshot updatedPetDoc =
+                                await FirebaseFirestore.instance
+                                    .collection('pets')
+                                    .doc(widget.petInformation.petId)
+                                    .get();
+
+                            PetsInformation updatedPetInformation =
+                                PetsInformation.fromFirestore(updatedPetDoc);
+
+                            // Update the local list
+                            int index = dogsInformationList.indexWhere((pet) =>
+                                pet.petId == widget.petInformation.petId);
+                            if (index != -1) {
+                              setState(() {
+                                dogsInformationList[index] =
+                                    updatedPetInformation;
+                              });
+                            }
+
+                            Navigator.pop(context, updatedPetInformation);
                           } on FirebaseException {
                             setState(() {
                               editPetloader = false;
