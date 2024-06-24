@@ -9,8 +9,7 @@ class DropDown extends StatefulWidget {
   final String petType;
   final String? petIsDogOrCat;
 
-  const DropDown({Key? key, required this.petType, this.petIsDogOrCat})
-      : super(key: key);
+  const DropDown({super.key, required this.petType, this.petIsDogOrCat});
 
   @override
   DropDownState createState() => DropDownState();

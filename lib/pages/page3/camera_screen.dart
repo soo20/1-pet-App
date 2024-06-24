@@ -26,11 +26,9 @@ class PreviewScreen extends StatefulWidget {
 
 class _PreviewScreenState extends State<PreviewScreen> {
   late CameraController cameraController;
-  // wxpwxting type result
   String petType = '';
-  double maxScore = 0.0; // Declare maxScore here
+  double maxScore = 0.0;
 
-  //File? _image;
   Future<void> _getPrediction() async {
     final request = http.MultipartRequest(
       'PUT',
@@ -51,7 +49,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
           petType = data['prediction'].toString();
 
           final Map<String, dynamic> predictions = data['predictions'];
-          maxScore = 0.0; // Reset maxScore
+          maxScore = 0.0;
           var maxClass = '';
           predictions.forEach((key, value) {
             final score = double.parse(value.replaceAll('%', ''));
@@ -62,6 +60,12 @@ class _PreviewScreenState extends State<PreviewScreen> {
           });
           print('Biggest Prediction Score: $maxScore for $maxClass');
         });
+
+        if (maxScore < 33) {
+          _showLowPredictionAlert(context);
+        } else {
+          _navigateToDetectScreen(context);
+        }
       } else {
         print('Failed to load prediction: ${response.statusCode}');
         print('Response body: $responseBody');
@@ -71,6 +75,66 @@ class _PreviewScreenState extends State<PreviewScreen> {
       print('Exception caught: $e');
       throw Exception('Failed to load prediction');
     }
+  }
+
+  void _showLowPredictionAlert(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: const Color(0xffEFE6E5),
+          title: Text(
+            'Low Prediction Score',
+            style: TextStyle(
+              fontFamily: 'Cosffira',
+              fontSize: 60.sp,
+              color: const Color(0xffA26874),
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          content: Text(
+            'The prediction score is lower than expected. Please submit another correct photo or re-take the photo well, '
+            'Reasons for this\n'
+            '1. You have entered a pet that is not in our database.\n'
+            '2. You did not enter an incorrect photo that is not a photo of a pet.',
+            style: TextStyle(
+              fontFamily: 'Cosffira',
+              fontSize: 47.sp,
+              color: const Color(0xff354A6B),
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'OK',
+                style: TextStyle(
+                  fontFamily: 'Cosffira',
+                  fontSize: 60.sp,
+                  color: const Color(0xffA26874),
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _navigateToDetectScreen(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => DetectScreen(
+        imgPath: widget.imgPath,
+        onCapturePressed: widget.onCapturePressed,
+        petType: petType,
+        prediction: '$maxScore',
+      ),
+    );
   }
 
   @override
@@ -134,15 +198,6 @@ class _PreviewScreenState extends State<PreviewScreen> {
                         color: Colors.blue,
                         onPressed: () async {
                           await _getPrediction();
-                          showDialog(
-                            context: context,
-                            builder: (context) => DetectScreen(
-                              imgPath: widget.imgPath,
-                              onCapturePressed: widget.onCapturePressed,
-                              petType: petType,
-                              prediction: '$maxScore',
-                            ),
-                          );
                         },
                         icon: SvgPicture.asset(
                           'assets/icons/right.svg',

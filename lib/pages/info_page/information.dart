@@ -5,7 +5,7 @@ class InfoPage extends StatefulWidget {
   const InfoPage(
       {super.key, required this.petType, required this.petIsDogOrCat});
   final String petType;
-  final String petIsDogOrCat;
+  final String? petIsDogOrCat;
 
   @override
   State<InfoPage> createState() => _InfoPage();
