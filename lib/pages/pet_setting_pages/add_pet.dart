@@ -519,6 +519,8 @@ class _AddPetsState extends State<AddPets> {
                               age: ageController.text,
                               petIsDogOrCat: selectedPetType!,
                               petWeight: double.tryParse(weightController.text),
+                              poopDiseaseType: '',
+                              skinDiseaseType: '',
                             );
 
                             // Add the new pet to Firestore

@@ -16,8 +16,8 @@ class PetsInformation {
     required this.petType,
     this.age,
     this.petWeight,
-    this.poopDiseaseType,
-    this.skinDiseaseType,
+    required this.poopDiseaseType,
+    required this.skinDiseaseType,
   });
 
   late String imageUrl;
@@ -28,8 +28,8 @@ class PetsInformation {
   late String? age;
   late String? petIsDogOrCat;
   bool selected = false;
-  String? skinDiseaseType;
-  String? poopDiseaseType;
+  String skinDiseaseType;
+  String poopDiseaseType;
   List<CustomTime> feedTimesForPet = [];
   List<ReminderData> remindersData = [];
   double? petWeight;
