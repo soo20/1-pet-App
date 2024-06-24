@@ -16,6 +16,8 @@ class PetsInformation {
     required this.petType,
     this.age,
     this.petWeight,
+    this.poopDiseaseType,
+    this.skinDiseaseType,
   });
 
   late String imageUrl;
@@ -26,8 +28,8 @@ class PetsInformation {
   late String? age;
   late String? petIsDogOrCat;
   bool selected = false;
-  String skinDiseaseType = '';
-  String poopDiseaseType = '';
+  String? skinDiseaseType;
+  String? poopDiseaseType;
   List<CustomTime> feedTimesForPet = [];
   List<ReminderData> remindersData = [];
   double? petWeight;
@@ -44,6 +46,8 @@ class PetsInformation {
       petIsDogOrCat: data['petIsDogOrCat'] ?? '',
       petWeight:
           (data['petWeight'] != null) ? data['petWeight'].toDouble() : null,
+      skinDiseaseType: data['skin'],
+      poopDiseaseType: data['poop'],
     );
   }
 
