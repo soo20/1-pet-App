@@ -169,6 +169,8 @@ Future<void> updatePetInFirestore({
       'age': pet.age,
       'petIsDogOrCat': pet.petIsDogOrCat,
       'petWeight': pet.petWeight,
+      'skin': pet.skinDiseaseType,
+      'poop': pet.poopDiseaseType,
       if (imageUrl != null) 'imageUrl': imageUrl,
       // Any other fields you want to update
     });
