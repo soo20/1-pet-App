@@ -209,6 +209,7 @@ class _DetectionResulrPageState extends State<DetectionResulrPage> {
                               skinDetectionResult:
                                   dogsInfo[selectedIndex].skinDiseaseType,
                               petId: dogsInfo[selectedIndex].petId,
+                              petInfo: dogsInfo[selectedIndex],
                             ),
                           );
                         });
