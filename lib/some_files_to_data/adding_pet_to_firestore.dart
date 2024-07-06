@@ -16,6 +16,8 @@ class PetsInformation {
     required this.petType,
     this.age,
     this.petWeight,
+    required this.skinDiseaseType,
+    required this.poopDiseaseType,
   });
 
   late String imageUrl;
@@ -26,8 +28,8 @@ class PetsInformation {
   late String? age;
   late String? petIsDogOrCat;
   bool selected = false;
-  String skinDiseaseType = '';
-  String poopDiseaseType = '';
+  late String skinDiseaseType;
+  late String poopDiseaseType;
   List<CustomTime> feedTimesForPet = [];
   List<ReminderData> remindersData = [];
   double? petWeight;
@@ -44,6 +46,8 @@ class PetsInformation {
       petIsDogOrCat: data['petIsDogOrCat'] ?? '',
       petWeight:
           (data['petWeight'] != null) ? data['petWeight'].toDouble() : null,
+      poopDiseaseType: data['poopDiseaseType'] ?? '',
+      skinDiseaseType: data['skinDiseaseType'] ?? '',
     );
   }
 
@@ -57,6 +61,8 @@ class PetsInformation {
       'petType': petType,
       'age': age,
       'petIsDogOrCat': petIsDogOrCat,
+      'poopDiseaseType': poopDiseaseType,
+      'skinDiseaseType': skinDiseaseType,
     };
   }
 }
@@ -91,6 +97,8 @@ Future<void> addPetInFireStore({
       'petWeight': pet.petWeight,
       'imageUrl': pet.imageUrl,
       'userId': user.uid, // Add current user's ID
+      'poopDiseaseType': pet.poopDiseaseType,
+      'skinDiseaseType': pet.skinDiseaseType,
     });
 
     // Update the pet object with the generated ID
@@ -170,6 +178,8 @@ Future<void> updatePetInFirestore({
       'petIsDogOrCat': pet.petIsDogOrCat,
       'petWeight': pet.petWeight,
       if (imageUrl != null) 'imageUrl': imageUrl,
+      'poopDiseaseType': pet.poopDiseaseType,
+      'skinDiseaseType': pet.skinDiseaseType,
       // Any other fields you want to update
     });
 

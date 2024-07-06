@@ -429,7 +429,7 @@ class _BuildPetCard extends State<BuildPetCard> {
                           (pet) => pet.petId == widget.petsInfo.petId);
                     });
                     Get.to(
-                      const TheMainHomePage(
+                      () => const TheMainHomePage(
                         index1: 2,
                       ),
                     );

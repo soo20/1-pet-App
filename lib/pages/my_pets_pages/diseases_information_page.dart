@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
+import 'package:petapplication/pages/my_pets_pages/diseases_in_myPet_pages/detection_result_page.dart';
 
 class DiseasesInformationForPet extends StatefulWidget {
   const DiseasesInformationForPet({
     super.key,
     required this.poopDetectionResult,
     required this.skinDetectionResult,
+    required this.petId,
   });
   final String poopDetectionResult;
   final String skinDetectionResult;
+  final String petId;
   @override
   State<DiseasesInformationForPet> createState() =>
       _DiseasesInformationForPetState();
@@ -28,8 +31,8 @@ class _DiseasesInformationForPetState extends State<DiseasesInformationForPet> {
       backgroundColor: const Color(0xffEFE7E7),
       body: Container(
         color: const Color(0xffEFE7E7),
-        child: (widget.poopDetectionResult.isEmpty &&
-                widget.skinDetectionResult.isEmpty)
+        child: (widget.poopDetectionResult == "null" &&
+                widget.skinDetectionResult == "null")
             ? Center(
                 child: Column(
                   children: [
@@ -93,7 +96,7 @@ class _DiseasesInformationForPetState extends State<DiseasesInformationForPet> {
             : Center(
                 child: Column(
                 children: [
-                  if (widget.skinDetectionResult.isNotEmpty)
+                  if (widget.skinDetectionResult != "null")
                     Column(
                       children: [
                         SizedBox(
@@ -136,7 +139,7 @@ class _DiseasesInformationForPetState extends State<DiseasesInformationForPet> {
                                   letterSpacing: 0.5,
                                 ),
                               ),
-                        widget.skinDetectionResult != 'healthy'
+                        widget.skinDetectionResult != 'Healthy'
                             ? Text(
                                 widget.skinDetectionResult,
                                 style: TextStyle(
@@ -162,9 +165,14 @@ class _DiseasesInformationForPetState extends State<DiseasesInformationForPet> {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            // Get.to(
-
-                            // );
+                            Get.to(
+                              DetectionResulrPage(
+                                detectionType: true,
+                                petId: widget.petId,
+                                detectionResult: widget.skinDetectionResult,
+                              ),
+                              transition: Transition.zoom,
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xffA26874),
@@ -198,13 +206,13 @@ class _DiseasesInformationForPetState extends State<DiseasesInformationForPet> {
                         ),
                       ],
                     ),
-                  if (widget.poopDetectionResult.isEmpty)
+                  if (widget.poopDetectionResult != 'null')
                     Column(
                       children: [
                         SizedBox(
                           height: size.height * 0.07,
                         ),
-                        widget.poopDetectionResult == 'healthy'
+                        widget.poopDetectionResult != 'Normal'
                             ? Image.asset(
                                 'assets/icons/diseses_information_for_pet_icons/ill_poop.png',
                                 width: size.width * 0.29667,
@@ -219,7 +227,7 @@ class _DiseasesInformationForPetState extends State<DiseasesInformationForPet> {
                         SizedBox(
                           height: size.height * 0.02,
                         ),
-                        widget.poopDetectionResult != 'healthy'
+                        widget.poopDetectionResult != 'Normal'
                             ? Text(
                                 'your pet is suffering from:',
                                 style: TextStyle(
@@ -253,7 +261,7 @@ class _DiseasesInformationForPetState extends State<DiseasesInformationForPet> {
                                 ),
                               )
                             : Text(
-                                'Your pet has healthy skin.',
+                                'Your pet has healthy poop.',
                                 style: TextStyle(
                                   height: 0.0,
                                   fontFamily: 'Cosffira',
@@ -267,9 +275,14 @@ class _DiseasesInformationForPetState extends State<DiseasesInformationForPet> {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            // Get.to(
-
-                            // );
+                            Get.to(
+                              DetectionResulrPage(
+                                detectionType: false,
+                                petId: widget.petId,
+                                detectionResult: widget.poopDetectionResult,
+                              ),
+                              transition: Transition.zoom,
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xff4A5E7C),

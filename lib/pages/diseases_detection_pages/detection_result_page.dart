@@ -204,10 +204,11 @@ class _DetectionResulrPageState extends State<DetectionResulrPage> {
                             .then((_) {
                           Get.to(
                             () => DiseasesInformationForPet(
-                              poopDetectionResult: dogsInfo[selectedIndex]
-                                  .poopDiseaseType as String,
-                              skinDetectionResult: dogsInfo[selectedIndex]
-                                  .skinDiseaseType as String,
+                              poopDetectionResult:
+                                  dogsInfo[selectedIndex].poopDiseaseType,
+                              skinDetectionResult:
+                                  dogsInfo[selectedIndex].skinDiseaseType,
+                              petId: dogsInfo[selectedIndex].petId,
                             ),
                           );
                         });

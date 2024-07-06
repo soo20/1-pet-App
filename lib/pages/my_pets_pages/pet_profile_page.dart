@@ -300,10 +300,12 @@ class _PetProfilePage extends State<PetProfilePage> {
                 onPressed: () {
                   Get.to(
                     DiseasesInformationForPet(
-                        poopDetectionResult:
-                            widget.petInformation.poopDiseaseType,
-                        skinDetectionResult:
-                            widget.petInformation.skinDiseaseType),
+                      poopDetectionResult:
+                          widget.petInformation.poopDiseaseType,
+                      skinDetectionResult:
+                          widget.petInformation.skinDiseaseType,
+                      petId: widget.petInformation.petId,
+                    ),
                   );
                 },
                 icon: Padding(
