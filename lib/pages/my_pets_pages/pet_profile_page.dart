@@ -305,6 +305,7 @@ class _PetProfilePage extends State<PetProfilePage> {
                       skinDetectionResult:
                           widget.petInformation.skinDiseaseType,
                       petId: widget.petInformation.petId,
+                      petInfo: widget.petInformation,
                     ),
                   );
                 },

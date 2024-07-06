@@ -3,17 +3,20 @@ import 'package:get/get.dart';
 
 import 'package:petapplication/pages/homepage/home_page_with_navigation.dart';
 import 'package:petapplication/pages/my_pets_pages/diseases_in_myPet_pages/detection_result_page.dart';
+import 'package:petapplication/pages/my_pets_pages/pet_profile_page.dart';
+import 'package:petapplication/some_files_to_data/adding_pet_to_firestore.dart';
 
 class DiseasesInformationForPet extends StatefulWidget {
-  const DiseasesInformationForPet({
-    super.key,
-    required this.poopDetectionResult,
-    required this.skinDetectionResult,
-    required this.petId,
-  });
+  const DiseasesInformationForPet(
+      {super.key,
+      required this.poopDetectionResult,
+      required this.skinDetectionResult,
+      required this.petId,
+      required this.petInfo});
   final String poopDetectionResult;
   final String skinDetectionResult;
   final String petId;
+  final PetsInformation petInfo;
   @override
   State<DiseasesInformationForPet> createState() =>
       _DiseasesInformationForPetState();
@@ -28,6 +31,23 @@ class _DiseasesInformationForPetState extends State<DiseasesInformationForPet> {
 
     return SafeArea(
         child: Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(0xffEFE7E7),
+        leading: IconButton(
+          onPressed: () {
+            Get.to(
+              () => PetProfilePage(
+                petInformation: widget.petInfo,
+              ),
+            );
+          },
+          icon: Image.asset(
+            'assets/icons/diseases_datection_result_page_icons/exit_icon.png',
+            width: size.width * 0.075,
+            height: size.height * 0.075,
+          ),
+        ),
+      ),
       backgroundColor: const Color(0xffEFE7E7),
       body: Container(
         color: const Color(0xffEFE7E7),
