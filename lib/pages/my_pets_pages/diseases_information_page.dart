@@ -43,12 +43,13 @@ class _DiseasesInformationForPetState extends State<DiseasesInformationForPet> {
           },
           icon: Image.asset(
             'assets/icons/diseases_datection_result_page_icons/exit_icon.png',
-            width: size.width * 0.075,
-            height: size.height * 0.075,
+            width: size.width * 0.06,
+            height: size.height * 0.06,
           ),
         ),
       ),
       backgroundColor: const Color(0xffEFE7E7),
+      extendBodyBehindAppBar: true,
       body: Container(
         color: const Color(0xffEFE7E7),
         child: (widget.poopDetectionResult == "null" &&
@@ -114,240 +115,248 @@ class _DiseasesInformationForPetState extends State<DiseasesInformationForPet> {
                 ),
               )
             : Center(
-                child: Column(
-                children: [
-                  if (widget.skinDetectionResult != "null")
-                    Column(
-                      children: [
-                        SizedBox(
-                          height: size.height * 0.04,
-                        ),
-                        widget.skinDetectionResult != 'healthy'
-                            ? Image.asset(
-                                'assets/image/disease_detection_result_page_images/ill_animals.png',
-                                width: size.width * 0.47667,
-                                height: size.height * 0.1899,
-                                fit: BoxFit.fill,
-                              )
-                            : Image.asset(
-                                'assets/image/disease_detection_result_page_images/celebration_image.png',
-                                width: size.width * 0.33316,
-                                height: size.height * 0.19923,
-                              ),
-                        SizedBox(
-                          height: size.height * 0.02,
-                        ),
-                        widget.skinDetectionResult != 'healthy'
-                            ? Text(
-                                'your pet is suffering from:',
-                                style: TextStyle(
-                                  height: 0.0,
-                                  fontFamily: 'Cosffira',
-                                  fontSize: size.width * 0.045,
-                                  fontWeight: FontWeight.w500,
-                                  color: const Color.fromARGB(80, 74, 94, 124),
-                                ),
-                              )
-                            : Text(
-                                'Congratulations!',
-                                style: TextStyle(
-                                  height: 0.0,
-                                  fontFamily: 'Cosffira',
-                                  fontSize: size.width * 0.112,
-                                  fontWeight: FontWeight.w900,
-                                  color: const Color(0xffA26874),
-                                  letterSpacing: 0.5,
-                                ),
-                              ),
-                        widget.skinDetectionResult != 'Healthy'
-                            ? Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 15, right: 15),
-                                child: Text(
-                                  widget.skinDetectionResult,
-                                  style: TextStyle(
-                                    fontFamily: 'Cosffira',
-                                    fontSize: size.width * 0.07,
-                                    fontWeight: FontWeight.w900,
-                                    color:
-                                        const Color.fromARGB(255, 74, 94, 124),
-                                    letterSpacing: 0.5,
+                child: SingleChildScrollView(
+                child: Center(
+                  child: Column(
+                    children: [
+                      if (widget.skinDetectionResult != "null")
+                        Column(
+                          children: [
+                            SizedBox(
+                              height: size.height * 0.07,
+                            ),
+                            widget.skinDetectionResult != 'healthy'
+                                ? Image.asset(
+                                    'assets/image/disease_detection_result_page_images/ill_animals.png',
+                                    width: size.width * 0.47667,
+                                    height: size.height * 0.1899,
+                                    fit: BoxFit.fill,
+                                  )
+                                : Image.asset(
+                                    'assets/image/disease_detection_result_page_images/celebration_image.png',
+                                    width: size.width * 0.33316,
+                                    height: size.height * 0.19923,
                                   ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              )
-                            : Text(
-                                'Your pet has healthy skin.',
-                                style: TextStyle(
-                                  height: 0.0,
-                                  fontFamily: 'Cosffira',
-                                  fontSize: size.width * 0.057,
-                                  fontWeight: FontWeight.w500,
-                                  color: const Color(0xff4A5E7C),
-                                ),
-                              ),
-                        SizedBox(
-                          height: size.height * 0.02,
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            Get.to(
-                              DetectionResulrPage(
-                                detectionType: true,
-                                petId: widget.petId,
-                                detectionResult: widget.skinDetectionResult,
-                              ),
-                              transition: Transition.zoom,
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xffA26874),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: size.width * 0.028,
-                              vertical: size.height * 0.025,
-                            ), // Adjust the padding as needed
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                size.width * 0.038,
-                              ), // Set the border radius of the button
+                            SizedBox(
+                              height: size.height * 0.02,
                             ),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              left: size.width * 0.13,
-                              right: size.width * 0.13,
+                            widget.skinDetectionResult != 'healthy'
+                                ? Text(
+                                    'your pet is suffering from:',
+                                    style: TextStyle(
+                                      height: 0.0,
+                                      fontFamily: 'Cosffira',
+                                      fontSize: size.width * 0.045,
+                                      fontWeight: FontWeight.w500,
+                                      color:
+                                          const Color.fromARGB(80, 74, 94, 124),
+                                    ),
+                                  )
+                                : Text(
+                                    'Congratulations!',
+                                    style: TextStyle(
+                                      height: 0.0,
+                                      fontFamily: 'Cosffira',
+                                      fontSize: size.width * 0.112,
+                                      fontWeight: FontWeight.w900,
+                                      color: const Color(0xffA26874),
+                                      letterSpacing: 0.5,
+                                    ),
+                                  ),
+                            widget.skinDetectionResult != 'Healthy'
+                                ? Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 15, right: 15),
+                                    child: Text(
+                                      widget.skinDetectionResult,
+                                      style: TextStyle(
+                                        fontFamily: 'Cosffira',
+                                        fontSize: size.width * 0.07,
+                                        fontWeight: FontWeight.w900,
+                                        color: const Color.fromARGB(
+                                            255, 74, 94, 124),
+                                        letterSpacing: 0.5,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  )
+                                : Text(
+                                    'Your pet has healthy skin.',
+                                    style: TextStyle(
+                                      height: 0.0,
+                                      fontFamily: 'Cosffira',
+                                      fontSize: size.width * 0.057,
+                                      fontWeight: FontWeight.w500,
+                                      color: const Color(0xff4A5E7C),
+                                    ),
+                                  ),
+                            SizedBox(
+                              height: size.height * 0.02,
                             ),
-                            child: Text(
-                              'About',
-                              style: TextStyle(
-                                height: 0.0,
-                                fontFamily: 'Cosffira',
-                                fontSize: size.width * 0.045,
-                                fontWeight: FontWeight.w800,
-                                color: const Color.fromARGB(255, 255, 255, 255),
-                                letterSpacing: 0.5,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  if (widget.poopDetectionResult != 'null')
-                    Column(
-                      children: [
-                        SizedBox(
-                          height: size.height * 0.07,
-                        ),
-                        widget.poopDetectionResult != 'Normal'
-                            ? Image.asset(
-                                'assets/icons/diseses_information_for_pet_icons/ill_poop.png',
-                                width: size.width * 0.29667,
-                                height: size.height * 0.1599,
-                                fit: BoxFit.fill,
-                              )
-                            : Image.asset(
-                                'assets/icons/diseses_information_for_pet_icons/haelthy_poop.png',
-                                width: size.width * 0.33316,
-                                height: size.height * 0.19923,
-                              ),
-                        SizedBox(
-                          height: size.height * 0.02,
-                        ),
-                        widget.poopDetectionResult != 'Normal'
-                            ? Text(
-                                'your pet is suffering from:',
-                                style: TextStyle(
-                                  height: 0.0,
-                                  fontFamily: 'Cosffira',
-                                  fontSize: size.width * 0.045,
-                                  fontWeight: FontWeight.w500,
-                                  color: const Color.fromARGB(80, 74, 94, 124),
-                                ),
-                              )
-                            : Text(
-                                'Congratulations!',
-                                style: TextStyle(
-                                  height: 0.0,
-                                  fontFamily: 'Cosffira',
-                                  fontSize: size.width * 0.112,
-                                  fontWeight: FontWeight.w900,
-                                  color: const Color(0xffA26874),
-                                  letterSpacing: 0.5,
+                            ElevatedButton(
+                              onPressed: () {
+                                Get.to(
+                                  DetectionResulrPage(
+                                    detectionType: true,
+                                    petId: widget.petId,
+                                    detectionResult: widget.skinDetectionResult,
+                                  ),
+                                  transition: Transition.zoom,
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xffA26874),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: size.width * 0.028,
+                                  vertical: size.height * 0.025,
+                                ), // Adjust the padding as needed
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                    size.width * 0.038,
+                                  ), // Set the border radius of the button
                                 ),
                               ),
-                        widget.poopDetectionResult != 'healthy'
-                            ? Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 15, right: 15),
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  left: size.width * 0.13,
+                                  right: size.width * 0.13,
+                                ),
                                 child: Text(
-                                  widget.poopDetectionResult,
+                                  'About',
                                   style: TextStyle(
+                                    height: 0.0,
                                     fontFamily: 'Cosffira',
-                                    fontSize: size.width * 0.075,
-                                    fontWeight: FontWeight.w900,
-                                    color:
-                                        const Color.fromARGB(255, 74, 94, 124),
+                                    fontSize: size.width * 0.045,
+                                    fontWeight: FontWeight.w800,
+                                    color: const Color.fromARGB(
+                                        255, 255, 255, 255),
                                     letterSpacing: 0.5,
                                   ),
                                 ),
-                              )
-                            : Text(
-                                'Your pet has healthy poop.',
-                                style: TextStyle(
-                                  height: 0.0,
-                                  fontFamily: 'Cosffira',
-                                  fontSize: size.width * 0.057,
-                                  fontWeight: FontWeight.w500,
-                                  color: const Color(0xff4A5E7C),
+                              ),
+                            ),
+                          ],
+                        ),
+                      if (widget.poopDetectionResult != 'null')
+                        Column(
+                          children: [
+                            SizedBox(
+                              height: size.height * 0.07,
+                            ),
+                            widget.poopDetectionResult != 'Normal'
+                                ? Image.asset(
+                                    'assets/icons/diseses_information_for_pet_icons/ill_poop.png',
+                                    width: size.width * 0.29667,
+                                    height: size.height * 0.1599,
+                                    fit: BoxFit.fill,
+                                  )
+                                : Image.asset(
+                                    'assets/icons/diseses_information_for_pet_icons/haelthy_poop.png',
+                                    width: size.width * 0.33316,
+                                    height: size.height * 0.19923,
+                                  ),
+                            SizedBox(
+                              height: size.height * 0.02,
+                            ),
+                            widget.poopDetectionResult != 'Normal'
+                                ? Text(
+                                    'your pet is suffering from:',
+                                    style: TextStyle(
+                                      height: 0.0,
+                                      fontFamily: 'Cosffira',
+                                      fontSize: size.width * 0.045,
+                                      fontWeight: FontWeight.w500,
+                                      color:
+                                          const Color.fromARGB(80, 74, 94, 124),
+                                    ),
+                                  )
+                                : Text(
+                                    'Congratulations!',
+                                    style: TextStyle(
+                                      height: 0.0,
+                                      fontFamily: 'Cosffira',
+                                      fontSize: size.width * 0.112,
+                                      fontWeight: FontWeight.w900,
+                                      color: const Color(0xffA26874),
+                                      letterSpacing: 0.5,
+                                    ),
+                                  ),
+                            widget.poopDetectionResult != 'healthy'
+                                ? Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 15, right: 15),
+                                    child: Text(
+                                      widget.poopDetectionResult,
+                                      style: TextStyle(
+                                        fontFamily: 'Cosffira',
+                                        fontSize: size.width * 0.075,
+                                        fontWeight: FontWeight.w900,
+                                        color: const Color.fromARGB(
+                                            255, 74, 94, 124),
+                                        letterSpacing: 0.5,
+                                      ),
+                                    ),
+                                  )
+                                : Text(
+                                    'Your pet has healthy poop.',
+                                    style: TextStyle(
+                                      height: 0.0,
+                                      fontFamily: 'Cosffira',
+                                      fontSize: size.width * 0.057,
+                                      fontWeight: FontWeight.w500,
+                                      color: const Color(0xff4A5E7C),
+                                    ),
+                                  ),
+                            SizedBox(
+                              height: size.height * 0.02,
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                Get.to(
+                                  DetectionResulrPage(
+                                    detectionType: false,
+                                    petId: widget.petId,
+                                    detectionResult: widget.poopDetectionResult,
+                                  ),
+                                  transition: Transition.zoom,
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xff4A5E7C),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: size.width * 0.028,
+                                  vertical: size.height * 0.025,
+                                ), // Adjust the padding as needed
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                    size.width * 0.038,
+                                  ), // Set the border radius of the button
                                 ),
                               ),
-                        SizedBox(
-                          height: size.height * 0.02,
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            Get.to(
-                              DetectionResulrPage(
-                                detectionType: false,
-                                petId: widget.petId,
-                                detectionResult: widget.poopDetectionResult,
-                              ),
-                              transition: Transition.zoom,
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xff4A5E7C),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: size.width * 0.028,
-                              vertical: size.height * 0.025,
-                            ), // Adjust the padding as needed
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                size.width * 0.038,
-                              ), // Set the border radius of the button
-                            ),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              left: size.width * 0.13,
-                              right: size.width * 0.13,
-                            ),
-                            child: Text(
-                              'About',
-                              style: TextStyle(
-                                height: 0.0,
-                                fontFamily: 'Cosffira',
-                                fontSize: size.width * 0.045,
-                                fontWeight: FontWeight.w800,
-                                color: const Color.fromARGB(255, 255, 255, 255),
-                                letterSpacing: 0.5,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  left: size.width * 0.13,
+                                  right: size.width * 0.13,
+                                ),
+                                child: Text(
+                                  'About',
+                                  style: TextStyle(
+                                    height: 0.0,
+                                    fontFamily: 'Cosffira',
+                                    fontSize: size.width * 0.045,
+                                    fontWeight: FontWeight.w800,
+                                    color: const Color.fromARGB(
+                                        255, 255, 255, 255),
+                                    letterSpacing: 0.5,
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
+                          ],
                         ),
-                      ],
-                    ),
-                ],
+                    ],
+                  ),
+                ),
               )),
       ),
     ));
