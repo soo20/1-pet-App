@@ -420,6 +420,7 @@ class _DetectionResulrPageState extends State<DetectionResulrPage> {
                       backgroundColor: const Color(0xffEFE7E7),
                       leading: IconButton(
                         onPressed: () {
+                          print(dogsInformationList.length);
                           petsList.isNotEmpty
                               ? allowingCameraDialog()
                               : Get.to(
