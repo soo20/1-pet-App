@@ -123,7 +123,7 @@ class _DiseasesInformationForPetState extends State<DiseasesInformationForPet> {
                       Column(
                         children: [
                           SizedBox(
-                            height: size.height * 0.07,
+                            height: size.height * 0.04,
                           ),
                           widget.skinDetectionResult != 'healthy'
                               ? Image.asset(
@@ -164,15 +164,20 @@ class _DiseasesInformationForPetState extends State<DiseasesInformationForPet> {
                                   ),
                                 ),
                           widget.skinDetectionResult != 'Healthy'
-                              ? Text(
-                                  widget.skinDetectionResult,
-                                  style: TextStyle(
-                                    fontFamily: 'Cosffira',
-                                    fontSize: size.width * 0.075,
-                                    fontWeight: FontWeight.w900,
-                                    color:
-                                        const Color.fromARGB(255, 74, 94, 124),
-                                    letterSpacing: 0.5,
+                              ? Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 15, right: 15),
+                                  child: Text(
+                                    widget.skinDetectionResult,
+                                    style: TextStyle(
+                                      fontFamily: 'Cosffira',
+                                      fontSize: size.width * 0.07,
+                                      fontWeight: FontWeight.w900,
+                                      color: const Color.fromARGB(
+                                          255, 74, 94, 124),
+                                      letterSpacing: 0.5,
+                                    ),
+                                    textAlign: TextAlign.center,
                                   ),
                                 )
                               : Text(
@@ -277,15 +282,19 @@ class _DiseasesInformationForPetState extends State<DiseasesInformationForPet> {
                                   ),
                                 ),
                           widget.poopDetectionResult != 'healthy'
-                              ? Text(
-                                  widget.poopDetectionResult,
-                                  style: TextStyle(
-                                    fontFamily: 'Cosffira',
-                                    fontSize: size.width * 0.075,
-                                    fontWeight: FontWeight.w900,
-                                    color:
-                                        const Color.fromARGB(255, 74, 94, 124),
-                                    letterSpacing: 0.5,
+                              ? Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 15, right: 15),
+                                  child: Text(
+                                    widget.poopDetectionResult,
+                                    style: TextStyle(
+                                      fontFamily: 'Cosffira',
+                                      fontSize: size.width * 0.075,
+                                      fontWeight: FontWeight.w900,
+                                      color: const Color.fromARGB(
+                                          255, 74, 94, 124),
+                                      letterSpacing: 0.5,
+                                    ),
                                   ),
                                 )
                               : Text(
